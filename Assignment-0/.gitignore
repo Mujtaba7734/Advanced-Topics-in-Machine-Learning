@@ -1,0 +1,10 @@
+# Datasets
+**/data/
+*.tar.gz
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.pyc
