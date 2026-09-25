@@ -1,0 +1,54 @@
+{
+  "seed": 6304,
+  "n_images": 500,
+  "class_names": [
+    "airplane",
+    "bird",
+    "car",
+    "cat",
+    "deer",
+    "dog",
+    "horse",
+    "monkey",
+    "ship",
+    "truck"
+  ],
+  "results": [
+    {
+      "model": "resnet50",
+      "n_images": 500,
+      "n_correct": 488,
+      "accuracy": 0.976,
+      "macro_f1": 0.9760555313263286,
+      "mean_max_confidence": 0.934882640838623,
+      "seed": 6304
+    },
+    {
+      "model": "vit_b16",
+      "n_images": 500,
+      "n_correct": 487,
+      "accuracy": 0.974,
+      "macro_f1": 0.9738959646264747,
+      "mean_max_confidence": 0.9684360027313232,
+      "seed": 6304
+    },
+    {
+      "model": "clip_b32",
+      "n_images": 500,
+      "n_correct": 490,
+      "accuracy": 0.98,
+      "macro_f1": 0.979995257183733,
+      "mean_max_confidence": 0.24147744476795197,
+      "seed": 6304
+    },
+    {
+      "model": "clip_zero_shot",
+      "n_images": 500,
+      "n_correct": 484,
+      "accuracy": 0.968,
+      "macro_f1": 0.967524079946368,
+      "mean_max_confidence": 0.9426957964897156,
+      "seed": 6304
+    }
+  ]
+}

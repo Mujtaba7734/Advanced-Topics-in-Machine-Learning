@@ -1,0 +1,31 @@
+{
+  "best_checkpoint_sha256": "da0fd3c0459e44ce78e171eddca199ec0161ffdb203fdabad1fbb7a28a91f704",
+  "definitions": {
+    "Energy": "-logsumexp(logits)",
+    "MLS": "-max logits",
+    "MSP": "1 - max softmax(logits)",
+    "Mahalanobis": "minimum squared distance to class mean with shared diagonal pooled within-class covariance"
+  },
+  "diagonal_regularization": 1e-06,
+  "initial_sha256": "badc9207a8c7ca962fbc1b7ba972e0652cd2b3b406342b70be7644a0592ab590",
+  "known_acceptance_condition": "unknownness <= threshold",
+  "mahalanobis_fit": "unaugmented CIFAR-10 train features only",
+  "model": "vanilla_best_frozen",
+  "num_known_train": 45000,
+  "num_known_val": 5000,
+  "pooled_covariance_divisor": "N - num_classes",
+  "score_module_name": "cifar_osr_scores_v1.py",
+  "score_module_sha256": "79ef85593668b08fc1f9384e535f4b109ddcde5f8a2fad070c0aab0f175fece5",
+  "score_order": [
+    "MSP",
+    "MLS",
+    "Energy",
+    "Mahalanobis"
+  ],
+  "seed": 6304,
+  "split_sha256": "58e3e0a58ca34ebab457ec178874817e597302512f91228ec13a69420b6164d8",
+  "task": "4B",
+  "threshold_selection": "np.quantile(score_known_val, 0.95, method=linear)",
+  "unknown_and_test_access": "none in Task 4B",
+  "vanilla_config_sha256": "c55c3364f186960694dd17a7d2e22e506292ace9bf028df002efee24b6f9e156"
+}

@@ -1,0 +1,13 @@
+candidate_id,pair,direction,content_class,style_class,content_label,style_label,content_pos,style_pos,content_id,style_id,image_file,decision,reason,review_sha256,resnet50_prediction,resnet50_class,vit_b16_prediction,vit_b16_class,clip_b32_prediction,clip_b32_class,clip_zero_shot_prediction,clip_zero_shot_class
+p00_d1_012,airplane__cat,cat_to_airplane,cat,airplane,3,0,51,90,738,1389,images/p00_d1_012.png,accept,,02f1957f80823063a525cc9c3bf4206c8a77fb9c89a52ce1d618157a3b6c301d,8,ship,9,truck,3,cat,1,bird
+p00_d1_024,airplane__cat,cat_to_airplane,cat,airplane,3,0,103,460,1531,7372,images/p00_d1_024.png,accept,,02f1957f80823063a525cc9c3bf4206c8a77fb9c89a52ce1d618157a3b6c301d,1,bird,5,dog,3,cat,6,horse
+p01_d1_020,bird__truck,truck_to_bird,truck,bird,9,1,93,251,1411,3937,images/p01_d1_020.png,accept,,02f1957f80823063a525cc9c3bf4206c8a77fb9c89a52ce1d618157a3b6c301d,1,bird,2,car,9,truck,8,ship
+p02_d1_006,car__deer,deer_to_car,deer,car,4,2,201,122,3122,1814,images/p02_d1_006.png,accept,,02f1957f80823063a525cc9c3bf4206c8a77fb9c89a52ce1d618157a3b6c301d,1,bird,2,car,7,monkey,4,deer
+p03_d0_022,dog__ship,dog_to_ship,dog,ship,5,8,265,179,4106,2745,images/p03_d0_022.png,accept,,02f1957f80823063a525cc9c3bf4206c8a77fb9c89a52ce1d618157a3b6c301d,5,dog,0,airplane,3,cat,6,horse
+p03_d1_016,dog__ship,ship_to_dog,ship,dog,8,5,328,276,5000,4290,images/p03_d1_016.png,accept,,02f1957f80823063a525cc9c3bf4206c8a77fb9c89a52ce1d618157a3b6c301d,3,cat,4,deer,6,horse,8,ship
+p00_d0_002,airplane__cat,airplane_to_cat,airplane,cat,0,3,454,250,7262,3914,images/p00_d0_002.png,accept,,02f1957f80823063a525cc9c3bf4206c8a77fb9c89a52ce1d618157a3b6c301d,1,bird,0,airplane,0,airplane,8,ship
+p00_d0_024,airplane__cat,airplane_to_cat,airplane,cat,0,3,245,320,3876,4881,images/p00_d0_024.png,accept,,02f1957f80823063a525cc9c3bf4206c8a77fb9c89a52ce1d618157a3b6c301d,4,deer,0,airplane,0,airplane,9,truck
+p00_d1_002,airplane__cat,cat_to_airplane,cat,airplane,3,0,89,189,1370,2888,images/p00_d1_002.png,accept,,02f1957f80823063a525cc9c3bf4206c8a77fb9c89a52ce1d618157a3b6c301d,8,ship,3,cat,1,bird,1,bird
+p00_d1_008,airplane__cat,cat_to_airplane,cat,airplane,3,0,281,225,4330,3455,images/p00_d1_008.png,accept,,02f1957f80823063a525cc9c3bf4206c8a77fb9c89a52ce1d618157a3b6c301d,5,dog,2,car,3,cat,5,dog
+p00_d1_009,airplane__cat,cat_to_airplane,cat,airplane,3,0,271,442,4215,7009,images/p00_d1_009.png,accept,,02f1957f80823063a525cc9c3bf4206c8a77fb9c89a52ce1d618157a3b6c301d,1,bird,1,bird,3,cat,8,ship
+p00_d1_018,airplane__cat,cat_to_airplane,cat,airplane,3,0,169,440,2536,6986,images/p00_d1_018.png,accept,,02f1957f80823063a525cc9c3bf4206c8a77fb9c89a52ce1d618157a3b6c301d,8,ship,3,cat,1,bird,1,bird

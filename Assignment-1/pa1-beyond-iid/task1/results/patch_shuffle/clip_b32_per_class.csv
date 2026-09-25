@@ -1,0 +1,11 @@
+class_name,support,clean_accuracy,shuffled_accuracy
+airplane,50,1.0,0.96
+bird,50,0.96,0.94
+car,50,0.98,0.98
+cat,50,0.94,0.66
+deer,50,0.98,0.8
+dog,50,0.96,0.64
+horse,50,0.98,0.72
+monkey,50,1.0,0.74
+ship,50,1.0,0.78
+truck,50,1.0,0.88

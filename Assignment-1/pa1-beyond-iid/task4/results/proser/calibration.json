@@ -1,0 +1,16 @@
+{
+  "best_checkpoint_sha256": "fa4ef985a4f9a6c07f2c41e8fcb27361635d4ddce0ba3dc1a6fe42d7d5abce15",
+  "selected_epoch": 3,
+  "best_cifar10_val_accuracy": 0.9456,
+  "dummy_count": 5,
+  "dummy_aggregation": "maximum logit",
+  "calibration_bias": -0.6958041191101074,
+  "paper_rule_known_acceptance_on_val": 0.95,
+  "placeholder_temperature": 1024.0,
+  "placeholder_unknownness": "softmax_dummy - max_softmax_known after dummy bias",
+  "placeholder_tau_95_validation": -3.9726728573441505e-09,
+  "placeholder_acceptance_at_tau_on_val": 0.95,
+  "mls_unknownness": "-max(ten known logits)",
+  "mls_tau_95_validation": -4.8060197830200195,
+  "calibration_data": "CIFAR-10 validation only"
+}

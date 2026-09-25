@@ -1,0 +1,37 @@
+{
+  "method": "dan_dg",
+  "seed": 6304,
+  "lambda_dg": 1.0,
+  "best_epoch": 3,
+  "source_validation": {
+    "photo": {
+      "accuracy": 0.25748502994011974,
+      "macro_f1": 0.058503401360544216,
+      "loss": 1.9325300890528514,
+      "n_images": 334
+    },
+    "art_painting": {
+      "accuracy": 0.21951219512195122,
+      "macro_f1": 0.05142857142857143,
+      "loss": 1.9367836370700744,
+      "n_images": 410
+    },
+    "cartoon": {
+      "accuracy": 0.17270788912579957,
+      "macro_f1": 0.04207792207792208,
+      "loss": 1.939659720544876,
+      "n_images": 469
+    },
+    "mean_accuracy": 0.21656837139595686,
+    "mean_macro_f1": 0.05066996495567924,
+    "worst_source_accuracy": 0.17270788912579957,
+    "worst_source_macro_f1": 0.04207792207792208
+  },
+  "best_source_macro_f1": 0.05066996495567924,
+  "checkpoint_path": "/content/drive/MyDrive/pa1-beyond-iid/task3/models/dan_dg_best.pt",
+  "erm_checkpoint_sha256": "6292579e9c9d8967cebb3c50be48b70543b7a5e8677d602051e7720ce9cfb253",
+  "initial_checkpoint_sha256": "b7a7953b493b6a3b5e6ae577ed139bc7f99da62686a5a4af523fd72def8a5e07",
+  "target_images_loaded": false,
+  "target_labels_used": false,
+  "target_evaluation": "DEFERRED_TO_TASK3D"
+}

@@ -1,0 +1,15 @@
+{
+  "accept_if": "score <= threshold",
+  "best_checkpoint_sha256": "eb33e4c4f29c80e320abbf3c0617cdbd769d2266fc43add8f7b0b79b39b961a6",
+  "config_sha256": "d5425a1abfef26a2707f7ea41f12ac7ac2403939e1e1793d2ebbb174f8fb0b2a",
+  "known_validation_acceptance": 0.95,
+  "model": "gcsc",
+  "num_known_validation": 5000,
+  "percentile": 0.95,
+  "quantile_method": "linear",
+  "score": "MLS",
+  "split_sha256": "58e3e0a58ca34ebab457ec178874817e597302512f91228ec13a69420b6164d8",
+  "threshold": -5.990423154830933,
+  "unknown_test_access": "none",
+  "unknownness_definition": "-max(logits)"
+}

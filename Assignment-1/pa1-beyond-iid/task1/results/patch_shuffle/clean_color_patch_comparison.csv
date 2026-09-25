@@ -1,0 +1,17 @@
+model,condition,accuracy,accuracy_change_pp,prediction_consistency
+resnet50,clean,0.976,0.0,1.0
+resnet50,grayscale,0.958,-1.8000000000000016,0.964
+resnet50,hue90,0.93,-4.5999999999999925,0.942
+resnet50,patch_shuffle,0.894,-8.199999999999996,0.914
+vit_b16,clean,0.974,0.0,1.0
+vit_b16,grayscale,0.952,-2.200000000000002,0.952
+vit_b16,hue90,0.944,-3.0000000000000027,0.944
+vit_b16,patch_shuffle,0.904,-6.999999999999995,0.906
+clip_b32,clean,0.98,0.0,1.0
+clip_b32,grayscale,0.956,-2.400000000000002,0.954
+clip_b32,hue90,0.946,-3.400000000000003,0.942
+clip_b32,patch_shuffle,0.81,-16.999999999999993,0.814
+clip_zero_shot,clean,0.968,0.0,1.0
+clip_zero_shot,grayscale,0.942,-2.6000000000000023,0.952
+clip_zero_shot,hue90,0.928,-3.9999999999999925,0.934
+clip_zero_shot,patch_shuffle,0.81,-15.799999999999992,0.81

@@ -1,0 +1,20 @@
+[
+  {
+    "lambda_mmd": 0.1,
+    "checked_buffers": 60,
+    "stats_equal_to_pretrained": true,
+    "bn_affine_trainable": true
+  },
+  {
+    "lambda_mmd": 1.0,
+    "checked_buffers": 60,
+    "stats_equal_to_pretrained": true,
+    "bn_affine_trainable": true
+  },
+  {
+    "lambda_mmd": 10.0,
+    "checked_buffers": 60,
+    "stats_equal_to_pretrained": true,
+    "bn_affine_trainable": true
+  }
+]

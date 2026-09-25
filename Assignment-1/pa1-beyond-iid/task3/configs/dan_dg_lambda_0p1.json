@@ -1,0 +1,19 @@
+{
+  "method": "dan_dg_controlled",
+  "seed": 6304,
+  "lambda_dg": 0.1,
+  "parent_study_config_sha256": "9d855acb5f3c87b805354381865b1ba9c688bbff10bcf6eb13d7b3d458f89025",
+  "main_config_sha256": "9f9c74ee7ed4341cd7b0514df4f1381df77e1a8e5bfa9607d053d724d355324a",
+  "initial_checkpoint_sha256": "b7a7953b493b6a3b5e6ae577ed139bc7f99da62686a5a4af523fd72def8a5e07",
+  "mmd_module_sha256": "4ef188e19db7430cc8f104863cc3c2429d41f699eb29b0cae98d3041a7af9d43",
+  "dan_dg_module_sha256": "6df09d6bdd75e64e3f5ea0d2b5002e03fe87097c89fcabee8e4d19baa6dc4205",
+  "source_split_sha256": "743f8502abb107c0ded05aaf649d22eac8889908b1589293ec9ceb558fb6c430",
+  "steps_per_epoch": 234,
+  "learning_rate": 0.0001,
+  "weight_decay": 0.0001,
+  "max_epochs": 30,
+  "patience": 5,
+  "checkpoint_selection": "mean source-validation macro-F1",
+  "precision": "FP32",
+  "target_images_used": false
+}

@@ -1,0 +1,26 @@
+{
+  "experiment": "Task 1 Part G - Patch Structure",
+  "seed": 6304,
+  "dataset": "STL-10, the identical 500-image Part C official test subset",
+  "common_pixels": "RGB, PIL bicubic resize to 224x224 before any backbone normalization",
+  "grid": [
+    4,
+    4
+  ],
+  "patch_size_pixels": [
+    56,
+    56
+  ],
+  "permutation": "one per image, NumPy default_rng(6304), output block -> original block, non-identity",
+  "same_shuffled_pixels_for_all_models": true,
+  "primary_metrics": [
+    "accuracy",
+    "accuracy_drop_pp",
+    "prediction_consistency"
+  ],
+  "additional_metrics": [
+    "macro_f1",
+    "mean_max_confidence"
+  ],
+  "hypothesis_for_planning_only": "Rearranging 16 blocks may reduce accuracy and consistency; compare to each model's own clean baseline, without assuming architecture rankings."
+}

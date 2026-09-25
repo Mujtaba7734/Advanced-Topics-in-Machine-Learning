@@ -1,0 +1,14 @@
+{
+  "seed": 6304,
+  "review_sha256": "02f1957f80823063a525cc9c3bf4206c8a77fb9c89a52ce1d618157a3b6c301d",
+  "planned_candidates": 400,
+  "accepted": 326,
+  "rejected": 52,
+  "needs_review": 22,
+  "accepted_but_not_selected": 126,
+  "balanced_per_direction": 20,
+  "selected_valid_conflicts": 200,
+  "selection_rule": "First 20 accepted by fixed candidate ID in each of 10 pair-directions",
+  "review_provenance_file": "review_provenance.json",
+  "evaluation_used_for_selection": false
+}

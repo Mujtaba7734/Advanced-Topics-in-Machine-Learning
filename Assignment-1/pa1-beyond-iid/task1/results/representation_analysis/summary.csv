@@ -1,0 +1,13 @@
+backbone,intervention,n_pairs,mean_cosine_stability
+resnet50,grayscale,500,0.7884371280670166
+resnet50,cue_conflict,200,0.3735082149505615
+resnet50,patch_shuffle,500,0.7150606513023376
+resnet50,translation_32px_mean4,2000,0.9327363222837448
+vit_b16,grayscale,500,0.7393350601196289
+vit_b16,cue_conflict,200,0.40594422817230225
+vit_b16,patch_shuffle,500,0.6531811356544495
+vit_b16,translation_32px_mean4,2000,0.9417605400085449
+clip_b32,grayscale,500,0.8934751749038696
+clip_b32,cue_conflict,200,0.7399314045906067
+clip_b32,patch_shuffle,500,0.7359238266944885
+clip_b32,translation_32px_mean4,2000,0.9690944403409958

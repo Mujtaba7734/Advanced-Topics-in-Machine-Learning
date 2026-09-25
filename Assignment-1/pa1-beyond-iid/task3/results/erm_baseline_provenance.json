@@ -1,0 +1,7 @@
+{
+  "checkpoint_sha256": "6292579e9c9d8967cebb3c50be48b70543b7a5e8677d602051e7720ce9cfb253",
+  "checkpoint_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/models/source_only_best.pt",
+  "best_epoch": 9,
+  "mean_source_macro_f1": 0.9462019058869942,
+  "target_evaluation": "DEFERRED_TO_TASK3D"
+}

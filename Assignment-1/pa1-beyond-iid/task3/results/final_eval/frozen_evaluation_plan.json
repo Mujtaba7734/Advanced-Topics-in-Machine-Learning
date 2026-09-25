@@ -1,0 +1,100 @@
+{
+  "purpose": "Task 3 FINAL analysis, no training, source-only selection already finished",
+  "seed": 6304,
+  "main_methods": [
+    "erm",
+    "dan_dg",
+    "sam"
+  ],
+  "controlled_lambda": [
+    0.1,
+    1.0,
+    10.0
+  ],
+  "main_lambda": 1.0,
+  "main_rho": 0.05,
+  "base_config_sha256": "80aff3b440a3b706ddb2afb4ee95ff969fc00fa74f1910027158e55bb427d538",
+  "source_split_sha256": "743f8502abb107c0ded05aaf649d22eac8889908b1589293ec9ceb558fb6c430",
+  "initial_checkpoint_sha256": "b7a7953b493b6a3b5e6ae577ed139bc7f99da62686a5a4af523fd72def8a5e07",
+  "source_validation_manifest_sha256": "51330af94de8e68a5dc699b5fd81c7e537894245c85dbefd1982adc044c15d41",
+  "pacs_module_sha256": "9a9ebc8b931eb48abd348f6b4b158e197761ff74a1c0908c8805c11bb36ecf14",
+  "training_module_sha256": "5a5b4f5dc3f32230c2bf895f5ab482424ba3a8f2851d5b3e127c36da2115cc22",
+  "study_config_sha256": "9d855acb5f3c87b805354381865b1ba9c688bbff10bcf6eb13d7b3d458f89025",
+  "study_table_sha256": "89b4988d0302c3a97d8713e7f12ba0d68d2a04a2e9aae7265f0f24c726de7d95",
+  "dataset_revision": "394113073258ead631f617d2e13bb377c0715c4b",
+  "models": {
+    "erm": {
+      "config": "task2/configs/source_only.json",
+      "config_sha256": "6ce05411ec84d037190b73296f2328b03ec4b1e77b1af4988c0bb082f2999332",
+      "best": "task2/models/source_only_best.pt",
+      "best_sha256": "6292579e9c9d8967cebb3c50be48b70543b7a5e8677d602051e7720ce9cfb253",
+      "last": "task2/models/source_only_last.pt",
+      "last_sha256": "d802e6ebf58a274b2398bf2252c7e01fac08ec42d1c8676e008ee6612ecccb47",
+      "best_epoch": 9,
+      "best_source_macro_f1": 0.9462019058869942,
+      "initial_checkpoint_sha256": "b7a7953b493b6a3b5e6ae577ed139bc7f99da62686a5a4af523fd72def8a5e07"
+    },
+    "dan_dg": {
+      "config": "task3/configs/dan_dg.json",
+      "config_sha256": "9f9c74ee7ed4341cd7b0514df4f1381df77e1a8e5bfa9607d053d724d355324a",
+      "best": "task3/models/dan_dg_best.pt",
+      "best_sha256": "b2a4bd9a00a875083f206d0a8b10143f27ec816d3f441e2c281a706929ec2193",
+      "last": "task3/models/dan_dg_last.pt",
+      "last_sha256": "c404ea3bd7cae1feb134d77b94c1aff7206aa9a89fd6530ed28091d8186ad0ff",
+      "best_epoch": 3,
+      "best_source_macro_f1": 0.05066996495567924,
+      "initial_checkpoint_sha256": "b7a7953b493b6a3b5e6ae577ed139bc7f99da62686a5a4af523fd72def8a5e07"
+    },
+    "sam": {
+      "config": "task3/configs/sam.json",
+      "config_sha256": "3ca1ac0650b5d2aa864aaf5aaa8425ed61c790e0459829d91522a0c9bb3bae46",
+      "best": "task3/models/sam_best.pt",
+      "best_sha256": "960825066f86c42fa83a156c22adf4b5fb23b7004d7861d05076cd5c939a36f8",
+      "last": "task3/models/sam_last.pt",
+      "last_sha256": "c96f1b99d04010c3c318a7a5db3337434ba7ed2090e812bd4c3477e0a671a958",
+      "best_epoch": 6,
+      "best_source_macro_f1": 0.95721220322617,
+      "initial_checkpoint_sha256": "b7a7953b493b6a3b5e6ae577ed139bc7f99da62686a5a4af523fd72def8a5e07"
+    },
+    "dan_dg_0p1": {
+      "config": "task3/configs/dan_dg_lambda_0p1.json",
+      "config_sha256": "be2d0dc5a1e56f01f9769246f0e6a2862445d0131b84dd36530d8fe8c199715a",
+      "best": "task3/models/dan_dg_lambda_0p1_best.pt",
+      "best_sha256": "b371b8f62a87a042ab72d4738800d6490cb4117fb5fc524d8cc209d1eeec568e",
+      "last": "task3/models/dan_dg_lambda_0p1_last.pt",
+      "last_sha256": "b59bee34ab1301c896584fb1d82538845743c41edee463d36eaa755f694e950b",
+      "best_epoch": 10,
+      "best_source_macro_f1": 0.9585088962520377,
+      "initial_checkpoint_sha256": "b7a7953b493b6a3b5e6ae577ed139bc7f99da62686a5a4af523fd72def8a5e07"
+    },
+    "dan_dg_10": {
+      "config": "task3/configs/dan_dg_lambda_10.json",
+      "config_sha256": "02811409b1806908992a5698c92be0c33b04147e60f0982553661272e2614a5f",
+      "best": "task3/models/dan_dg_lambda_10_best.pt",
+      "best_sha256": "18fcda48f7c5c66ac8065ccc7ebf5b82547883d63de7c7a6049b2c73f9a1da4c",
+      "last": "task3/models/dan_dg_lambda_10_last.pt",
+      "last_sha256": "ec174de6e2a11b1500712ad3a9ca60385be668ae52300ac1c80bc42a49b24f4a",
+      "best_epoch": 2,
+      "best_source_macro_f1": 0.05066996495567924,
+      "initial_checkpoint_sha256": "b7a7953b493b6a3b5e6ae577ed139bc7f99da62686a5a4af523fd72def8a5e07"
+    }
+  },
+  "source_probe": {
+    "maximum_per_domain": 256,
+    "seed": 6304,
+    "train_fraction": 0.7,
+    "test_fraction": 0.3,
+    "logistic_C": 1.0,
+    "class_weight": "balanced",
+    "scaling": "training split only"
+  },
+  "sharpness": {
+    "seed": 6304,
+    "samples_per_source": 32,
+    "rho": 0.05,
+    "model_mode": "eval",
+    "loss": "equal-domain mean source CE",
+    "perturbation": "one global-L2 normalized ascent step"
+  },
+  "target_release": "Only after checkpoint lock and source diagnostics are complete"
+}

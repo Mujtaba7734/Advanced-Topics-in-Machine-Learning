@@ -1,0 +1,37 @@
+{
+  "method": "sam",
+  "seed": 6304,
+  "rho": 0.05,
+  "best_epoch": 6,
+  "source_validation": {
+    "photo": {
+      "accuracy": 0.9820359281437125,
+      "macro_f1": 0.9795037630622107,
+      "loss": 0.06325183184134278,
+      "n_images": 334
+    },
+    "art_painting": {
+      "accuracy": 0.9317073170731708,
+      "macro_f1": 0.9334443271617593,
+      "loss": 0.23501562141790622,
+      "n_images": 410
+    },
+    "cartoon": {
+      "accuracy": 0.9552238805970149,
+      "macro_f1": 0.95868851945454,
+      "loss": 0.12908535655627626,
+      "n_images": 469
+    },
+    "mean_accuracy": 0.9563223752712995,
+    "mean_macro_f1": 0.95721220322617,
+    "worst_source_accuracy": 0.9317073170731708,
+    "worst_source_macro_f1": 0.9334443271617593
+  },
+  "best_source_macro_f1": 0.95721220322617,
+  "checkpoint_path": "/content/drive/MyDrive/pa1-beyond-iid/task3/models/sam_best.pt",
+  "erm_checkpoint_sha256": "6292579e9c9d8967cebb3c50be48b70543b7a5e8677d602051e7720ce9cfb253",
+  "initial_checkpoint_sha256": "b7a7953b493b6a3b5e6ae577ed139bc7f99da62686a5a4af523fd72def8a5e07",
+  "target_images_loaded": false,
+  "target_labels_used": false,
+  "target_evaluation": "DEFERRED_TO_TASK3D"
+}

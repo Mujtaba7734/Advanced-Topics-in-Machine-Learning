@@ -1,0 +1,107 @@
+{
+  "purpose": "Task 2 final analysis only; NO training or target-based model selection",
+  "seed": 6304,
+  "target_labels_accessed_before_freeze": false,
+  "source_split_sha256": "743f8502abb107c0ded05aaf649d22eac8889908b1589293ec9ceb558fb6c430",
+  "base_config_sha256": "80aff3b440a3b706ddb2afb4ee95ff969fc00fa74f1910027158e55bb427d538",
+  "initial_checkpoint_sha256": "b7a7953b493b6a3b5e6ae577ed139bc7f99da62686a5a4af523fd72def8a5e07",
+  "dataset_revision": "394113073258ead631f617d2e13bb377c0715c4b",
+  "main_comparison": [
+    "source_only",
+    "dan",
+    "dann",
+    "cdan"
+  ],
+  "controlled_study": {
+    "names": [
+      "dan_lambda_0p1",
+      "dan",
+      "dan_lambda_10"
+    ],
+    "lambdas": [
+      0.1,
+      1.0,
+      10.0
+    ]
+  },
+  "probe": {
+    "source": "source validation, equal counts sampled evenly from three source domains",
+    "target": "unlabeled Sketch image manifest, equal count",
+    "seed": 6304,
+    "train_fraction": 0.7,
+    "test_fraction": 0.3,
+    "logistic_regression_C": 1,
+    "class_weight": "balanced",
+    "feature_standardization": "fit scaler on probe train ONLY"
+  },
+  "models": {
+    "source_only": {
+      "config_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/configs/source_only.json",
+      "config_sha256": "6ce05411ec84d037190b73296f2328b03ec4b1e77b1af4988c0bb082f2999332",
+      "best_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/models/source_only_best.pt",
+      "best_sha256": "6292579e9c9d8967cebb3c50be48b70543b7a5e8677d602051e7720ce9cfb253",
+      "last_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/models/source_only_last.pt",
+      "last_sha256": "d802e6ebf58a274b2398bf2252c7e01fac08ec42d1c8676e008ee6612ecccb47",
+      "selected_epoch": 9,
+      "selected_source_macro_f1": 0.9462019058869942,
+      "training_finished": true
+    },
+    "dan": {
+      "config_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/configs/dan.json",
+      "config_sha256": "6c099d47712476cddb3751c556bf354f67290a000c390bfcd74e21263514a667",
+      "best_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/models/dan_best.pt",
+      "best_sha256": "7a1d9d1f9cf7c64e50acbddaee59c787320f895003eac6275a0c165cf32162ae",
+      "last_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/models/dan_last.pt",
+      "last_sha256": "610be68f7a93c9b50814e274313552f0d08ea11cad626a8267dd1161a395e632",
+      "selected_epoch": 8,
+      "selected_source_macro_f1": 0.9538461470650068,
+      "training_finished": true
+    },
+    "dann": {
+      "config_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/configs/dann.json",
+      "config_sha256": "3ea6274ad8be46d1989f7a3b373cc655c35cdc345fb373dcbef30ca908026580",
+      "best_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/models/dann_best.pt",
+      "best_sha256": "50091654a3df11f1607072425e1bb4d0f18bff461bbf59f6d035d8d049bc005a",
+      "last_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/models/dann_last.pt",
+      "last_sha256": "c8b572e6ad6f3bbd2c05c266f7f47263b66578c59e7a49bfc2672f87762a8a6c",
+      "selected_epoch": 10,
+      "selected_source_macro_f1": 0.25148425952123904,
+      "training_finished": true
+    },
+    "cdan": {
+      "config_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/configs/cdan.json",
+      "config_sha256": "03bd437415a068316ed98773ece6ec0ad316faf87b03f37dc1f40a6faca28c4e",
+      "best_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/models/cdan_best.pt",
+      "best_sha256": "e06b6a68abe5cd0eebe164392b7484566f3549fcbd345503dc9d1014b65a9284",
+      "last_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/models/cdan_last.pt",
+      "last_sha256": "3dd5112baee96d712b153883bef54de6ddbe8adeb64ab1f1bc57c5176a1a85c0",
+      "selected_epoch": 3,
+      "selected_source_macro_f1": 0.2158165902535408,
+      "training_finished": true
+    },
+    "dan_lambda_0p1": {
+      "config_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/configs/dan_lambda_0p1.json",
+      "config_sha256": "109b40762e40e75e208b2a565f9ff904b0ad5455e51986ed386d73fc1e24326a",
+      "best_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/models/dan_lambda_0p1_best.pt",
+      "best_sha256": "96fda32c71e7dbc998f1a1a3a882ebea49c7f58ff41f6059fc07847f574a8a38",
+      "last_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/models/dan_lambda_0p1_last.pt",
+      "last_sha256": "b789372106335cd4d6fd40fd72944fb8e809acd9824b57892184e916f377fa7d",
+      "selected_epoch": 9,
+      "selected_source_macro_f1": 0.9442887419166414,
+      "training_finished": true
+    },
+    "dan_lambda_10": {
+      "config_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/configs/dan_lambda_10.json",
+      "config_sha256": "3e380056afe0aa764f780cb409e26f12227312a872b92ccf7c87ec203e192071",
+      "best_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/models/dan_lambda_10_best.pt",
+      "best_sha256": "e6bb31e3155b11c688d220f30ccca4ef0e0d6e7b371ecad6d5c6777222b8b5f9",
+      "last_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/models/dan_lambda_10_last.pt",
+      "last_sha256": "5997ccbbf17bc9827b968716bd7f856d188435a3e1b93c4413a52076a6120715",
+      "selected_epoch": 1,
+      "selected_source_macro_f1": 0.05066996495567924,
+      "training_finished": true
+    }
+  },
+  "study_plan_sha256": "d2c4b8285aa14a96325abe4ca03c54a875fbd01bd72bbee83048b1f1e956f2c9",
+  "source_choice_sha256": "6fce41d51819281e32ecf80ef61e45269f42ff8d584d02cae87657e9b4eaff9b"
+}

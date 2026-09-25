@@ -1,0 +1,14 @@
+condition,displacement,direction,dx,dy
+clean,0,none,0,0
+shift8_right,8,right,8,0
+shift8_left,8,left,-8,0
+shift8_down,8,down,0,8
+shift8_up,8,up,0,-8
+shift16_right,16,right,16,0
+shift16_left,16,left,-16,0
+shift16_down,16,down,0,16
+shift16_up,16,up,0,-16
+shift32_right,32,right,32,0
+shift32_left,32,left,-32,0
+shift32_down,32,down,0,32
+shift32_up,32,up,0,-32

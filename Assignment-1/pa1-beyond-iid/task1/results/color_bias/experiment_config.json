@@ -1,0 +1,22 @@
+{
+  "seed": 6304,
+  "dataset": "STL-10",
+  "test_image_ids_file": "/content/drive/MyDrive/pa1-beyond-iid/task1/results/clean_baseline/clean_image_ids.npy",
+  "n_images": 500,
+  "conditions": {
+    "grayscale": "RGB -> luminance grayscale -> RGB; preserves geometry",
+    "hue90": "fixed +90 degree HSV hue rotation; geometry stays fixed"
+  },
+  "hue_factor": 0.25,
+  "hypothesis": "Removing or changing hue may reduce accuracy and alter predictions; the extent will differ by model, without a predetermined ranking.",
+  "primary_metrics": [
+    "accuracy_change_percentage_points",
+    "prediction_consistency"
+  ],
+  "additional_metrics": [
+    "accuracy",
+    "macro_f1",
+    "mean_max_confidence"
+  ],
+  "preprocessing": "PIL bicubic resize to RGB 224x224; intervene before backbone-specific normalization"
+}

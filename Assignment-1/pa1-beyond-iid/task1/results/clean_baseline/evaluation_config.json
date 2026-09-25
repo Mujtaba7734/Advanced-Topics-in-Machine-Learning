@@ -1,0 +1,92 @@
+{
+  "experiment": "Task 1 Part C - Clean Baseline",
+  "seed": 6304,
+  "dataset": "STL-10",
+  "evaluation_images": 500,
+  "images_per_class": [
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50
+  ],
+  "dataset_path": "/content/drive/MyDrive/pa1-beyond-iid/task1/data/stl10_labeled.npz",
+  "split_path": "/content/drive/MyDrive/pa1-beyond-iid/task1/data/split_indices.json",
+  "test_image_ids_path": "/content/drive/MyDrive/pa1-beyond-iid/task1/results/clean_baseline/clean_image_ids.npy",
+  "class_names": [
+    "airplane",
+    "bird",
+    "car",
+    "cat",
+    "deer",
+    "dog",
+    "horse",
+    "monkey",
+    "ship",
+    "truck"
+  ],
+  "models": [
+    "resnet50",
+    "vit_b16",
+    "clip_b32",
+    "clip_zero_shot"
+  ],
+  "feature_dimensions": {
+    "resnet50": 2048,
+    "vit_b16": 768,
+    "clip_b32": 512
+  },
+  "classifier_checkpoints": {
+    "resnet50": {
+      "best_epoch": 10,
+      "best_val_accuracy": 0.9729999899864197,
+      "checkpoint_path": "/content/drive/MyDrive/pa1-beyond-iid/task1/models/heads/resnet50_head.pt"
+    },
+    "vit_b16": {
+      "best_epoch": 18,
+      "best_val_accuracy": 0.9810000061988831,
+      "checkpoint_path": "/content/drive/MyDrive/pa1-beyond-iid/task1/models/heads/vit_b16_head.pt"
+    },
+    "clip_b32": {
+      "best_epoch": 6,
+      "best_val_accuracy": 0.9860000014305115,
+      "checkpoint_path": "/content/drive/MyDrive/pa1-beyond-iid/task1/models/heads/clip_b32_head.pt"
+    }
+  },
+  "zero_shot": {
+    "prompts": [
+      "a photo of a airplane.",
+      "a photo of a bird.",
+      "a photo of a car.",
+      "a photo of a cat.",
+      "a photo of a deer.",
+      "a photo of a dog.",
+      "a photo of a horse.",
+      "a photo of a monkey.",
+      "a photo of a ship.",
+      "a photo of a truck."
+    ],
+    "logit_scale": 100.0,
+    "text_embedding_path": "/content/drive/MyDrive/pa1-beyond-iid/task1/results/features/clip_zeroshot.pt"
+  },
+  "preprocessing": {
+    "common_image": "224x224 RGB, bicubic resize",
+    "resnet_vit_normalization": "ImageNet mean/std",
+    "clip_normalization": "OpenCLIP mean/std"
+  },
+  "metrics": [
+    "top_1_accuracy",
+    "macro_f1",
+    "mean_max_confidence"
+  ],
+  "versions": {
+    "torch": "2.11.0+cu128",
+    "sklearn": "1.6.1",
+    "numpy": "2.1.3"
+  }
+}

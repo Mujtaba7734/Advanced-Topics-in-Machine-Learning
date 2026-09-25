@@ -1,0 +1,11 @@
+{
+  "config": {
+    "checkpoint_sha256": "18fcda48f7c5c66ac8065ccc7ebf5b82547883d63de7c7a6049b2c73f9a1da4c",
+    "target_manifest_sha256": "c41de6287ae9a946d68bf3a64a734a411b514612d6717ba3136138e190fbbc85",
+    "transform": "Resize((256,256)), CenterCrop(224), ImageNet Normalize",
+    "seed": 6304,
+    "precision": "FP32",
+    "final_only": true
+  },
+  "sha256": "edcf8ce8af4d6c86fed79f215a4c4be94bd86c428f67bee9bb967397f1bad39d"
+}

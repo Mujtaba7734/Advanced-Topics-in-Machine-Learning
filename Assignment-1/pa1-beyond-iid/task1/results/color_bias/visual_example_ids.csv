@@ -1,0 +1,5 @@
+image_id,true_label,true_class
+3,0,airplane
+95,1,bird
+35,2,car
+176,3,cat

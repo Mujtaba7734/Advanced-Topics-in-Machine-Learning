@@ -1,0 +1,17 @@
+group,unknown_class,count,accepted_count,accepted_rate,rejection_rate,most_common_absorbing_cifar10_class,absorbing_count_among_accepted
+Near,bus,100,83,0.83,0.17000000000000004,truck,66
+Near,pickup_truck,100,89,0.89,0.10999999999999999,automobile,57
+Near,motorcycle,100,30,0.3,0.7,automobile,11
+Near,tractor,100,56,0.56,0.43999999999999995,truck,46
+Near,wolf,100,82,0.82,0.18000000000000005,cat,38
+Near,fox,100,71,0.71,0.29000000000000004,cat,38
+Near,leopard,100,64,0.64,0.36,frog,30
+Near,camel,100,58,0.58,0.42000000000000004,deer,17
+Far,bottle,100,36,0.36,0.64,ship,15
+Far,bowl,100,47,0.47,0.53,cat,18
+Far,chair,100,41,0.41,0.5900000000000001,airplane,21
+Far,clock,100,36,0.36,0.64,cat,13
+Far,keyboard,100,37,0.37,0.63,airplane,13
+Far,mushroom,100,53,0.53,0.47,bird,20
+Far,sunflower,100,48,0.48,0.52,bird,16
+Far,wardrobe,100,57,0.57,0.43000000000000005,truck,29

@@ -1,0 +1,18 @@
+{
+  "final_evaluation_only": true,
+  "seed": 6304,
+  "output_files": 37,
+  "target_evaluated_images": 3929,
+  "models": [
+    "source_only",
+    "dan",
+    "dann",
+    "cdan",
+    "dan_lambda_0p1",
+    "dan_lambda_10"
+  ],
+  "source_only_choice_frozen_before_target_labels": true,
+  "original_model_checkpoints_unchanged": true,
+  "domain_probe": "balanced logistic regression, C=1, seed=6304, 70/30 held out",
+  "caveat": "Do not use Task 2 Sketch labels/results to choose Task 3 training or hyperparameters"
+}

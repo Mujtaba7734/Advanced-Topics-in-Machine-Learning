@@ -1,0 +1,11 @@
+{
+  "config": {
+    "checkpoint_sha256": "7a1d9d1f9cf7c64e50acbddaee59c787320f895003eac6275a0c165cf32162ae",
+    "source_val_manifest_sha256": "51330af94de8e68a5dc699b5fd81c7e537894245c85dbefd1982adc044c15d41",
+    "target_unlabeled_manifest_sha256": "c41de6287ae9a946d68bf3a64a734a411b514612d6717ba3136138e190fbbc85",
+    "seed": 6304,
+    "transform": "Resize((256,256)), CenterCrop(224), ImageNet Normalize",
+    "precision": "float32"
+  },
+  "cache_sha256": "bd76e126fb4fb6d8da59218d361dab6d7ea79281837122fec6eee80cc884f169"
+}

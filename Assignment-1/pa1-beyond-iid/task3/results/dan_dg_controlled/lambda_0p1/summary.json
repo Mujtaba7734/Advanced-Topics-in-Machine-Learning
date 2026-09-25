@@ -1,0 +1,33 @@
+{
+  "method": "dan_dg_controlled",
+  "lambda_dg": 0.1,
+  "checkpoint_path": "/content/drive/MyDrive/pa1-beyond-iid/task3/models/dan_dg_lambda_0p1_best.pt",
+  "checkpoint_sha256": "b371b8f62a87a042ab72d4738800d6490cb4117fb5fc524d8cc209d1eeec568e",
+  "best_epoch": 10,
+  "source_validation": {
+    "photo": {
+      "accuracy": 0.9820359281437125,
+      "macro_f1": 0.9794698688886717,
+      "loss": 0.07384557628859124,
+      "n_images": 334
+    },
+    "art_painting": {
+      "accuracy": 0.9414634146341463,
+      "macro_f1": 0.9404720366724796,
+      "loss": 0.19624227663365806,
+      "n_images": 410
+    },
+    "cartoon": {
+      "accuracy": 0.9573560767590619,
+      "macro_f1": 0.9555847831949621,
+      "loss": 0.1722846667109522,
+      "n_images": 469
+    },
+    "mean_accuracy": 0.9602851398456402,
+    "mean_macro_f1": 0.9585088962520377,
+    "worst_source_accuracy": 0.9414634146341463,
+    "worst_source_macro_f1": 0.9404720366724796
+  },
+  "initial_checkpoint_sha256": "b7a7953b493b6a3b5e6ae577ed139bc7f99da62686a5a4af523fd72def8a5e07",
+  "target_evaluation": "DEFERRED_TO_TASK3D"
+}

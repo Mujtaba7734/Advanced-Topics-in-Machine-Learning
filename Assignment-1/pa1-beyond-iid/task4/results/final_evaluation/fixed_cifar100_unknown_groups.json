@@ -1,0 +1,45 @@
+{
+  "near_classes": [
+    "bus",
+    "pickup_truck",
+    "motorcycle",
+    "tractor",
+    "wolf",
+    "fox",
+    "leopard",
+    "camel"
+  ],
+  "far_classes": [
+    "bottle",
+    "bowl",
+    "chair",
+    "clock",
+    "keyboard",
+    "mushroom",
+    "sunflower",
+    "wardrobe"
+  ],
+  "near_count": 800,
+  "far_count": 800,
+  "near_class_counts": {
+    "bus": 100,
+    "pickup_truck": 100,
+    "motorcycle": 100,
+    "tractor": 100,
+    "wolf": 100,
+    "fox": 100,
+    "leopard": 100,
+    "camel": 100
+  },
+  "far_class_counts": {
+    "bottle": 100,
+    "bowl": 100,
+    "chair": 100,
+    "clock": 100,
+    "keyboard": 100,
+    "mushroom": 100,
+    "sunflower": 100,
+    "wardrobe": 100
+  },
+  "source": "official CIFAR-100 test partition only"
+}

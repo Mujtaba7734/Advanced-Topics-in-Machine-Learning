@@ -1,0 +1,50 @@
+{
+  "method": "dan_dg",
+  "seed": 6304,
+  "lambda_dg": 1.0,
+  "base_config_sha256": "80aff3b440a3b706ddb2afb4ee95ff969fc00fa74f1910027158e55bb427d538",
+  "source_split_sha256": "743f8502abb107c0ded05aaf649d22eac8889908b1589293ec9ceb558fb6c430",
+  "train_manifest_sha256": "8bea96b8bd4bb10e04a8623ef757149094ceb26c28ffad71279ca306edc88701",
+  "val_manifest_sha256": "51330af94de8e68a5dc699b5fd81c7e537894245c85dbefd1982adc044c15d41",
+  "source_only_config_sha256": "6ce05411ec84d037190b73296f2328b03ec4b1e77b1af4988c0bb082f2999332",
+  "erm_baseline_checkpoint_sha256": "6292579e9c9d8967cebb3c50be48b70543b7a5e8677d602051e7720ce9cfb253",
+  "initial_checkpoint_sha256": "b7a7953b493b6a3b5e6ae577ed139bc7f99da62686a5a4af523fd72def8a5e07",
+  "pacs_module_sha256": "9a9ebc8b931eb48abd348f6b4b158e197761ff74a1c0908c8805c11bb36ecf14",
+  "training_module_sha256": "5a5b4f5dc3f32230c2bf895f5ab482424ba3a8f2851d5b3e127c36da2115cc22",
+  "task2_dan_mmd_module_sha256": "4ef188e19db7430cc8f104863cc3c2429d41f699eb29b0cae98d3041a7af9d43",
+  "dan_dg_method_module_sha256": "6df09d6bdd75e64e3f5ea0d2b5002e03fe87097c89fcabee8e4d19baa6dc4205",
+  "source_domains": [
+    "photo",
+    "art_painting",
+    "cartoon"
+  ],
+  "source_batch_each": 8,
+  "steps_per_epoch": 234,
+  "epoch_definition": "longest source loader once; cycle shorter sources",
+  "architecture": "ImageNet-initialized torchvision ResNet-18, 512-D pre-head features, 7-class fc",
+  "loss": "mean source cross-entropy + lambda * average of three source-source MMD squared",
+  "mmd_pairs": [
+    "photo/art_painting",
+    "photo/cartoon",
+    "art_painting/cartoon"
+  ],
+  "mmd_implementation": "unchanged Task 2 dan.py; biased; sum 3 RBF kernels",
+  "mmd_kernel_multipliers": [
+    0.5,
+    1.0,
+    2.0
+  ],
+  "mmd_bandwidth": "per-pair current-batch median off-diagonal squared distance",
+  "optimizer": "AdamW",
+  "learning_rate": 0.0001,
+  "weight_decay": 0.0001,
+  "max_epochs": 30,
+  "patience": 5,
+  "checkpoint_selection": "mean source-validation macro-F1",
+  "batchnorm": "running stats frozen; affine parameters trainable",
+  "precision": "FP32 (AMP disabled); recorded numerical-stability choice",
+  "target_images_loaded": false,
+  "target_labels_used": false,
+  "target_results_used_for_selection": false,
+  "final_target_evaluation": "task3D_only_after_all_decisions_locked"
+}

@@ -1,0 +1,66 @@
+{
+  "seed": 6304,
+  "n_images": 500,
+  "grid": [
+    4,
+    4
+  ],
+  "results": [
+    {
+      "model": "resnet50",
+      "n_images": 500,
+      "clean_accuracy": 0.976,
+      "accuracy": 0.894,
+      "accuracy_drop_pp": 8.199999999999996,
+      "accuracy_change_pp": -8.199999999999996,
+      "prediction_consistency": 0.914,
+      "n_changed": 43,
+      "n_correct": 447,
+      "macro_f1": 0.8942355213159014,
+      "mean_max_confidence": 0.8923081755638123,
+      "seed": 6304
+    },
+    {
+      "model": "vit_b16",
+      "n_images": 500,
+      "clean_accuracy": 0.974,
+      "accuracy": 0.904,
+      "accuracy_drop_pp": 6.999999999999995,
+      "accuracy_change_pp": -6.999999999999995,
+      "prediction_consistency": 0.906,
+      "n_changed": 47,
+      "n_correct": 452,
+      "macro_f1": 0.9032675737232392,
+      "mean_max_confidence": 0.9090776443481445,
+      "seed": 6304
+    },
+    {
+      "model": "clip_b32",
+      "n_images": 500,
+      "clean_accuracy": 0.98,
+      "accuracy": 0.81,
+      "accuracy_drop_pp": 16.999999999999993,
+      "accuracy_change_pp": -16.999999999999993,
+      "prediction_consistency": 0.814,
+      "n_changed": 93,
+      "n_correct": 405,
+      "macro_f1": 0.8094478492451851,
+      "mean_max_confidence": 0.17180924117565155,
+      "seed": 6304
+    },
+    {
+      "model": "clip_zero_shot",
+      "n_images": 500,
+      "clean_accuracy": 0.968,
+      "accuracy": 0.81,
+      "accuracy_drop_pp": 15.799999999999992,
+      "accuracy_change_pp": -15.799999999999992,
+      "prediction_consistency": 0.81,
+      "n_changed": 95,
+      "n_correct": 405,
+      "macro_f1": 0.8094593652036011,
+      "mean_max_confidence": 0.7731450200080872,
+      "seed": 6304
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "task": "Task 1 Part H - Representation Analysis",
+  "seed": 6304,
+  "backbones": [
+    "resnet50",
+    "vit_b16",
+    "clip_b32"
+  ],
+  "cosine_metric": "mean of individual paired cosines (not cosine of averaged vectors)",
+  "interventions": [
+    "grayscale",
+    "cue_conflict",
+    "translation",
+    "patch_shuffle"
+  ],
+  "translation_displacements": [
+    8,
+    16,
+    32
+  ],
+  "translation_directions": [
+    "down",
+    "left",
+    "right",
+    "up"
+  ],
+  "translation_summary": "mean over each of four directions at the same displacement",
+  "visual_translation": "shift32_right",
+  "visual_subset": "exactly 200 content IDs, in frozen Part E selected_manifest.csv order",
+  "visual_conditions": [
+    "clean",
+    "grayscale",
+    "cue_conflict",
+    "shift32_right",
+    "patch_shuffle"
+  ],
+  "projection": "PCA to 50 dimensions followed by one jointly fitted t-SNE per backbone",
+  "pca_components": 50,
+  "tsne_perplexity": 30,
+  "tsne_iterations": 1000,
+  "tsne_random_state": 6304,
+  "tsne_init": "pca",
+  "tsne_learning_rate": "auto",
+  "tsne_input": "unit-normalized embeddings, PCA fitted to combined five-condition subset",
+  "hypothesis": "Representation changes and prediction changes need not coincide."
+}

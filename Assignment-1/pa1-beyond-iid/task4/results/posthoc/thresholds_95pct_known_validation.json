@@ -1,0 +1,19 @@
+{
+  "accept_if": "score <= threshold",
+  "best_checkpoint_sha256": "da0fd3c0459e44ce78e171eddca199ec0161ffdb203fdabad1fbb7a28a91f704",
+  "known_validation_acceptance": {
+    "Energy": 0.95,
+    "MLS": 0.95,
+    "MSP": 0.95,
+    "Mahalanobis": 0.95
+  },
+  "method": "linear",
+  "percentile": 0.95,
+  "score_module_sha256": "79ef85593668b08fc1f9384e535f4b109ddcde5f8a2fad070c0aab0f175fece5",
+  "thresholds": {
+    "Energy": -6.16713690165852,
+    "MLS": -6.01021797657013,
+    "MSP": 0.14143126500716932,
+    "Mahalanobis": 3054.6264428006507
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "experiment": "Task 1 Part F - Translation Sensitivity",
+  "seed": 6304,
+  "dataset": "STL-10, same 500 clean test images from Part C",
+  "displacements_pixels": [
+    0,
+    8,
+    16,
+    32
+  ],
+  "directions": {
+    "right": [
+      1,
+      0
+    ],
+    "left": [
+      -1,
+      0
+    ],
+    "down": [
+      0,
+      1
+    ],
+    "up": [
+      0,
+      -1
+    ]
+  },
+  "common_image": "RGB, bicubic resize to 224x224 before shift and model normalization",
+  "translation": "reflect-pad by displacement, shifted 224x224 crop; positive dx moves object right, positive dy moves it down",
+  "direction_aggregation": "arithmetic mean over the 4 directions at each positive displacement; clean at 0 is counted once",
+  "metrics": [
+    "accuracy",
+    "prediction_consistency",
+    "accuracy_change_pp",
+    "macro_f1",
+    "mean_max_confidence"
+  ],
+  "hypothesis_for_experiment_planning_only": "Test whether larger displacements decrease accuracy and paired prediction consistency; no predetermined model ranking.",
+  "note": "Transformed image tensor is deterministic from canonical_224.pt + displacement/direction; all models use the same tensor."
+}

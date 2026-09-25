@@ -1,0 +1,5 @@
+{
+  "running_stats_identical_to_initial": true,
+  "checked_buffers": 60,
+  "bn_affine_trainable": true
+}

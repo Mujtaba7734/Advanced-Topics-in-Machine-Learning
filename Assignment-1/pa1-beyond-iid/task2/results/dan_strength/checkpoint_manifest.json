@@ -1,0 +1,26 @@
+{
+  "0p1": {
+    "lambda_mmd": 0.1,
+    "best_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/models/dan_lambda_0p1_best.pt",
+    "best_sha256": "96fda32c71e7dbc998f1a1a3a882ebea49c7f58ff41f6059fc07847f574a8a38",
+    "best_epoch": 9,
+    "config_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/configs/dan_lambda_0p1.json",
+    "source_mean_macro_f1": 0.9442887419166414
+  },
+  "1": {
+    "lambda_mmd": 1.0,
+    "best_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/models/dan_best.pt",
+    "best_sha256": "7a1d9d1f9cf7c64e50acbddaee59c787320f895003eac6275a0c165cf32162ae",
+    "best_epoch": 8,
+    "config_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/configs/dan.json",
+    "source_mean_macro_f1": 0.9538461470650068
+  },
+  "10": {
+    "lambda_mmd": 10.0,
+    "best_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/models/dan_lambda_10_best.pt",
+    "best_sha256": "e6bb31e3155b11c688d220f30ccca4ef0e0d6e7b371ecad6d5c6777222b8b5f9",
+    "best_epoch": 1,
+    "config_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/configs/dan_lambda_10.json",
+    "source_mean_macro_f1": 0.05066996495567924
+  }
+}

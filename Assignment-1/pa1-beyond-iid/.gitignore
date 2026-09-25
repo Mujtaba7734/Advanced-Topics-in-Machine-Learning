@@ -1,0 +1,52 @@
+# ============================================================
+# Python / Jupyter generated files
+# ============================================================
+
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# ============================================================
+# Raw datasets
+# ============================================================
+
+# PACS raw archives
+/data/pacs/*.tar
+
+# STL-10 dataset
+/task1/data/stl10_labeled.npz
+
+# CIFAR-10 / CIFAR-100 downloaded datasets
+/task4/data/
+
+# ============================================================
+# Model weights / checkpoints
+# ============================================================
+
+/task1/models/
+/task2/models/
+/task3/models/
+/task4/checkpoints/
+
+*.pt
+*.pth
+*.ckpt
+
+# ============================================================
+# Temporary experiment caches
+# ============================================================
+
+/task4/cache/
+
+# Old / archived DANN runs
+/task2/archive_dann_before_clipping_20260925_162806/
+/task2/archive_dann_clip1_lr1e4_20260925_164538/
+/task2/archive_dann_clip1_lr1e4_20260925_164609/
+
+# ============================================================
+# Editor / OS junk
+# ============================================================
+
+.DS_Store
+Thumbs.db
+.vscode/

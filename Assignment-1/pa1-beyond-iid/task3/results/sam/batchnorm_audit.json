@@ -1,0 +1,6 @@
+{
+  "running_buffers_equal_to_initial": true,
+  "checked_buffer_count": 60,
+  "bn_affine_trainable": true,
+  "both_sam_passes_used_bn_eval": true
+}

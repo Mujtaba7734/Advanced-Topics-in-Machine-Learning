@@ -1,0 +1,7 @@
+{
+  "criterion": "Highest mean of source-validation macro-F1; ties resolved by smaller lambda. Main method remains lambda=1.",
+  "lambda_selected_without_target_labels": 1.0,
+  "source_validation_mean_macro_f1": 0.9538461470650068,
+  "main_comparison_lambda_unchanged": 1.0,
+  "target_labels_used": false
+}

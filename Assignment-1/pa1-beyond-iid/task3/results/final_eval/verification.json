@@ -1,0 +1,28 @@
+{
+  "task": "3D",
+  "seed": 6304,
+  "complete": true,
+  "training_or_checkpoint_selection_in_this_notebook": false,
+  "target_labels_first_used": "Cell 7 after all experiment choices were frozen",
+  "source_probed_domains": [
+    "photo",
+    "art_painting",
+    "cartoon"
+  ],
+  "three_way_chance": 0.3333333333333333,
+  "sharpness_rho": 0.05,
+  "main_models": [
+    "erm",
+    "dan_dg",
+    "sam"
+  ],
+  "controlled_lambdas": [
+    0.1,
+    1.0,
+    10.0
+  ],
+  "source_validation_n": 1213,
+  "sketch_evaluation_n": 3929,
+  "verified_evidence_files": 40,
+  "note": "Report language, interpretation and analysis must be written by the student."
+}

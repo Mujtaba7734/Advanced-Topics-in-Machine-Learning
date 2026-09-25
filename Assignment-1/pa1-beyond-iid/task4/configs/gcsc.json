@@ -1,0 +1,36 @@
+{
+  "experiment": "task4_gcsc",
+  "seed": 6304,
+  "dataset": "CIFAR-10 official train only",
+  "split": "stratified 90/10",
+  "train_size": 45000,
+  "val_size": 5000,
+  "architecture": "torchvision resnet18 random CIFAR 3x3 stride1, identity maxpool, 10 classes",
+  "input_shape": [
+    3,
+    32,
+    32
+  ],
+  "normalization_mean": [
+    0.4914,
+    0.4822,
+    0.4465
+  ],
+  "normalization_std": [
+    0.247,
+    0.2435,
+    0.2616
+  ],
+  "augmentation": "RandomCrop(32,padding=4), RandomHorizontalFlip(), RandAugment(num_ops=2,magnitude=9)",
+  "optimizer": "SGD",
+  "learning_rate": 0.1,
+  "momentum": 0.9,
+  "weight_decay": 0.0005,
+  "scheduler": "CosineAnnealingLR T_max=100 eta_min=0",
+  "batch_size": 128,
+  "epochs": 100,
+  "selection": "highest CIFAR-10 validation accuracy",
+  "precision": "float32",
+  "shared_code_version": "cifar_osr_core_v1",
+  "shared_core_sha256": "48115a5a9c6a9a99b72199f8618f8fc80b2e860e94be98628715dda0fc907a46"
+}

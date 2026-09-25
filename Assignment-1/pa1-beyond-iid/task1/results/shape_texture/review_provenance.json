@@ -1,0 +1,7 @@
+{
+  "review_type": "AI-assisted visual review before model evaluation",
+  "visual_sources": "400 original generated PNGs at 224x224 and 10 paired contact sheets; content/donor thumbnails 112x112",
+  "review_rule": "Inspect content / style / stylized image at usable resolution before evaluation. Accept only if the content object's silhouette remains recognizable and the donor style supplies visible local texture or appearance. Reject if the content disappears, the style donor object dominates the output, the texture transfer is imperceptible, or severe artifacts/clipping make either cue uninterpretable. Decisions must not depend on any classifier prediction.",
+  "classifier_predictions_used": false,
+  "limitation": "Ambiguous candidates kept as needs_review, not counted as rejected. Donor fine texture not always resolvable from contact sheets."
+}

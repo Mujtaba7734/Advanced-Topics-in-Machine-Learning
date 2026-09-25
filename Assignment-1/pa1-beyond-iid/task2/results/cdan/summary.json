@@ -1,0 +1,38 @@
+{
+  "method": "cdan",
+  "seed": 6304,
+  "domain_loss_weight": 1.0,
+  "grl_schedule": "2/(1+exp(-10*p))-1",
+  "best_epoch": 3,
+  "best_source_validation_macro_f1": 0.2158165902535408,
+  "source_validation": {
+    "photo": {
+      "accuracy": 0.4311377245508982,
+      "macro_f1": 0.22037117306200665,
+      "loss": 1.602241030710186,
+      "n_images": 334
+    },
+    "art_painting": {
+      "accuracy": 0.24634146341463414,
+      "macro_f1": 0.13194858971256487,
+      "loss": 1.8986949920654297,
+      "n_images": 410
+    },
+    "cartoon": {
+      "accuracy": 0.35394456289978676,
+      "macro_f1": 0.2951300079860509,
+      "loss": 1.63836956227512,
+      "n_images": 469
+    },
+    "mean_accuracy": 0.34380791695510643,
+    "mean_macro_f1": 0.2158165902535408,
+    "worst_source_accuracy": 0.24634146341463414,
+    "worst_source_macro_f1": 0.13194858971256487
+  },
+  "checkpoint_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/models/cdan_best.pt",
+  "discriminator_stored_in_checkpoint": true,
+  "initial_checkpoint_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/models/resnet18_initial_seed6304.pt",
+  "target_unlabeled_images_used": 3929,
+  "target_class_labels_used": false,
+  "target_performance": "NOT_EVALUATED_yet"
+}

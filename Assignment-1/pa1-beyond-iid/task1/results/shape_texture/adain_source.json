@@ -1,0 +1,8 @@
+{
+  "source_url": "https://github.com/naoto0804/pytorch-AdaIN",
+  "source_commit": "47950d0e6656a95a80a4b105c4c0f58d38ef785c",
+  "weights_sha256": {
+    "vgg_normalised.pth": "804ca2835ecf7539f0cd2a7ac3c18ce81e6f8468969ae7117ac0c148d286bb4a",
+    "decoder.pth": "379ca41d59f3a37eed3599bbbc2560c19da5c458870a5ffd3a9dd41aa88f9472"
+  }
+}

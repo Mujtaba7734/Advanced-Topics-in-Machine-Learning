@@ -1,0 +1,20 @@
+{
+  "study": "Task 2 controlled DAN MMD strength",
+  "seed": 6304,
+  "lambda_mmd_values": [
+    0.1,
+    1.0,
+    10.0
+  ],
+  "reused_main_lambda": 1.0,
+  "main_config_sha256": "6c099d47712476cddb3751c556bf354f67290a000c390bfcd74e21263514a667",
+  "main_best_checkpoint_sha256": "7a1d9d1f9cf7c64e50acbddaee59c787320f895003eac6275a0c165cf32162ae",
+  "initial_checkpoint_sha256": "b7a7953b493b6a3b5e6ae577ed139bc7f99da62686a5a4af523fd72def8a5e07",
+  "source_split_sha256": "743f8502abb107c0ded05aaf649d22eac8889908b1589293ec9ceb558fb6c430",
+  "method_sha256": "4ef188e19db7430cc8f104863cc3c2429d41f699eb29b0cae98d3041a7af9d43",
+  "shared_training_loop_sha256": "7402fad2c387f644d085e8bc6f93e6eac628a0498a40d8b51fc24a53393dab2e",
+  "qualitative_hypothesis_before_target_evaluation": "Increasing MMD pressure may lower domain separability but can harm source class-discrimination when excessive; target accuracy is uncertain.",
+  "evaluation_plan": "Compare per-source validation accuracy/macro-F1 and the mean; compute domain separability and labeled Sketch outcomes only later in Task 2G after all settings and checkpoints are frozen.",
+  "source_only_selection_rule": "Highest mean of source-validation macro-F1; ties resolved by smaller lambda. Main method remains lambda=1.",
+  "target_labels_used_to_choose_hyperparameters": false
+}

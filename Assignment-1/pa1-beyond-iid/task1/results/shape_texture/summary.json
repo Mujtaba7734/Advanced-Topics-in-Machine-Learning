@@ -1,0 +1,59 @@
+{
+  "seed": 6304,
+  "review_sha256": "02f1957f80823063a525cc9c3bf4206c8a77fb9c89a52ce1d618157a3b6c301d",
+  "selected_valid_conflicts": 200,
+  "results": [
+    {
+      "model": "resnet50",
+      "n_valid": 200,
+      "n_shape": 106,
+      "n_texture": 17,
+      "n_other": 77,
+      "shape_bias_pct": 86.17886178861788,
+      "coverage_pct": 61.5,
+      "content_accuracy": 0.53,
+      "paired_clean_consistency": 0.54,
+      "mean_max_confidence": 0.7118979096412659,
+      "seed": 6304
+    },
+    {
+      "model": "vit_b16",
+      "n_valid": 200,
+      "n_shape": 156,
+      "n_texture": 7,
+      "n_other": 37,
+      "shape_bias_pct": 95.70552147239263,
+      "coverage_pct": 81.5,
+      "content_accuracy": 0.78,
+      "paired_clean_consistency": 0.78,
+      "mean_max_confidence": 0.8208522200584412,
+      "seed": 6304
+    },
+    {
+      "model": "clip_b32",
+      "n_valid": 200,
+      "n_shape": 155,
+      "n_texture": 5,
+      "n_other": 40,
+      "shape_bias_pct": 96.875,
+      "coverage_pct": 80.0,
+      "content_accuracy": 0.775,
+      "paired_clean_consistency": 0.77,
+      "mean_max_confidence": 0.1698286235332489,
+      "seed": 6304
+    },
+    {
+      "model": "clip_zero_shot",
+      "n_valid": 200,
+      "n_shape": 154,
+      "n_texture": 2,
+      "n_other": 44,
+      "shape_bias_pct": 98.71794871794872,
+      "coverage_pct": 78.0,
+      "content_accuracy": 0.77,
+      "paired_clean_consistency": 0.78,
+      "mean_max_confidence": 0.7466155886650085,
+      "seed": 6304
+    }
+  ]
+}

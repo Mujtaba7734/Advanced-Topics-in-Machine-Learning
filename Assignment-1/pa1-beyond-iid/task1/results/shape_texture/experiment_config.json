@@ -1,0 +1,53 @@
+{
+  "experiment": "Task 1 Part E - Shape vs Texture",
+  "seed": 6304,
+  "dataset": "STL-10 official test subset",
+  "class_names": [
+    "airplane",
+    "bird",
+    "car",
+    "cat",
+    "deer",
+    "dog",
+    "horse",
+    "monkey",
+    "ship",
+    "truck"
+  ],
+  "test_ids_file": "/content/drive/MyDrive/pa1-beyond-iid/task1/results/clean_baseline/clean_image_ids.npy",
+  "class_pairs": [
+    [
+      "airplane",
+      "cat"
+    ],
+    [
+      "bird",
+      "truck"
+    ],
+    [
+      "car",
+      "deer"
+    ],
+    [
+      "dog",
+      "ship"
+    ],
+    [
+      "horse",
+      "monkey"
+    ]
+  ],
+  "candidates_per_direction": 40,
+  "min_valid_per_direction": 20,
+  "style_strength_alpha": 0.75,
+  "rejection_rule": "Inspect content / style / stylized image at usable resolution before evaluation. Accept only if the content object's silhouette remains recognizable and the donor style supplies visible local texture or appearance. Reject if the content disappears, the style donor object dominates the output, the texture transfer is imperceptible, or severe artifacts/clipping make either cue uninterpretable. Decisions must not depend on any classifier prediction.",
+  "hypothesis": "Cue conflicts may elicit content, texture, or other decisions; no architectural ranking assumed.",
+  "primary_metrics": [
+    "shape_texture_other_counts",
+    "shape_bias_pct",
+    "coverage_pct"
+  ],
+  "source_implementation": "https://github.com/naoto0804/pytorch-AdaIN",
+  "weights_release": "https://github.com/naoto0804/pytorch-AdaIN/releases/tag/v0.0.0",
+  "preprocessing": "PIL RGB bicubic resize to 224x224 BEFORE AdaIN and model normalization"
+}

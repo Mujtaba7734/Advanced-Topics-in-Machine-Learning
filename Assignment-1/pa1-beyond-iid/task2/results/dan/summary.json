@@ -1,0 +1,36 @@
+{
+  "method": "dan_mmd",
+  "seed": 6304,
+  "lambda_mmd": 1.0,
+  "best_epoch": 8,
+  "best_source_validation_macro_f1": 0.9538461470650068,
+  "source_validation": {
+    "photo": {
+      "accuracy": 0.9820359281437125,
+      "macro_f1": 0.979129527298411,
+      "loss": 0.09098988664364387,
+      "n_images": 334
+    },
+    "art_painting": {
+      "accuracy": 0.9219512195121952,
+      "macro_f1": 0.9243246514503485,
+      "loss": 0.24753377030535442,
+      "n_images": 410
+    },
+    "cartoon": {
+      "accuracy": 0.9552238805970149,
+      "macro_f1": 0.9580842624462612,
+      "loss": 0.15881447243029628,
+      "n_images": 469
+    },
+    "mean_accuracy": 0.9530703427509742,
+    "mean_macro_f1": 0.9538461470650068,
+    "worst_source_accuracy": 0.9219512195121952,
+    "worst_source_macro_f1": 0.9243246514503485
+  },
+  "checkpoint_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/models/dan_best.pt",
+  "initial_checkpoint_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/models/resnet18_initial_seed6304.pt",
+  "target_unlabeled_images_used": 3929,
+  "target_class_labels_used": false,
+  "target_performance": "NOT_EVALUATED_yet"
+}

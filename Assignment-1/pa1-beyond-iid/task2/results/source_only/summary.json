@@ -1,0 +1,36 @@
+{
+  "method": "source_only_erm",
+  "seed": 6304,
+  "best_epoch": 9,
+  "best_source_val_mean_macro_f1": 0.9462019058869942,
+  "source_validation": {
+    "photo": {
+      "accuracy": 0.9760479041916168,
+      "macro_f1": 0.9725668524635208,
+      "loss": 0.06062348695342423,
+      "n_images": 334
+    },
+    "art_painting": {
+      "accuracy": 0.9121951219512195,
+      "macro_f1": 0.9136163698659603,
+      "loss": 0.30112359581924064,
+      "n_images": 410
+    },
+    "cartoon": {
+      "accuracy": 0.9488272921108742,
+      "macro_f1": 0.9524224953315014,
+      "loss": 0.2133486170822115,
+      "n_images": 469
+    },
+    "mean_accuracy": 0.9456901060845703,
+    "mean_macro_f1": 0.9462019058869942,
+    "worst_source_accuracy": 0.9121951219512195,
+    "worst_source_macro_f1": 0.9136163698659603
+  },
+  "checkpoint_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/models/source_only_best.pt",
+  "initial_checkpoint_path": "/content/drive/MyDrive/pa1-beyond-iid/task2/models/resnet18_initial_seed6304.pt",
+  "source_train_images": 4849,
+  "source_validation_images": 1213,
+  "target_data_or_labels_used": false,
+  "target_performance": "NOT_EVALUATED_yet"
+}

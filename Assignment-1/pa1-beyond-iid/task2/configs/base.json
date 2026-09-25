@@ -1,0 +1,51 @@
+{
+  "seed": 6304,
+  "dataset_repo": "flwrlabs/pacs",
+  "dataset_revision": "394113073258ead631f617d2e13bb377c0715c4b",
+  "class_names": [
+    "dog",
+    "elephant",
+    "giraffe",
+    "guitar",
+    "horse",
+    "house",
+    "person"
+  ],
+  "source_domains": [
+    "photo",
+    "art_painting",
+    "cartoon"
+  ],
+  "target_domain": "sketch",
+  "source_train_manifest": "/content/drive/MyDrive/pa1-beyond-iid/data/pacs/source_train.csv",
+  "source_validation_manifest": "/content/drive/MyDrive/pa1-beyond-iid/data/pacs/source_val.csv",
+  "target_unlabeled_manifest_task2_only": "/content/drive/MyDrive/pa1-beyond-iid/data/pacs/target_unlabeled.csv",
+  "split_file": "/content/drive/MyDrive/pa1-beyond-iid/shared/splits/pacs_sketch_seed6304.json",
+  "network": "torchvision resnet18; ResNet18_Weights.IMAGENET1K_V1; 7-class fc",
+  "fine_tune_backbone": true,
+  "train_transform": "Resize((256,256)), RandomCrop(224), RandomHorizontalFlip(), ImageNet Normalize",
+  "eval_transform": "Resize((256,256)), CenterCrop(224), ImageNet Normalize",
+  "batch_size_per_source_domain": 8,
+  "target_batch_size_task2_only": 24,
+  "optimizer": "AdamW",
+  "learning_rate": 0.0001,
+  "weight_decay": 0.0001,
+  "max_source_epochs": 30,
+  "early_stopping_patience": 5,
+  "checkpoint_selection": "mean_macro_f1_across_photo_art_painting_cartoon_validation",
+  "batchnorm_running_stats": "ImageNet pretrained; frozen by BN.eval() after model.train()",
+  "batchnorm_affine": "trainable",
+  "dan_main_lambda": 1.0,
+  "dan_kernel_multipliers": [
+    0.5,
+    1.0,
+    2.0
+  ],
+  "dan_controlled_study_lambdas": [
+    0.1,
+    1.0,
+    10.0
+  ],
+  "target_labels": "final evaluation ONLY, after all settings/checkpoints fixed",
+  "task3": "sources-only archive; no Sketch images, target labels or target results in training/selection"
+}

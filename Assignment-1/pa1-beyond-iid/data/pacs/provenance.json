@@ -1,0 +1,25 @@
+{
+  "dataset_repo": "flwrlabs/pacs",
+  "dataset_revision": "394113073258ead631f617d2e13bb377c0715c4b",
+  "class_names": [
+    "dog",
+    "elephant",
+    "giraffe",
+    "guitar",
+    "horse",
+    "house",
+    "person"
+  ],
+  "source_domains": [
+    "photo",
+    "art_painting",
+    "cartoon"
+  ],
+  "target_domain": "sketch",
+  "source_images": 6062,
+  "target_images": 3929,
+  "source_archive_sha256": "c7b473d63f77e0a2f39fdb78de9be5cc9a9793de3902073eb875ce4a2dcba503",
+  "target_archive_sha256": "af3c0fc4cd3514e4dcafdec7290e21d1a7693a72aec65fb0037e6deddcaf4b1d",
+  "target_labels_exported": false,
+  "split_seed": 6304
+}
