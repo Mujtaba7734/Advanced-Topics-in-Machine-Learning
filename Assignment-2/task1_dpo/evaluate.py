@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import torch
+from tqdm.auto import tqdm
 
 from common.data import (encode_prompt_response, load_yaml, pad_batch, preference_responses,
                          prompt_messages_from_preference, read_jsonl, repo_path, write_jsonl)
@@ -30,7 +31,7 @@ def evaluate_rows(bundle, rows=None, generate=True):
     rows = bundle["rows"] if rows is None else rows
     device = next(policy.parameters()).device
     examples = []
-    for row in rows:
+    for row in tqdm(rows, total=len(rows), desc="DPO evaluation", unit="example", dynamic_ncols=True):
         prompt = prompt_messages_from_preference(row)
         chosen, rejected = preference_responses(row)
         batches = [pad_batch(tok, [encode_prompt_response(tok, prompt, response,
