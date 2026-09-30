@@ -30,9 +30,34 @@ def main():
     if not src.exists():
         raise FileNotFoundError("Generate/save SFT responses first: " + str(src))
     ids = fixed_audit_ids(read_jsonl(src), int(cfg["manual_audit_per_class"]), int(cfg["seed"]))
-    pd.DataFrame({"xstest_id": ids, "manual_label": [""] * len(ids)}).to_csv(outdir / "manual_audit_ids.csv", index=False)
+    ids_path = outdir / "manual_audit_ids.csv"
+    if ids_path.exists():
+        previous = pd.read_csv(ids_path)
+        if previous["xstest_id"].astype(int).tolist() != ids:
+            raise ValueError("Existing fixed audit IDs disagree with configured seed/classes")
+    else:
+        pd.DataFrame({"xstest_id": ids}).to_csv(ids_path, index=False)
+    sheet_path = outdir / "manual_audit_sheet.csv"
+    existing_labels = {}
+    if sheet_path.exists():
+        prior = pd.read_csv(sheet_path, keep_default_na=False)
+        if "policy" in prior.columns:
+            existing_labels = {(int(r["xstest_id"]), str(r["policy"])): str(r["manual_label"])
+                               for _, r in prior.iterrows()}
+        else:
+            existing_labels = {(int(r["xstest_id"]), policy): str(r[f"{policy}_manual_label"])
+                               for _, r in prior.iterrows() for policy in ("sft", "dpo", "ppo", "grpo")}
+    sheet = {sid: {"xstest_id": sid} for sid in ids}
+    for policy in ("sft", "dpo", "ppo", "grpo"):
+        rows = {int(r["xstest_id"]): r for r in read_jsonl(outdir / f"generated_{policy}.jsonl")}
+        for sid in ids:
+            row = rows[sid]
+            sheet[sid].update({"benchmark_class": row["benchmark_class"], "type": row["type"],
+                "prompt": row["prompt"], f"{policy}_response": row["response"],
+                f"{policy}_manual_label": existing_labels.get((sid, policy), "")})
+    pd.DataFrame([sheet[sid] for sid in ids]).to_csv(sheet_path, index=False)
     print("Wrote fixed audit IDs:", outdir / "manual_audit_ids.csv")
-    print("Join these IDs to each policy's generated responses and label without viewing AI labels first.")
+    print("Wrote unlabeled response sheet:", sheet_path)
 
 
 if __name__ == "__main__":

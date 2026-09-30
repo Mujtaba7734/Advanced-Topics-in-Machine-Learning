@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 import pandas as pd
 
-from common.data import load_yaml, repo_path
+from common.data import load_yaml, repo_path, write_jsonl
 from common.generation import batch_generate
 from common.models import load_policy, load_tokenizer
 
@@ -61,11 +61,14 @@ def main():
     ap.add_argument("--config", default="configs/feedback.yaml")
     args = ap.parse_args()
     cfg = load_yaml(args.config)
-    print("Policies:", list(policy_specs(cfg)))
-    print("XSTest rows:", len(load_xstest(cfg)))
-    raise NotImplementedError(
-        "TODO(student): call generate_for_policy for SFT/DPO/PPO/GRPO, save common deterministic responses, and preserve the fixed prompt order."
-    )
+    outdir = repo_path(cfg["results_dir"]) / "task4_safety"
+    expected = load_xstest(cfg)["xstest_id"].astype(int).tolist()
+    for name in policy_specs(cfg):
+        rows = generate_for_policy(cfg, name)
+        if [r["xstest_id"] for r in rows] != expected:
+            raise ValueError(f"XSTest order changed for {name}")
+        write_jsonl(outdir / f"generated_{name}.jsonl", rows)
+        print(name, len(rows))
 
 
 if __name__ == "__main__":

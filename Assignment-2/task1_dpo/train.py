@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 import argparse
-from pathlib import Path
-
 import torch
 from torch.optim import AdamW
 from torch.utils.data import DataLoader
@@ -16,8 +14,9 @@ from common.data import (
     read_jsonl,
     repo_path,
 )
-from common.logging_utils import set_seed
-from common.models import load_policy, load_tokenizer, trainable_parameters
+from common.logging_utils import append_jsonl, save_json, set_seed, wall_timer
+from common.models import load_policy, load_tokenizer, reference_mode, trainable_parameters
+from common.generation import response_sequence_logprobs
 from task1_dpo.dpo import dpo_loss
 
 
@@ -71,11 +70,46 @@ def run_training(config_path: str, run_name: str, dataset_path: str | None = Non
     output = repo_path(output_path or cfg["standard_output"])
     output.parent.mkdir(parents=True, exist_ok=True)
 
-    raise NotImplementedError(
-        "TODO(student): implement the DPO optimization loop, logging, gradient accumulation, "
-        "reference-policy computation, and checkpoint saving. Validate task1_dpo.dpo.dpo_loss "
-        "against the manual before trusting results."
-    )
+    model, optimizer = bundle["model"], bundle["optimizer"]
+    accum = int(cfg["grad_accum_steps"])
+    log_path = repo_path(cfg["results_dir"]) / f"{run_name}_train.jsonl"
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    log_path.write_text("", encoding="utf-8")
+    optimizer.zero_grad(set_to_none=True)
+    timer = wall_timer()
+    steps = 0
+    for epoch in range(int(cfg["epochs"])):
+        loader = bundle["loader"]
+        for i, (chosen, rejected) in enumerate(loader):
+            device = next(model.parameters()).device
+            chosen = {k: v.to(device) for k, v in chosen.items()}
+            rejected = {k: v.to(device) for k, v in rejected.items()}
+            with torch.no_grad(), reference_mode(model):
+                ref_c, _, _ = response_sequence_logprobs(model, chosen)
+                ref_r, _, _ = response_sequence_logprobs(model, rejected)
+            pol_c, _, _ = response_sequence_logprobs(model, chosen)
+            pol_r, _, _ = response_sequence_logprobs(model, rejected)
+            loss, diagnostics = dpo_loss(pol_c, pol_r, ref_c, ref_r, bundle["beta"])
+            # Scale the final partial accumulation window by its actual size.
+            window = min(accum, len(loader) - (i // accum) * accum)
+            (loss / window).backward()
+            if (i + 1) % accum == 0 or i + 1 == len(loader):
+                grad_norm = torch.nn.utils.clip_grad_norm_(trainable_parameters(model), float(cfg["max_grad_norm"]))
+                optimizer.step()
+                optimizer.zero_grad(set_to_none=True)
+                steps += 1
+                append_jsonl(log_path, {"epoch": epoch, "step": steps, "loss": float(loss.item()),
+                    "grad_norm": float(grad_norm), "beta": bundle["beta"],
+                    **{k: float(v) for k, v in diagnostics.items()}})
+    model.save_pretrained(output)
+    summary = {"run_name": run_name, "adapter": str(output), "examples": len(bundle["rows"]),
+               "epochs": int(cfg["epochs"]), "optimizer_steps": steps, "beta": bundle["beta"],
+               "wall_seconds": timer()}
+    save_json(repo_path(cfg["results_dir"]) / f"{run_name}_config.json",
+              {**cfg, "beta": bundle["beta"], "training_data": dataset_path or cfg["paths"]["dpo_standard_train"],
+               "max_examples": max_examples})
+    save_json(repo_path(cfg["results_dir"]) / f"{run_name}_train.json", summary)
+    return summary
 
 
 def main():

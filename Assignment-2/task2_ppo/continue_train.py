@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 import argparse
-from pathlib import Path
+import time
+import torch
 
 from torch.optim import AdamW
 
 from common.data import load_yaml, prompt_messages, read_jsonl, repo_path
-from common.logging_utils import set_seed
+from common.generation import batch_generate, response_token_logprobs, score_reward_pairs
+from common.logging_utils import append_jsonl, save_json, set_seed
+from common.metrics import masked_mean, sample_entropy
 from common.models import (
     load_policy,
     load_reward_model,
@@ -14,7 +17,10 @@ from common.models import (
     load_value_model,
     trainable_parameters,
     value_parameter_groups,
+    reference_mode,
+    token_values,
 )
+from task2_ppo.ppo import compute_gae, normalize_advantages, ppo_policy_loss, shaped_rewards, value_mse_loss
 
 
 def prepare_ppo_continuation(config_path: str):
@@ -73,12 +79,77 @@ def run_ppo(config_path: str, output: str | None = None, updates: int | None = N
     out = repo_path(output or cfg["output"])
     out.parent.mkdir(parents=True, exist_ok=True)
 
-    raise NotImplementedError(
-        "TODO(student): implement the 20-update PPO continuation from the supplied midpoint. "
-        "Your loop must collect on-policy rollouts, compute old/reference log-probs, learned reward, "
-        "KL-shaped rewards, GAE/returns, policy/value losses, clipping diagnostics, entropy, gradient norms, "
-        "response length, wall-clock time, and peak VRAM. Validate task2_ppo.ppo before running experiments."
-    )
+    policy, value = bundle["policy"], bundle["value_model"]
+    po, vo = bundle["policy_optimizer"], bundle["value_optimizer"]
+    tok = bundle["tokenizer"]
+    prompts = bundle["prompt_rows"]
+    n = int(cfg["updates"])
+    log_path = repo_path(cfg["results_dir"]) / f"{run_name}_train.jsonl"
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    log_path.write_text("", encoding="utf-8")
+    if torch.cuda.is_available():
+        torch.cuda.reset_peak_memory_stats()
+    start = time.perf_counter()
+    for update in range(n):
+        indices = [(update * int(cfg["prompts_per_update"]) + j) % len(prompts)
+                   for j in range(int(cfg["prompts_per_update"]))]
+        messages = [prompt_messages(prompts[i]) for i in indices]
+        gen = batch_generate(policy, tok, messages, int(cfg["max_prompt_length"]),
+            int(cfg["max_response_length"]), **cfg["generation"])
+        seq, attn, response_ids = gen["sequences"], gen["attention_mask"], gen["response_ids"]
+        mask = gen["response_mask"]
+        width = gen["prompt_width"]
+        with torch.no_grad():
+            policy.eval()
+            old_logp, _ = response_token_logprobs(policy, seq, attn, width, response_ids)
+            with reference_mode(policy):
+                ref_logp, _ = response_token_logprobs(policy, seq, attn, width, response_ids)
+            value.eval()
+            old_values = token_values(value, seq, attn)[:, width - 1:-1].float()
+            task_reward = score_reward_pairs(bundle["reward_model"], bundle["reward_tokenizer"],
+                messages, gen["responses"], int(cfg["reward_max_length"]))
+            task_reward -= float(cfg["missing_eos_penalty"]) * torch.tensor(
+                [not x for x in gen["terminated_with_eos"]], device=task_reward.device, dtype=task_reward.dtype)
+            rewards = shaped_rewards(task_reward, old_logp, ref_logp, mask, cfg["kl_beta"])
+            advantages, returns = compute_gae(rewards, old_values, mask,
+                float(cfg["gamma"]), float(cfg["gae_lambda"]))
+            advantages = normalize_advantages(advantages, mask).detach()
+            returns = returns.detach()
+        policy.train()
+        value.train()
+        for _ in range(int(cfg["ppo_epochs"])):
+            po.zero_grad(set_to_none=True)
+            vo.zero_grad(set_to_none=True)
+            new_logp, _ = response_token_logprobs(policy, seq, attn, width, response_ids)
+            ploss, ratio, clip_frac = ppo_policy_loss(new_logp, old_logp, advantages, mask, float(cfg["clip_epsilon"]))
+            (ploss).backward()
+            policy_norm = torch.nn.utils.clip_grad_norm_(trainable_parameters(policy), float(cfg["max_grad_norm"]))
+            po.step()
+            predicted = token_values(value, seq, attn)[:, width - 1:-1].float()
+            vloss = value_mse_loss(predicted, returns, mask)
+            (float(cfg["value_coef"]) * vloss).backward()
+            value_norm = torch.nn.utils.clip_grad_norm_(trainable_parameters(value), float(cfg["max_grad_norm"]))
+            vo.step()
+        record = {"update": update + 1, "source_indices": [prompts[i].get("source_index", i) for i in indices],
+            "reward": float(task_reward.mean()), "sampled_kl": float(masked_mean(old_logp - ref_logp, mask)),
+            "policy_loss": float(ploss), "value_loss": float(vloss),
+            "entropy": float(sample_entropy(new_logp.detach(), mask)),
+            "policy_grad_norm": float(policy_norm), "value_grad_norm": float(value_norm),
+            "clip_fraction": float(clip_frac), "response_length": float(mask.sum(-1).mean()),
+            "eos_rate": sum(gen["terminated_with_eos"]) / len(indices)}
+        append_jsonl(log_path, record)
+    policy.save_pretrained(out)
+    value_dir = out.parent / f"{out.name}_value"
+    value.save_pretrained(value_dir)
+    summary = {"run_name": run_name, "updates": n, "adapter": str(out),
+        "value_adapter": str(value_dir), "midpoint_policy": cfg["paths"]["ppo_midpoint_policy"],
+        "midpoint_value": cfg["paths"]["ppo_midpoint_value"],
+        "clip_epsilon": cfg["clip_epsilon"], "kl_beta": cfg["kl_beta"],
+        "wall_seconds": time.perf_counter() - start,
+        "peak_vram_bytes": torch.cuda.max_memory_allocated() if torch.cuda.is_available() else None}
+    save_json(repo_path(cfg["results_dir"]) / f"{run_name}_config.json", cfg)
+    save_json(repo_path(cfg["results_dir"]) / f"{run_name}_train.json", summary)
+    return summary
 
 
 def main():

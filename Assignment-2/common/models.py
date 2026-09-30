@@ -213,7 +213,10 @@ def value_parameter_groups(model, lora_lr: float, head_lr: float):
 
 
 def token_values(value_model, input_ids, attention_mask):
-    backbone = getattr(value_model, value_model.base_model_prefix)
+    # PEFT wraps the sequence-classification model; use its adapted backbone
+    # and saved scalar head so token values retain critic gradients.
+    core = value_model.get_base_model() if isinstance(value_model, PeftModel) else value_model
+    backbone = getattr(core, core.base_model_prefix)
     outputs = backbone(
         input_ids=input_ids,
         attention_mask=attention_mask,
@@ -222,10 +225,10 @@ def token_values(value_model, input_ids, attention_mask):
         use_cache=False,
     )
     hidden = outputs.hidden_states[-1]
-    if hasattr(value_model, "score"):
-        head = value_model.score
-    elif hasattr(value_model, "classifier"):
-        head = value_model.classifier
+    if hasattr(core, "score"):
+        head = core.score
+    elif hasattr(core, "classifier"):
+        head = core.classifier
     else:
         raise RuntimeError("Could not locate scalar value head")
     return head(hidden).squeeze(-1)

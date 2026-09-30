@@ -8,7 +8,8 @@ from pathlib import Path
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 
-from common.data import load_yaml, read_jsonl
+from common.data import load_yaml, read_jsonl, repo_path, write_jsonl
+from task4_safety.generate_responses import policy_specs
 from common.models import resolve_dtype
 
 LABELS = {
@@ -108,14 +109,26 @@ def main():
     ap.add_argument("--input", help="Optional generated JSONL file to inspect")
     args = ap.parse_args()
     cfg = load_yaml(args.config)
+    outdir = repo_path(cfg["results_dir"]) / "task4_safety"
+    inputs = [repo_path(args.input)] if args.input else [outdir / f"generated_{name}.jsonl" for name in policy_specs(cfg)]
     tok, model = load_judge(cfg)
-    print("Fixed Task 4 judge loaded:", cfg["ai_judge_model"])
-    if args.input:
-        rows = read_jsonl(args.input)
-        print("Input rows:", len(rows))
-    raise NotImplementedError(
-        "TODO(student): apply judge_one to your frozen-policy response files, cache the labels, and implement the required Task 4 aggregation."
-    )
+    for src in inputs:
+        rows = read_jsonl(src)
+        name = rows[0]["policy"] if rows else src.stem.removeprefix("generated_")
+        dst = outdir / f"judged_{name}.jsonl"
+        existing = {int(r["xstest_id"]): r for r in read_jsonl(dst)} if dst.exists() else {}
+        judged = []
+        for row in rows:
+            sid = int(row["xstest_id"])
+            cached = existing.get(sid)
+            if cached and cached.get("prompt") == row["prompt"] and cached.get("response") == row["response"]:
+                judged.append(cached)
+            else:
+                judged.append({**row, **judge_one(tok, model, row["prompt"], row["response"],
+                    int(cfg["judge_max_new_tokens"]))})
+                write_jsonl(dst, judged)
+        write_jsonl(dst, judged)
+        print(name, len(judged))
 
 
 if __name__ == "__main__":

@@ -2,6 +2,7 @@
 
 from pathlib import Path
 from huggingface_hub import snapshot_download
+from scripts.prepare_transfer_eval import materialize_transfer_eval
 
 HF_ASSET_REPO = "AbDu11aHHH/ATML-PA2-assets"
 HF_ASSET_REVISION = "0b350481fb03f5525a35bcdec4131bd4fe487f98"
@@ -26,6 +27,10 @@ def main():
             "manifests/**",
         ],
     )
+
+    # The course archive may omit the tiny fixed SVAMP subset. The preparation
+    # helper uses the official source and fixed first-100 ordering when needed.
+    materialize_transfer_eval()
 
     print("\nCourse assets downloaded.")
     print("Now run: python -m scripts.validate_assets")

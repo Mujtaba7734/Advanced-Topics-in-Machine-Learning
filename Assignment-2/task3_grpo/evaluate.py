@@ -4,6 +4,7 @@ import argparse
 
 from common.data import load_yaml, read_jsonl
 from common.models import load_policy, load_reward_model, load_tokenizer
+from common.rl_evaluation import evaluate_rl
 
 
 def load_evaluation_bundle(config_path: str, adapter: str):
@@ -23,10 +24,7 @@ def main():
     ap.add_argument("--adapter", required=True)
     ap.add_argument("--name", default="standard")
     args = ap.parse_args()
-    load_evaluation_bundle(args.config, args.adapter)
-    raise NotImplementedError(
-        "TODO(student): implement the common held-out GRPO evaluation and save the required metrics/examples."
-    )
+    print(evaluate_rl(load_evaluation_bundle(args.config, args.adapter), args.name, "grpo"))
 
 
 if __name__ == "__main__":
