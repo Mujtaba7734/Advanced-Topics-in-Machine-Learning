@@ -83,6 +83,20 @@ The PPO value checkpoint is intentionally released as the exact staff midpoint s
 
 ### Task 1 - DPO
 
+Run the complete Task 1 pipeline with one command:
+
+```bash
+python -m task1_dpo.run_all --config configs/dpo.yaml
+```
+
+If the standard one-epoch DPO run has already completed, reuse it and run only the remaining Task 1 stages:
+
+```bash
+python -m task1_dpo.run_all --config configs/dpo.yaml --skip-standard-train
+```
+
+The individual entry points remain available:
+
 ```bash
 python -m task1_dpo.train --config configs/dpo.yaml --run-name standard
 python -m task1_dpo.evaluate --config configs/dpo.yaml --adapter outputs/task1_dpo/standard --name standard
