@@ -4,6 +4,7 @@ import argparse
 import torch
 from torch.optim import AdamW
 from torch.utils.data import DataLoader
+from tqdm.auto import tqdm
 
 from common.data import (
     encode_prompt_response,
@@ -80,7 +81,8 @@ def run_training(config_path: str, run_name: str, dataset_path: str | None = Non
     steps = 0
     for epoch in range(int(cfg["epochs"])):
         loader = bundle["loader"]
-        for i, (chosen, rejected) in enumerate(loader):
+        progress = tqdm(loader, total=len(loader), desc=f"DPO {run_name}", unit="batch", dynamic_ncols=True)
+        for i, (chosen, rejected) in enumerate(progress):
             device = next(model.parameters()).device
             chosen = {k: v.to(device) for k, v in chosen.items()}
             rejected = {k: v.to(device) for k, v in rejected.items()}
@@ -98,6 +100,7 @@ def run_training(config_path: str, run_name: str, dataset_path: str | None = Non
                 optimizer.step()
                 optimizer.zero_grad(set_to_none=True)
                 steps += 1
+                progress.set_postfix(loss=f"{loss.item():.4f}", grad=f"{float(grad_norm):.3f}", step=steps)
                 append_jsonl(log_path, {"epoch": epoch, "step": steps, "loss": float(loss.item()),
                     "grad_norm": float(grad_norm), "beta": bundle["beta"],
                     **{k: float(v) for k, v in diagnostics.items()}})
