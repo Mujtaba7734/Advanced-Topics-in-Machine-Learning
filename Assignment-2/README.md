@@ -106,6 +106,20 @@ python -m task1_dpo.analyze_length --config configs/dpo.yaml
 
 ### Task 2 - PPO
 
+Run the complete Task 2 pipeline with validation and a verified backup:
+
+```bash
+python -m task2_ppo.run_all --config configs/ppo.yaml
+```
+
+Resume from already completed Task 2 stages:
+
+```bash
+python -m task2_ppo.run_all --config configs/ppo.yaml --resume
+```
+
+Individual entry points remain available:
+
 ```bash
 python -m task2_ppo.continue_train --config configs/ppo.yaml --run-name standard
 python -m task2_ppo.evaluate --config configs/ppo.yaml --adapter outputs/task2_ppo/standard --name standard
