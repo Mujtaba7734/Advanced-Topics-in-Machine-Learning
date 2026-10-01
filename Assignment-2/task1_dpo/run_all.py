@@ -46,6 +46,117 @@ def standard_evaluation_is_complete(cfg) -> bool:
 
 
 
+
+def _jsonl_count(path: Path) -> int:
+    with path.open("r", encoding="utf-8") as f:
+        return sum(1 for line in f if line.strip())
+
+
+def validate_task1_artifacts(cfg) -> None:
+    """Fail loudly if any required Task 1 run was shortened or is incomplete."""
+    results_dir = repo_path(cfg["results_dir"])
+    standard_train_rows = len(read_jsonl(cfg["paths"]["dpo_standard_train"]))
+    standard_eval_rows = len(read_jsonl(cfg["paths"]["dpo_standard_eval"]))
+    length_train_rows = len(read_jsonl(cfg["paths"]["dpo_length_train"]))
+    length_eval_rows = len(read_jsonl(cfg["paths"]["dpo_length_eval"]))
+    word_limit_rows = len(read_jsonl(cfg["paths"]["word_limit_prompts"]))
+
+    checks = []
+
+    def require(condition, message):
+        checks.append((bool(condition), message))
+
+    # Standard DPO: full fixed training set, exactly one epoch, full held-out evaluation.
+    standard_train_path = results_dir / "standard_train.json"
+    standard_eval_path = results_dir / "standard_eval.json"
+    standard_examples_path = results_dir / "standard_examples.jsonl"
+    require(adapter_is_complete(repo_path(cfg["standard_output"])), "standard DPO adapter exists")
+    require(standard_train_path.exists(), "standard_train.json exists")
+    if standard_train_path.exists():
+        standard_train = load_json(standard_train_path)
+        require(int(standard_train.get("examples", -1)) == standard_train_rows,
+                f"standard DPO used all {standard_train_rows} fixed training examples")
+        require(int(standard_train.get("epochs", -1)) == 1,
+                "standard DPO ran exactly one epoch")
+    require(standard_eval_path.exists(), "standard_eval.json exists")
+    require(standard_examples_path.exists(), "standard_examples.jsonl exists")
+    if standard_eval_path.exists():
+        require(int(load_json(standard_eval_path).get("n", -1)) == standard_eval_rows,
+                f"standard DPO evaluated all {standard_eval_rows} fixed held-out pairs")
+    if standard_examples_path.exists():
+        require(_jsonl_count(standard_examples_path) == standard_eval_rows,
+                f"standard example log contains all {standard_eval_rows} held-out pairs")
+
+    # Beta study: all three required betas, exact short-run budget, full common evaluation.
+    beta_study_path = results_dir / "beta_study.json"
+    require(beta_study_path.exists(), "beta_study.json exists")
+    for beta in cfg["betas"]:
+        name = f"beta_{float(beta):.2f}"
+        adapter = repo_path(cfg["standard_output"]).parent / name
+        train_path = results_dir / f"{name}_train.json"
+        eval_path = results_dir / f"{name}_eval.json"
+        examples_path = results_dir / f"{name}_examples.jsonl"
+        require(adapter_is_complete(adapter), f"{name} adapter exists")
+        require(train_path.exists(), f"{name}_train.json exists")
+        if train_path.exists():
+            train = load_json(train_path)
+            require(int(train.get("examples", -1)) == int(cfg["short_ablation_examples"]),
+                    f"{name} used exactly {int(cfg['short_ablation_examples'])} short-run examples")
+            require(abs(float(train.get("beta", -999.0)) - float(beta)) < 1e-12,
+                    f"{name} used beta={float(beta):.2f}")
+        require(eval_path.exists(), f"{name}_eval.json exists")
+        if eval_path.exists():
+            require(int(load_json(eval_path).get("n", -1)) == standard_eval_rows,
+                    f"{name} evaluated all {standard_eval_rows} common held-out pairs")
+        require(examples_path.exists() and _jsonl_count(examples_path) == standard_eval_rows,
+                f"{name} example log contains all {standard_eval_rows} held-out pairs")
+
+    # Length-confounding study: full supplied balanced set and full stratified evaluation for both policies.
+    length_train_path = results_dir / "length_balanced_train.json"
+    require(adapter_is_complete(repo_path(cfg["length_output"])), "length-balanced adapter exists")
+    require(length_train_path.exists(), "length_balanced_train.json exists")
+    if length_train_path.exists():
+        length_train = load_json(length_train_path)
+        require(int(length_train.get("examples", -1)) == length_train_rows,
+                f"length-balanced DPO used all {length_train_rows} supplied training pairs")
+        require(int(length_train.get("epochs", -1)) == 1,
+                "length-balanced DPO ran exactly one epoch")
+    for name in ("standard_stratified", "length_balanced_stratified"):
+        eval_path = results_dir / f"{name}_eval.json"
+        examples_path = results_dir / f"{name}_examples.jsonl"
+        require(eval_path.exists(), f"{name}_eval.json exists")
+        if eval_path.exists():
+            require(int(load_json(eval_path).get("n", -1)) == length_eval_rows,
+                    f"{name} evaluated all {length_eval_rows} stratified held-out pairs")
+        require(examples_path.exists() and _jsonl_count(examples_path) == length_eval_rows,
+                f"{name} example log contains all {length_eval_rows} stratified pairs")
+
+    length_study_path = results_dir / "length_study.json"
+    require(length_study_path.exists(), "length_study.json exists")
+    for name in ("standard", "length_balanced"):
+        word_path = results_dir / f"{name}_word_limits.jsonl"
+        require(word_path.exists() and _jsonl_count(word_path) == word_limit_rows,
+                f"{name} word-limit evaluation contains all {word_limit_rows} common prompts")
+
+    failures = [message for ok, message in checks if not ok]
+    if failures:
+        formatted = "\n  - ".join(failures)
+        raise RuntimeError(
+            "Task 1 completeness validation FAILED. Nothing will be declared complete or backed up.\n"
+            f"  - {formatted}"
+        )
+
+    print("\nTASK 1 COMPLETENESS CHECK: PASS")
+    print(f"  Standard train:       {standard_train_rows}/{standard_train_rows} examples, 1 epoch")
+    print(f"  Standard eval:        {standard_eval_rows}/{standard_eval_rows} pairs")
+    print(f"  Beta short runs:      {len(cfg['betas'])} x {int(cfg['short_ablation_examples'])} examples")
+    print(f"  Beta evals:           {len(cfg['betas'])} x {standard_eval_rows} pairs")
+    print(f"  Length-balanced train:{length_train_rows}/{length_train_rows} pairs, 1 epoch")
+    print(f"  Stratified evals:     2 x {length_eval_rows} pairs")
+    print(f"  Word-limit evals:     2 x {word_limit_rows} prompts")
+    print("  No Task 1 experimental budget was shortened.", flush=True)
+
+
 def create_verified_backup(cfg) -> Path:
     """Archive every irreplaceable Task 1 artifact and verify the archive."""
     repo_root = repo_path(".")
@@ -205,10 +316,14 @@ def main() -> None:
         length_args.append("--resume")
     run_module("task1_dpo.analyze_length", *length_args)
 
-    print("\nTask 1 pipeline complete.", flush=True)
+    validate_task1_artifacts(cfg)
+    backup_path = create_verified_backup(cfg)
+
+    print("\nTask 1 pipeline complete and verified.", flush=True)
     print(f"Results: {repo_path(cfg['results_dir'])}", flush=True)
     print(f"Standard adapter: {standard_adapter}", flush=True)
     print(f"Length-balanced adapter: {repo_path(cfg['length_output'])}", flush=True)
+    print(f"Verified backup: {backup_path}", flush=True)
 
 
 if __name__ == "__main__":
