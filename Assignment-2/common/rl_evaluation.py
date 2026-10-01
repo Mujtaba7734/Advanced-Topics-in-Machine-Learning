@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import torch
+from tqdm.auto import tqdm
 
 from common.data import prompt_messages, repo_path, write_jsonl
 from common.generation import batch_generate, response_token_logprobs, score_reward_pairs
@@ -17,7 +18,7 @@ def evaluate_rl(bundle, name, task):
     set_seed(int(cfg["seed"]))
     max_response = int(cfg.get("eval_max_response_length", cfg.get("max_completion_length")))
     examples = []
-    for i, row in enumerate(rows):
+    for i, row in enumerate(tqdm(rows, total=len(rows), desc=f"{task.upper()} evaluation: {name}", unit="example", dynamic_ncols=True)):
         messages = prompt_messages(row)
         gen = batch_generate(policy, tok, [messages], int(cfg["max_prompt_length"]),
             max_response, **cfg["generation"])
