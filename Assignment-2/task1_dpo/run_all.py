@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
+import json
 import subprocess
 import sys
+import tarfile
 from pathlib import Path
 
 from common.data import load_yaml, read_jsonl, repo_path
@@ -40,6 +43,112 @@ def standard_evaluation_is_complete(cfg) -> bool:
         return False
     metrics = load_json(metrics_path)
     return int(metrics.get("n", -1)) == expected_n
+
+
+
+def create_verified_backup(cfg) -> Path:
+    """Archive every irreplaceable Task 1 artifact and verify the archive."""
+    repo_root = repo_path(".")
+    backup_path = Path("/kaggle/working/ATML_PA2_Task1_BACKUP.tar.gz")
+    checksum_path = Path(str(backup_path) + ".sha256")
+    manifest_path = repo_path(cfg["results_dir"]) / "task1_backup_manifest.json"
+
+    required = [
+        repo_path(cfg["results_dir"]),
+        repo_path(cfg["standard_output"]),
+        repo_path(cfg["length_output"]),
+        repo_path("configs/dpo.yaml"),
+    ]
+    missing = [str(path) for path in required if not path.exists()]
+    if missing:
+        raise FileNotFoundError(
+            "Refusing to declare Task 1 complete because backup inputs are missing: "
+            + ", ".join(missing)
+        )
+
+    beta_adapters = [
+        repo_path(cfg["standard_output"]).parent / f"beta_{float(beta):.2f}"
+        for beta in cfg["betas"]
+    ]
+    missing_beta = [str(path) for path in beta_adapters if not adapter_is_complete(path)]
+    if missing_beta:
+        raise FileNotFoundError(
+            "Refusing to declare Task 1 complete because beta adapters are missing: "
+            + ", ".join(missing_beta)
+        )
+
+    try:
+        git_head = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"],
+            cwd=repo_root,
+            text=True,
+        ).strip()
+    except Exception:
+        git_head = None
+
+    manifest = {
+        "task": "task1_dpo",
+        "git_head": git_head,
+        "results_dir": str(repo_path(cfg["results_dir"])),
+        "standard_adapter": str(repo_path(cfg["standard_output"])),
+        "length_balanced_adapter": str(repo_path(cfg["length_output"])),
+        "beta_adapters": [str(path) for path in beta_adapters],
+        "backup_path": str(backup_path),
+    }
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+
+    archive_inputs = [
+        repo_path(cfg["results_dir"]),
+        repo_path(cfg["standard_output"]),
+        repo_path(cfg["length_output"]),
+        *beta_adapters,
+        repo_path("configs/dpo.yaml"),
+        manifest_path,
+    ]
+
+    seen = set()
+    with tarfile.open(backup_path, "w:gz") as tar:
+        for path in archive_inputs:
+            resolved = path.resolve()
+            if resolved in seen:
+                continue
+            seen.add(resolved)
+            try:
+                arcname = resolved.relative_to(repo_root.resolve())
+            except ValueError:
+                arcname = Path(resolved.name)
+            tar.add(resolved, arcname=str(arcname))
+
+    # Verify that the archive is readable and contains both results and adapters.
+    with tarfile.open(backup_path, "r:gz") as tar:
+        names = tar.getnames()
+        required_prefixes = [
+            str(Path(cfg["results_dir"])),
+            str(Path(cfg["standard_output"])),
+            str(Path(cfg["length_output"])),
+        ]
+        for prefix in required_prefixes:
+            if not any(name == prefix or name.startswith(prefix + "/") for name in names):
+                raise RuntimeError(f"Backup verification failed: missing {prefix}")
+
+    sha256 = hashlib.sha256()
+    with backup_path.open("rb") as f:
+        for chunk in iter(lambda: f.read(8 * 1024 * 1024), b""):
+            sha256.update(chunk)
+    digest = sha256.hexdigest()
+    checksum_path.write_text(f"{digest}  {backup_path.name}\n", encoding="utf-8")
+
+    print("\n" + "=" * 80)
+    print("TASK 1 BACKUP CREATED AND VERIFIED")
+    print(f"Backup:   {backup_path}")
+    print(f"SHA256:   {digest}")
+    print(f"Checksum: {checksum_path}")
+    print(f"Size MiB: {backup_path.stat().st_size / (1024 ** 2):.1f}")
+    print("IMPORTANT: preserve this /kaggle/working backup with Kaggle Save Version/output")
+    print("or download it before stopping/resetting the session.")
+    print("=" * 80, flush=True)
+    return backup_path
 
 
 def main() -> None:
