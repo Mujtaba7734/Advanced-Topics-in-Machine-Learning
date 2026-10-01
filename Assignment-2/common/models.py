@@ -181,6 +181,15 @@ def load_value_model(cfg: dict, checkpoint: str, train_mode: str = "lora_head"):
     else:
         raise ValueError(f"Unknown value train_mode={train_mode!r}")
 
+    # Keep the critic's scalar prediction head in fp32. The backbone can remain
+    # in the release dtype, but value regression is numerically fragile if the
+    # final projection itself is performed in fp16.
+    core = model.get_base_model() if isinstance(model, PeftModel) else model
+    if hasattr(core, "score"):
+        core.score = core.score.float()
+    elif hasattr(core, "classifier"):
+        core.classifier = core.classifier.float()
+
     if torch.cuda.is_available():
         model = model.cuda()
     model.train()
@@ -231,6 +240,12 @@ def token_values(value_model, input_ids, attention_mask):
         head = core.classifier
     else:
         raise RuntimeError("Could not locate scalar value head")
+
+    # Match the hidden-state dtype to the scalar head. For PPO the head is kept
+    # in fp32 so the projection and value regression do not overflow in fp16.
+    head_param = next(head.parameters(), None)
+    if head_param is not None and hidden.dtype != head_param.dtype:
+        hidden = hidden.to(head_param.dtype)
     return head(hidden).squeeze(-1)
 
 
