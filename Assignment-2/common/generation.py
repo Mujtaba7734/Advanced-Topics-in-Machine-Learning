@@ -54,6 +54,13 @@ def batch_generate(
 
     with torch.inference_mode():
         seq = model.generate(**enc, **kwargs)
+
+    # Tensors created inside inference_mode cannot later participate in an
+    # autograd-tracked policy forward pass (PPO/GRPO reuse the sampled token
+    # ids for optimization). Clone after leaving inference_mode so the ids are
+    # ordinary tensors while keeping generation itself gradient-free.
+    seq = seq.clone()
+
     if was_training:
         model.train()
 
