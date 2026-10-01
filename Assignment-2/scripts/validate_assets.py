@@ -71,4 +71,35 @@ if "ref_logprobs" not in row and "reference_logprobs" not in row:
 if not {"source_index", "response"}.issubset(row):
     raise SystemExit("PPO cache missing source_index/response")
 
+# PPO cache IDs from staff preparation may be either dataset-level source_index
+# values or positional IDs into the fixed RL prompt pool. Validate that every
+# cached rollout is resolvable without altering the course data.
+rl_prompt_rows = read_jsonl(cfg["paths"]["rl_prompt_train"])
+explicit_rl_ids = {
+    str(r["source_index"])
+    for r in rl_prompt_rows
+    if "source_index" in r
+}
+ppo_resolution_counts = Counter()
+for cached_row in ppo:
+    source = str(cached_row["source_index"])
+    if source in explicit_rl_ids:
+        ppo_resolution_counts["source_index"] += 1
+        continue
+    if isinstance(cached_row.get("messages"), list) or "prompt" in cached_row or "question" in cached_row:
+        ppo_resolution_counts["cache_embedded"] += 1
+        continue
+    try:
+        position = int(cached_row["source_index"])
+    except (TypeError, ValueError):
+        position = -1
+    if 0 <= position < len(rl_prompt_rows):
+        ppo_resolution_counts["row_position"] += 1
+        continue
+    raise SystemExit(
+        f"PPO cached source_index {source} cannot be resolved against "
+        f"{len(rl_prompt_rows)} fixed RL training prompts"
+    )
+print("PPO cache prompt mapping:", dict(ppo_resolution_counts))
+
 print("All required course assets are present and release schemas are valid.")
