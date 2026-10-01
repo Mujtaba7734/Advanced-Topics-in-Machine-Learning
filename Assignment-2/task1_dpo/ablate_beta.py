@@ -66,7 +66,7 @@ def main():
         if evaluation is not None:
             print(f"[resume] Reusing completed evaluation: {name}", flush=True)
         else:
-            evaluation = run_evaluation(args.config, str(adapter), name, beta=float(beta))
+            evaluation = run_evaluation(args.config, str(adapter), name, beta=float(beta), resume=args.resume)
 
         results.append({"beta": float(beta), "train": train, "evaluation": evaluation})
         # Save after every condition so an interruption never loses completed aggregate work.
