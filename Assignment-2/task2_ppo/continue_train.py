@@ -122,30 +122,36 @@ def run_ppo(config_path: str, output: str | None = None, updates: int | None = N
         # disable autograd, so the adapters remain fully trainable.
         policy.eval()
         value.eval()
-        for _ in range(int(cfg["ppo_epochs"])):
+        for ppo_epoch in range(int(cfg["ppo_epochs"])):
             po.zero_grad(set_to_none=True)
             vo.zero_grad(set_to_none=True)
             new_logp, _ = response_token_logprobs(policy, seq, attn, width, response_ids)
             ploss, ratio, clip_frac = ppo_policy_loss(new_logp, old_logp, advantages, mask, float(cfg["clip_epsilon"]))
             if not torch.isfinite(ploss):
                 raise FloatingPointError(
-                    f"Non-finite PPO policy loss at update {update + 1}; "
+                    f"Non-finite PPO policy loss at update {update + 1}, PPO epoch {ppo_epoch + 1}; "
                     f"ratio range=({float(ratio.min()):.6g}, {float(ratio.max()):.6g})"
                 )
             ploss.backward()
             policy_norm = torch.nn.utils.clip_grad_norm_(trainable_parameters(policy), float(cfg["max_grad_norm"]))
             if not torch.isfinite(policy_norm):
-                raise FloatingPointError(f"Non-finite PPO policy gradient norm at update {update + 1}")
+                raise FloatingPointError(
+                    f"Non-finite PPO policy gradient norm at update {update + 1}, PPO epoch {ppo_epoch + 1}"
+                )
             po.step()
 
             predicted = token_values(value, seq, attn)[:, width - 1:-1].float()
             vloss = value_mse_loss(predicted, returns, mask)
             if not torch.isfinite(vloss):
-                raise FloatingPointError(f"Non-finite PPO value loss at update {update + 1}")
+                raise FloatingPointError(
+                    f"Non-finite PPO value loss at update {update + 1}, PPO epoch {ppo_epoch + 1}"
+                )
             (float(cfg["value_coef"]) * vloss).backward()
             value_norm = torch.nn.utils.clip_grad_norm_(trainable_parameters(value), float(cfg["max_grad_norm"]))
             if not torch.isfinite(value_norm):
-                raise FloatingPointError(f"Non-finite PPO value gradient norm at update {update + 1}")
+                raise FloatingPointError(
+                    f"Non-finite PPO value gradient norm at update {update + 1}, PPO epoch {ppo_epoch + 1}"
+                )
             vo.step()
         record = {"update": update + 1, "source_indices": [prompts[i].get("source_index", i) for i in indices],
             "reward": float(task_reward.mean()), "sampled_kl": float(masked_mean(old_logp - ref_logp, mask)),
