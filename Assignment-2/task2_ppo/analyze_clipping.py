@@ -78,18 +78,57 @@ def load_cached_rollouts(path):
     return normalized
 
 
+def resolve_cached_prompt(prompt_rows, explicit_source_lookup, cached_row):
+    """Resolve staff cache IDs without assuming one source-index convention.
+
+    The released PPO cache may use the row position in the fixed RL prompt pool,
+    while the JSONL rows themselves may carry dataset-level source_index values.
+    Prefer an exact dataset-level match when one exists; otherwise use the
+    numeric cache index as a position into the *same fixed prompt pool*.
+    """
+    source = str(cached_row["source_index"])
+
+    if source in explicit_source_lookup:
+        return explicit_source_lookup[source], "source_index"
+
+    # If a staff cache row embeds its own prompt/messages, that is authoritative.
+    if isinstance(cached_row.get("messages"), list) or "prompt" in cached_row or "question" in cached_row:
+        return cached_row, "cache_embedded"
+
+    try:
+        position = int(cached_row["source_index"])
+    except (TypeError, ValueError):
+        position = -1
+
+    if 0 <= position < len(prompt_rows):
+        return prompt_rows[position], "row_position"
+
+    raise ValueError(
+        f"Cached source_index {source} cannot be resolved against the fixed RL prompt pool "
+        f"(rows={len(prompt_rows)})."
+    )
+
+
 def analyze_cached_batch(cfg, rows):
     tok = load_tokenizer(cfg["base_model"])
     policy = load_policy(cfg, adapter_path=cfg["paths"]["ppo_midpoint_policy"])
     value = load_value_model(cfg, cfg["paths"]["ppo_midpoint_value"], train_mode="frozen")
     rm, rm_tok = load_reward_model(cfg)
-    prompts = {str(r.get("source_index", i)): r for i, r in enumerate(read_jsonl(cfg["paths"]["rl_prompt_train"]))}
+    prompt_rows = read_jsonl(cfg["paths"]["rl_prompt_train"])
+    explicit_source_lookup = {
+        str(row["source_index"]): row
+        for row in prompt_rows
+        if "source_index" in row
+    }
     per_eps = {str(e): [] for e in cfg["clip_values"]}
+    resolution_counts = {"source_index": 0, "row_position": 0, "cache_embedded": 0}
     for row in rows:
         source = str(row["source_index"])
-        if source not in prompts:
-            raise ValueError(f"Cached source_index {source} absent from fixed prompt pool")
-        messages = prompt_messages(prompts[source])
+        prompt_row, resolution_mode = resolve_cached_prompt(
+            prompt_rows, explicit_source_lookup, row
+        )
+        resolution_counts[resolution_mode] += 1
+        messages = prompt_messages(prompt_row)
         old = torch.as_tensor(row["old_logprobs"], dtype=torch.float32).flatten()
         ref = torch.as_tensor(row["ref_logprobs"], dtype=torch.float32).flatten()
         if old.shape != ref.shape:
@@ -132,14 +171,19 @@ def analyze_cached_batch(cfg, rows):
             advantage = normalize_advantages(advantage, mask)
             for eps in cfg["clip_values"]:
                 loss, ratio, fraction = ppo_policy_loss(new, old, advantage, mask, float(eps))
-                per_eps[str(eps)].append({"source_index": source, "tokens": int(mask.sum()),
-                    "surrogate": -float(loss), "affected_token_fraction": float(fraction),
+                per_eps[str(eps)].append({"source_index": source, "prompt_resolution": resolution_mode,
+                    "tokens": int(mask.sum()), "surrogate": -float(loss),
+                    "affected_token_fraction": float(fraction),
                     "mean_ratio": float((ratio * mask).sum() / mask.sum().clamp_min(1)),
                     "mean_return": float((returns * mask).sum() / mask.sum().clamp_min(1))})
-    return {key: {"n_rollouts": len(items), "tokens": sum(x["tokens"] for x in items),
+    result = {key: {"n_rollouts": len(items), "tokens": sum(x["tokens"] for x in items),
         "mean_surrogate": sum(x["surrogate"] * x["tokens"] for x in items) / max(1, sum(x["tokens"] for x in items)),
         "affected_token_fraction": sum(x["affected_token_fraction"] * x["tokens"] for x in items) / max(1, sum(x["tokens"] for x in items)),
         "rollouts": items} for key, items in per_eps.items()}
+    for value in result.values():
+        value["prompt_resolution_counts"] = dict(resolution_counts)
+    print(f"Cached PPO prompt resolution: {resolution_counts}", flush=True)
+    return result
 
 
 def main():
@@ -147,6 +191,8 @@ def main():
     ap.add_argument("--config", default="configs/ppo.yaml")
     ap.add_argument("--resume", action="store_true",
                     help="Reuse completed PPO clipping forks/evaluations.")
+    ap.add_argument("--cached-only", action="store_true",
+                    help="Validate/compute the supplied cached-rollout clipping analysis, save it, and stop.")
     args = ap.parse_args()
     cfg = load_yaml(args.config)
     study_path = repo_path(cfg["results_dir"]) / "clipping_study.json"
@@ -160,6 +206,17 @@ def main():
     if cached is None:
         rows = load_cached_rollouts(cfg["cached_rollouts"])
         cached = analyze_cached_batch(cfg, rows)
+
+    # Persist the expensive cache analysis immediately, before any training fork.
+    previous_forks = []
+    if args.resume and study_path.exists():
+        previous = load_json(study_path)
+        previous_forks = previous.get("forks", [])
+    save_json(study_path, {"cached": cached, "forks": previous_forks})
+
+    if args.cached_only:
+        print("Cached-rollout clipping analysis: PASS", flush=True)
+        return
 
     expected_eval_n = len(read_jsonl(cfg["paths"]["rl_prompt_eval"]))
     forks = []
