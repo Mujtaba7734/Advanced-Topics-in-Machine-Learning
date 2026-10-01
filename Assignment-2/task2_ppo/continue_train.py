@@ -117,27 +117,45 @@ def run_ppo(config_path: str, output: str | None = None, updates: int | None = N
                 float(cfg["gamma"]), float(cfg["gae_lambda"]))
             advantages = normalize_advantages(advantages, mask).detach()
             returns = returns.detach()
-        policy.train()
-        value.train()
+        # PPO ratios must compare the old and updated policy under the same
+        # deterministic network. eval() disables LoRA dropout but does NOT
+        # disable autograd, so the adapters remain fully trainable.
+        policy.eval()
+        value.eval()
         for _ in range(int(cfg["ppo_epochs"])):
             po.zero_grad(set_to_none=True)
             vo.zero_grad(set_to_none=True)
             new_logp, _ = response_token_logprobs(policy, seq, attn, width, response_ids)
             ploss, ratio, clip_frac = ppo_policy_loss(new_logp, old_logp, advantages, mask, float(cfg["clip_epsilon"]))
-            (ploss).backward()
+            if not torch.isfinite(ploss):
+                raise FloatingPointError(
+                    f"Non-finite PPO policy loss at update {update + 1}; "
+                    f"ratio range=({float(ratio.min()):.6g}, {float(ratio.max()):.6g})"
+                )
+            ploss.backward()
             policy_norm = torch.nn.utils.clip_grad_norm_(trainable_parameters(policy), float(cfg["max_grad_norm"]))
+            if not torch.isfinite(policy_norm):
+                raise FloatingPointError(f"Non-finite PPO policy gradient norm at update {update + 1}")
             po.step()
+
             predicted = token_values(value, seq, attn)[:, width - 1:-1].float()
             vloss = value_mse_loss(predicted, returns, mask)
+            if not torch.isfinite(vloss):
+                raise FloatingPointError(f"Non-finite PPO value loss at update {update + 1}")
             (float(cfg["value_coef"]) * vloss).backward()
             value_norm = torch.nn.utils.clip_grad_norm_(trainable_parameters(value), float(cfg["max_grad_norm"]))
+            if not torch.isfinite(value_norm):
+                raise FloatingPointError(f"Non-finite PPO value gradient norm at update {update + 1}")
             vo.step()
         record = {"update": update + 1, "source_indices": [prompts[i].get("source_index", i) for i in indices],
             "reward": float(task_reward.mean()), "sampled_kl": float(masked_mean(old_logp - ref_logp, mask)),
-            "policy_loss": float(ploss), "value_loss": float(vloss),
+            "policy_loss": float(ploss.detach()), "value_loss": float(vloss.detach()),
             "entropy": float(sample_entropy(new_logp.detach(), mask)),
-            "policy_grad_norm": float(policy_norm), "value_grad_norm": float(value_norm),
+            "policy_grad_norm": float(policy_norm.detach()), "value_grad_norm": float(value_norm.detach()),
             "clip_fraction": float(clip_frac), "response_length": float(mask.sum(-1).mean()),
+            "ratio_mean": float(((ratio * mask).sum() / mask.sum().clamp_min(1)).detach()),
+            "ratio_min": float(ratio[mask.bool()].min().detach()),
+            "ratio_max": float(ratio[mask.bool()].max().detach()),
             "eos_rate": sum(gen["terminated_with_eos"]) / len(indices)}
         append_jsonl(log_path, record)
         progress.set_postfix(
