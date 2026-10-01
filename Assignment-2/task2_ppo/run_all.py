@@ -361,6 +361,16 @@ def main() -> None:
     run_module("scripts.validate_assets")
     run_module("task2_ppo.self_test")
 
+    # Validate and persist the supplied cached clipping batch before any
+    # expensive standard training/evaluation. This catches cache/prompt schema
+    # mismatches up front and is reused later by the clipping study.
+    run_module(
+        "task2_ppo.analyze_clipping",
+        "--config", args.config,
+        "--resume",
+        "--cached-only",
+    )
+
     cfg = load_yaml(args.config)
     standard_adapter = repo_path(cfg["output"])
     eval_n = len(read_jsonl(cfg["paths"]["rl_prompt_eval"]))
