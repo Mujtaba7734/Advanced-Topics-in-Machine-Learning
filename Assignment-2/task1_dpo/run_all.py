@@ -77,12 +77,14 @@ def main() -> None:
     if args.resume and standard_evaluation_is_complete(cfg):
         print("[resume] Reusing completed standard evaluation", flush=True)
     else:
-        run_module(
-            "task1_dpo.evaluate",
+        standard_eval_args = [
             "--config", args.config,
             "--adapter", str(standard_adapter),
             "--name", "standard",
-        )
+        ]
+        if args.resume:
+            standard_eval_args.append("--resume")
+        run_module("task1_dpo.evaluate", *standard_eval_args)
 
     beta_args = ["--config", args.config]
     if args.resume:
