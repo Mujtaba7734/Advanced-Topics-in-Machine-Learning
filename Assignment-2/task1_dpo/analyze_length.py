@@ -71,7 +71,7 @@ def main():
             print(f"[resume] Reusing completed evaluation: {eval_name}", flush=True)
             results[name] = evaluation
         else:
-            results[name] = run_evaluation(args.config, adapter, eval_name, rows=stratified)
+            results[name] = run_evaluation(args.config, adapter, eval_name, rows=stratified, resume=args.resume)
 
         examples = read_jsonl(repo_path(cfg["results_dir"]) / f"{eval_name}_examples.jsonl")
         grouped = defaultdict(list)
