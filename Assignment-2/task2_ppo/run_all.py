@@ -6,7 +6,10 @@ import json
 import subprocess
 import sys
 import tarfile
+from importlib import metadata
 from pathlib import Path
+
+from packaging.version import Version
 
 from common.data import load_yaml, read_jsonl, repo_path
 from common.logging_utils import load_json
@@ -18,6 +21,73 @@ def run_module(module: str, *args: str) -> None:
     print("Running:", " ".join(command))
     print("=" * 80, flush=True)
     subprocess.run(command, check=True)
+
+
+def installed_version(package: str) -> str | None:
+    try:
+        return metadata.version(package)
+    except metadata.PackageNotFoundError:
+        return None
+
+
+def ensure_runtime_compatibility() -> None:
+    """Repair known Kaggle package conflicts before importing PEFT in child jobs."""
+    print("\nTASK 2 RUNTIME PRECHECK", flush=True)
+
+    # Kaggle images may ship torchao 0.10.0. PEFT 0.17.1 detects the optional
+    # package during LoRA injection and rejects that old version even though
+    # this assignment does not use torchao at all. Remove it deliberately.
+    torchao_version = installed_version("torchao")
+    if torchao_version is not None:
+        print(f"  Removing unused torchao {torchao_version} to avoid PEFT dispatch conflicts...", flush=True)
+        subprocess.run(
+            [sys.executable, "-m", "pip", "uninstall", "-y", "torchao"],
+            check=True,
+        )
+
+    exact = {
+        "transformers": "4.57.1",
+        "tokenizers": "0.22.1",
+        "peft": "0.17.1",
+        "trl": "0.27.2",
+    }
+    needs_requirements = any(
+        installed_version(name) != expected for name, expected in exact.items()
+    )
+
+    bnb_version = installed_version("bitsandbytes")
+    if bnb_version is None or Version(bnb_version) < Version("0.46.1"):
+        needs_requirements = True
+
+    if needs_requirements:
+        print("  Repairing pinned course Python dependencies...", flush=True)
+        subprocess.run(
+            [sys.executable, "-m", "pip", "install", "-r", str(repo_path("requirements.txt"))],
+            check=True,
+        )
+
+    if installed_version("torchao") is not None:
+        raise RuntimeError("torchao is still installed after Task 2 runtime cleanup")
+
+    mismatches = {
+        name: (installed_version(name), expected)
+        for name, expected in exact.items()
+        if installed_version(name) != expected
+    }
+    if mismatches:
+        raise RuntimeError(f"Pinned package mismatch after repair: {mismatches}")
+
+    bnb_version = installed_version("bitsandbytes")
+    if bnb_version is None or Version(bnb_version) < Version("0.46.1"):
+        raise RuntimeError(
+            f"bitsandbytes>=0.46.1 required; found {bnb_version!r}"
+        )
+
+    print("  torchao:      absent (intentional; not used by PA2)")
+    print(f"  bitsandbytes: {bnb_version}")
+    for name, expected in exact.items():
+        print(f"  {name}: {expected}")
+    print("TASK 2 RUNTIME PRECHECK: PASS", flush=True)
 
 
 def adapter_is_complete(path: Path) -> bool:
@@ -285,6 +355,11 @@ def main() -> None:
     ap.add_argument("--resume", action="store_true",
                     help="Reuse complete Task 2 stages and continue from the first incomplete stage.")
     args = ap.parse_args()
+
+    ensure_runtime_compatibility()
+    run_module("scripts.check_environment")
+    run_module("scripts.validate_assets")
+    run_module("task2_ppo.self_test")
 
     cfg = load_yaml(args.config)
     standard_adapter = repo_path(cfg["output"])
