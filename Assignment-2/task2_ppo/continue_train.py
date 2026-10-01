@@ -5,6 +5,7 @@ import time
 import torch
 
 from torch.optim import AdamW
+from tqdm.auto import tqdm
 
 from common.data import load_yaml, prompt_messages, read_jsonl, repo_path
 from common.generation import batch_generate, response_token_logprobs, score_reward_pairs
@@ -90,7 +91,8 @@ def run_ppo(config_path: str, output: str | None = None, updates: int | None = N
     if torch.cuda.is_available():
         torch.cuda.reset_peak_memory_stats()
     start = time.perf_counter()
-    for update in range(n):
+    progress = tqdm(range(n), total=n, desc=f"PPO {run_name}", unit="update", dynamic_ncols=True)
+    for update in progress:
         indices = [(update * int(cfg["prompts_per_update"]) + j) % len(prompts)
                    for j in range(int(cfg["prompts_per_update"]))]
         messages = [prompt_messages(prompts[i]) for i in indices]
@@ -138,6 +140,12 @@ def run_ppo(config_path: str, output: str | None = None, updates: int | None = N
             "clip_fraction": float(clip_frac), "response_length": float(mask.sum(-1).mean()),
             "eos_rate": sum(gen["terminated_with_eos"]) / len(indices)}
         append_jsonl(log_path, record)
+        progress.set_postfix(
+            reward=f"{record['reward']:.3f}",
+            kl=f"{record['sampled_kl']:.4f}",
+            ploss=f"{record['policy_loss']:.4f}",
+            vloss=f"{record['value_loss']:.4f}",
+        )
     policy.save_pretrained(out)
     value_dir = out.parent / f"{out.name}_value"
     value.save_pretrained(value_dir)
