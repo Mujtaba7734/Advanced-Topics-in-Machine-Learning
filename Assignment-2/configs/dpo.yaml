@@ -9,6 +9,8 @@ epochs: 1
 short_ablation_examples: 600
 max_sequence_length: 768
 max_generation_tokens: 256
+# Evaluation-only batching; fixed rows and decoding settings are unchanged.
+eval_batch_size: 4
 max_grad_norm: 1.0
 standard_output: outputs/task1_dpo/standard
 length_output: outputs/task1_dpo/length_balanced
