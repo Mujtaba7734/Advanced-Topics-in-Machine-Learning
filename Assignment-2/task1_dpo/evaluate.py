@@ -271,8 +271,21 @@ def main():
     ap.add_argument("--adapter", required=True)
     ap.add_argument("--name", default="standard")
     ap.add_argument("--resume", action="store_true")
+    ap.add_argument("--max-examples", type=int)
     args = ap.parse_args()
-    print(run_evaluation(args.config, args.adapter, args.name, resume=args.resume))
+
+    rows = None
+    if args.max_examples is not None:
+        cfg = load_yaml(args.config)
+        rows = read_jsonl(cfg["paths"]["dpo_standard_eval"])[: int(args.max_examples)]
+
+    print(run_evaluation(
+        args.config,
+        args.adapter,
+        args.name,
+        rows=rows,
+        resume=args.resume,
+    ))
 
 
 if __name__ == "__main__":
