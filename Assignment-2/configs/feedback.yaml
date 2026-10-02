@@ -1,6 +1,8 @@
 base_config: configs/base.yaml
 results_dir: results
 safety_max_new_tokens: 256
+safety_batch_size: 4
+safety_max_prompt_length: 256
 math_max_new_tokens: 512
 judge_max_new_tokens: 64
 judge_temperature: 0.0
