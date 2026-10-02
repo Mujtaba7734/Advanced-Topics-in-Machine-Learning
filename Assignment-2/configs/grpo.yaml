@@ -10,6 +10,8 @@ num_generations: 4
 group_sizes: [2, 4, 8]
 max_prompt_length: 256
 max_completion_length: 512
+eval_batch_size: 4
+eval_seed_by_batch: true
 mask_truncated_completions: true
 max_grad_norm: 1.0
 output: outputs/task3_grpo/standard
