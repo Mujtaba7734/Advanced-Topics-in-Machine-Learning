@@ -129,11 +129,20 @@ python -m task2_ppo.ablate_kl --config configs/ppo.yaml
 
 ### Task 3 - GRPO
 
+Run the complete Task 3 pipeline with preflight checks, resumable held-out evaluation,
+completeness validation, and a verified backup:
+
+```bash
+python -m task3_grpo.run_all --config configs/grpo.yaml --resume
+```
+
+The individual entry points remain available:
+
 ```bash
 python -m task3_grpo.continue_train --config configs/grpo.yaml --run-name standard
-python -m task3_grpo.evaluate --config configs/grpo.yaml --adapter outputs/task3_grpo/standard --name standard
+python -m task3_grpo.evaluate --config configs/grpo.yaml --adapter outputs/task3_grpo/standard --name standard --resume
 python -m task3_grpo.analyze_group_size --config configs/grpo.yaml
-python -m task3_grpo.compare_normalization --config configs/grpo.yaml
+python -m task3_grpo.compare_normalization --config configs/grpo.yaml --resume
 ```
 
 ### Task 4 - Safety calibration
