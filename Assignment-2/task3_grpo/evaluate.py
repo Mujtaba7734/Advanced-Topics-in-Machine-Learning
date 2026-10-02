@@ -23,8 +23,20 @@ def main():
     ap.add_argument("--config", default="configs/grpo.yaml")
     ap.add_argument("--adapter", required=True)
     ap.add_argument("--name", default="standard")
+    ap.add_argument(
+        "--resume",
+        action="store_true",
+        help="Resume a partially completed held-out evaluation from saved batches.",
+    )
     args = ap.parse_args()
-    print(evaluate_rl(load_evaluation_bundle(args.config, args.adapter), args.name, "grpo"))
+    print(
+        evaluate_rl(
+            load_evaluation_bundle(args.config, args.adapter),
+            args.name,
+            "grpo",
+            resume=args.resume,
+        )
+    )
 
 
 if __name__ == "__main__":
