@@ -15,7 +15,7 @@ from packaging.version import Version
 
 from common.data import load_yaml, read_jsonl, repo_path
 from common.logging_utils import load_json
-from task4_safety.judge_responses import LABELS
+from task4_safety.judge_responses import JUDGE_PROTOCOL_VERSION, LABELS
 from task4_safety.generate_responses import POLICY_ORDER, policy_specs
 
 
@@ -213,6 +213,15 @@ def validate_compute_artifacts(cfg) -> None:
             require(
                 all(row.get("label") in LABELS for row in judged),
                 f"{policy} judge labels are all valid",
+            )
+            require(
+                all(
+                    int(row.get("judge_protocol_version", 0))
+                    == JUDGE_PROTOCOL_VERSION
+                    for row in judged
+                ),
+                f"{policy} judgments use corrected judge protocol "
+                f"v{JUDGE_PROTOCOL_VERSION}",
             )
             require(
                 all(
