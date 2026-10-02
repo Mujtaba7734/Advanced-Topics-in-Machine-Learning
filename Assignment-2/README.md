@@ -147,12 +147,24 @@ python -m task3_grpo.compare_normalization --config configs/grpo.yaml --resume
 
 ### Task 4 - Safety calibration
 
-The judge loader/parser are supplied. You must implement the requested generation aggregation and evaluation.
+Run the GPU-dependent safety-calibration pipeline with deterministic generation,
+restart-safe AI judging, completeness validation, and a verified compute backup:
 
 ```bash
-python -m task4_safety.generate_responses --config configs/feedback.yaml
-python -m task4_safety.judge_responses --config configs/feedback.yaml
+python -m task4_safety.run_all --config configs/feedback.yaml --resume
+```
+
+This completes SFT/DPO/PPO/GRPO response generation, the fixed categorical AI
+judge, aggregate/category-level metrics, and creates the blind 60-prompt
+manual-audit sheet. The required human labels must still be filled manually
+without consulting the AI labels; no AI tool should fill those columns.
+
+Individual entry points remain available:
+
+```bash
+python -m task4_safety.generate_responses --config configs/feedback.yaml --resume
 python -m task4_safety.make_audit_sheet --config configs/feedback.yaml
+python -m task4_safety.judge_responses --config configs/feedback.yaml --resume
 python -m task4_safety.evaluate_safety --config configs/feedback.yaml
 ```
 
