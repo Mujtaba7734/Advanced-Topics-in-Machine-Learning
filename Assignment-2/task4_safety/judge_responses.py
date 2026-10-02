@@ -3,14 +3,15 @@ from __future__ import annotations
 import argparse
 import json
 import re
-from pathlib import Path
 
 import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
+from tqdm.auto import tqdm
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 from common.data import load_yaml, read_jsonl, repo_path, write_jsonl
-from task4_safety.generate_responses import policy_specs
-from common.models import resolve_dtype
+from common.models import clear_gpu, resolve_dtype
+from task4_safety.generate_responses import POLICY_ORDER, policy_specs
+
 
 LABELS = {
     "SAFE_ANSWER",
@@ -41,22 +42,33 @@ Assistant response:
 
 
 def load_judge(cfg):
-    tok = AutoTokenizer.from_pretrained(cfg["ai_judge_model"], padding_side="left", use_fast=True)
+    tok = AutoTokenizer.from_pretrained(
+        cfg["ai_judge_model"],
+        padding_side="left",
+        use_fast=True,
+    )
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
 
     kwargs = {"low_cpu_mem_usage": True}
-    if torch.cuda.is_available() and bool(cfg.get("quantize_frozen_models", True)):
+    if torch.cuda.is_available() and bool(
+        cfg.get("quantize_frozen_models", True)
+    ):
         kwargs["quantization_config"] = BitsAndBytesConfig(
             load_in_4bit=True,
             bnb_4bit_quant_type="nf4",
-            bnb_4bit_compute_dtype=resolve_dtype(cfg.get("dtype", "float16")),
+            bnb_4bit_compute_dtype=resolve_dtype(
+                cfg.get("dtype", "float16")
+            ),
         )
         kwargs["device_map"] = "auto"
     else:
         kwargs["dtype"] = resolve_dtype(cfg.get("dtype", "float16"))
 
-    model = AutoModelForCausalLM.from_pretrained(cfg["ai_judge_model"], **kwargs)
+    model = AutoModelForCausalLM.from_pretrained(
+        cfg["ai_judge_model"],
+        **kwargs,
+    )
     model.eval()
     return tok, model
 
@@ -64,18 +76,29 @@ def load_judge(cfg):
 def parse_json(text):
     m = re.search(r"\{.*?\}", text, flags=re.S)
     if not m:
-        return {"label": "AMBIGUOUS", "confidence": 0.0, "rationale_tag": "parse_failure"}
+        return {
+            "label": "AMBIGUOUS",
+            "confidence": 0.0,
+            "rationale_tag": "parse_failure",
+        }
     try:
         obj = json.loads(m.group(0))
     except Exception:
-        return {"label": "AMBIGUOUS", "confidence": 0.0, "rationale_tag": "parse_failure"}
+        return {
+            "label": "AMBIGUOUS",
+            "confidence": 0.0,
+            "rationale_tag": "parse_failure",
+        }
+
     label = str(obj.get("label", "AMBIGUOUS")).upper()
     if label not in LABELS:
         label = "AMBIGUOUS"
+
     try:
         conf = min(max(float(obj.get("confidence", 0.0)), 0.0), 1.0)
     except Exception:
         conf = 0.0
+
     return {
         "label": label,
         "confidence": conf,
@@ -99,36 +122,174 @@ def judge_one(tok, model, prompt, response, max_new_tokens=64):
         pad_token_id=tok.eos_token_id,
         eos_token_id=tok.eos_token_id,
     )
-    generated = tok.decode(out[0, ids.shape[1]:], skip_special_tokens=True)
+    generated = tok.decode(
+        out[0, ids.shape[1] :],
+        skip_special_tokens=True,
+    )
     return parse_json(generated)
+
+
+def _validate_judged_prefix(judged, generated, name: str):
+    if len(judged) > len(generated):
+        raise ValueError(
+            f"Saved judge output for {name} has {len(judged)} rows, "
+            f"but generated responses have only {len(generated)}"
+        )
+
+    for i, saved in enumerate(judged):
+        source = generated[i]
+        for key in (
+            "xstest_id",
+            "policy",
+            "prompt",
+            "benchmark_class",
+            "type",
+            "response",
+            "response_tokens",
+        ):
+            if str(saved.get(key)) != str(source.get(key)):
+                raise ValueError(
+                    f"Saved judge output for {name} is not a prefix of the "
+                    f"generated responses at row {i}: {key} mismatch"
+                )
+
+        if saved.get("label") not in LABELS:
+            raise ValueError(
+                f"Invalid saved Task 4 judge label at {name} row {i}: "
+                f"{saved.get('label')!r}"
+            )
+        confidence = float(saved.get("confidence", -1.0))
+        if not (0.0 <= confidence <= 1.0):
+            raise ValueError(
+                f"Invalid judge confidence at {name} row {i}: {confidence}"
+            )
+
+
+def _work_items(cfg, input_path=None):
+    outdir = repo_path(cfg["results_dir"]) / "task4_safety"
+    if input_path:
+        sources = [repo_path(input_path)]
+    else:
+        sources = [
+            outdir / f"generated_{name}.jsonl"
+            for name in POLICY_ORDER
+        ]
+
+    items = []
+    for src in sources:
+        if not src.exists():
+            raise FileNotFoundError(
+                f"Missing Task 4 generated response file: {src}"
+            )
+        generated = read_jsonl(src)
+        if not generated:
+            raise ValueError(f"Generated response file is empty: {src}")
+
+        name = str(generated[0]["policy"])
+        if name not in policy_specs(cfg):
+            raise ValueError(f"Unexpected Task 4 policy in {src}: {name}")
+
+        dst = outdir / f"judged_{name}.jsonl"
+        judged = read_jsonl(dst) if dst.exists() else []
+        _validate_judged_prefix(judged, generated, name)
+        items.append((name, generated, dst, judged))
+    return items
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default="configs/feedback.yaml")
-    ap.add_argument("--input", help="Optional generated JSONL file to inspect")
+    ap.add_argument(
+        "--input",
+        help="Optional single generated JSONL file to score.",
+    )
+    ap.add_argument(
+        "--resume",
+        action="store_true",
+        help="Reuse the exact saved judge prefix for each policy.",
+    )
     args = ap.parse_args()
+
     cfg = load_yaml(args.config)
-    outdir = repo_path(cfg["results_dir"]) / "task4_safety"
-    inputs = [repo_path(args.input)] if args.input else [outdir / f"generated_{name}.jsonl" for name in policy_specs(cfg)]
+    items = _work_items(cfg, args.input)
+
+    if not args.resume:
+        items = [
+            (name, generated, dst, [])
+            for name, generated, dst, _ in items
+        ]
+        for _, _, dst, _ in items:
+            write_jsonl(dst, [])
+
+    remaining = sum(
+        len(generated) - len(judged)
+        for _, generated, _, judged in items
+    )
+
+    if remaining == 0:
+        for name, generated, _, judged in items:
+            print(
+                f"[resume] Reusing complete judge output: "
+                f"{name} ({len(judged)}/{len(generated)})",
+                flush=True,
+            )
+        return
+
     tok, model = load_judge(cfg)
-    for src in inputs:
-        rows = read_jsonl(src)
-        name = rows[0]["policy"] if rows else src.stem.removeprefix("generated_")
-        dst = outdir / f"judged_{name}.jsonl"
-        existing = {int(r["xstest_id"]): r for r in read_jsonl(dst)} if dst.exists() else {}
-        judged = []
-        for row in rows:
-            sid = int(row["xstest_id"])
-            cached = existing.get(sid)
-            if cached and cached.get("prompt") == row["prompt"] and cached.get("response") == row["response"]:
-                judged.append(cached)
-            else:
-                judged.append({**row, **judge_one(tok, model, row["prompt"], row["response"],
-                    int(cfg["judge_max_new_tokens"]))})
-                write_jsonl(dst, judged)
-        write_jsonl(dst, judged)
-        print(name, len(judged))
+    print(
+        f"Fixed Task 4 judge loaded: {cfg['ai_judge_model']}",
+        flush=True,
+    )
+
+    try:
+        for name, generated, dst, judged in items:
+            if len(judged) == len(generated):
+                print(
+                    f"[resume] Reusing complete judge output: "
+                    f"{name} ({len(judged)}/{len(generated)})",
+                    flush=True,
+                )
+                continue
+
+            # Rewrite the verified prefix once, then append one completed
+            # categorical judgment at a time. A Kaggle timeout therefore loses
+            # at most one judge example.
+            write_jsonl(dst, judged)
+
+            progress = tqdm(
+                range(len(judged), len(generated)),
+                total=len(generated) - len(judged),
+                desc=f"Task 4 judge: {name}",
+                unit="example",
+                dynamic_ncols=True,
+            )
+
+            for i in progress:
+                row = generated[i]
+                scored = {
+                    **row,
+                    **judge_one(
+                        tok,
+                        model,
+                        row["prompt"],
+                        row["response"],
+                        int(cfg["judge_max_new_tokens"]),
+                    ),
+                }
+                judged.append(scored)
+                with dst.open("a", encoding="utf-8") as handle:
+                    handle.write(
+                        json.dumps(scored, ensure_ascii=False) + "\n"
+                    )
+
+            _validate_judged_prefix(judged, generated, name)
+            print(
+                f"{name}: {len(judged)} categorical judgments",
+                flush=True,
+            )
+    finally:
+        clear_gpu(model)
+        del tok
 
 
 if __name__ == "__main__":
