@@ -4,6 +4,7 @@ safety_max_new_tokens: 256
 safety_batch_size: 4
 safety_max_prompt_length: 256
 math_max_new_tokens: 512
+math_max_prompt_length: 256
 math_eval_batch_size: 4
 math_eval_seed_by_batch: true
 judge_max_new_tokens: 64
