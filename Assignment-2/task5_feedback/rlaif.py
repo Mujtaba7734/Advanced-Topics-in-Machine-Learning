@@ -13,6 +13,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 from common.data import repo_path
 from common.models import resolve_dtype
 
+JUDGE_PROTOCOL_VERSION = 2
+
 PAIRWISE_RUBRIC = """You are comparing two candidate solutions to the same math problem.
 
 Evaluate mathematical correctness, internal consistency, relevance, and whether the stated final answer follows from the reasoning.
@@ -66,7 +68,14 @@ class PairwiseAIJudge:
 
     def _key(self, problem, a, b):
         payload = json.dumps(
-            {"model": self.cfg["ai_judge_model"], "problem": problem, "a": a, "b": b},
+            {
+                "protocol_version": JUDGE_PROTOCOL_VERSION,
+                "model": self.cfg["ai_judge_model"],
+                "rubric": PAIRWISE_RUBRIC,
+                "problem": problem,
+                "a": a,
+                "b": b,
+            },
             sort_keys=True,
         )
         return hashlib.sha256(payload.encode()).hexdigest()
@@ -85,8 +94,14 @@ class PairwiseAIJudge:
             return_tensors="pt",
             add_generation_prompt=True,
         ).to(next(self.model.parameters()).device)
+        # Qwen uses EOS as the pad token. These judge calls contain one
+        # unpadded prompt, so every input position is real context. Pass the
+        # mask explicitly rather than letting Transformers infer padding from
+        # EOS-valued chat-template tokens.
+        attention_mask = torch.ones_like(ids, dtype=torch.long)
         out = self.model.generate(
-            ids,
+            input_ids=ids,
+            attention_mask=attention_mask,
             max_new_tokens=4,
             do_sample=False,
             pad_token_id=self.tokenizer.eos_token_id,
