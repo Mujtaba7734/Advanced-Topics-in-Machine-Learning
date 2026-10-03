@@ -170,7 +170,14 @@ python -m task4_safety.evaluate_safety --config configs/feedback.yaml
 
 ### Task 5 - RLVR vs RLAIF
 
-The exact verifier and pairwise AI judge are supplied; you implement the evaluation/analysis.
+Run the complete frozen-policy Task 5 evaluation with preflight checks,
+restart-safe generation/judging, completeness validation, and a verified backup:
+
+```bash
+python -m task5_feedback.run_all --config configs/feedback.yaml
+```
+
+No Task 5 training is performed. The individual evaluation entry points remain available:
 
 ```bash
 python -m task5_feedback.evaluate_math --config configs/feedback.yaml --dataset gsm
