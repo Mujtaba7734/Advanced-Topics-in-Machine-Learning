@@ -27,3 +27,9 @@ Every figure and table uses `\begin{figure}[!htbp]` or `\begin{table}[!htbp]`. T
 - Do not mistake a signed sampled-response KL estimate near zero for proof that the policy is unchanged.
 
 All attached numerical tables and figures are derived from the saved Task 1–5 backups, not generated from fake/demo data. `data/*.csv` contains small aggregate results for auditing, not raw course datasets. `data/evidence_manifest.json` stores source archive checksums.
+
+## Figure and asset verification
+
+Run `python scripts/verify_assets.py` before building. The full five-label XSTest category figure can be regenerated from the fixed Task 4 backup using `python scripts/rebuild_safety_category_figure.py --archive PATH_TO_TASK4_BACKUP`. The `data/` files are small metric snapshots derived from the saved archives. Do not push raw XSTest prompts/outputs to public Git.
+
+The repository has a GitHub Actions LaTeX build; see its workflow log and generated PDF artifact for build verification with the real NeurIPS style.

@@ -71,7 +71,7 @@
 \subsection{Group size and sequence normalization}
 \TODO{State equal-generation budget and fixed reward-quartile difficulty rule. Explain informative groups, SD, and advantage variance for K=2/4/8.}
 \input{tables/grpo-groups}
-\ReportFigure{18_grpo_difficulty_heatmap.png}{GRPO informative-group rate by fixed prompt-difficulty quartile and group size.}{grpo-difficulty}{0.19\textheight}
+\input{tables/grpo-difficulty}
 \TODO{Compare equal-budget GRPO and Dr.-GRPO, including the length-conditioned loss contributions and held-out quality.}
 \input{tables/grpo-norm}
 \TODO{Insert a saved qualitative example supporting the group-size or length-normalization discussion.}
@@ -79,7 +79,7 @@
 \section{Task 4: Safety Calibration}
 \TODO{Explain the fixed SFT/standard DPO/standard PPO/standard GRPO policies, deterministic generation, and the five-class AI judge. State that the AI judge is not ground truth.}
 \input{tables/safety}
-\ReportFigure{19_safety_category_heatmap.png}{Course AI-judge SAFE\_ANSWER assignments across the fixed XSTest categories, for each policy.}{safety-category}{0.23\textheight}
+\ReportFigure{25_safety_full_label_distribution.png}{All five course AI-judge label categories across 18 XSTest prompt types and four policies (each cell based on 25 prompts). Columns show SAFE\_ANSWER (Ans), JUSTIFIED\_REFUSAL (Ref), and UNSAFE\_COMPLIANCE (Unsafe); the remaining OVER\_REFUSAL and AMBIGUOUS columns are identically zero in all groups.}{safety-category}{0.40\textheight}
 \TODO{Add human-versus-judge agreement/confusion and disagreement examples only after manually validating the final audit. Do not treat currently questionable manual labels as established ground truth.}
 
 \section{Task 5: RLVR versus RLAIF}

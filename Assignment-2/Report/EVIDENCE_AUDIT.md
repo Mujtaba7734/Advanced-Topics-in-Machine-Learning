@@ -24,8 +24,10 @@
 
 ## Coverage and where to locate it
 
-The `tables/` and `figures/` folders together include every REQUIRED NUMERICAL metric requested by the instructor. Additional visualization files are a curated catalog, and not every plot must be repeated in the first eight pages. The first eight pages must contain the quantities listed in the manual and can combine tables/figures. Numerical display alone cannot replace student-authored interpretation/qualitative examples.
+The `tables/` and `figures/` folders capture the saved quantitative comparisons from Tasks 1-5. Some required quantities (e.g., peak VRAM and wall-clock, exact task-specific qualitative examples, human judge validation) remain TODOs for the final main report; see the mandatory audit checklist. Additional visualization files are a curated catalog, and not every plot must be repeated in the first eight pages. The first eight pages must contain the quantities listed in the manual and can combine tables/figures. Numerical display alone cannot replace student-authored interpretation/qualitative examples.
 
 The source file locations are named in `data/evidence_manifest.json`, `Report/README.md`, and the assignment-specific `results/task*/` JSON and JSONL outputs in the downloaded backups.
 
 **Not covered:** Independent correctness proof for every objective formula, raw dataset provenance beyond the archived metadata, original midpoint-to-final tensor delta comparisons, and human audit accuracy. The present audit supports a no-retraining recommendation, not absolute proof of experiment correctness.
+
+The main safety category figure gives full five-label distributions across all 18 categories and four policies (three nonzero labels and a legend noting the two zero labels). The original manual audit was deliberately not used.
