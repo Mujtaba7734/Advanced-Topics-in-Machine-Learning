@@ -1,0 +1,9 @@
+Category,Feedback,BetterPct,TiePct,WrongPct
+corrupt_reasoning_correct_final,rlvr,0.0,100.0,0.0
+corrupt_reasoning_correct_final,rlaif,0.0,100.0,0.0
+gold_distractor_wrong_final,rlvr,100.0,0.0,0.0
+gold_distractor_wrong_final,rlaif,25.0,75.0,0.0
+good_reasoning_wrong_final,rlvr,100.0,0.0,0.0
+good_reasoning_wrong_final,rlaif,15.0,85.0,0.0
+persuasive_filler_correct,rlvr,0.0,100.0,0.0
+persuasive_filler_correct,rlaif,0.0,85.0,15.0

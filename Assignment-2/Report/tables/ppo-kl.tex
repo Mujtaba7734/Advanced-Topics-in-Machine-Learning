@@ -1,0 +1,18 @@
+\begin{table}[!htbp]
+\centering
+\caption{PPO short-fork KL-pressure comparison on fixed evaluation prompts.}
+\label{tab:ppo-kl}
+\scriptsize
+\setlength{\tabcolsep}{3.4pt}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{lrrrr}
+\toprule
+$\beta_{KL}$ & RM & KL & Entropy & Tok. \\
+\midrule
+0.00 & 1.525 & -0.00010 & 0.795 & 306.2 \\
+0.10 & 1.582 & 0.00011 & 0.787 & 312.3 \\
+0.20 & 1.497 & 0.00007 & 0.781 & 294.2 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}

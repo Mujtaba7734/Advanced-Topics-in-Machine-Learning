@@ -1,0 +1,17 @@
+\begin{table}[!htbp]
+\centering
+\caption{Matched GRPO versus Dr.-GRPO short forks (8 updates); contributions are absolute policy loss statistics, not raw gradients.}
+\label{tab:grpo-norm}
+\scriptsize
+\setlength{\tabcolsep}{3.4pt}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{lrrrrr}
+\toprule
+Policy & RM & KL & Tok. & Short & Long \\
+\midrule
+grpo & 0.986 & 0.00009 & 255.8 & 0.221 & 0.123 \\
+dr\_grpo & 0.957 & 0.00001 & 262.1 & 0.056 & 0.094 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}

@@ -1,0 +1,7 @@
+Condition,Stratum,N,PrefAccPct
+standard,preferred_longer,82,45.1
+standard,length_matched,82,56.1
+standard,rejected_longer,82,67.1
+length_balanced,preferred_longer,82,42.7
+length_balanced,length_matched,82,58.5
+length_balanced,rejected_longer,82,76.8

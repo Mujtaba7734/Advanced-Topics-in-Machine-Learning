@@ -1,0 +1,21 @@
+\begin{table}[!htbp]
+\centering
+\caption{Length-stratified held-out preference accuracy.}
+\label{tab:dpo-strata}
+\scriptsize
+\setlength{\tabcolsep}{3.4pt}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{llrr}
+\toprule
+Policy & Length stratum & $n$ & Acc.\% \\
+\midrule
+standard & preferred\_longer & 82 & 45.1 \\
+standard & length\_matched & 82 & 56.1 \\
+standard & rejected\_longer & 82 & 67.1 \\
+length\_balanced & preferred\_longer & 82 & 42.7 \\
+length\_balanced & length\_matched & 82 & 58.5 \\
+length\_balanced & rejected\_longer & 82 & 76.8 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}

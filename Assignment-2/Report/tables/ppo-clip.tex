@@ -1,0 +1,18 @@
+\begin{table}[!htbp]
+\centering
+\caption{PPO clipping: cached affected-token fraction and matched short-fork held-out metrics; training reward standard deviation measures variation across update samples.}
+\label{tab:ppo-clip}
+\scriptsize
+\setlength{\tabcolsep}{3.4pt}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{lrrrrr}
+\toprule
+$\epsilon$ & Cache\% & Reward & KL & Tok. & SD \\
+\midrule
+0.05 & 55.3 & 1.582 & 0.00011 & 312.3 & 1.123 \\
+0.20 & 33.8 & 1.582 & 0.00011 & 312.3 & 1.123 \\
+0.50 & 17.8 & 1.582 & 0.00011 & 312.3 & 1.123 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}

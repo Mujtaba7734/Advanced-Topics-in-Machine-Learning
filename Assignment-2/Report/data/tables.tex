@@ -1,0 +1,226 @@
+\begin{table}[!htbp]
+\centering
+\caption{Held-out DPO metrics. Standard one-epoch and short $\beta$ forks use unequal training budgets.}
+\label{tab:dpo-summary}
+\scriptsize
+\setlength{\tabcolsep}{3.4pt}
+\begin{tabular}{lrrrrrr}
+\toprule
+DPO & Loss & Pref.\% & KL & RM & Tok. & SD \\
+\midrule
+standard (1 epoch) & 0.677 & 63.3 & 0.00058 & 1.155 & 157.7 & 103.6 \\
+beta=0.03 (short) & 0.691 & 61.0 & 0.00004 & 1.159 & 157.2 & 103.7 \\
+beta=0.10 (short) & 0.688 & 62.7 & 0.00003 & 1.143 & 157.4 & 103.7 \\
+beta=0.30 (short) & 0.679 & 62.7 & -0.00001 & 1.149 & 157.8 & 103.5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption{Length-stratified held-out preference accuracy.}
+\label{tab:dpo-strata}
+\scriptsize
+\setlength{\tabcolsep}{3.4pt}
+\begin{tabular}{llrr}
+\toprule
+Policy & Length stratum & $n$ & Acc.\% \\
+\midrule
+standard & preferred\_longer & 82 & 45.1 \\
+standard & length\_matched & 82 & 56.1 \\
+standard & rejected\_longer & 82 & 67.1 \\
+length\_balanced & preferred\_longer & 82 & 42.7 \\
+length\_balanced & length\_matched & 82 & 58.5 \\
+length\_balanced & rejected\_longer & 82 & 76.8 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption{Ten shared word-limit test prompts per condition.}
+\label{tab:dpo-word}
+\scriptsize
+\setlength{\tabcolsep}{3.4pt}
+\begin{tabular}{lrr}
+\toprule
+Policy & $n$ & Compliant\% \\
+\midrule
+standard & 10 & 50.0 \\
+length\_balanced & 10 & 50.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption{PPO clipping: cached affected-token fraction and matched short-fork held-out metrics; training reward standard deviation measures variation across update samples.}
+\label{tab:ppo-clip}
+\scriptsize
+\setlength{\tabcolsep}{3.4pt}
+\begin{tabular}{lrrrrr}
+\toprule
+$\epsilon$ & Cache\% & Reward & KL & Tok. & SD \\
+\midrule
+0.05 & 55.3 & 1.582 & 0.00011 & 312.3 & 1.123 \\
+0.20 & 33.8 & 1.582 & 0.00011 & 312.3 & 1.123 \\
+0.50 & 17.8 & 1.582 & 0.00011 & 312.3 & 1.123 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption{PPO short-fork KL-pressure comparison on fixed evaluation prompts.}
+\label{tab:ppo-kl}
+\scriptsize
+\setlength{\tabcolsep}{3.4pt}
+\begin{tabular}{lrrrr}
+\toprule
+$\beta_{KL}$ & RM & KL & Entropy & Tok. \\
+\midrule
+0.00 & 1.525 & -0.00010 & 0.795 & 306.2 \\
+0.10 & 1.582 & 0.00011 & 0.787 & 312.3 \\
+0.20 & 1.497 & 0.00007 & 0.781 & 294.2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption{GRPO cached group-size study at a fixed total 192 generations.}
+\label{tab:grpo-groups}
+\scriptsize
+\setlength{\tabcolsep}{3.4pt}
+\begin{tabular}{lrrrr}
+\toprule
+$K$ & Groups & Inform.\% & $\sigma_r$ & Var($A$) \\
+\midrule
+2 & 96 & 93.8 & 0.385 & 0.937 \\
+4 & 48 & 95.8 & 0.541 & 0.958 \\
+8 & 24 & 95.8 & 0.619 & 0.958 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption{Cached group-size study split by fixed $K=8$ reward quartiles.}
+\label{tab:grpo-difficulty}
+\scriptsize
+\setlength{\tabcolsep}{3.4pt}
+\begin{tabular}{rlrrrr}
+\toprule
+$K$ & Difficulty & Groups & Inform.\% & $\sigma_r$ & Var($A$) \\
+\midrule
+2 & q1\_low\_reward & 24 & 95.8 & 0.594 & 0.958 \\
+2 & q2\_mid\_low & 24 & 83.3 & 0.463 & 0.833 \\
+2 & q3\_mid\_high & 24 & 95.8 & 0.248 & 0.958 \\
+2 & q4\_high\_reward & 24 & 100.0 & 0.233 & 1.000 \\
+4 & q1\_low\_reward & 12 & 100.0 & 0.712 & 1.000 \\
+4 & q2\_mid\_low & 12 & 83.3 & 0.711 & 0.833 \\
+4 & q3\_mid\_high & 12 & 100.0 & 0.378 & 1.000 \\
+4 & q4\_high\_reward & 12 & 100.0 & 0.363 & 1.000 \\
+8 & q1\_low\_reward & 6 & 100.0 & 0.838 & 1.000 \\
+8 & q2\_mid\_low & 6 & 83.3 & 0.763 & 0.833 \\
+8 & q3\_mid\_high & 6 & 100.0 & 0.491 & 1.000 \\
+8 & q4\_high\_reward & 6 & 100.0 & 0.385 & 1.000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption{Matched GRPO versus Dr.-GRPO short forks (8 updates); contributions are absolute policy loss statistics, not raw gradients.}
+\label{tab:grpo-norm}
+\scriptsize
+\setlength{\tabcolsep}{3.4pt}
+\begin{tabular}{lrrrrr}
+\toprule
+Policy & RM & KL & Tok. & Short & Long \\
+\midrule
+grpo & 0.986 & 0.00009 & 255.8 & 0.221 & 0.123 \\
+dr\_grpo & 0.957 & 0.00001 & 262.1 & 0.056 & 0.094 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption{Fixed XSTest course AI judge ($n=450$ per policy). Reported zeros reflect judge assignments, not independent human labels.}
+\label{tab:safety}
+\scriptsize
+\setlength{\tabcolsep}{3.4pt}
+\begin{tabular}{lrrrrrr}
+\toprule
+Model & Ans.\% & Over\% & Unsafe\% & Refuse\% & Ambig.\% & Tok. \\
+\midrule
+SFT & 58.0 & 0.0 & 0.0 & 88.5 & 0.0 & 108.1 \\
+DPO & 57.2 & 0.0 & 0.0 & 86.5 & 0.0 & 110.0 \\
+PPO & 58.0 & 0.0 & 0.0 & 88.0 & 0.0 & 107.5 \\
+GRPO & 57.2 & 0.0 & 0.0 & 87.5 & 0.0 & 107.5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption{Fixed math evaluation, $n=300$ GSM8K and $n=100$ SVAMP.}
+\label{tab:math}
+\scriptsize
+\setlength{\tabcolsep}{3.4pt}
+\begin{tabular}{llrrrrr}
+\toprule
+Set & Model & $n$ & Acc.\% & Fmt.\% & Tok. & SD \\
+\midrule
+GSM8K & SFT & 300 & 30.0 & 42.7 & 282.2 & 92.9 \\
+GSM8K & RLVR & 300 & 31.7 & 47.0 & 283.7 & 93.5 \\
+GSM8K & RLAIF & 300 & 33.0 & 46.0 & 282.8 & 93.8 \\
+SVAMP & SFT & 100 & 44.0 & 56.0 & 162.1 & 75.6 \\
+SVAMP & RLVR & 100 & 44.0 & 55.0 & 164.3 & 77.1 \\
+SVAMP & RLAIF & 100 & 41.0 & 50.0 & 166.7 & 77.3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption{Course AI pairwise judge scores and ties; strict agreement includes ties and can be inflated when responses are identical.}
+\label{tab:pairwise}
+\scriptsize
+\setlength{\tabcolsep}{3.4pt}
+\begin{tabular}{llrrrrr}
+\toprule
+Set & Pair & A\% & B\% & Tie\% & Agr.\% & Dif. \\
+\midrule
+GSM8K & sft/rlvr & 50.0 & 50.0 & 94.7 & 89.3 & 21 \\
+GSM8K & sft/rlaif & 51.0 & 49.0 & 95.3 & 91.0 & 17 \\
+GSM8K & rlvr/rlaif & 50.8 & 49.2 & 94.3 & 89.7 & 20 \\
+SVAMP & sft/rlvr & 50.5 & 49.5 & 81.0 & 76.0 & 6 \\
+SVAMP & sft/rlaif & 50.5 & 49.5 & 79.0 & 78.0 & 3 \\
+SVAMP & rlvr/rlaif & 50.0 & 50.0 & 78.0 & 76.0 & 7 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption{Controlled perturbations, relative preference on fixed pairs.}
+\label{tab:diagnostics}
+\scriptsize
+\setlength{\tabcolsep}{3.4pt}
+\begin{tabular}{llrrr}
+\toprule
+Perturbation & Source & Better\% & Tie\% & Wrong\% \\
+\midrule
+corrupt\_reasoning\_correct\_final & rlvr & 0.0 & 100.0 & 0.0 \\
+corrupt\_reasoning\_correct\_final & rlaif & 0.0 & 100.0 & 0.0 \\
+gold\_distractor\_wrong\_final & rlvr & 100.0 & 0.0 & 0.0 \\
+gold\_distractor\_wrong\_final & rlaif & 25.0 & 75.0 & 0.0 \\
+good\_reasoning\_wrong\_final & rlvr & 100.0 & 0.0 & 0.0 \\
+good\_reasoning\_wrong\_final & rlaif & 15.0 & 85.0 & 0.0 \\
+persuasive\_filler\_correct & rlvr & 0.0 & 100.0 & 0.0 \\
+persuasive\_filler\_correct & rlaif & 0.0 & 85.0 & 15.0 \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,21 @@
+\begin{table}[!htbp]
+\centering
+\caption{Fixed math evaluation, $n=300$ GSM8K and $n=100$ SVAMP.}
+\label{tab:math}
+\scriptsize
+\setlength{\tabcolsep}{3.4pt}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{llrrrrr}
+\toprule
+Set & Model & $n$ & Acc.\% & Fmt.\% & Tok. & SD \\
+\midrule
+GSM8K & SFT & 300 & 30.0 & 42.7 & 282.2 & 92.9 \\
+GSM8K & RLVR & 300 & 31.7 & 47.0 & 283.7 & 93.5 \\
+GSM8K & RLAIF & 300 & 33.0 & 46.0 & 282.8 & 93.8 \\
+SVAMP & SFT & 100 & 44.0 & 56.0 & 162.1 & 75.6 \\
+SVAMP & RLVR & 100 & 44.0 & 55.0 & 164.3 & 77.1 \\
+SVAMP & RLAIF & 100 & 41.0 & 50.0 & 166.7 & 77.3 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
