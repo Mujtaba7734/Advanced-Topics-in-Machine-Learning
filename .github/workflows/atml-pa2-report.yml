@@ -1,0 +1,26 @@
+name: Build ATML PA2 NeurIPS report
+on:
+  push:
+    paths:
+      - "Assignment-2/Report/**"
+      - ".github/workflows/atml-pa2-report.yml"
+  workflow_dispatch:
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate report assets
+        run: python3 Assignment-2/Report/scripts/verify_assets.py
+      - name: Compile NeurIPS 2026 report
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: Assignment-2/Report
+          root_file: main.tex
+          latexmk_use_xelatex: false
+          args: -pdf -interaction=nonstopmode -halt-on-error -file-line-error
+      - name: Upload compiled report skeleton
+        uses: actions/upload-artifact@v4
+        with:
+          name: atml-pa2-neurips-report-skeleton
+          path: Assignment-2/Report/main.pdf
