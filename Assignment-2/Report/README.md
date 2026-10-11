@@ -2,7 +2,7 @@
 
 **Status:** structure and numeric evidence only, **not a submitted report**. No AI-written abstract, analysis, discussion, or conclusion is included. Each `TODO` in `main.tex` must be written by the student, as the assignment explicitly prohibits GenAI report prose.
 
-This project uses **the genuine `neurips_2026.sty`**, with `\usepackage[final]{neurips_2026}` to show the coursework author's name and avoid the unwanted "Preprint" footer. It is used as a formatting template, **not** a claim of NeurIPS publication or acceptance. The professor's **eight main-page** rule overrides the conference's own page count. References and optional appendix do not count, but no required evidence may be moved to the appendix.
+This project uses **the genuine `neurips_2026.sty`**, with `\usepackage[final,main]{neurips_2026}` to show the coursework author's name and avoid the unwanted "Preprint" footer. It is used as a formatting template, **not** a claim of NeurIPS publication or acceptance. The professor's **eight main-page** rule overrides the conference's own page count. References and optional appendix do not count, but no required evidence may be moved to the appendix.
 
 ## Build
 
