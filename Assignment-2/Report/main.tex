@@ -1,6 +1,6 @@
 % ATML PA2 - report structure only: NO AI-written analysis or report prose.
 % Real unmodified 2026 NeurIPS style; camera-ready option avoids the "Preprint" footer.
-% [final,main] requests a named-author coursework layout in the real 2026 style.
+% Real 2026 conference style with final + main options for author-visible coursework preview.
 \documentclass{article}
 \usepackage[final,main]{neurips_2026}
 \usepackage[utf8]{inputenc}
@@ -48,15 +48,18 @@
 \input{tables/dpo-summary}
 \subsection{Length confounding and instruction compliance}
 \TODO{Use the fixed three strata and common word-limit prompts. Distinguish data length correlation from generated-length behavior.}
-\ReportFigure{02_dpo_length_strata.png}{Held-out DPO preference accuracy by fixed response-length stratum (standard versus length-balanced).}{dpo-strata}{0.21\textheight}
+% Caption context (source note only): Held-out DPO preference accuracy by fixed response-length stratum (standard versus length-balanced).
+\ReportFigure{02_dpo_length_strata.png}{\textbf{TODO:} Write your own caption for 02\_dpo\_length\_strata.png}{dpo-strata}{0.21\textheight}
 \input{tables/dpo-word}
 \TODO{Supply two genuinely examined examples: preference/reward-versus-quality disagreement, and word-limit/verbosity behavior. Quote minimally.}
 
 \section{Task 2: Proximal Policy Optimization}
 \subsection{Standard continuation and critic diagnostics}
 \TODO{Explain the PPO clipped ratio, GAE/value loss, reward/KL pressure, and the 20-update continuation from the supplied midpoint. Discuss peak VRAM and elapsed time from saved metadata.}
-\ReportFigure{21_ppo_reward_critic_grid.png}{PPO standard continuation: reward, sampled KL, value loss, and token entropy across 20 updates.}{ppo-main}{0.27\textheight}
-\ReportFigure{22_ppo_optimization_grid.png}{PPO standard continuation: policy loss, policy/critic gradient norms, and response length. Training clip fraction is separately recorded.}{ppo-optimization}{0.27\textheight}
+% Caption context (source note only): PPO standard continuation: reward, sampled KL, value loss, and token entropy across 20 updates.
+\ReportFigure{21_ppo_reward_critic_grid.png}{\textbf{TODO:} Write your own caption for 21\_ppo\_reward\_critic\_grid.png}{ppo-main}{0.27\textheight}
+% Caption context (source note only): PPO standard continuation: policy loss, policy/critic gradient norms, and response length. Training clip fraction is separately recorded.
+\ReportFigure{22_ppo_optimization_grid.png}{\textbf{TODO:} Write your own caption for 22\_ppo\_optimization\_grid.png}{ppo-optimization}{0.27\textheight}
 \subsection{Clipping and KL-pressure ablations}
 \TODO{Distinguish cached affected-token fraction from on-policy training clip fraction. Explain whether short forks differ and discuss held-out trade-offs and reward-overoptimization cases.}
 \input{tables/ppo-clip}
@@ -66,8 +69,10 @@
 \section{Task 3: Group Relative Policy Optimization}
 \subsection{Standard GRPO continuation}
 \TODO{Describe the K=4 group-relative advantage, truncated-response mask, 20 updates, and absent learned critic. Inspect signal-free or zero-token updates rather than claiming monotonic improvement. Record VRAM and wall-clock time.}
-\ReportFigure{23_grpo_signal_grid.png}{GRPO continuation: reward, sampled KL, within-group reward SD, and uninformative-group fraction.}{grpo-signal}{0.28\textheight}
-\ReportFigure{24_grpo_optimization_grid.png}{GRPO continuation: policy loss, gradient norm, response-token entropy, and completion length.}{grpo-optimization}{0.28\textheight}
+% Caption context (source note only): GRPO continuation: reward, sampled KL, within-group reward SD, and uninformative-group fraction.
+\ReportFigure{23_grpo_signal_grid.png}{\textbf{TODO:} Write your own caption for 23\_grpo\_signal\_grid.png}{grpo-signal}{0.28\textheight}
+% Caption context (source note only): GRPO continuation: policy loss, gradient norm, response-token entropy, and completion length.
+\ReportFigure{24_grpo_optimization_grid.png}{\textbf{TODO:} Write your own caption for 24\_grpo\_optimization\_grid.png}{grpo-optimization}{0.28\textheight}
 \subsection{Group size and sequence normalization}
 \TODO{State equal-generation budget and fixed reward-quartile difficulty rule. Explain informative groups, SD, and advantage variance for K=2/4/8.}
 \input{tables/grpo-groups}
@@ -79,7 +84,8 @@
 \section{Task 4: Safety Calibration}
 \TODO{Explain the fixed SFT/standard DPO/standard PPO/standard GRPO policies, deterministic generation, and the five-class AI judge. State that the AI judge is not ground truth.}
 \input{tables/safety}
-\ReportFigure{25_safety_full_label_distribution.png}{All five course AI-judge label categories across 18 XSTest prompt types and four policies (each cell based on 25 prompts). Columns show SAFE\_ANSWER (Ans), JUSTIFIED\_REFUSAL (Ref), and UNSAFE\_COMPLIANCE (Unsafe); the remaining OVER\_REFUSAL and AMBIGUOUS columns are identically zero in all groups.}{safety-category}{0.40\textheight}
+% Caption context (source note only): All five course AI-judge label categories across 18 XSTest prompt types and four policies (each cell based on 25 prompts). Columns show SAFE\_ANSWER (Ans), JUSTIFIED\_REFUSAL (Ref), and UNSAFE\_COMPLIANCE (Unsafe); the remaining OVER\_REFUSAL and AMBIGUOUS columns are identically zero in all groups.
+\ReportFigure{25_safety_full_label_distribution.png}{\textbf{TODO:} Write your own caption for 25\_safety\_full\_label\_distribution.png}{safety-category}{0.40\textheight}
 \TODO{Add human-versus-judge agreement/confusion and disagreement examples only after manually validating the final audit. Do not treat currently questionable manual labels as established ground truth.}
 
 \section{Task 5: RLVR versus RLAIF}
