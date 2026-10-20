@@ -10,6 +10,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Summarize archived evidence schemas
+        run: |
+          python3 - <<'PY'
+          import tarfile, json, glob, pathlib
+          for path in sorted(glob.glob('Assignment-2/backups/*BACKUP*.tar.gz')):
+              if 'EMERGENCY' in path: continue
+              print('ARCHIVE',path,flush=True)
+              with tarfile.open(path,'r:gz') as ar:
+                  matches=[n for n in ar.getnames() if n.endswith(('.jsonl','.json')) and ('examples' in n or 'word_limit' in n or 'judged_' in n or 'perturbation' in n)]
+                  print('MEMBERS', matches[:42],flush=True)
+                  for name in matches[:18]:
+                      try:
+                          f=ar.extractfile(name)
+                          if not f: continue
+                          raw=f.readline()
+                          if not raw: continue
+                          item=json.loads(raw)
+                          if isinstance(item,list): item=item[0] if item else {}
+                          if isinstance(item,dict):
+                              print('SCHEMA',name,[(k,type(v).__name__) for k,v in item.items()][:32],flush=True)
+                      except Exception as e: print('SCHEMA_ERR',name,str(e)[:90],flush=True)
+          PY
       - name: Validate report assets
         run: python3 Assignment-2/Report/scripts/verify_assets.py
       - name: Compile NeurIPS 2026 report
