@@ -8,11 +8,13 @@
 \begin{adjustbox}{max width=\linewidth}
 \begin{tabular}{lrrrrr}
 \toprule
-Policy & RM & KL & Tok. & Short & Long \\
+Policy & RM & KL & Tok. & Short $|L|$ & Long $|L|$ \\
 \midrule
 grpo & 0.986 & 0.00009 & 255.8 & 0.221 & 0.123 \\
 dr\_grpo & 0.957 & 0.00001 & 262.1 & 0.056 & 0.094 \\
 \bottomrule
 \end{tabular}
 \end{adjustbox}
+\smallskip
+{\scriptsize\emph{Length-bin columns are mean absolute normalized policy-loss contributions, not raw gradient norms.}}
 \end{table}
