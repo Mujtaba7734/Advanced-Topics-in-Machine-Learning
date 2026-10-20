@@ -60,6 +60,7 @@
 \ReportFigure{21_ppo_reward_critic_grid.png}{\textbf{TODO:} Write your own caption for 21\_ppo\_reward\_critic\_grid.png}{ppo-main}{0.27\textheight}
 % Caption context (source note only): PPO standard continuation: policy loss, policy/critic gradient norms, and response length. Training clip fraction is separately recorded.
 \ReportFigure{22_ppo_optimization_grid.png}{\textbf{TODO:} Write your own caption for 22\_ppo\_optimization\_grid.png}{ppo-optimization}{0.27\textheight}
+\ReportFigure{26_ppo_clip_trajectory.png}{\textbf{TODO:} Write your own caption for 26\_ppo\_clip\_trajectory.png}{ppo-clip-trajectory}{0.13\textheight}
 \subsection{Clipping and KL-pressure ablations}
 \TODO{Distinguish cached affected-token fraction from on-policy training clip fraction. Explain whether short forks differ and discuss held-out trade-offs and reward-overoptimization cases.}
 \input{tables/ppo-clip}
@@ -79,20 +80,23 @@
 \input{tables/grpo-difficulty}
 \TODO{Compare equal-budget GRPO and Dr.-GRPO, including the length-conditioned loss contributions and held-out quality.}
 \input{tables/grpo-norm}
+\input{tables/training-compute}
 \TODO{Insert a saved qualitative example supporting the group-size or length-normalization discussion.}
 
 \section{Task 4: Safety Calibration}
 \TODO{Explain the fixed SFT/standard DPO/standard PPO/standard GRPO policies, deterministic generation, and the five-class AI judge. State that the AI judge is not ground truth.}
 \input{tables/safety}
+\input{tables/manual-audit}
 % Caption context (source note only): All five course AI-judge label categories across 18 XSTest prompt types and four policies (each cell based on 25 prompts). Columns show SAFE\_ANSWER (Ans), JUSTIFIED\_REFUSAL (Ref), and UNSAFE\_COMPLIANCE (Unsafe); the remaining OVER\_REFUSAL and AMBIGUOUS columns are identically zero in all groups.
 \ReportFigure{25_safety_full_label_distribution.png}{\textbf{TODO:} Write your own caption for 25\_safety\_full\_label\_distribution.png}{safety-category}{0.40\textheight}
-\TODO{Add human-versus-judge agreement/confusion and disagreement examples only after manually validating the final audit. Do not treat currently questionable manual labels as established ground truth.}
+\TODO{Independently validate the workbook labels, interpret the agreement/confusion table, and add source-grounded disagreement examples. Do not treat manual labels as established ground truth without review.}
 
 \section{Task 5: RLVR versus RLAIF}
 \subsection{GSM8K and SVAMP evaluation}
 \TODO{Explain fixed supplied policy adapters, exact-answer verifier, pairwise AI feedback, parsing, format compliance, and transfer protocol. Do not compare binary rewards numerically with pairwise win scores.}
 \input{tables/math}
 \input{tables/pairwise}
+\input{tables/task5-transfer}
 \subsection{Controlled reward diagnostic}
 \TODO{Define the five variants and 80 pairs; report all four non-baseline perturbations with better/tie/wrong preferences for BOTH feedback mechanisms. Explain $S_{\mathrm{reason}}$ and $S_{\mathrm{outcome}}$ from saved metrics.}
 \input{tables/diagnostics}

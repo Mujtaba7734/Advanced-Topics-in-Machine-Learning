@@ -1,13 +1,13 @@
 # Engineering evidence audit (not report prose)
 
-**Scope:** Tasks 1–5 quantitative records in the five saved backup archives. The user-provided manual audit is excluded from this evidence check and from the main figure set.
+**Scope:** Tasks 1–5 quantitative records in the five saved backup archives, plus aggregate Task 4 manual-audit counts from the completed local workbook. Manual labels still require independent human validation.
 
 ## Present experiment runs
 
 - Task 1: Standard one-epoch DPO (1500 pairs, 94 optimizer steps); beta short forks 0.03/0.10/0.30; length-balanced model, fixed length strata and word-limit prompts. Standard DPO is NOT matched in training budget with the short beta forks.
 - Task 2: Standard PPO midpoint continuation 20/20; cached clip epsilon 0.05/0.20/0.50; matched eight-update clip short forks; eight-update KL forks beta 0/0.1/0.2. Critic loss/gradient, entropy, policy gradient and length are in standard_train.jsonl.
 - Task 3: Standard GRPO midpoint continuation 20/20; cached K=2/4/8 equal-total-generation diagnostics (192 total); eight-update normalization GRPO/Dr.-GRPO forks, shared held-out evaluation. Four standard updates have zero optimization tokens after truncated completions are masked. This is not equivalent to 20 nonzero policy updates.
-- Task 4 (automated only): 450 fixed XSTest prompts per frozen policy; 1800 model responses and judge rows. The course judge assigned zero OVER_REFUSAL across ALL policies and mislabels some benign prompts. The automated judge MUST NOT be represented as human ground truth.
+- Task 4: 450 fixed XSTest prompts per frozen policy; 1800 model responses and judge rows. The completed 60-prompt workbook contains 240 human labels; pooled agreement is 167/240, with confusion counts in `data/15_manual_audit.json`. The course judge assigned zero OVER_REFUSAL across ALL policies and mislabels some benign prompts. The automated judge MUST NOT be represented as human ground truth.
 - Task 5: Fixed 300 GSM8K and 100 SVAMP examples across SFT/RLVR/RLAIF; 100 supplied controlled responses (20 problems x five variants), 80 perturbation pairs; course judge outputs and comparisons are saved. The course-supplied RLVR/RLAIF checkpoints are not trained as part of this assignment.
 - Task 6: no new training required.
 
@@ -28,6 +28,6 @@ The `tables/` and `figures/` folders capture the saved quantitative comparisons 
 
 The source file locations are named in `data/evidence_manifest.json`, `Report/README.md`, and the assignment-specific `results/task*/` JSON and JSONL outputs in the downloaded backups.
 
-**Not covered:** Independent correctness proof for every objective formula, raw dataset provenance beyond the archived metadata, original midpoint-to-final tensor delta comparisons, and human audit accuracy. The present audit supports a no-retraining recommendation, not absolute proof of experiment correctness.
+**Not covered:** Independent correctness proof for every objective formula, raw dataset provenance beyond the archived metadata, original midpoint-to-final tensor delta comparisons, and independent validation of the human labels. The present audit supports a no-retraining recommendation, not absolute proof of experiment correctness.
 
-The main safety category figure gives full five-label distributions across all 18 categories and four policies (three nonzero labels and a legend noting the two zero labels). The original manual audit was deliberately not used.
+The main safety category figure gives full five-label distributions across all 18 categories and four policies (three nonzero labels and a legend noting the two zero labels). The manual audit is represented by aggregate counts only; raw labels remain in the local workbook.

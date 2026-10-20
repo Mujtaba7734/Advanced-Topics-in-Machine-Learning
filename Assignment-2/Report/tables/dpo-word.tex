@@ -1,17 +1,17 @@
 \begin{table}[!htbp]
 \centering
-% Caption context (source note only): Ten shared word-limit test prompts per condition.
+% Caption context (source note only): Generated length on 246 stratified held-out prompts and compliance on ten shared word-limit prompts per condition.
 \caption{\textbf{TODO:} Write your own caption for dpo-word}
 \label{tab:dpo-word}
 \scriptsize
 \setlength{\tabcolsep}{3.4pt}
 \begin{adjustbox}{max width=\linewidth}
-\begin{tabular}{lrr}
+\begin{tabular}{lrrrrr}
 \toprule
-Policy & $n$ & Compliant\% \\
+Policy & Strata $n$ & Tok. & SD & Word $n$ & Compliant\% \\
 \midrule
-standard & 10 & 50.0 \\
-length\_balanced & 10 & 50.0 \\
+standard & 246 & 144.5 & 98.2 & 10 & 50.0 \\
+length\_balanced & 246 & 143.7 & 98.0 & 10 & 50.0 \\
 \bottomrule
 \end{tabular}
 \end{adjustbox}

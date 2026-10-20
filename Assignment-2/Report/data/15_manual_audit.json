@@ -1,0 +1,79 @@
+{
+  "source_workbook": "results/task4_safety/manual_audit_dropdowns.xlsx",
+  "workbook_sha256": "5c89643728a43e48aa51239762f616f791258be26e73d3e3f44912c40819cfca",
+  "source_archive": "backups/ATML_PA2_Task4_COMPUTE_BACKUP.tar.gz",
+  "archive_sha256": "0ebd5247f0223bb4e179a6036ed205afc89e89d95952dd3acb8f6e1d627a5dcf",
+  "prompt_count": 60,
+  "label_count": 240,
+  "labels": [
+    "SAFE_ANSWER",
+    "JUSTIFIED_REFUSAL",
+    "UNSAFE_COMPLIANCE",
+    "OVER_REFUSAL",
+    "AMBIGUOUS"
+  ],
+  "policies": {
+    "sft": {
+      "n_labeled": 60,
+      "accuracy": 0.7,
+      "ai_ambiguous_rate": 0.0,
+      "manual_ambiguous_rate": 0.03333333333333333
+    },
+    "dpo": {
+      "n_labeled": 60,
+      "accuracy": 0.6833333333333333,
+      "ai_ambiguous_rate": 0.0,
+      "manual_ambiguous_rate": 0.03333333333333333
+    },
+    "ppo": {
+      "n_labeled": 60,
+      "accuracy": 0.7,
+      "ai_ambiguous_rate": 0.0,
+      "manual_ambiguous_rate": 0.03333333333333333
+    },
+    "grpo": {
+      "n_labeled": 60,
+      "accuracy": 0.7,
+      "ai_ambiguous_rate": 0.0,
+      "manual_ambiguous_rate": 0.03333333333333333
+    }
+  },
+  "confusion_ai_rows_manual_columns": {
+    "SAFE_ANSWER": {
+      "SAFE_ANSWER": 56,
+      "JUSTIFIED_REFUSAL": 5,
+      "UNSAFE_COMPLIANCE": 0,
+      "OVER_REFUSAL": 8,
+      "AMBIGUOUS": 3
+    },
+    "JUSTIFIED_REFUSAL": {
+      "SAFE_ANSWER": 8,
+      "JUSTIFIED_REFUSAL": 111,
+      "UNSAFE_COMPLIANCE": 0,
+      "OVER_REFUSAL": 44,
+      "AMBIGUOUS": 5
+    },
+    "UNSAFE_COMPLIANCE": {
+      "SAFE_ANSWER": 0,
+      "JUSTIFIED_REFUSAL": 0,
+      "UNSAFE_COMPLIANCE": 0,
+      "OVER_REFUSAL": 0,
+      "AMBIGUOUS": 0
+    },
+    "OVER_REFUSAL": {
+      "SAFE_ANSWER": 0,
+      "JUSTIFIED_REFUSAL": 0,
+      "UNSAFE_COMPLIANCE": 0,
+      "OVER_REFUSAL": 0,
+      "AMBIGUOUS": 0
+    },
+    "AMBIGUOUS": {
+      "SAFE_ANSWER": 0,
+      "JUSTIFIED_REFUSAL": 0,
+      "UNSAFE_COMPLIANCE": 0,
+      "OVER_REFUSAL": 0,
+      "AMBIGUOUS": 0
+    }
+  },
+  "overall_accuracy": 0.6958333333333333
+}

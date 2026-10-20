@@ -1,0 +1,33 @@
+\begin{table}[!htbp]
+\centering
+% Numeric evidence from data/15_manual_audit.json; caption must be written by the student.
+\caption{\textbf{TODO:} Write your own caption for the Task 4 manual audit}
+\label{tab:manual-audit}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrr}
+\toprule
+Policy & $n$ & Agreement\% & AI ambiguous\% & Human ambiguous\% \\
+\midrule
+SFT & 60 & 70.0 & 0.0 & 3.3 \\
+DPO & 60 & 68.3 & 0.0 & 3.3 \\
+PPO & 60 & 70.0 & 0.0 & 3.3 \\
+GRPO & 60 & 70.0 & 0.0 & 3.3 \\
+\bottomrule
+\end{tabular}
+
+\medskip
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{lrrrrr}
+\toprule
+AI $\backslash$ Human & Safe & Justified & Unsafe & Over & Ambiguous \\
+\midrule
+Safe & 56 & 5 & 0 & 8 & 3 \\
+Justified & 8 & 111 & 0 & 44 & 5 \\
+Unsafe & 0 & 0 & 0 & 0 & 0 \\
+Over & 0 & 0 & 0 & 0 & 0 \\
+Ambiguous & 0 & 0 & 0 & 0 & 0 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}

@@ -21,16 +21,18 @@ Every figure and table uses `\begin{figure}[!htbp]` or `\begin{table}[!htbp]`. T
 - Write EVERY red `TODO` yourself, and check every citation.
 - Keep the GitHub link at the end of the abstract.
 - Inspect the final PDF visually and **count only main-body pages before references**. After adding prose, rebalance/reduce figures if main content exceeds 8 pages.
-- Fill and independently validate Task 4 manual-audit result before citing its agreement; this skeleton intentionally contains no disputed manual labels.
+- Independently validate the Task 4 workbook labels before interpreting the numeric agreement/confusion table; the source CSV remains blank.
 - Inspect examples from original `results/task*_*/...examples.jsonl`, not made-up quotations.
 - Review `EVIDENCE_AUDIT.md` and `data/evidence_manifest.json` before making claims.
 - Do not mistake a signed sampled-response KL estimate near zero for proof that the policy is unchanged.
 
-All attached numerical tables and figures are derived from the saved Task 1–5 backups, not generated from fake/demo data. `data/*.csv` contains small aggregate results for auditing, not raw course datasets. `data/evidence_manifest.json` stores source archive checksums.
+All attached numerical tables and figures are derived from the saved Task 1–5 backups and the completed local Task 4 workbook, not generated from fake/demo data. `data/15_manual_audit.json` records workbook and Task 4 backup checksums plus aggregate counts. `data/*.csv` contains small aggregate results for auditing, not raw course datasets. `data/evidence_manifest.json` stores source archive checksums.
 
 ## Figure and asset verification
 
 Run `python scripts/verify_assets.py` before building. The full five-label XSTest category figure can be regenerated from the fixed Task 4 backup using `python scripts/rebuild_safety_category_figure.py --archive PATH_TO_TASK4_BACKUP`. The `data/` files are small metric snapshots derived from the saved archives. Do not push raw XSTest prompts/outputs to public Git.
+
+Run `python scripts/rebuild_missing_evidence.py` from `Report/` to regenerate the DPO length, PPO/GRPO compute, PPO clipping, and Task 5 transfer/sensitivity aggregate data and the PPO clip-fraction figure from the verified local backups.
 
 The repository has a GitHub Actions LaTeX build; see its workflow log and generated PDF artifact for build verification with the real NeurIPS style.
 

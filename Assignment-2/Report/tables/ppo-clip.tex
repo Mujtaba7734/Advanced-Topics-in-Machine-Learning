@@ -1,18 +1,18 @@
 \begin{table}[!htbp]
 \centering
-% Caption context (source note only): PPO clipping: cached affected-token fraction and matched short-fork held-out metrics; training reward standard deviation measures variation across update samples.
+% Caption context (source note only): PPO clipping: cached affected-token fraction/surrogate and matched eight-update short-fork held-out metrics; Grad SD is the standard deviation of policy gradient norms across updates.
 \caption{\textbf{TODO:} Write your own caption for ppo-clip}
 \label{tab:ppo-clip}
 \scriptsize
 \setlength{\tabcolsep}{3.4pt}
 \begin{adjustbox}{max width=\linewidth}
-\begin{tabular}{lrrrrr}
+\begin{tabular}{lrrrrrr}
 \toprule
-$\epsilon$ & Cache\% & Reward & KL & Tok. & SD \\
+$\epsilon$ & Cache\% & Cached surrogate & Reward & KL & Tok. & Policy grad SD \\
 \midrule
-0.05 & 55.3 & 1.582 & 0.00011 & 312.3 & 1.123 \\
-0.20 & 33.8 & 1.582 & 0.00011 & 312.3 & 1.123 \\
-0.50 & 17.8 & 1.582 & 0.00011 & 312.3 & 1.123 \\
+0.05 & 55.3 & -0.0878 & 1.582 & 0.00011 & 312.3 & 0.286 \\
+0.20 & 33.8 & -0.0648 & 1.582 & 0.00011 & 312.3 & 0.286 \\
+0.50 & 17.8 & -0.0398 & 1.582 & 0.00011 & 312.3 & 0.286 \\
 \bottomrule
 \end{tabular}
 \end{adjustbox}

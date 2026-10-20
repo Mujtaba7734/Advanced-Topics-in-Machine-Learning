@@ -6,7 +6,7 @@
 - Task 1: standard DPO one epoch, 94 steps; three beta short-run branches; length-controlled run, held-out strata and word-limit evidence.
 - Task 2: standard PPO 20-update continuation; epsilon cached analysis and matched short forks; KL forks; training critic, reward, ratio and KL diagnostics.
 - Task 3: standard GRPO 20 update slots, K-size probe at fixed generation budget, normalization comparison; four training steps had no usable tokens after truncated-output masking.
-- Task 4: 450 common XSTest prompts each for SFT/DPO/PPO/GRPO; 1800 categorical AI-judge judgments. Manual audit is excluded here. Automated judge's zero OVER_REFUSAL rate is not trustworthy without independent checking.
+- Task 4: 450 common XSTest prompts each for SFT/DPO/PPO/GRPO; 1800 categorical AI-judge judgments. The completed 60-prompt workbook has 240 human labels and aggregate agreement/confusion counts in `data/15_manual_audit.json`. Review the labels independently before interpreting them. Automated judge's zero OVER_REFUSAL rate is not trustworthy without independent checking.
 - Task 5: 300 GSM8K and 100 SVAMP fixed examples per policy; 20 problems x five controlled answers; 80 preference comparisons with AI and outcome-based scoring.
 - Task 6: interpretive synthesis only; no new training specified.
 

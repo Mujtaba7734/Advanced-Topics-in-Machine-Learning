@@ -1,0 +1,30 @@
+\begin{table}[!htbp]
+\centering
+% Signed differences: GSM8K minus SVAMP in percentage points; SVAMP minus GSM8K for tokens.
+\caption{\textbf{TODO:} Write your own caption for Task 5 transfer differences}
+\label{tab:task5-transfer}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{lrrr}
+\toprule
+Policy & Acc. GSM--SVAMP (pp) & Fmt. GSM--SVAMP (pp) & Tokens SVAMP--GSM \\
+\midrule
+SFT & -14.0 & -13.3 & -120.1 \\
+RLVR & -12.3 & -8.0 & -119.4 \\
+RLAIF & -8.0 & -4.0 & -116.0 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+
+\medskip
+\begin{tabular}{lrr}
+\toprule
+Pair & A score GSM--SVAMP (pp) & B score GSM--SVAMP (pp) \\
+\midrule
+SFT/RLVR & -0.5 & +0.5 \\
+SFT/RLAIF & +0.5 & -0.5 \\
+RLVR/RLAIF & +0.8 & -0.8 \\
+\bottomrule
+\end{tabular}
+\end{table}
