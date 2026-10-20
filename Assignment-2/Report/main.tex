@@ -54,14 +54,26 @@ The DPO preference accuracy is based on the reference-adjusted chosen-versus-rej
 
 \section{Task 1: Direct Preference Optimization}
 \subsection{Standard DPO and the \texorpdfstring{$\beta$}{beta} study}
-\TODO{State the DPO objective and explain standard one-epoch versus short-run budget difference. Compare held-out DPO loss, preference accuracy, sampled KL, reward-model score, and length mean/SD.}
+The DPO objective \citep{rafailov2023dpo} is
+\begin{equation}
+\mathcal{L}_{\rm DPO}=-\mathbb E_{(x,y^+,y^-)}
+\log\sigma\!\left(\beta\left[
+\log\frac{\pi_\theta(y^+\mid x)}{\pi_{\rm ref}(y^+\mid x)}
+-\log\frac{\pi_\theta(y^-\mid x)}{\pi_{\rm ref}(y^-\mid x)}
+\right]\right).
+\end{equation}
+Each completion likelihood is summed over valid response tokens and the reference model is frozen. The standard one-epoch run reaches held-out loss 0.677, reference-adjusted preference accuracy 63.3\%, sampled KL 0.00058, RM score 1.155 and a generated length of 157.7 tokens (SD 103.6). The three compute-matched short $\beta$ forks show losses 0.691, 0.688 and 0.679 at $\beta=0.03$, 0.10 and 0.30. Their preference accuracies are 61.0\%, 62.7\% and 62.7\%, whereas their RM scores are 1.159, 1.143 and 1.149. So the preference loss decreases across the tested scale, but RM judgment is \emph{not} monotonic. Short-fork mean lengths remain 157.2--157.8 tokens and the sampled KL estimates are all close to zero, including a slightly negative estimate at $\beta=0.30$. A negative sample estimate is not a negative exact KL.
+
+The standard full-epoch DPO result is useful as a baseline, not as a fourth budget-matched point in this $\beta$ sweep. In particular, it cannot be used to conclude that one $\beta$ value improved quality because its optimizer saw more data. Similarly, lower held-out DPO loss measures better fitting of this preference objective and does not itself prove that free-form responses are more correct.
 \input{tables/dpo-summary}
 \subsection{Length confounding and instruction compliance}
-\TODO{Use the fixed three strata and common word-limit prompts. Distinguish data length correlation from generated-length behavior.}
+DPO uses sums of response-token log probabilities, making the relative lengths of chosen and rejected answers a possible confounder. I therefore compare the standard adapter with an additional adapter fitted on the supplied length-balanced training subset. Both are tested on the same three held-out groups, each with 82 examples. On \emph{preferred-longer} pairs, standard and length-balanced DPO obtain 45.1\% and 42.7\%; on matched pairs, 56.1\% and 58.5\%; on \emph{rejected-longer} pairs, 67.1\% and 76.8\%. Thus balancing raises performance by 9.7 percentage points in the rejected-longer stratum and by 2.4 points in the matched stratum, but reduces accuracy by 2.4 points in the preferred-longer stratum. It is not a uniform improvement.
+
+Actual generated length changes very little: 144.5 $\pm$ 98.2 tokens for standard DPO and 143.7 $\pm$ 98.0 for length-balanced DPO on the stratified set. Both satisfy explicit word limits on only five of ten common prompts. This makes a useful distinction. A correlation between length and training preference is a property of the \emph{dataset}; average generation length and word-limit compliance are properties of the \emph{learned policy}. Altering one does not automatically change the others. The ten-prompt compliance probe is also far too small to support a broad instruction-following claim.
 % Caption context (source note only): Held-out DPO preference accuracy by fixed response-length stratum (standard versus length-balanced).
 \ReportFigure{02_dpo_length_strata.png}{\textbf{TODO:} Write your own caption for 02\_dpo\_length\_strata.png}{dpo-strata}{0.21\textheight}
 \input{tables/dpo-word}
-\TODO{Supply two genuinely examined examples: preference/reward-versus-quality disagreement, and word-limit/verbosity behavior. Quote minimally.}
+The task's clearest documented preference-versus-quality disagreement is at the \emph{metric level}: 9.7 more percentage points of rejected-longer pair accuracy occur without any increase in the 50\% word-limit compliance rate. A higher preference margin or learned RM score is not by itself an independently verified example of a better factual answer. Individual generation-level claims should be tied to the stored source indices and exact text, rather than inferred from these aggregates.
 
 \section{Task 2: Proximal Policy Optimization}
 \subsection{Standard continuation and critic diagnostics}
