@@ -19,8 +19,8 @@ jobs:
           root_file: main.tex
           latexmk_use_xelatex: false
           args: -pdf -interaction=nonstopmode -halt-on-error -file-line-error
-      - name: Upload compiled report skeleton
+      - name: Upload compiled report
         uses: actions/upload-artifact@v4
         with:
-          name: atml-pa2-neurips-report-skeleton
+          name: atml-pa2-neurips-final-report
           path: Assignment-2/Report/main.pdf
