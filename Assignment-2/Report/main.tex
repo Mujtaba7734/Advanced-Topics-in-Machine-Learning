@@ -26,23 +26,31 @@
   \end{figure}
 }
 
-\title{TODO: Choose a research title for ATML PA2}
-\author{TODO: Your name\\LUMS, EE-5102/CS-6304}
+\title{When Post-Training Objectives Disagree with Model Quality:\\DPO, PPO, GRPO, Safety and Feedback Sources}
+\author{Mujtaba\\LUMS, EE-5102 / CS-6304: Advanced Topics in Machine Learning}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-\TODO{Write your own abstract: research question, comparison, key measured observations, and limitation. Keep it concise.}
+I investigate what preference optimization, online learned rewards, and verifiable versus AI feedback actually change in a common language-model family. The study compares controlled DPO, PPO and GRPO experiments, four aligned policies on XSTest, and fixed RLVR/RLAIF mathematics policies on GSM8K, SVAMP and constructed perturbations. Standard DPO achieves 63.3\% held-out preference accuracy, but balancing response-length strata does not improve word-limit compliance. PPO's cached clipping probe changes sharply with the clipping threshold, yet the matched short continuations have identical held-out statistics; GRPO's useful signal depends on within-group variation and four of twenty update slots have no optimizable tokens. On XSTest the fixed AI judge identifies zero over-refusal, whereas a 240-label manual audit disagrees on 73 labels and includes 52 manually labeled over-refusals. RLAIF has slightly higher GSM8K exact accuracy than RLVR (33.0\% versus 31.7\%), but lower SVAMP accuracy (41\% versus 44\%). Controlled perturbations expose the complementary blind spots of exact verification and AI preference judgment. The results show why a good-looking objective value alone cannot certify model quality.
 % REQUIRED: keep the GitHub URL at the END of your abstract.
 \url{https://github.com/Mujtaba7734/Advanced-Topics-in-Machine-Learning}
 \end{abstract}
 
 \section{Introduction and Research Questions}
-\TODO{State the motivating question about preference fitting, policy drift, safety calibration, and reward-source behavior. Explain what each task isolates.}
+Post-training can make a model more likely to generate preferred answers without necessarily making every answer more correct, concise, helpful or safe. Basically, preference accuracy measures agreement with a fixed set of labels, a reward model supplies a learned score, sampled KL approximates drift from a reference, and downstream evaluations ask different questions. All these measurements can disagree without a numerical mistake.
+
+This report treats six tasks as one controlled study. DPO fits offline preference pairs \citep{rafailov2023dpo}; PPO optimizes fresh generations with a clipped policy objective and a learned critic \citep{schulman2017ppo,ouyang2022training}; GRPO substitutes group-relative advantages for the critic \citep{shao2024deepseekmath}. Then I examine exaggerated refusal on XSTest \citep{rottger2024xstest}, compare exact-answer and AI preference feedback, and synthesize the results. The questions are: when does stronger objective fitting correspond to better responses; how do data length, clipping, group variance and truncation affect optimization; whether aligned models both answer benign prompts and refuse unsafe ones; and whether broad AI feedback detects failures beyond an exact verifier and transfers to another math distribution.
 
 \section{Experimental Setup and Methods}
-\TODO{Describe fixed Qwen2.5-1.5B-Instruct, frozen reference/reward/judge models, LoRA adapters, seed 6304, course datasets, common decoding, task-specific budgets, and held-out protocols. State metric averaging conventions. Verify parameters in configs before writing.}
+The shared starting model is \texttt{Qwen/Qwen2.5-1.5B-Instruct}, with seed 6304. The fixed learned reward model is \texttt{yavuz-ai/qwen2.5-1.5b-rm-ultrafeedback}, the AI judge is \texttt{Qwen/Qwen2.5-3B-Instruct}, and PPO's value model starts from \texttt{Qwen/Qwen2.5-0.5B-Instruct}. LoRA adapters use rank 8, $\alpha=16$, dropout 0.05, and the query/value projection modules. The default stochastic decoding settings are temperature 0.7 and top-$p=0.9$; the AI judge uses deterministic decoding. Seeds, fixed IDs and task-specific response caps are recorded in the repository's configuration files.
+
+DPO uses fixed UltraFeedback preference subsets \citep{cui2023ultrafeedback}. Its standard run processes 1,500 pairs for one epoch (94 optimizer steps); the three short regularization-strength forks use a separate common 600-example budget. The length-stratified evaluation contains 246 pairs, 82 per stratum. PPO starts from a course-supplied midpoint policy and matched value state rather than retraining from scratch. Standard PPO uses twenty updates, two optimization passes per rollout, clip $\epsilon=0.20$, $\beta_{\rm KL}=0.10$, $\gamma=1$, and GAE $\lambda=0.95$. Training uses up to 512 response tokens and frozen evaluation up to 768. GRPO also resumes from a supplied midpoint, with twenty recorded update slots, four generations per prompt, clip $\epsilon=0.20$, reference weight 0.10 and truncated-completion masking. PPO and GRPO short forks use eight updates each.
+
+Task 4 uses the identical 450 XSTest prompts for SFT and each standard DPO/PPO/GRPO adapter, and saves 60 manually audited prompts per policy. Task 5 evaluates course-supplied frozen RLVR and RLAIF policies and SFT on 300 GSM8K examples \citep{cobbe2021gsm8k}, 100 course-selected SVAMP examples \citep{patel2021svamp}, and 100 controlled response variants over 20 problems. I do not retrain the Task 5 policies.
+
+The DPO preference accuracy is based on the reference-adjusted chosen-versus-rejected sequence likelihood margin. The released KL statistic is a signed sampled-token estimate and can be slightly negative, unlike exact KL divergence. The logged entropy helper computes \emph{sampled-token surprisal}, namely minus the average sampled-token log probability, rather than the full categorical entropy. Reward-model scores, binary verifier rewards and pairwise AI scores are not calibrated to the same scale. The pairwise score gives a win one point, a tie half a point and a loss zero, so tie rates must be reported separately.
 
 \section{Task 1: Direct Preference Optimization}
 \subsection{Standard DPO and the \texorpdfstring{$\beta$}{beta} study}
