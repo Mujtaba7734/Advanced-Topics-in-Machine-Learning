@@ -1,8 +1,6 @@
 \begin{table}[!htbp]
 \centering
-% Caption context (source note only): Course AI pairwise judge scores and ties; strict agreement includes ties and can be inflated when responses are identical.
-\caption{Fixed AI-judge pairwise policy results. Win scores assign half credit for ties; strict verifier/judge agreement must be read alongside high tie rates and counts of verifier-disagreeing examples.}
-\label{tab:pairwise}
+
 \scriptsize
 \setlength{\tabcolsep}{3.4pt}
 \begin{adjustbox}{max width=\linewidth}
@@ -18,5 +16,9 @@ SVAMP & sft/rlaif & 50.5 & 49.5 & 79.0 & 78.0 & 3 \\
 SVAMP & rlvr/rlaif & 50.0 & 50.0 & 78.0 & 76.0 & 7 \\
 \bottomrule
 \end{tabular}
+
 \end{adjustbox}
+\caption{AI-Judge Preferences and Agreement}
+\label{tab:pairwise}
+
 \end{table}

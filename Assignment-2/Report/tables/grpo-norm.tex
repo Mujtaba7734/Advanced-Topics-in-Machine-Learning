@@ -1,8 +1,6 @@
 \begin{table}[!htbp]
 \centering
-% Caption context (source note only): Matched GRPO versus Dr.-GRPO short forks (8 updates); contributions are absolute policy loss statistics, not raw gradients.
-\caption{GRPO versus Dr.-GRPO matched eight-update normalization forks. Short and Long are mean absolute normalized policy-loss contributions, not raw gradients.}
-\label{tab:grpo-norm}
+
 \scriptsize
 \setlength{\tabcolsep}{3.4pt}
 \begin{adjustbox}{max width=\linewidth}
@@ -14,7 +12,9 @@ grpo & 0.986 & 0.00009 & 255.8 & 0.221 & 0.123 \\
 dr\_grpo & 0.957 & 0.00001 & 262.1 & 0.056 & 0.094 \\
 \bottomrule
 \end{tabular}
+
 \end{adjustbox}
-% Short/Long |L|: mean absolute normalized policy-loss contribution,
-% not a raw gradient. Student should define this metric in their own text.
+\caption{Effect of Response Length on GRPO Training}
+\label{tab:grpo-norm}
+
 \end{table}

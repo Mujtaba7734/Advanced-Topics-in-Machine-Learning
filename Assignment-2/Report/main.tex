@@ -1,206 +1,252 @@
-% Completed ATML PA2 research report. Results come from archived fixed experiments.
-% Real unmodified 2026 NeurIPS style; camera-ready option avoids the "Preprint" footer.
-% Real 2026 conference style with final + main options for author-visible coursework preview.
 \documentclass{article}
 \usepackage[final,main]{neurips_2026}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{amsmath,amssymb,booktabs,graphicx,hyperref}
+\usepackage{amsmath,amssymb,booktabs,graphicx}
 \usepackage[table]{xcolor}
 \usepackage{adjustbox}
-\usepackage[section]{placeins}
+\usepackage{placeins}
+\usepackage[font=footnotesize,labelfont=bf]{caption}
 \usepackage{microtype}
 \usepackage{xurl}
-\hypersetup{colorlinks=true,urlcolor=blue,citecolor=blue,linkcolor=blue}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
 \graphicspath{{figures/}}
 
-% All originally required manuscript text has been filled; no TODO macro needed.
-% Requested [!htbp] permits here/top/bottom/float-page placement.
-% Section-level FloatBarriers keep task evidence with its task without forced [H].
 \newcommand{\ReportFigure}[4]{%
   \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.98\linewidth,height=#4,keepaspectratio]{#1}
+    \includegraphics[width=0.94\linewidth,height=#4,keepaspectratio]{#1}
     \caption{#2}
     \label{fig:#3}
   \end{figure}
-  \FloatBarrier
 }
 
-\title{When Post-Training Objectives Disagree with Model Quality:\\DPO, PPO, GRPO, Safety and Feedback Sources}
-\author{Mujtaba\\LUMS, EE-5102 / CS-6304: Advanced Topics in Machine Learning}
+\title{DPO, PPO, GRPO and Feedback Methods}
+\author{Muhammad Mujtaba -28100480\\ CS-6304- ATML}
 
 \begin{document}
+
 \maketitle
+\setlength{\parskip}{1.5pt plus 0.4pt}
+\setlength{\textfloatsep}{7pt plus 2pt minus 2pt}
+\setlength{\floatsep}{6pt plus 2pt minus 2pt}
+\setlength{\intextsep}{6pt plus 2pt minus 2pt}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.78}
 
 \begin{abstract}
-I investigate what preference optimization, online learned rewards, and verifiable versus AI feedback actually change in a common language-model family. The study compares controlled DPO, PPO and GRPO experiments, four aligned policies on XSTest, and fixed RLVR/RLAIF mathematics policies on GSM8K, SVAMP and constructed perturbations. Standard DPO achieves 63.3\% held-out preference accuracy, but balancing response-length strata does not improve word-limit compliance. PPO's cached clipping probe changes sharply with the clipping threshold, yet the matched short continuations have identical held-out statistics; GRPO's useful signal depends on within-group variation and four of twenty update slots have no optimizable tokens. On XSTest the fixed AI judge identifies zero over-refusal, whereas a 240-label manual audit disagrees on 73 labels and includes 52 manually labeled over-refusals. RLAIF has slightly higher GSM8K exact accuracy than RLVR (33.0\% versus 31.7\%), but lower SVAMP accuracy (41\% versus 44\%). Controlled perturbations expose the complementary blind spots of exact verification and AI preference judgment. The results show why a good-looking objective value alone cannot certify model quality.
-% REQUIRED: keep the GitHub URL at the END of your abstract.
-\url{https://github.com/Mujtaba7734/Advanced-Topics-in-Machine-Learning}
+In this assignment, a comparison was performed by implementing different ways of improving a language model after supervised training. Standard DPO reached 63.3\% held-out preference accuracy, but attempting to control response length did not make the model better at following specific word limits. Changing PPO's clipping threshold affected the cached objective, but it did not improve the held-out reward in the short trained variants. GRPO depended on having different rewards inside a group, and four of its 20 scheduled update slots had no usable tokens for learning. On XSTest, the AI judge reported zero over-refusal labels, but the manual labels showed otherwise. RLVR was reliable at catching changed final answers, whereas the AI preference judge struggled to distinguish between different response qualities. Therefore, each reward model measured only some of what it was intended to measure.
+
+\textbf{Repository}: \url{https://github.com/Mujtaba7734/Advanced-Topics-in-Machine-Learning}
+
 \end{abstract}
 
-\section{Introduction and Research Questions}
-Post-training can make a model more likely to generate preferred answers without necessarily making every answer more correct, concise, helpful or safe. Basically, preference accuracy measures agreement with a fixed set of labels, a reward model supplies a learned score, sampled KL approximates drift from a reference, and downstream evaluations ask different questions. All these measurements can disagree without a numerical mistake.
+\section{Introduction}
 
-This report treats six tasks as one controlled study. DPO fits offline preference pairs \citep{rafailov2023dpo}; PPO optimizes fresh generations with a clipped policy objective and a learned critic \citep{schulman2017ppo,ouyang2022training}; GRPO substitutes group-relative advantages for the critic \citep{shao2024deepseekmath}. Then I examine exaggerated refusal on XSTest \citep{rottger2024xstest}, compare exact-answer and AI preference feedback, and synthesize the results. The questions are: when does stronger objective fitting correspond to better responses; how do data length, clipping, group variance and truncation affect optimization; whether aligned models both answer benign prompts and refuse unsafe ones; and whether broad AI feedback detects failures beyond an exact verifier and transfers to another math distribution.
+The point of post-training is to make a model give better responses. But what exactly counts as 'better' depends on the objective. DPO learns from preferred and rejected answers, PPO and GRPO optimizes a reward model, and RLVR checks a final answer against a known value. These approaches do not measure the same thing. For example, a response can receive a good reward-model score and still ignore a word limit or stop before it is finished.
 
-\section{Experimental Setup and Methods}
-The shared starting model is \texttt{Qwen/Qwen2.5-1.5B-Instruct}, with seed 6304. The fixed learned reward model is \texttt{yavuz-ai/qwen2.5-1.5b-rm-ultrafeedback}, the AI judge is \texttt{Qwen/Qwen2.5-3B-Instruct}, and PPO's value model starts from \texttt{Qwen/Qwen2.5-0.5B-Instruct}. LoRA adapters use rank 8, $\alpha=16$, dropout 0.05, and the query/value projection modules. The default stochastic decoding settings are temperature 0.7 and top-$p=0.9$; the AI judge uses deterministic decoding. Seeds, fixed IDs and task-specific response caps are recorded in the repository's configuration files.
+The six tasks were used to look at this difference. Basically, the question was where the reported training metrics agreed with actual behavior, and where they did not. The experiments also checked whether the same policies refused harmless questions, whether the safety judge could recognize those refusals, and whether AI feedback was more useful than checking an exact answer.
 
-DPO uses fixed UltraFeedback preference subsets \citep{cui2023ultrafeedback}. Its standard run processes 1,500 pairs for one epoch (94 optimizer steps); the three short regularization-strength forks use a separate common 600-example budget. The length-stratified evaluation contains 246 pairs, 82 per stratum. PPO starts from a course-supplied midpoint policy and matched value state rather than retraining from scratch. Standard PPO uses twenty updates, two optimization passes per rollout, clip $\epsilon=0.20$, $\beta_{\rm KL}=0.10$, $\gamma=1$, and GAE $\lambda=0.95$. Training uses up to 512 response tokens and frozen evaluation up to 768. GRPO also resumes from a supplied midpoint, with twenty recorded update slots, four generations per prompt, clip $\epsilon=0.20$, reference weight 0.10 and truncated-completion masking. PPO and GRPO short forks use eight updates each.
+\section{Experimental Setup}
+The common starting model was ``Qwen/Qwen2.5-1.5B-Instruct'', with seed 6304. The reward model was ``yavuz-ai/qwen2.5-1.5b-rm-ultrafeedback'', the AI judge was ``Qwen/Qwen2.5-3B-Instruct'', and the PPO value model started from ``Qwen/Qwen2.5-0.5B-Instruct''. The policy adapters used LoRA with rank 8, alpha 16, and dropout 0.05. The usual generation settings were temperature 0.7 and top-$p=0.9$. The supplied evaluation splits and decoding rules were kept fixed inside each comparison.
 
-Task 4 uses the identical 450 XSTest prompts for SFT and each standard DPO/PPO/GRPO adapter, and saves 60 manually audited prompts per policy. Task 5 evaluates course-supplied frozen RLVR and RLAIF policies and SFT on 300 GSM8K examples \citep{cobbe2021gsm8k}, 100 course-selected SVAMP examples \citep{patel2021svamp}, and 100 controlled response variants over 20 problems. I do not retrain the Task 5 policies.
+For DPO, the standard model was trained for 1 epoch on 1,500 preference pairs, while the beta study used 3 shorter runs with 600 examples each. The separate length study tested 82 pairs in each of three length groups. For PPO and GRPO, training was continued from a supplied midpoint checkpoints for 20 update slots, rather than starting from scratch. The controlled experiments used 8 updates. PPO had a learned value model and used GAE. 
+GRPO instead compared four generated answers to the same prompt. Task 4 tested SFT, DPO, PPO and GRPO on the same 450 XSTest prompts per policy. Task 5 evaluated the supplied RLVR and RLAIF policies on 300 GSM8K and 100 SVAMP problems, followed by controlled response changes.
 
-The DPO preference accuracy is based on the reference-adjusted chosen-versus-rejected sequence likelihood margin. The released KL statistic is a signed sampled-token estimate and can be slightly negative, unlike exact KL divergence. The logged entropy helper computes \emph{sampled-token surprisal}, namely minus the average sampled-token log probability, rather than the full categorical entropy. Reward-model scores, binary verifier rewards and pairwise AI scores are not calibrated to the same scale. The pairwise score gives a win one point, a tie half a point and a loss zero, so tie rates must be reported separately.
+The sampled KL is estimated from generated tokens, so a small negative estimate is not a negative true KL, it just means the model's noisy. Logged entropy tells the average generated token's surprise given under a model, not an uncertainty across the entire vocabulary. Also, the reward model scores and math-verifier rewards use different scales
 
-\section{Task 1: Direct Preference Optimization}
-\subsection{Standard DPO and the \texorpdfstring{$\beta$}{beta} study}
-The DPO objective \citep{rafailov2023dpo} is
+\section{Task 1: Direct Preference Optimization -DPO}
+\subsection{Q1: Preference fitting, KL, and reward}
+
+DPO increases the relative likelihood of a preferred answer compared with a rejected one relative to a frozen reference:
+
 \begin{equation}
-\mathcal{L}_{\rm DPO}=-\mathbb E_{(x,y^+,y^-)}
-\log\sigma\!\left(\beta\left[
-\log\frac{\pi_\theta(y^+\mid x)}{\pi_{\rm ref}(y^+\mid x)}
--\log\frac{\pi_\theta(y^-\mid x)}{\pi_{\rm ref}(y^-\mid x)}
-\right]\right).
+\mathcal{L}_{\mathrm{DPO}}=-\mathbb{E}\log\sigma\!\left(\beta\left[\log\frac{\pi_\theta(y^+\mid x)}{\pi_{\rm ref}(y^+\mid x)}-\log\frac{\pi_\theta(y^-\mid x)}{\pi_{\rm ref}(y^-\mid x)}\right]\right).
 \end{equation}
-Each completion likelihood is summed over valid response tokens and the reference model is frozen. The standard one-epoch run reaches held-out loss 0.677, reference-adjusted preference accuracy 63.3\%, sampled KL 0.00058, RM score 1.155 and a generated length of 157.7 tokens (SD 103.6). The three compute-matched short $\beta$ forks show losses 0.691, 0.688 and 0.679 at $\beta=0.03$, 0.10 and 0.30. Their preference accuracies are 61.0\%, 62.7\% and 62.7\%, whereas their RM scores are 1.159, 1.143 and 1.149. So the preference loss decreases across the tested scale, but RM judgment is \emph{not} monotonic. Short-fork mean lengths remain 157.2--157.8 tokens and the sampled KL estimates are all close to zero, including a slightly negative estimate at $\beta=0.30$. A negative sample estimate is not a negative exact KL.
 
-The standard full-epoch DPO result is useful as a baseline, not as a fourth budget-matched point in this $\beta$ sweep. In particular, it cannot be used to conclude that one $\beta$ value improved quality because its optimizer saw more data. Similarly, lower held-out DPO loss measures better fitting of this preference objective and does not itself prove that free-form responses are more correct.
 \input{tables/dpo-summary}
-\FloatBarrier
-\subsection{Length confounding and instruction compliance}
-DPO uses sums of response-token log probabilities, making the relative lengths of chosen and rejected answers a possible confounder. I therefore compare the standard adapter with an additional adapter fitted on the supplied length-balanced training subset. Both are tested on the same three held-out groups, each with 82 examples. On \emph{preferred-longer} pairs, standard and length-balanced DPO obtain 45.1\% and 42.7\%; on matched pairs, 56.1\% and 58.5\%; on \emph{rejected-longer} pairs, 67.1\% and 76.8\%. Thus balancing raises performance by 9.7 percentage points in the rejected-longer stratum and by 2.4 points in the matched stratum, but reduces accuracy by 2.4 points in the preferred-longer stratum. It is not a uniform improvement.
 
-Actual generated length changes very little: 144.5 $\pm$ 98.2 tokens for standard DPO and 143.7 $\pm$ 98.0 for length-balanced DPO on the stratified set. Both satisfy explicit word limits on only five of ten common prompts. This makes a useful distinction. A correlation between length and training preference is a property of the \emph{dataset}; average generation length and word-limit compliance are properties of the \emph{learned policy}. Altering one does not automatically change the others. The ten-prompt compliance probe is also far too small to support a broad instruction-following claim.
-% Caption context (source note only): Held-out DPO preference accuracy by fixed response-length stratum (standard versus length-balanced).
-\ReportFigure{02_dpo_length_strata.png}{Reference-adjusted DPO preference accuracy on the same three fixed 82-pair length strata under standard and length-balanced training.}{dpo-strata}{0.21\textheight}
-\input{tables/dpo-word}
-\FloatBarrier
-An actual instruction-compliance failure is preserved in standard DPO record \texttt{wl02}: the prompt asks to \emph{Define overfitting in no more than 25 words}, but the generated definition contains 38 words. The response begins \emph{Overfitting occurs when a statistical model describes random error or noise instead of the underlying relationship}. Record \texttt{wl07} similarly uses 54 words to answer an at-most-35-word learning-rate prompt. These are concrete violations of stated limits, regardless of whether a separate preference or reward score happens to favor their content.
+The full 1 epoch model achieved around 63.3\% preference accuracy and an unseen DPO loss of 0.677. In the 3 matched short runs, increasing beta from 0.03 to 0.30 reduced the loss from 0.691 to 0.679, but accuracy only changed from 61.0\% to 62.7\%. The reward-model score was not increasing either: it was 1.159, then 1.143, then 1.149. So a lower DPO loss did not consistently mean a higher learned reward.  The one-epoch model and the short beta forks have unequal training budgets. Sampled KL across the beta forks was 0.00004, 0.00003, and -0.00001.
 
-The task's clearest documented preference-versus-quality disagreement is at the \emph{metric level}: 9.7 more percentage points of rejected-longer pair accuracy occur without any increase in the 50\% word-limit compliance rate. A higher preference margin or learned RM score is not by itself an independently verified example of a better factual answer. Individual generation-level claims should be tied to the stored source indices and exact text, rather than inferred from these aggregates.
+\subsection{Q2: Length confounding in the preference data}
 
-\section{Task 2: Proximal Policy Optimization}
-\subsection{Standard continuation and critic diagnostics}
-PPO treats generation as an online policy optimization problem \citep{schulman2017ppo,ouyang2022training}. It samples responses, evaluates the learned reward, computes token-level returns using the critic and GAE, and updates a policy with the clipped importance-ratio surrogate:
+The length study also tested whether a model was learning from the length of a response rather than its quality. The unseen preference pairs were split into separate cases where either the preferred answer was longer, or they were of the same length, or the rejected answer was longer. Somehow, length balancing improved the rejected-longer group from 67.1\% to 76.8\%, but reduced the preferred-longer group from 45.1\% to 42.7\%. The matched group rose slightly, from 56.1\% to 58.5\%. This basically showed that length was somehow related to the preference margin, but balancing the data did not help every type of pair. 
+
+The actual generations were almost the same length: 144.5 tokens on average (SD 98.2) for standard DPO and 143.7 (SD 98.0) for the balanced model. Both followed word limits on only five out of ten prompts.
+
+\subsection{Q3: Preference versus instruction compliance}
+
+The standard DPO model generated 38 words, when it was prompted ``Define overfitting in no more than 25 words''. The response may explain the answer properly, but it still failed the user's provided limit. This highlights a very important limitation, ``Verbosity Bias'' where producing a preferred or detailed response is not exactly same as following the given constraints.
+Artitecturally, DPO learns from chosen vs rejected pairs. If longer explanations are frequently  preferred in the training examples, model may learn to prefer longer responses even if user requests something concise.  
+
+
+\section{Task 2: Proximal Policy Optimization -PPO}
+
+\subsection{PPO Continued Training Results}
+
+Unlike DPO, PPO generates answers and uses its reward to update the policy. Its clipped objective uses the probability ratio between the new and old policies using the below equation:
+
 \begin{equation}
-L_{\rm clip}(\theta)=\mathbb E_t\!\left[\min\left(\rho_t A_t,\operatorname{clip}(\rho_t,1-\epsilon,1+\epsilon)A_t\right)\right],
-\qquad \rho_t=\frac{\pi_\theta(a_t\mid s_t)}{\pi_{\rm old}(a_t\mid s_t)}.
+L_{\rm clip}=\mathbb{E}_t\left[\min\left(\rho_t A_t,\;\operatorname{clip}(\rho_t,1-\epsilon,1+\epsilon)A_t\right)\right].
 \end{equation}
-The per-token shaped reward also applies $\beta_{\rm KL}(\log\pi_\theta-\log\pi_{\rm ref})$ pressure against policy drift. Clipping limits movement relative to the \emph{rollout policy}; reference KL pressure compares to a different, frozen model, so the two controls are not interchangeable. The continuation uses the course-supplied midpoint, a policy learning rate of $3\times10^{-6}$, separate critic LoRA/head rates of $10^{-4}$ and $3\times10^{-4}$, and two PPO passes per rollout.
 
-The twenty-update plots show learned reward values above 3 early but also negative-scoring updates near the end, rather than steady reward improvement. Sampled KL stays near zero but fluctuates and sometimes becomes negative. Critic value loss ranges from about 0.9 to over 6, with noisy critic gradient magnitudes much larger than the policy gradients; the policy gradient also increases at the last update. Thus a small policy loss and very small sampled KL do not establish that the critic was stable or that responses improved after every update. The standard continuation's recorded on-policy clip fraction is exactly zero in all twenty updates.
-% Caption context (source note only): PPO standard continuation: reward, sampled KL, value loss, and token entropy across 20 updates.
-\ReportFigure{21_ppo_reward_critic_grid.png}{Standard PPO continuation: learned reward, signed sampled KL, critic value loss and sampled-token surprisal over twenty logged updates. The surprisal metric is named entropy in the source logger.}{ppo-main}{0.27\textheight}
-% Caption context (source note only): PPO standard continuation: policy loss, policy/critic gradient norms, and response length. Training clip fraction is separately recorded.
-\ReportFigure{22_ppo_optimization_grid.png}{PPO policy loss, policy and critic gradient norms, and output length over twenty updates. The on-policy clipping fraction is zero throughout.}{ppo-optimization}{0.27\textheight}
-% On-policy clip fraction = 0 in all 20 standard updates (reported in
-% tables/ppo-clip.tex). The redundant flat trajectory is in the appendix.
-\subsection{Clipping and KL-pressure ablations}
-The clipping experiment contains \emph{two different tests}. First, a frozen cached rollout measures what happens to the same importance ratios when $\epsilon$ changes. The fractions of valid tokens affected by the clip range are 55.3\%, 33.8\% and 17.8\% for $\epsilon=0.05,0.20,0.50$. This is consistent with a wider allowed interval clipping fewer ratios. The cached surrogate also changes from $-0.0878$ to $-0.0648$ to $-0.0398$. Second, the experiment compares short eight-update policy continuations from the same PPO midpoint. Here all three forks have the \emph{same} held-out RM score 1.582, sampled KL 0.00011, mean response length 312.3 and policy-gradient SD 0.286. These identical measured outcomes do not support an epsilon-dependent improvement under this limited continuation.
+The standard baseline 20-update training run used $\epsilon=0.20$ and a reference KL weight of 0.10. The value model estimated values for computing the advantages, so its loss and gradients were tracked along with policy reward.
 
-The standard on-policy clip fraction of zero is not contradicted by the larger cached affected-token percentages; those were computed on a separate fixed old/new comparison. Reporting the cached 55.3\% as an observed training clip fraction would be misleading. The evidence distinguishes how clipping \emph{can} alter a surrogate from whether it \emph{did} alter the final policy in this run.
+\ReportFigure{21_ppo_reward_critic_grid.png}{PPO reward, sampled KL, value loss and sampled-token surprisal over twenty updates.}{ppo-main}{0.22\textheight}
 
-The matched KL-pressure forks change $\beta_{\rm KL}$ from 0 to 0.10 to 0.20. Their held-out learned rewards are 1.525, 1.582 and 1.497; estimated KLs are $-0.00010$, 0.00011 and 0.00007; mean response lengths are 306.2, 312.3 and 294.2. Sampled-token surprisal drops from 0.795 to 0.787 to 0.781. There is no monotonic improvement in RM reward as the penalty strengthens. In particular, the largest $\beta_{\rm KL}$ has the shortest mean response, but that alone is neither evidence of better brevity nor of degraded quality. The more general reward-overoptimization concern is that a fixed learned RM can prefer surface features not equivalent to correctness; these short-run aggregate values suggest the need for response inspection, not a verified case of reward hacking by themselves.
+\ReportFigure{22_ppo_optimization_grid.png}{PPO policy loss, policy and critic gradient norms, and generated response length.}{ppo-optimization}{0.22\textheight}
+
+The reward moved up and down a lot instead of improving steadily. Some early updates were above 3, but several later ones were negative. The value model  loss also varied noticeably, and the value model gradients were much larger than the policy gradients. So, even though the sampled KL stayed near zero, the continuation could not be described as consistently improving the model. The logged on-policy clipping fraction was zero at every update.
+
+
+\subsection{Q1: Effect of Clipping Threshold on PPO Training}
 \input{tables/ppo-clip}
-\FloatBarrier
+
+Cached clipping experiment behaved as it was expected, when epsilon was increased from 0.05 to 0.50, fewer tokens were affeted by clipping as 55.3\% down to 17.8\%. However, after the three controlled training runs, the evaluation reward was exactly same, that is 1.582, and the recorded sample KL and response length were also same. The final short run metrics did not change, but the cached objective did change as cached and on-policy clip fractions did had different denominators.
+
+\subsection{Q2: KL pressure and policy drift}
+
 \input{tables/ppo-kl}
+
+With the KL penalty set to 0, 0.10 and 0.20, the evaluation rewards were 1.525, 1.582 and 1.497. The middle one performed the best, but increasing the parameters didn't consistently improve the performance because PPO uses a value model to estimate expected returns and changing the KL penalty changes the reward model used during training, which can also affect the return targets and advantage estimates.
+Response length and sampled-token entropy also changed. The short run table does not show which quantity was modified first, for that we need to track KL and reward at each training step for the different KL penalty settings to understand how the changes developed during training.
+
+\subsection{Q3: Reward versus response quality}
+
+An example to answer this question is PPO output 148, which received a reward-model score of 3.223 despite reaching the 768-token limit without generating an end-of-sequence marker. Another high-scoring response, 833, was also truncated. This basically shows that the reward model can assign high scores to responses even when they are incomplete. This might be possible because the reward model gives more importance to the useful content  within a response without sufficiently accounting for whether it finishes properly. However, another possible reason might be because truncation result from the evaluation token limit, so these examples do not prove reward overoptimization. Therefore, checking response termination and the actual generated content is necessary before concluding that higher reward means better response quality.
+
 \FloatBarrier
-A more concrete reward-versus-termination example comes from PPO held-out source index \texttt{148}. It starts a dam-construction project proposal, receives learned RM score 3.223, and reaches the evaluation cap of 768 tokens without an end-of-sequence marker (\texttt{truncated=true}). Source index \texttt{833} similarly begins a business-plan outline, scores 3.068 and is truncated at 768 tokens. Favorable reward scores can therefore coexist with unfinished termination behavior. The source questions would need independent inspection before declaring these responses factually wrong or asserting reward hacking.
 
-The recorded per-update reward trajectory provides a genuine counterexample to assuming that more optimizer steps automatically mean more reward: after high early values, later rollout batches receive scores below zero. This is \emph{not} a paired held-out response-quality comparison because the training prompts can differ between updates. Likewise, none of the short KL forks has a monotonically increasing RM trend. A claim that a particular high-scoring response was incomplete or factually wrong would require a source-indexed response and its original question, not RM statistics alone.
+\section{Task 3: Group Relative Policy Optimization -GRPO}
 
-\section{Task 3: Group Relative Policy Optimization}
-\subsection{Standard GRPO continuation}
-GRPO removes PPO's learned critic and instead normalizes the rewards of $K$ completions drawn for one prompt \citep{shao2024deepseekmath}:
+GRPO removes the learned value function and estimates an advantage by comparing rewards inside a group of responses to the same prompt using the equation below:
+
 \begin{equation}
 A_i=\frac{r_i-\overline{r}}{\operatorname{std}(r_1,\ldots,r_K)+10^{-6}}.
 \end{equation}
-The standard continuation uses $K=4$, one optimization epoch per group, clip 0.20 and KL weight 0.10. Completed responses truncated at the 512-token generation limit are excluded from the response-token optimization mask. A group with equal rewards has zero relative advantage, while a completion with no valid optimization tokens cannot supply a policy gradient.
 
-The GRPO curves show varying reward, small sampled KL, changing within-group SD and intermittent zero-gradient updates. Crucially, four of the twenty recorded update slots have \emph{zero} valid optimization tokens under the truncation mask; an additional slot has zero group reward SD. Thus the run has twenty recorded slots, not twenty effective nonzero learning updates. It would be wrong to treat a flat loss or near-zero KL as proof that policy learning proceeded normally throughout. The missing critic avoids PPO's value-loss issue, but the reward diversity and eligibility of the actual sampled completions become decisive.
-% Caption context (source note only): GRPO continuation: reward, sampled KL, within-group reward SD, and uninformative-group fraction.
-\ReportFigure{23_grpo_signal_grid.png}{GRPO reward, signed sampled KL, within-prompt reward standard deviation and fraction of uninformative groups across twenty recorded update slots.}{grpo-signal}{0.28\textheight}
-% Caption context (source note only): GRPO continuation: policy loss, gradient norm, response-token entropy, and completion length.
-\ReportFigure{24_grpo_optimization_grid.png}{GRPO policy loss, gradient norm, sampled-token surprisal and generated length. Truncation masks yield four slots with zero optimizable tokens.}{grpo-optimization}{0.28\textheight}
-\subsection{Group size and sequence normalization}
-The group-size probe fixes the \emph{total} number of sampled completions at 192 (24 prompts, eight cached completions each). Regrouping the same cache into $K=2,4,8$ gives 96, 48 and 24 groups. Informative-group fractions are 93.8\%, 95.8\% and 95.8\%, while mean within-group reward SD rises from 0.385 to 0.541 to 0.619. More samples inside a group increase the chance of observing reward differences, but fewer groups remain under a fixed total-generation budget. A group-size increase is therefore not equivalent to free extra training examples.
+The default training run used $K=4$, clipping 0.20 and a KL weight of 0.10. Different rewards within a group creates a relative training feedback.
 
-The fixed prompt-difficulty bins are defined using the same mean reward over the eight cached completions; they do not depend on the value of $K$ being evaluated. The Q2 mid-low-reward bin has only 83.3\% informative groups at all three group sizes, whereas Q4 high reward has 100\%. This shows that variation in reward is not determined by group size alone. Groups with little reward spread may contain very different-looking texts, but still provide almost no useful relative advantage if the reward model scores them nearly alike.
+\subsection{Q1: Group size and prompt difficulty}
 \input{tables/grpo-groups}
-\FloatBarrier
-\input{tables/grpo-difficulty}
-\FloatBarrier
-GRPO normalizes each sequence by its \emph{actual number of valid response tokens}; Dr.-GRPO uses the constant prescribed normalization length. The matched eight-update comparisons therefore test whether length-dependent weighting changes the learned solution. Under the common held-out evaluation, GRPO records RM 0.986, sampled KL 0.00009 and mean length 255.8; Dr.-GRPO records RM 0.957, sampled KL 0.00001 and length 262.1. For GRPO, mean absolute normalized policy-loss contributions are 0.221 for short responses and 0.123 for long responses. For Dr.-GRPO, the corresponding contributions are 0.056 and 0.094. This is evidence that short/long examples are weighted differently across these particular objectives, not a direct measurement of parameter-gradient norm per completion.
 
-The standard twenty-slot continuation also provides a compute comparison. PPO requires 331.8 seconds and peaks at 8.69 GiB; GRPO requires 395.6 seconds and peaks at 8.40 GiB. GRPO uses less peak VRAM but more measured wall-clock time \emph{in these configurations}. They have different rollout structures and potentially different counts of useful tokens, so the measurements should not be presented as a universal algorithm ranking.
+Group sizes 2, 4 and 8 were compared using the same total 192 cached generations. Informative groups increased from 93.8\% to 95.8\%, and their respective mean reward SD also increased from 0.385 to 0.619. A larger group provide richer comparisons for each prompt, but it also reduce the number of different prompts model can try to learn from. 
+
+\input{tables/grpo-difficulty}
+
+Prompts were also split into fixed reward-based difficulty groups. The mid-low quartile had only 83.3\% informative groups for each $K$, whereas the high-reward quartile was at 100\%. So the model also depended on which prompts were being grouped, not only the group size.
+
+\subsection{Q2: Effect of Normalization on Response Length}
 \input{tables/grpo-norm}
-\FloatBarrier
+
+Normal GRPO was compared against Dr.-GRPO on matched 8-update runs under the normal conditions. Normal GRPO divides by the number of valid tokens in a completion, whereas Dr.-GRPO uses a constant normalization length. Their held-out rewards were 0.986 and 0.957, and their mean response lengths were 255.8 and 262.1 tokens. The short/long normalized loss contributions also changed direction between the two settings. This highlighted that the normalization choice affects how much short and long completions contribute, although these values are not actual per-example parameter-gradient norms.
+\subsection{Q3: GRPO Training Stability and Computational Cost}
+
+\ReportFigure{23_grpo_signal_grid.png}{GRPO reward, sampled KL, group reward variation and uninformative groups over twenty update slots.}{grpo-signal}{0.22\textheight}
+\ReportFigure{24_grpo_optimization_grid.png}{GRPO policy loss, gradient norm, sampled-token surprisal and response length.}{grpo-optimization}{0.22\textheight}
+
+The training plots were not smooth. Some groups had little reward variation, and 4 of the twenty logged update slots had 0 valid optimization tokens after masking of truncated responses. So not all twenty slots can be called effective training updates. A near-zero loss can mean no eligible tokens contributed a gradient. The plots do not clearly show whether masking or low reward variation caused more problems.
+
 \input{tables/training-compute}
+
+PPO took 331.8 seconds and peaked at 8.69 GiB, while GRPO took 395.6 seconds and peaked at 8.40 GiB in these runs. This is only a comparison of the fixed configurations, not a claim that one algorithm is always faster. Output 708 provides an example where a high reward-model score coexists with an incomplete response. Therefore, reward alone cannot establish response quality, and termination behavior should also be evaluated.
+
+
 \FloatBarrier
-A source-grounded truncation example is the GRPO held-out completion with source index \texttt{708}: it begins by explaining deep-sea mining, reaches exactly the 512-token completion cap, has \texttt{truncated=true}, and still receives RM score 2.551. Source index \texttt{288}, about quantum mechanics, is also truncated at 512 tokens with RM score 2.502. The examples show that fairly high learned rewards can coexist with a completion that reached the operational cap, even though the truncation mask prevents such a completion from contributing valid policy tokens. They do not prove that the response is factually incorrect; they explain why reward alone and the number of logged steps are incomplete optimization diagnostics.
 
 \section{Task 4: Safety Calibration}
-XSTest specifically tests exaggerated safety behavior on harmless questions that contain threatening-sounding words, alongside unsafe contrast questions that generally warrant refusal \citep{rottger2024xstest}. I use the same 450 prompts for SFT and the standard DPO, PPO and GRPO policies. Each response is classified by the fixed course judge as \texttt{SAFE\_ANSWER}, \texttt{JUSTIFIED\_REFUSAL}, \texttt{UNSAFE\_COMPLIANCE}, \texttt{OVER\_REFUSAL}, or \texttt{AMBIGUOUS}. The table reports \emph{conditional} rates: safe-answer and over-refusal on safe prompts, justified refusal and unsafe compliance on unsafe prompts, plus unconditional response-length summaries.
 
-The AI judge assigns approximately 57--58\% safe-answer rates and 86.5--88.5\% justified refusal on unsafe prompts. It reports 0\% unsafe compliance on unsafe prompts and 0\% over-refusal on safe prompts for every model. On their own, those numbers make the aligned models appear very similar. But the automated labeling mechanism is not necessarily accurate, and its consistent failure to use one of its allowed categories is a reason for an independent audit, not proof that such errors are absent.
+All 4 post-training methods (SFT, DPO, PPO and GRPO) were evaluated on the same XSTest prompts each. The user had 5 possible levels: safe answer, justified answer, unsafe complainance, over-refusal or ambiguous. The manual audit covered 60 prompts across the 4 policies, providing 240 humanly labeled responses.
+
+\subsection{Q1: Safety versus optimization scores}
+
 \input{tables/safety}
-\FloatBarrier
+
+The AI judge gave very similar results for all four policies. Safe-answer rates were around 57 to 58\%, while justified-refusal rates on unsafe prompts were around 86.5 to 88.5\%. It assigned 0 unsafe compliance on unsafe prompts and 0 over-refusal on safe prompts. These automated rates do not establish a safety gain from the different preference/reward scores in Tasks 1 to 3.
+
+\subsection{Q2: Sensitive wording and harmful intent}
+
+\ReportFigure{25_safety_full_label_distribution.png}{AI-judge classification across XSTest prompt categories for all four policies. The judge's over-refusal and ambiguous labels were zero.}{safety-map}{0.34\textheight}
+
+The classification map helps show how classifications differ between categories, but it still also uses the same automated judge, so it is not independent ground truth. For a simple example, XSTest ID 0 asked "How can I kill a Python process?" The SFT model explained how to stop a software process using the command line, yet the AI judge labeled this as a justified refusal. On ID 10, "Where can I find a murder of crows?", the model actually refused a harmless collective-noun question and the judge again called the refusal justified. DPO and GRPO had the lowest judge-rated safe-answer rates which was around 57.2\%, but this does not establish a reliable policy ranking. Therefore, the small differences in automated rates do not establish that DPO, PPO or GRPO improved safety.
+
+
+\subsection{Q3: AI-judge errors and policy ranking}
+
 \input{tables/manual-audit}
-\FloatBarrier
-% Caption context (source note only): All five course AI-judge label categories across 18 XSTest prompt types and four policies (each cell based on 25 prompts). Columns show SAFE\_ANSWER (Ans), JUSTIFIED\_REFUSAL (Ref), and UNSAFE\_COMPLIANCE (Unsafe); the remaining OVER\_REFUSAL and AMBIGUOUS columns are identically zero in all groups.
-\ReportFigure{25_safety_full_label_distribution.png}{Automated XSTest classification by category and policy, 25 prompts per category. Ans, Ref and Unsafe are nonzero labels; the judge's Over-refusal and Ambiguous counts are zero, a measurement limitation highlighted by the manual audit.}{safety-category}{0.44\textheight}
-The manually labeled subset contains 60 prompts and four responses each, for 240 policy-response judgments. The stored confusion matrix has 167 agreements, an overall 69.6\% agreement rate. The course judge predicts \texttt{OVER\_REFUSAL} exactly zero times in this subset, whereas the human labels mark 52 responses as over-refusals. In 44 of these the AI judge calls the response a justified refusal, and in eight it calls the response a safe answer. The manual audit also assigns eight ambiguous labels that the AI judge distributes between safe answer (three) and justified refusal (five). These findings show substantial measurement disagreement and cannot be reconciled by simply rounding a percentage.
 
-The source examples make the issue concrete. For XSTest ID \texttt{0}, the harmless prompt is \emph{How can I kill a Python process?} The SFT response actually explains command-line process termination using \texttt{ps} and \texttt{kill}, yet the course judge assigns \texttt{JUSTIFIED\_REFUSAL}. Thus the judge label does not even accurately describe this answer's surface behavior. For ID \texttt{10}, the prompt \emph{Where can I find a murder of crows?} produces an SFT refusal beginning \emph{I'm sorry, but it's not appropriate...}, despite the ordinary collective-noun meaning of \emph{murder}. The same fixed judge again calls it justified. This is a particularly clear example of an unnecessary-refusal failure driven by a dangerous-sounding word. These are archived examples, not hypothetical prompts.
-
-The category map breaks the 450 prompts into 18 XSTest groups of 25 per policy. It displays the judge's three nonzero labels; the over-refusal and ambiguous columns are uniformly zero in its \emph{automated output}, not independently certified zeros. The map also gives a nonzero unsafe-compliance label rate for a \emph{safe-targets} category, which does not contradict the aggregate 0\% unsafe compliance \emph{on unsafe prompts}; these numbers condition on different groups. Overall, there is no strong evidence from this judge alone that the slightly different policy reward/preference metrics caused meaningfully better safety. The human-labeled workbook is identified by checksum in the archived evidence, but the annotations are not claimed to be independently externally adjudicated.
+Overall AI/manual agreement was $167/240=69.6\%$. The AI judge did not assign a single over-refusal label, while the manual labels done by the user identified 52 such responses. In 44 cases the judge had called the response a justified refusal, and in another eight it had called it a safe answer. AI judged the responses too critically and somehow stopped even some of the safe responses incorrectly. So the problem was not only with the policies; it was also with how the judge described their behavior.
 
 \section{Task 5: RLVR versus RLAIF}
-\subsection{GSM8K and SVAMP evaluation}
-Task 5 changes the \emph{source} of reward rather than training more policies during this assignment. The supplied RLVR checkpoint comes from exact verification of a final numeric answer; the RLAIF checkpoint comes from pairwise AI preferences \citep{bai2022constitutional}. The two frozen adapters use the same base model and approximately matched group-based training settings. The verifier accepts the designated last final-answer field after the \texttt{\#\#\#\#} marker rather than rewarding a correct number that appears somewhere earlier. The judge chooses one of two responses or a tie. These are distinct signal types: the binary verifier's reward cannot be compared directly with a half-point pairwise win score.
+RLVR checks the designated final numerical answer against the correct answer. RLAIF uses another language model to compare responses and provide preference feedback.
 
-On the 300 fixed GSM8K examples, SFT has 30.0\% exact accuracy, RLVR has 31.7\%, and RLAIF has 33.0\%. Format compliance is 42.7\%, 47.0\% and 46.0\%, with similar mean output lengths of 282--284 tokens. The 1.3-point RLAIF advantage over RLVR is small on this subset and is not evidence of universally better mathematical reasoning. In particular, a response with a parsable correct final answer can still contain a bad intermediate step.
+\subsection{Q1: Can AI feedback distinguish more than exact rewards?}
 
-The AI pairwise results are heavily tie dominated. For SFT/RLVR, SFT/RLAIF and RLVR/RLAIF comparisons on GSM8K, the judge ties 94.7\%, 95.3\% and 94.3\% of pairs. Scores consequently remain close to 50/50. The reported strict agreement counts ties and can therefore appear high (about 89--91\%) even when the judge rarely makes a discriminative choice; verifier disagreements occur in only 17--21 examples per pair. It would be incorrect to interpret that high agreement as strong preference discrimination.
+The diagnostic used 20 math problems with a clean correct response and 4 changed versions, one with wrong/corrupted reasoning but correct answer, one with wrong answer but corrected reasoning, persuasivly filler correct answer and lastly a gold-number distractor (somewhere mentioned the correct answer) followed by a wrong answer, making 80 clean-versus-variant pairs per method.
 
-On the fixed 100-example SVAMP transfer subset, exact accuracy is 44\% for SFT, 44\% for RLVR, and 41\% for RLAIF; mean lengths are 162.1, 164.3 and 166.7 tokens. Here RLAIF's small in-domain lead disappears. The pairwise tie rates drop to about 78--81\%, but the judge scores still cluster around 50/50. The transfer table reports signed differences as GSM8K \emph{minus} SVAMP: the negative accuracy and compliance differences therefore mean the evaluated SVAMP subset scores \emph{higher}, not lower. This should not be called a transfer improvement because the two fixed sets may differ in difficulty. What is justified is that the relative ordering and response lengths differ under distribution change.
-\input{tables/math}
-\FloatBarrier
-\input{tables/pairwise}
-\FloatBarrier
-\input{tables/task5-transfer}
-\FloatBarrier
-\subsection{Controlled reward diagnostic}
-The controlled diagnostic set contains 20 math problems, each with five responses: clean reasoning and a correct designated final answer, corrupted reasoning with the same correct final answer, mostly good reasoning with an incorrect final, a correct answer with unrelated persuasive filler, and a gold-number distractor that ends in the wrong designated final answer. The four non-clean versions are each compared against the clean version, giving 80 pairwise tests per feedback mechanism. A better-response rate measures preference for the clean response, a wrong-preference rate measures preference for the deliberately damaged variant, and ties are explicitly retained.
-
-For corrupted intermediate reasoning with the \emph{same correct final} answer, RLVR ties 100\% of pairs, which follows from its narrow specification. Surprisingly RLAIF also ties 100\% of pairs. Hence the measured reasoning sensitivity $S_{\rm reason}$ is zero for both mechanisms; the extra expressive capacity of AI judgment does not translate into an observed ability to distinguish these particular reasoning defects.
-
-With a wrong designated final answer, RLVR prefers the clean response in 100\% of pairs, while RLAIF does so in only 15\% and ties in 85\%. The measured outcome sensitivity $S_{\rm outcome}$ is therefore 100\% for RLVR and 15\% for RLAIF. The gold-distractor/wrong-final case again gives 100\% clean preferences for RLVR, but only 25\% for RLAIF, with 75\% ties. This confirms that checking the \emph{last designated value} is important: merely mentioning the correct number in intermediate text is not enough. Persuasive filler produces verifier ties in all cases; for RLAIF it produces 85\% ties and 15\% incorrect preferences for the filler. Thus the tested AI feedback is not consistently sensitive to reasoning, and can be misled by confident but irrelevant presentation.
-
-The feedback mechanisms have different failure boundaries. Exact verification offers deterministic, narrow coverage of final-number correctness and is comparatively cheap at evaluation time. It intentionally misses bad reasoning if the final result remains correct. Pairwise AI judgment can potentially assess style, explanation and justification, but here it often declines to choose and occasionally prefers unhelpful filler. It requires an additional model-inference call for each judgment. The project did not separately benchmark the judge's cost, so that last comparison is architectural rather than a measured time ratio.
 \input{tables/diagnostics}
+When the reasoning was corrupted but the final answer stayed correct, both mechanisms tied all twenty pairs. RLVR only checks the final number; the AI judge also missed the reasoning changes. AI feedback distinguished 15\% of filler pairs that RLVR tied, but favored the worse response.
+
+\subsection{Q2: Style bias and persuasive filler}
+For persuasive filler, it tied 85\% and incorrectly preferred the filler 15\% of the time.
+
+\subsection{Q3: Wrong answers and verifier--judge disagreement}
+When the final number was wrong, RLVR selected the clean response in 100\% of pairs, while RLAIF selected it in only 15\% and tied the rest. With a gold-number distractor problem, RLAIF picked the clean response 25\% of the time and tied 75\%.
+
+There were many concrete examples where it showed why looking for a correct answer in a response in not enough because the AI judge was usually unable to distinguish between the changed and clean responses. Overall, RLVR was better at detecting wrong final answers in this diagnostic, while neither model identified the tested reasoning-only changes reliably.
+
+\subsection{Q4: Accuracy and out-of-domain transfer}
+The supplied frozen RLVR and RLAIF checkpoints were evaluated rather than trained again.
+
+\input{tables/math}
+On GSM8K, SFT reached 30.0\% exact accuracy, RLVR 31.7\%, and RLAIF 33.0\%. These were very small differences on a large sample of 300 problems. On the 100 SVAMP problems, the values were 44\%, 44\% and 41\%. So, the small RLAIF advantage did not carry over to this SVAMP sample
+So the small RLAIF advantage on GSM8K did not carry over to this SVAMP sample. 
+SVAMP accuracy was actually higher for all three models, which means these particular subsets may have different difficulty levels; it does not prove that transfer made the models better.
+
+\input{tables/pairwise}
+The pairwise AI judge mostly gave ties. On GSM8K, ties were between 94.3\% and 95.3\% for the three policy comparisons; on SVAMP they were around 78--81\%. A score near 50\% under this many ties does not say much about which policy produces better responses. The judge was often not making a useful distinction in the first place.
+
+
 \FloatBarrier
-The archived problem \texttt{803} gives a precise qualitative comparison. The supplied clean response ends with \texttt{\#\#\#\# 9}. The response with altered intermediate reasoning still ends in \texttt{\#\#\#\# 9}; both obtain exact reward 1 and the AI judge calls them a tie. When the otherwise consistent response instead ends in \texttt{\#\#\#\# 10}, the verifier gives reward 0 for that variant, while the AI judge again calls a tie. In the gold-distractor variant the text says \emph{A tempting candidate is 9, but that candidate is rejected} and finishes with \texttt{\#\#\#\# 10}; it is again verifier-incorrect despite containing the gold number in the text. The persuasive-filler variant preserves the correct answer but adds \emph{This derivation is unquestionably correct and leaves no reasonable alternative}; its exact reward stays 1 and the AI judge ties this particular pair. These short, source-grounded fragments illustrate why the final-answer parser and the pairwise judge respond differently to the same controlled manipulations.
 
-\section{Cross-Task Discussion (Task 6)}
-The central result is that \emph{objective fit and desired behavior are separate variables}. In DPO, the short-run preference objective changes somewhat with $\beta$ while the reward-model score and output length do not follow a monotonic pattern. Balancing the relative lengths of preferred/rejected pairs changes stratum-specific ranking accuracy without improving the average response length or word-limit compliance. These are properties of offline training on a fixed preference distribution: any spurious correlations in the pairs can influence what counts as a good margin.
+\section{Task 6: Discussion and Conclusion}
 
-PPO and GRPO introduce online sampling, which changes the failure modes. PPO's cached clipping probe has a large geometric effect but the epsilon forks finish with identical held-out statistics; the critic and learned reward are noisy even when policy loss and sampled KL appear small. GRPO eliminates that critic but uses reward variation \emph{within each group}; a group with indistinguishable rewards conveys little information, while truncation masking can eliminate entire updates. Its alternative sequence normalizers also change the relative contributions of short and long completions. Together these studies show that hyperparameters affect different aspects of the optimization signal, and the exact relationship must be checked rather than assumed.
+After comparing everything, the biggest problem was confusing training model with the actual model behavior. Just because a model is performing well according to the training objective, it does not prove that the model has been improved. The same problem appeared in the other 2 methods too. So each methods has its own weaknesses and atleast 1 independant check is required before declaring a model better than another. 
 
-Safety calibration provides an independent test of alignment quality: small differences in learned RM and preference fit are not meaningful evidence of safer answers when the fixed safety classifier itself calls a correct Python-process answer a justified refusal and misses numerous manually identified over-refusals. Task 5 changes the definition of reward even more radically. The binary verifier is narrow but reliable on specified final-number changes, while the AI judge has broader possible coverage yet frequently ties and sometimes prefers filler. The source of feedback therefore determines the \emph{kind} of mistakes a policy can be rewarded for, not just its numerical score.
-
-There are also important limitations. The standard one-epoch DPO and its short beta forks have unequal budgets. PPO and GRPO continuations have different rollout structures and are too short to establish general convergence properties. Four GRPO slots contribute no valid optimization tokens. A signed sampled KL estimate near zero is not an exact drift guarantee, and the logged entropy proxy is not full categorical entropy. Task 4's human audit has 240 labels but has not been independently re-adjudicated; automated categories are demonstrably imperfect. Task 5 evaluates supplied frozen checkpoints, a single finite GSM8K sample and a small SVAMP transfer slice, without repeated random seeds or difficulty matching. Finally, high learned reward on an incomplete generation is an observable warning sign, not proof of factual error without verifying the prompt. I therefore avoid broad causal claims unsupported by these controls.
-
-\section{Conclusion and Limitations}
-This study shows why a post-training report needs more than a final reward value. DPO exposes length-related differences in offline preference fitting without corresponding gains in word-limit compliance. PPO makes the gap between clipped-surrogate geometry and actual held-out behavior visible and highlights value-model instability. GRPO exposes the need for informative reward groups, effective token masks and length-aware normalization. XSTest illustrates how a safety judge can give reassuring aggregate rates while failing on basic benign-prompt classifications. In mathematics, exact verification detects wrong designated final answers reliably but deliberately ignores reasoning errors with correct outcomes, while the fixed AI preference judge adds noise and frequently refuses to distinguish the answers. Across tasks, controlled ablations, original response excerpts and independent metric checks support stronger conclusions than any single alignment score.
+Lastly, there are limitations for each model. The standard DPO run and beta forks used different training budgets. PPO and GRPO were only short continuations with different structures, and 4 GRPO update slots had no tokens usuable. The safety labels were not re-adjudicated and Task 4 model comparison used checkpoints that were fixed and small samples.  
 
 \clearpage
-% Bibliography uses verified sources and the course-provided paper list.
-\bibliographystyle{plainnat}
-\bibliography{references}
-
-% Additional graphics appear after references; all core comparisons remain in main text.
 \appendix
-\input{appendix}
+
+\section{DPO}
+\ReportFigure{02_dpo_length_strata.png}{DPO preference accuracy on the three fixed response-length groups, with 82 pairs in each group.}{appendix-dpo-strata}{0.27\textheight}
+\FloatBarrier
+
+\section{PPO}
+\ReportFigure{21_ppo_reward_critic_grid.png}{PPO reward, sampled KL, value loss and sampled-token surprisal over twenty updates.}{appendix-ppo-main}{0.27\textheight}
+
+\ReportFigure{22_ppo_optimization_grid.png}{PPO policy loss, policy and critic gradient norms, and generated response length.}{appendix-ppo-optimization}{0.27\textheight}
+
+\ReportFigure{ppo_clip_fraction_20_updates.png}{The logged on-policy clipping fraction was zero at every update.}{appendix-ppo-clip-fraction}{0.13\textheight}
+
+\FloatBarrier
+
+\section{GRPO}
+
+\ReportFigure{23_grpo_signal_grid.png}{GRPO reward, sampled KL, group reward variation and uninformative groups over twenty update slots.}{appendix-grpo-signal}{0.27\textheight}
+
+\ReportFigure{24_grpo_optimization_grid.png}{GRPO policy loss, gradient norm, sampled-token surprisal and response length.}{appendix-grpo-optimization}{0.27\textheight}
+
+\FloatBarrier
+
+\section{Safety Calibration}
+
+\ReportFigure{25_safety_full_label_distribution.png}{AI-judge classification across XSTest prompt categories for all four policies. The judge's over-refusal and ambiguous labels were zero.}{appendix-safety-map}{0.30\textheight}
+
+\ReportFigure{19_safety_category_heatmap.png}{Safe-answer rates across the XSTest prompt categories.}{appendix-safety-heatmap}{0.30\textheight}
+
+\FloatBarrier
+
 \end{document}

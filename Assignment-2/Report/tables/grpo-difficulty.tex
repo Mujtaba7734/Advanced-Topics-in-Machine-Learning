@@ -1,8 +1,6 @@
 \begin{table}[!htbp]
 \centering
-% Caption context (source note only): Cached group-size study split by fixed $K=8$ reward quartiles.
-\caption{GRPO group informativeness by reward-defined prompt-difficulty quartile, assigned once using the common eight cached completions per prompt.}
-\label{tab:grpo-difficulty}
+
 \scriptsize
 \setlength{\tabcolsep}{3.4pt}
 \begin{adjustbox}{max width=\linewidth}
@@ -10,19 +8,17 @@
 \toprule
 $K$ & Difficulty & Groups & Inform.\% & $\sigma_r$ & Var($A$) \\
 \midrule
-2 & Q1 low & 24 & 95.8 & 0.594 & 0.958 \\
 2 & Q2 mid-low & 24 & 83.3 & 0.463 & 0.833 \\
-2 & Q3 mid-high & 24 & 95.8 & 0.248 & 0.958 \\
 2 & Q4 high & 24 & 100.0 & 0.233 & 1.000 \\
-4 & Q1 low & 12 & 100.0 & 0.712 & 1.000 \\
 4 & Q2 mid-low & 12 & 83.3 & 0.711 & 0.833 \\
-4 & Q3 mid-high & 12 & 100.0 & 0.378 & 1.000 \\
 4 & Q4 high & 12 & 100.0 & 0.363 & 1.000 \\
-8 & Q1 low & 6 & 100.0 & 0.838 & 1.000 \\
 8 & Q2 mid-low & 6 & 83.3 & 0.763 & 0.833 \\
-8 & Q3 mid-high & 6 & 100.0 & 0.491 & 1.000 \\
 8 & Q4 high & 6 & 100.0 & 0.385 & 1.000 \\
 \bottomrule
 \end{tabular}
+
 \end{adjustbox}
+\caption{GRPO Reward Differences Across Prompt Difficulty}
+\label{tab:grpo-difficulty}
+
 \end{table}

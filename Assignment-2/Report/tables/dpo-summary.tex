@@ -1,8 +1,5 @@
 \begin{table}[!htbp]
 \centering
-% Caption context (source note only): Held-out DPO metrics. Standard one-epoch and short $\beta$ forks use unequal training budgets.
-\caption{Held-out DPO: the full one-epoch standard model versus equal-budget short beta forks; Pref. is reference-adjusted preference accuracy, RM the common reward score, and Tok./SD generated-token length.}
-\label{tab:dpo-summary}
 \scriptsize
 \setlength{\tabcolsep}{3.4pt}
 \begin{adjustbox}{max width=\linewidth}
@@ -16,5 +13,9 @@ beta=0.10 (short) & 0.688 & 62.7 & 0.00003 & 1.143 & 157.4 & 103.7 \\
 beta=0.30 (short) & 0.679 & 62.7 & -0.00001 & 1.149 & 157.8 & 103.5 \\
 \bottomrule
 \end{tabular}
+
 \end{adjustbox}
+\caption{DPO baseline and beta controlled experiments.}
+\label{tab:dpo-summary}
+
 \end{table}

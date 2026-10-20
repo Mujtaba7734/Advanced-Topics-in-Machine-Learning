@@ -1,197 +1,53 @@
-# ATML PA2 - LLM Post-Training
+# Assignment 2: LLM Post-Training
 
-<!-- FINAL_STUDENT_SETUP -->
+> **Authorship and AI-use disclosure:** I wrote the report myself. AI helped me generate its initial structure/scaffold, but I wrote the report text and analysis. I also used AI for coding assistance and suggestions; I wrote, adapted, and checked the final code myself.
 
-## Quick start
+This folder contains my Advanced Topics in Machine Learning Programming Assignment 2 work. It covers direct preference optimization (DPO), proximal policy optimization (PPO), group relative policy optimization (GRPO), safety evaluation, and a comparison of reinforcement learning with verifiable rewards (RLVR) and AI feedback (RLAIF). The assignment instructions are in [`manual/ATML PA2.pdf`](manual/ATML%20PA2.pdf).
+
+## Repository layout
+
+| Path | Contents |
+| --- | --- |
+| `task1_dpo/` | DPO training, evaluation, beta ablations, and length analysis |
+| `task2_ppo/` | PPO continuation, evaluation, clipping analysis, and KL ablations |
+| `task3_grpo/` | GRPO continuation, evaluation, group-size analysis, and normalization comparison |
+| `task4_safety/` | Response generation, AI judging, safety metrics, and manual-audit preparation |
+| `task5_feedback/` | Frozen-policy math evaluation, perturbation scoring, and RLVR/RLAIF comparison |
+| `common/`, `configs/`, `scripts/` | Shared code, experiment settings, and asset/environment utilities |
+| `Report/` | LaTeX report source, tables, figures, and evidence audit |
+| `backups/` | Saved experiment-output archives and checksums |
+
+## Setup
+
+Run commands from the `Assignment-2` directory. From a fresh clone of this repository:
 
 ```bash
-git clone https://github.com/AbDu11aHHH/ATML-PA2-LLM-PostTraining.git
-cd ATML-PA2-LLM-PostTraining
+git clone https://github.com/Mujtaba7734/Advanced-Topics-in-Machine-Learning.git
+cd Advanced-Topics-in-Machine-Learning/Assignment-2
 python -m pip install -r requirements.txt
 python -m scripts.download_assets
 python -m scripts.validate_assets
-```
-
-The fixed datasets, cached diagnostics, and supplied
-continuation checkpoints are downloaded from:
-
-https://huggingface.co/datasets/AbDu11aHHH/ATML-PA2-assets
-
-Pinned release revision:
-
-`0b350481fb03f5525a35bcdec4131bd4fe487f98`
-
----
-# ATML PA2 - LLM Post-Training
-
-This is the **student starter repository** for ATML PA2. The released code is intentionally incomplete: Tasks 1-3 provide model/data loading, objective helpers, checkpoint restoration, and experiment entry points, but **you must implement the training loops and ablation orchestration yourself**. Each of Tasks 1-3 also contains one deliberate algorithmic defect in its core objective code; identifying and correcting these defects is part of validating your implementation.
-
-Task 4 supplies the fixed AI safety judge and response-generation utilities, but you must write the evaluation/aggregation code. Task 5 supplies the exact RLVR verifier, the fixed pairwise AI judge used for RLAIF evaluation, and data/model loaders; you must implement the requested evaluation and analysis.
-
-## 1. Clone and install
-
-```bash
-git clone https://github.com/COURSE_ORG/ATML-PA2-LLM-PostTraining.git
-cd ATML-PA2-LLM-PostTraining
-python -m pip install -r requirements.txt
-```
-
-## 2. Download the course assets
-
-The large course-created checkpoints and fixed data are distributed as a GitHub Release asset rather than normal Git files. After cloning, run:
-
-```bash
-python -m scripts.download_assets
-python -m scripts.validate_assets
-```
-
-If your instructor provides a direct asset URL separately, use:
-
-```bash
-python -m scripts.download_assets --url '<ASSET_URL>'
-```
-
-Public base/reward/judge models are downloaded from Hugging Face at runtime and are **not** included in the course asset archive.
-
-The installer also materializes the fixed 100-example Task 5 transfer set from the official SVAMP challenge-set source if it is not already present. The tiny Task 1 word-limit prompt set is tracked directly in this repository.
-
-## 3. Environment check
-
-```bash
 python -m scripts.check_environment
 ```
 
-Run commands from the repository root. The reference environment used to prepare the release pins Transformers 4.57.1, TRL 0.27.2, PEFT 0.17.1, and Tokenizers 0.22.1.
+The asset script downloads the fixed datasets, cached diagnostics, and supplied checkpoints from [`AbDu11aHHH/ATML-PA2-assets`](https://huggingface.co/datasets/AbDu11aHHH/ATML-PA2-assets) at revision `0b350481fb03f5525a35bcdec4131bd4fe487f98`. Public base, reward, and judge models may be downloaded separately when an experiment runs. The asset and model downloads can be large.
 
-## 4. Supplied course checkpoints
+## Experiment entry points
 
-After `download_assets`, these directories should exist:
-
-```text
-checkpoints/ppo_midpoint_policy/
-checkpoints/ppo_midpoint_value/
-checkpoints/grpo_midpoint_policy/
-checkpoints/rlvr_policy/
-checkpoints/rlaif_policy/
-```
-
-PPO and GRPO begin from the supplied continuation checkpoints. RLVR and RLAIF are supplied frozen evaluation policies; students do not retrain them.
-
-The PPO value checkpoint is intentionally released as the exact staff midpoint state, including its imperfect held-out value calibration. Treat critic behavior as an analysis variable rather than assuming a perfect baseline, and start every PPO fork from the identical supplied policy/value state. The default continuation generation cap is 512 tokens for feasibility; frozen evaluation uses the larger cap specified in `configs/ppo.yaml`.
-
-## 5. Task entry points
-
-### Task 1 - DPO
-
-Run the complete Task 1 pipeline with one command:
+The following commands run the task pipelines using the checked-in configurations. Tasks 1–4 include training or model inference and require suitable compute; Task 5 evaluates supplied frozen policies.
 
 ```bash
 python -m task1_dpo.run_all --config configs/dpo.yaml
-```
-
-If the standard one-epoch DPO run has already completed, reuse it and run only the remaining Task 1 stages:
-
-```bash
-python -m task1_dpo.run_all --config configs/dpo.yaml --skip-standard-train
-```
-
-The individual entry points remain available:
-
-```bash
-python -m task1_dpo.train --config configs/dpo.yaml --run-name standard
-python -m task1_dpo.evaluate --config configs/dpo.yaml --adapter outputs/task1_dpo/standard --name standard
-python -m task1_dpo.ablate_beta --config configs/dpo.yaml
-python -m task1_dpo.analyze_length --config configs/dpo.yaml
-```
-
-### Task 2 - PPO
-
-Run the complete Task 2 pipeline with validation and a verified backup:
-
-```bash
 python -m task2_ppo.run_all --config configs/ppo.yaml
-```
-
-Resume from already completed Task 2 stages:
-
-```bash
-python -m task2_ppo.run_all --config configs/ppo.yaml --resume
-```
-
-Individual entry points remain available:
-
-```bash
-python -m task2_ppo.continue_train --config configs/ppo.yaml --run-name standard
-python -m task2_ppo.evaluate --config configs/ppo.yaml --adapter outputs/task2_ppo/standard --name standard
-python -m task2_ppo.analyze_clipping --config configs/ppo.yaml
-python -m task2_ppo.ablate_kl --config configs/ppo.yaml
-```
-
-### Task 3 - GRPO
-
-Run the complete Task 3 pipeline with preflight checks, resumable held-out evaluation,
-completeness validation, and a verified backup:
-
-```bash
 python -m task3_grpo.run_all --config configs/grpo.yaml --resume
-```
-
-The individual entry points remain available:
-
-```bash
-python -m task3_grpo.continue_train --config configs/grpo.yaml --run-name standard
-python -m task3_grpo.evaluate --config configs/grpo.yaml --adapter outputs/task3_grpo/standard --name standard --resume
-python -m task3_grpo.analyze_group_size --config configs/grpo.yaml
-python -m task3_grpo.compare_normalization --config configs/grpo.yaml --resume
-```
-
-### Task 4 - Safety calibration
-
-Run the GPU-dependent safety-calibration pipeline with deterministic generation,
-restart-safe AI judging, completeness validation, and a verified compute backup:
-
-```bash
 python -m task4_safety.run_all --config configs/feedback.yaml --resume
-```
-
-This completes SFT/DPO/PPO/GRPO response generation, the fixed categorical AI
-judge, aggregate/category-level metrics, and creates the blind 60-prompt
-manual-audit sheet. The required human labels must still be filled manually
-without consulting the AI labels; no AI tool should fill those columns.
-
-Individual entry points remain available:
-
-```bash
-python -m task4_safety.generate_responses --config configs/feedback.yaml --resume
-python -m task4_safety.make_audit_sheet --config configs/feedback.yaml
-python -m task4_safety.judge_responses --config configs/feedback.yaml --resume
-python -m task4_safety.evaluate_safety --config configs/feedback.yaml
-```
-
-### Task 5 - RLVR vs RLAIF
-
-Run the complete frozen-policy Task 5 evaluation with preflight checks,
-restart-safe generation/judging, completeness validation, and a verified backup:
-
-```bash
 python -m task5_feedback.run_all --config configs/feedback.yaml
 ```
 
-No Task 5 training is performed. The individual evaluation entry points remain available:
+Each task also has individual scripts for its training, evaluation, and analysis stages. Task 4 prepares a blind manual-audit sheet; its human labels require manual review and must not be filled from the AI judge's labels. Task 5 does not retrain the supplied RLVR or RLAIF policies.
 
-```bash
-python -m task5_feedback.evaluate_math --config configs/feedback.yaml --dataset gsm
-python -m task5_feedback.score_perturbations --config configs/feedback.yaml
-python -m task5_feedback.evaluate_math --config configs/feedback.yaml --dataset transfer
-python -m task5_feedback.compare_feedback --config configs/feedback.yaml
-```
+## Report and reproducibility
 
-## 6. Reproducibility rules
+The report source is [`Report/main.tex`](Report/main.tex); the underlying figures and tables are in `Report/figures/` and `Report/tables/`. [`Report/EVIDENCE_AUDIT.md`](Report/EVIDENCE_AUDIT.md) records where the saved evidence came from and notes limitations that matter when interpreting the results.
 
-- Do not alter course-provided data, cached rollouts, or supplied checkpoints.
-- Start every short fork from the **same supplied midpoint checkpoint**.
-- Keep prompt IDs, generated-token/update budgets, seed, and evaluation procedure matched across ablations.
-- Commit your code, configs, small JSON/CSV logs, and figures. Do not commit downloaded checkpoints, raw course assets, or model caches.
-- Record peak VRAM and wall-clock time for the standard PPO and GRPO continuations.
-
-See the assignment manual for the required experiments, metrics, and report questions.
+Experiment settings live in `configs/`. Keep the fixed data, prompt IDs, seeds, checkpoints, decoding settings, and evaluation procedures matched when reproducing comparisons. The saved backups and report data provide experiment records; rerunning the full pipelines requires the course assets and substantial compute.

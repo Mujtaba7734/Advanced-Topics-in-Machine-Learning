@@ -1,8 +1,6 @@
 \begin{table}[!htbp]
 \centering
-% Standard midpoint continuations only; source data/20_training_compute.csv.
-\caption{Measured continuation compute for PPO and GRPO (twenty logged slots each); GRPO has four slots with no eligible optimization tokens, and rollout workloads differ.}
-\label{tab:training-compute}
+
 \scriptsize
 \begin{tabular}{lrrr}
 \toprule
@@ -12,6 +10,8 @@ PPO & 20 & 331.8 & 8.69 \\
 GRPO & 20 & 395.6 & 8.40 \\
 \bottomrule
 \end{tabular}
-% Required interpretation for the student: four of twenty GRPO update
-% slots had no eligible optimization tokens; avoid calling them 20 effective updates.
+
+\caption{PPO and GRPO training time and memory.}
+\label{tab:training-compute}
+
 \end{table}
