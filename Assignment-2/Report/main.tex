@@ -5,16 +5,18 @@
 \usepackage[final,main]{neurips_2026}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{amsmath,amssymb,booktabs,graphicx,xcolor,hyperref}
+\usepackage{amsmath,amssymb,booktabs,graphicx,hyperref}
+\usepackage[table]{xcolor}
 \usepackage{adjustbox}
-\usepackage{placeins}
+\usepackage[section]{placeins}
 \usepackage{microtype}
 \usepackage{xurl}
 \hypersetup{colorlinks=true,urlcolor=blue,citecolor=blue,linkcolor=blue}
 \graphicspath{{figures/}}
 
 \newcommand{\TODO}[1]{\par\noindent{\color{red!75!black}\textbf{TODO:} #1}\par}
-% Every figure uses [!htbp]. Use \FloatBarrier to keep figures with their section.
+% Requested [!htbp] permits here/top/bottom/float-page placement.
+% Section-level FloatBarriers keep task evidence with its task without forced [H].
 \newcommand{\ReportFigure}[4]{%
   \begin{figure}[!htbp]
     \centering
@@ -60,7 +62,8 @@
 \ReportFigure{21_ppo_reward_critic_grid.png}{\textbf{TODO:} Write your own caption for 21\_ppo\_reward\_critic\_grid.png}{ppo-main}{0.27\textheight}
 % Caption context (source note only): PPO standard continuation: policy loss, policy/critic gradient norms, and response length. Training clip fraction is separately recorded.
 \ReportFigure{22_ppo_optimization_grid.png}{\textbf{TODO:} Write your own caption for 22\_ppo\_optimization\_grid.png}{ppo-optimization}{0.27\textheight}
-\ReportFigure{26_ppo_clip_trajectory.png}{\textbf{TODO:} Write your own caption for 26\_ppo\_clip\_trajectory.png}{ppo-clip-trajectory}{0.13\textheight}
+% On-policy clip fraction = 0 in all 20 standard updates (reported in
+% tables/ppo-clip.tex). The redundant flat trajectory is in the appendix.
 \subsection{Clipping and KL-pressure ablations}
 \TODO{Distinguish cached affected-token fraction from on-policy training clip fraction. Explain whether short forks differ and discuss held-out trade-offs and reward-overoptimization cases.}
 \input{tables/ppo-clip}
@@ -88,7 +91,7 @@
 \input{tables/safety}
 \input{tables/manual-audit}
 % Caption context (source note only): All five course AI-judge label categories across 18 XSTest prompt types and four policies (each cell based on 25 prompts). Columns show SAFE\_ANSWER (Ans), JUSTIFIED\_REFUSAL (Ref), and UNSAFE\_COMPLIANCE (Unsafe); the remaining OVER\_REFUSAL and AMBIGUOUS columns are identically zero in all groups.
-\ReportFigure{25_safety_full_label_distribution.png}{\textbf{TODO:} Write your own caption for 25\_safety\_full\_label\_distribution.png}{safety-category}{0.40\textheight}
+\ReportFigure{25_safety_full_label_distribution.png}{\textbf{TODO:} Write your own caption for 25\_safety\_full\_label\_distribution.png}{safety-category}{0.44\textheight}
 \TODO{Independently validate the workbook labels, interpret the agreement/confusion table, and add source-grounded disagreement examples. Do not treat manual labels as established ground truth without review.}
 
 \section{Task 5: RLVR versus RLAIF}

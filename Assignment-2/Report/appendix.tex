@@ -1,21 +1,42 @@
+% Optional duplicate/supplementary plots only. Required evidence remains in main.
+% Confirm with the instructor whether appendix pages count toward the limit.
 \section{Additional Evidence (Optional Appendix)}
-\TODO{Use this appendix ONLY for supporting details; the professor requires all Required Evidence in the first eight pages. Delete any redundant optional plots to save space.}
+\TODO{Write captions yourself; omit or shorten optional plots if the page limit counts appendices.}
+
+\subsection{DPO diagnostics}
 \input{tables/dpo-strata}
-% Caption context (source note only): GRPO informative-group rate by fixed reward-quartile difficulty.
-\ReportFigure{18_grpo_difficulty_heatmap.png}{\textbf{TODO:} Write your own caption for 18\_grpo\_difficulty\_heatmap.png}{appendix-grpo-heatmap}{0.24\textheight}
-% Caption context (source note only): DPO short-run beta sweep: held-out preference accuracy.
-\ReportFigure{01_dpo_beta_accuracy.png}{\textbf{TODO:} Write your own caption for 01\_dpo\_beta\_accuracy.png}{appendix-dpo-beta}{0.24\textheight}
-% Caption context (source note only): Fixed cached PPO clipping diagnostic.
-\ReportFigure{05_ppo_clip_cached.png}{\textbf{TODO:} Write your own caption for 05\_ppo\_clip\_cached.png}{appendix-cached-clip}{0.24\textheight}
-% Caption context (source note only): Length-conditioned absolute policy-loss contributions.
-\ReportFigure{07_grpo_normalization_length.png}{\textbf{TODO:} Write your own caption for 07\_grpo\_normalization\_length.png}{appendix-norm}{0.24\textheight}
-% Caption context (source note only): Course judge's overall label distribution; manual ground truth is separate.
-\ReportFigure{08_safety_ai_label_distribution.png}{\textbf{TODO:} Write your own caption for 08\_safety\_ai\_label\_distribution.png}{appendix-safety}{0.25\textheight}
-% Caption context (source note only): Fixed GSM8K and SVAMP accuracy comparison.
-\ReportFigure{10_task5_math_accuracy.png}{\textbf{TODO:} Write your own caption for 10\_task5\_math\_accuracy.png}{appendix-math}{0.25\textheight}
-% Caption context (source note only): Controlled perturbations: clean-response better-preference rate.
-\ReportFigure{11_task5_diagnostic.png}{\textbf{TODO:} Write your own caption for 11\_task5\_diagnostic.png}{appendix-diagnostic}{0.25\textheight}
-% Caption context (source note only): Exact text overlap between separately generated policy responses.
-\ReportFigure{12_safety_text_overlap.png}{\textbf{TODO:} Write your own caption for 12\_safety\_text\_overlap.png}{appendix-overlap}{0.25\textheight}
-% Caption context (source note only): AI pairwise judge tie rates on GSM8K.
-\ReportFigure{20_task5_pairwise_ties.png}{\textbf{TODO:} Write your own caption for 20\_task5\_pairwise\_ties.png}{appendix-ties}{0.24\textheight}
+% Three beta values have equal short-run budgets; standard DPO does not.
+\ReportFigure{01_dpo_beta_accuracy.png}{\textbf{TODO:} Caption for 01\_dpo\_beta\_accuracy.png}{appendix-dpo-beta}{0.22\textheight}
+
+\subsection{PPO clipping diagnostics}
+% The cached-rollout token fraction differs from the on-policy training clip fraction.
+\ReportFigure{05_ppo_clip_cached.png}{\textbf{TODO:} Caption for 05\_ppo\_clip\_cached.png}{appendix-cached-clip}{0.22\textheight}
+% Matched short clip forks: reward and training variation.
+\ReportFigure{15_ppo_clip_fork_diagnostics.png}{\textbf{TODO:} Caption for 15\_ppo\_clip\_fork\_diagnostics.png}{appendix-ppo-clip-forks}{0.22\textheight}
+% Standard PPO: on-policy clip fraction zero in all 20 updates.
+\ReportFigure{26_ppo_clip_trajectory.png}{\textbf{TODO:} Caption for 26\_ppo\_clip\_trajectory.png}{appendix-ppo-clip-trajectory}{0.15\textheight}
+
+\subsection{GRPO group size and normalization}
+% K=2/4/8 equal-generation informativeness.
+\ReportFigure{06_grpo_group_size.png}{\textbf{TODO:} Caption for 06\_grpo\_group\_size.png}{appendix-grpo-group-size}{0.22\textheight}
+% Informativeness by fixed reward-quartile difficulty.
+\ReportFigure{18_grpo_difficulty_heatmap.png}{\textbf{TODO:} Caption for 18\_grpo\_difficulty\_heatmap.png}{appendix-grpo-heatmap}{0.24\textheight}
+% Short/long: mean absolute normalized policy-loss contribution, not raw gradient.
+\ReportFigure{07_grpo_normalization_length.png}{\textbf{TODO:} Caption for 07\_grpo\_normalization\_length.png}{appendix-grpo-norm}{0.22\textheight}
+
+\subsection{Safety classification and consistency}
+% The complete AI-judge five-label-by-category map is in main.tex.
+% The next map isolates SAFE_ANSWER share per policy and XSTest category.
+\ReportFigure{19_safety_category_heatmap.png}{\textbf{TODO:} Caption for 19\_safety\_category\_heatmap.png}{appendix-safety-category-map}{0.27\textheight}
+% Overall label distribution; all five possible labels included.
+\ReportFigure{08_safety_ai_label_distribution.png}{\textbf{TODO:} Caption for 08\_safety\_ai\_label\_distribution.png}{appendix-safety-labels}{0.22\textheight}
+% Cross-policy response-text overlap.
+\ReportFigure{12_safety_text_overlap.png}{\textbf{TODO:} Caption for 12\_safety\_text\_overlap.png}{appendix-safety-text-overlap}{0.22\textheight}
+
+\subsection{RLVR and RLAIF feedback comparisons}
+% Task 5 exact accuracy on GSM8K and SVAMP.
+\ReportFigure{10_task5_math_accuracy.png}{\textbf{TODO:} Caption for 10\_task5\_math\_accuracy.png}{appendix-math}{0.22\textheight}
+% These preference rates omit ties; tie/wrong fractions are in the main table.
+\ReportFigure{11_task5_diagnostic.png}{\textbf{TODO:} Caption for 11\_task5\_diagnostic.png}{appendix-reward-diagnostic}{0.22\textheight}
+% GSM8K pairwise AI judge tie rates.
+\ReportFigure{20_task5_pairwise_ties.png}{\textbf{TODO:} Caption for 20\_task5\_pairwise\_ties.png}{appendix-pairwise-ties}{0.22\textheight}
