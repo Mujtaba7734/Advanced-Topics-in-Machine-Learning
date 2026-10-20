@@ -1,43 +1,26 @@
-# ATML PA2 — NeurIPS 2026 report skeleton
+# ATML PA2 — Complete experimental report
 
-**Status:** structure and numeric evidence only, **not a submitted report**. No AI-written abstract, analysis, discussion, or conclusion is included. Each `TODO` in `main.tex` must be written by the student, as the assignment explicitly prohibits GenAI report prose.
+The NeurIPS 2026-styled `main.tex` includes a full abstract, introduction, method definitions, Tasks 1–6 evidence-based analysis, source-indexed response examples, conclusions, primary-paper citations, and an optional appendix.
 
-This project uses **the genuine `neurips_2026.sty`**, with `\usepackage[final,main]{neurips_2026}` to show the coursework author's name and avoid the unwanted "Preprint" footer. It is used as a formatting template, **not** a claim of NeurIPS publication or acceptance. The professor's **eight main-page** rule overrides the conference's own page count. References and optional appendix do not count, but no required evidence may be moved to the appendix.
+The original uploaded assignment prohibited generative AI writing. The student subsequently reported a **direct professor exception** to that rule and to the eight-page restriction. Before submitting, verify the instructor's current permission and make sure it applies to this final report.
 
 ## Build
 
-From `Assignment-2/Report`:
+From `Assignment-2/Report/` run:
 
 ```bash
+python scripts/verify_assets.py
 latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-Or open the complete `Report` directory as an Overleaf project and compile with pdfLaTeX. `main.tex` is the root file. All included graphics are supplied in `figures/`; no GPU or Kaggle access is needed for report compilation.
+Alternatively, import the whole `Report/` folder into Overleaf and compile `main.tex`. The GitHub Actions workflow `.github/workflows/atml-pa2-report.yml` builds the PDF on each report push and uploads the `atml-pa2-neurips-final-report` PDF artifact.
 
-Every figure and table uses `[!htbp]`. The `\ReportFigure` macro requests `[!htbp]`, and `\usepackage[section]{placeins}` keeps floats inside each major report task. LaTeX can still move a float to a later part of the same section or next page when necessary. Do not use `[H]` unless deliberately sacrificing float placement flexibility.
+**Figure/table placement:** all figure and table environments continue to use the requested `[!htbp]`. Float barriers follow each main report table and figure and keep evidence close to its source discussion. If an object cannot fit on a page, LaTeX may still place it on the next page; `[!htbp]` is a preference, not an exact fixed-placement command.
 
-## Before submitting
+## Traceability and limitations
 
-- Write EVERY red `TODO` yourself, and check every citation.
-- Keep the GitHub link at the end of the abstract.
-- Inspect the final PDF visually and **count only main-body pages before references**. After adding prose, rebalance/reduce figures if main content exceeds 8 pages.
-- Independently validate the Task 4 workbook labels before interpreting the numeric agreement/confusion table; the source CSV remains blank.
-- Inspect examples from original `results/task*_*/...examples.jsonl`, not made-up quotations.
-- Review `EVIDENCE_AUDIT.md` and `data/evidence_manifest.json` before making claims.
-- Do not mistake a signed sampled-response KL estimate near zero for proof that the policy is unchanged.
+The numeric data and chart image files are unchanged from the archived Task 1–5 evidence. Source SHA-256 hashes live in `data/evidence_manifest.json`; the stored figure inventory is `FIGURE_INDEX.md`. The Task 4 full category classification heatmap and pooled five-label human/AI confusion matrix remain in the main paper; complementary classification maps and plots appear in `appendix.tex`.
 
-All attached numerical tables and figures are derived from the saved Task 1–5 backups and the completed local Task 4 workbook, not generated from fake/demo data. `data/15_manual_audit.json` records workbook and Task 4 backup checksums plus aggregate counts. `data/*.csv` contains small aggregate results for auditing, not raw course datasets. `data/evidence_manifest.json` stores source archive checksums.
+Original qualitative examples from archived JSONL: DPO word-limit IDs `wl02` and `wl07`; PPO evaluation IDs `148` and `833`; GRPO IDs `708` and `288`; XSTest IDs `0` and `10`; math diagnostic problem `803`. Keep the report's caveats about PPO clipping, GRPO zero-token updates, safety-judge misclassification and Task 5 AI-judge ties.
 
-## Figure and asset verification
-
-Run `python scripts/verify_assets.py` before building. The full five-label XSTest category figure can be regenerated from the fixed Task 4 backup using `python scripts/rebuild_safety_category_figure.py --archive PATH_TO_TASK4_BACKUP`. The `data/` files are small metric snapshots derived from the saved archives. Do not push raw XSTest prompts/outputs to public Git.
-
-Run `python scripts/rebuild_missing_evidence.py` from `Report/` to regenerate the DPO length, PPO/GRPO compute, PPO clipping, and Task 5 transfer/sensitivity aggregate data and the PPO clip-fraction figure from the verified local backups.
-
-The repository has a GitHub Actions LaTeX build; see its workflow log and generated PDF artifact for build verification with the real NeurIPS style.
-
-**Captions:** all published figure/table captions are explicitly TODO placeholders. Figure/table content is numerical evidence generated by code; write the final captions yourself. The non-typeset source comments provide only identification hints.
-
-## Evidence and classification maps
-
-`figures/25_safety_full_label_distribution.png` is the full task-4 classification heatmap in the main report. `figures/19_safety_category_heatmap.png` is the supplementary safe-answer category map; `tables/manual-audit.tex` has the color-shaded human/AI confusion matrix and exact counts. `FIGURE_INDEX.md` lists every available PNG and where its evidence appears. The standard PPO all-zero clip-fraction trajectory is retained in the appendix while the numeric value remains in the main clipping table.
+The manual safety workbook has an archived checksum, but its human labels have not been independently re-adjudicated in this review. Independently verify those labels, the author details, the final PDF layout and the exception to the original assignment rules before LMS submission.

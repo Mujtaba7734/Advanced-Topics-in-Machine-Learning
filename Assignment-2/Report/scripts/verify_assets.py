@@ -54,6 +54,13 @@ if manual_path.is_file():
         failures.append('Human/AI judge confusion counts must total 240')
 else:
     failures.append('Missing manual-audit source JSON')
+# No unresolved report prose/caption placeholders may remain.
+for source in [MAIN, ROOT / 'appendix.tex', *(ROOT / 'tables').glob('*.tex')]:
+    material = source.read_text(encoding='utf-8')
+    if r'\TODO{' in material or r'\textbf{TODO:}' in material:
+        failures.append(f'Unfinished report placeholder in {source.name}')
+if not (ROOT / 'references.bib').exists():
+    failures.append('Missing bibliography')
 if not (ROOT / 'neurips_2026.sty').is_file():
     failures.append('Missing genuine neurips_2026.sty')
 print('Checked figure and table references and NeurIPS style.')
