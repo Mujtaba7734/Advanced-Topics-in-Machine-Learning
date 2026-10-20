@@ -77,7 +77,14 @@ The task's clearest documented preference-versus-quality disagreement is at the 
 
 \section{Task 2: Proximal Policy Optimization}
 \subsection{Standard continuation and critic diagnostics}
-\TODO{Explain the PPO clipped ratio, GAE/value loss, reward/KL pressure, and the 20-update continuation from the supplied midpoint. Discuss peak VRAM and elapsed time from saved metadata.}
+PPO treats generation as an online policy optimization problem \citep{schulman2017ppo,ouyang2022training}. It samples responses, evaluates the learned reward, computes token-level returns using the critic and GAE, and updates a policy with the clipped importance-ratio surrogate:
+\begin{equation}
+L_{\rm clip}(\theta)=\mathbb E_t\!\left[\min\left(\rho_t A_t,\operatorname{clip}(\rho_t,1-\epsilon,1+\epsilon)A_t\right)\right],
+\qquad \rho_t=\frac{\pi_\theta(a_t\mid s_t)}{\pi_{\rm old}(a_t\mid s_t)}.
+\end{equation}
+The per-token shaped reward also applies $\beta_{\rm KL}(\log\pi_\theta-\log\pi_{\rm ref})$ pressure against policy drift. Clipping limits movement relative to the \emph{rollout policy}; reference KL pressure compares to a different, frozen model, so the two controls are not interchangeable. The continuation uses the course-supplied midpoint, a policy learning rate of $3\times10^{-6}$, separate critic LoRA/head rates of $10^{-4}$ and $3\times10^{-4}$, and two PPO passes per rollout.
+
+The twenty-update plots show learned reward values above 3 early but also negative-scoring updates near the end, rather than steady reward improvement. Sampled KL stays near zero but fluctuates and sometimes becomes negative. Critic value loss ranges from about 0.9 to over 6, with noisy critic gradient magnitudes much larger than the policy gradients; the policy gradient also increases at the last update. Thus a small policy loss and very small sampled KL do not establish that the critic was stable or that responses improved after every update. The standard continuation's recorded on-policy clip fraction is exactly zero in all twenty updates.
 % Caption context (source note only): PPO standard continuation: reward, sampled KL, value loss, and token entropy across 20 updates.
 \ReportFigure{21_ppo_reward_critic_grid.png}{\textbf{TODO:} Write your own caption for 21\_ppo\_reward\_critic\_grid.png}{ppo-main}{0.27\textheight}
 % Caption context (source note only): PPO standard continuation: policy loss, policy/critic gradient norms, and response length. Training clip fraction is separately recorded.
@@ -85,10 +92,14 @@ The task's clearest documented preference-versus-quality disagreement is at the 
 % On-policy clip fraction = 0 in all 20 standard updates (reported in
 % tables/ppo-clip.tex). The redundant flat trajectory is in the appendix.
 \subsection{Clipping and KL-pressure ablations}
-\TODO{Distinguish cached affected-token fraction from on-policy training clip fraction. Explain whether short forks differ and discuss held-out trade-offs and reward-overoptimization cases.}
+The clipping experiment contains \emph{two different tests}. First, a frozen cached rollout measures what happens to the same importance ratios when $\epsilon$ changes. The fractions of valid tokens affected by the clip range are 55.3\%, 33.8\% and 17.8\% for $\epsilon=0.05,0.20,0.50$. This is consistent with a wider allowed interval clipping fewer ratios. The cached surrogate also changes from $-0.0878$ to $-0.0648$ to $-0.0398$. Second, the experiment compares short eight-update policy continuations from the same PPO midpoint. Here all three forks have the \emph{same} held-out RM score 1.582, sampled KL 0.00011, mean response length 312.3 and policy-gradient SD 0.286. These identical measured outcomes do not support an epsilon-dependent improvement under this limited continuation.
+
+The standard on-policy clip fraction of zero is not contradicted by the larger cached affected-token percentages; those were computed on a separate fixed old/new comparison. Reporting the cached 55.3\% as an observed training clip fraction would be misleading. The evidence distinguishes how clipping \emph{can} alter a surrogate from whether it \emph{did} alter the final policy in this run.
+
+The matched KL-pressure forks change $\beta_{\rm KL}$ from 0 to 0.10 to 0.20. Their held-out learned rewards are 1.525, 1.582 and 1.497; estimated KLs are $-0.00010$, 0.00011 and 0.00007; mean response lengths are 306.2, 312.3 and 294.2. Sampled-token surprisal drops from 0.795 to 0.787 to 0.781. There is no monotonic improvement in RM reward as the penalty strengthens. In particular, the largest $\beta_{\rm KL}$ has the shortest mean response, but that alone is neither evidence of better brevity nor of degraded quality. The more general reward-overoptimization concern is that a fixed learned RM can prefer surface features not equivalent to correctness; these short-run aggregate values suggest the need for response inspection, not a verified case of reward hacking by themselves.
 \input{tables/ppo-clip}
 \input{tables/ppo-kl}
-\TODO{Add one qualitative case where reward matches perceived quality and one where they disagree, using saved example IDs.}
+The recorded per-update reward trajectory provides a genuine counterexample to assuming that more optimizer steps automatically mean more reward: after high early values, later rollout batches receive scores below zero. This is \emph{not} a paired held-out response-quality comparison because the training prompts can differ between updates. Likewise, none of the short KL forks has a monotonically increasing RM trend. A claim that a particular high-scoring response was incomplete or factually wrong would require a source-indexed response and its original question, not RM statistics alone.
 
 \section{Task 3: Group Relative Policy Optimization}
 \subsection{Standard GRPO continuation}
