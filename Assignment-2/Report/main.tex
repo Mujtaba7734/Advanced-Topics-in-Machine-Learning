@@ -103,19 +103,29 @@ The recorded per-update reward trajectory provides a genuine counterexample to a
 
 \section{Task 3: Group Relative Policy Optimization}
 \subsection{Standard GRPO continuation}
-\TODO{Describe the K=4 group-relative advantage, truncated-response mask, 20 updates, and absent learned critic. Inspect signal-free or zero-token updates rather than claiming monotonic improvement. Record VRAM and wall-clock time.}
+GRPO removes PPO's learned critic and instead normalizes the rewards of $K$ completions drawn for one prompt \citep{shao2024deepseekmath}:
+\begin{equation}
+A_i=\frac{r_i-\overline{r}}{\operatorname{std}(r_1,\ldots,r_K)+10^{-6}}.
+\end{equation}
+The standard continuation uses $K=4$, one optimization epoch per group, clip 0.20 and KL weight 0.10. Completed responses truncated at the 512-token generation limit are excluded from the response-token optimization mask. A group with equal rewards has zero relative advantage, while a completion with no valid optimization tokens cannot supply a policy gradient.
+
+The GRPO curves show varying reward, small sampled KL, changing within-group SD and intermittent zero-gradient updates. Crucially, four of the twenty recorded update slots have \emph{zero} valid optimization tokens under the truncation mask; an additional slot has zero group reward SD. Thus the run has twenty recorded slots, not twenty effective nonzero learning updates. It would be wrong to treat a flat loss or near-zero KL as proof that policy learning proceeded normally throughout. The missing critic avoids PPO's value-loss issue, but the reward diversity and eligibility of the actual sampled completions become decisive.
 % Caption context (source note only): GRPO continuation: reward, sampled KL, within-group reward SD, and uninformative-group fraction.
 \ReportFigure{23_grpo_signal_grid.png}{\textbf{TODO:} Write your own caption for 23\_grpo\_signal\_grid.png}{grpo-signal}{0.28\textheight}
 % Caption context (source note only): GRPO continuation: policy loss, gradient norm, response-token entropy, and completion length.
 \ReportFigure{24_grpo_optimization_grid.png}{\textbf{TODO:} Write your own caption for 24\_grpo\_optimization\_grid.png}{grpo-optimization}{0.28\textheight}
 \subsection{Group size and sequence normalization}
-\TODO{State equal-generation budget and fixed reward-quartile difficulty rule. Explain informative groups, SD, and advantage variance for K=2/4/8.}
+The group-size probe fixes the \emph{total} number of sampled completions at 192 (24 prompts, eight cached completions each). Regrouping the same cache into $K=2,4,8$ gives 96, 48 and 24 groups. Informative-group fractions are 93.8\%, 95.8\% and 95.8\%, while mean within-group reward SD rises from 0.385 to 0.541 to 0.619. More samples inside a group increase the chance of observing reward differences, but fewer groups remain under a fixed total-generation budget. A group-size increase is therefore not equivalent to free extra training examples.
+
+The fixed prompt-difficulty bins are defined using the same mean reward over the eight cached completions; they do not depend on the value of $K$ being evaluated. The Q2 mid-low-reward bin has only 83.3\% informative groups at all three group sizes, whereas Q4 high reward has 100\%. This shows that variation in reward is not determined by group size alone. Groups with little reward spread may contain very different-looking texts, but still provide almost no useful relative advantage if the reward model scores them nearly alike.
 \input{tables/grpo-groups}
 \input{tables/grpo-difficulty}
-\TODO{Compare equal-budget GRPO and Dr.-GRPO, including the length-conditioned loss contributions and held-out quality.}
+GRPO normalizes each sequence by its \emph{actual number of valid response tokens}; Dr.-GRPO uses the constant prescribed normalization length. The matched eight-update comparisons therefore test whether length-dependent weighting changes the learned solution. Under the common held-out evaluation, GRPO records RM 0.986, sampled KL 0.00009 and mean length 255.8; Dr.-GRPO records RM 0.957, sampled KL 0.00001 and length 262.1. For GRPO, mean absolute normalized policy-loss contributions are 0.221 for short responses and 0.123 for long responses. For Dr.-GRPO, the corresponding contributions are 0.056 and 0.094. This is evidence that short/long examples are weighted differently across these particular objectives, not a direct measurement of parameter-gradient norm per completion.
+
+The standard twenty-slot continuation also provides a compute comparison. PPO requires 331.8 seconds and peaks at 8.69 GiB; GRPO requires 395.6 seconds and peaks at 8.40 GiB. GRPO uses less peak VRAM but more measured wall-clock time \emph{in these configurations}. They have different rollout structures and potentially different counts of useful tokens, so the measurements should not be presented as a universal algorithm ranking.
 \input{tables/grpo-norm}
 \input{tables/training-compute}
-\TODO{Insert a saved qualitative example supporting the group-size or length-normalization discussion.}
+A source-grounded truncation example is the GRPO held-out completion with source index \texttt{708}: it begins by explaining deep-sea mining, reaches exactly the 512-token completion cap, has \texttt{truncated=true}, and still receives RM score 2.551. Source index \texttt{288}, about quantum mechanics, is also truncated at 512 tokens with RM score 2.502. The examples show that fairly high learned rewards can coexist with a completion that reached the operational cap, even though the truncation mask prevents such a completion from contributing valid policy tokens. They do not prove that the response is factually incorrect; they explain why reward alone and the number of logged steps are incomplete optimization diagnostics.
 
 \section{Task 4: Safety Calibration}
 \TODO{Explain the fixed SFT/standard DPO/standard PPO/standard GRPO policies, deterministic generation, and the five-class AI judge. State that the AI judge is not ground truth.}
