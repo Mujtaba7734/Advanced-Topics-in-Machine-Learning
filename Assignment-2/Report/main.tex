@@ -76,6 +76,8 @@ Actual generated length changes very little: 144.5 $\pm$ 98.2 tokens for standar
 \ReportFigure{02_dpo_length_strata.png}{Reference-adjusted DPO preference accuracy on the same three fixed 82-pair length strata under standard and length-balanced training.}{dpo-strata}{0.21\textheight}
 \input{tables/dpo-word}
 \FloatBarrier
+An actual instruction-compliance failure is preserved in standard DPO record \texttt{wl02}: the prompt asks to \emph{Define overfitting in no more than 25 words}, but the generated definition contains 38 words. The response begins \emph{Overfitting occurs when a statistical model describes random error or noise instead of the underlying relationship}. Record \texttt{wl07} similarly uses 54 words to answer an at-most-35-word learning-rate prompt. These are concrete violations of stated limits, regardless of whether a separate preference or reward score happens to favor their content.
+
 The task's clearest documented preference-versus-quality disagreement is at the \emph{metric level}: 9.7 more percentage points of rejected-longer pair accuracy occur without any increase in the 50\% word-limit compliance rate. A higher preference margin or learned RM score is not by itself an independently verified example of a better factual answer. Individual generation-level claims should be tied to the stored source indices and exact text, rather than inferred from these aggregates.
 
 \section{Task 2: Proximal Policy Optimization}
@@ -104,6 +106,8 @@ The matched KL-pressure forks change $\beta_{\rm KL}$ from 0 to 0.10 to 0.20. Th
 \FloatBarrier
 \input{tables/ppo-kl}
 \FloatBarrier
+A more concrete reward-versus-termination example comes from PPO held-out source index \texttt{148}. It starts a dam-construction project proposal, receives learned RM score 3.223, and reaches the evaluation cap of 768 tokens without an end-of-sequence marker (\texttt{truncated=true}). Source index \texttt{833} similarly begins a business-plan outline, scores 3.068 and is truncated at 768 tokens. Favorable reward scores can therefore coexist with unfinished termination behavior. The source questions would need independent inspection before declaring these responses factually wrong or asserting reward hacking.
+
 The recorded per-update reward trajectory provides a genuine counterexample to assuming that more optimizer steps automatically mean more reward: after high early values, later rollout batches receive scores below zero. This is \emph{not} a paired held-out response-quality comparison because the training prompts can differ between updates. Likewise, none of the short KL forks has a monotonically increasing RM trend. A claim that a particular high-scoring response was incomplete or factually wrong would require a source-indexed response and its original question, not RM statistics alone.
 
 \section{Task 3: Group Relative Policy Optimization}
