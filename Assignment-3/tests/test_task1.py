@@ -9,7 +9,7 @@ from torch import nn
 from common.checkpoint import atomic_save, atomic_latest, load_checked
 from common.seed import set_seed, rng_state, restore_rng
 from task1.prepare_data import normalize_question, select_examples, encode_example
-from task1.training import token_loss_sum, response_loss_sum, weight_decay_groups, trim_jsonl_to_checkpoint
+from task1.training import token_loss_sum, response_loss_sum, weight_decay_groups, trim_jsonl_to_checkpoint, execute_update
 from task1.model import AdapterLinear, leading_bases, trainable_parameters, projected_adapter_state, use_projected_factors
 from task1.l2sp import CPUReference, unique_named_parameters
 from task1.diagnostics import metrics, activation_ratio
@@ -18,8 +18,10 @@ from task1.qualitative import load_prompts, prompt_sha256, combine_outputs, anno
 from task1.evaluation import CONDITIONS
 from task1.plots import aggregate
 from task1.dataset import load_selected
-from task1.preflight import require_passed_preflight
+from task1.preflight import require_passed_preflight, source_sha256
 from task1.protocol import config_sha256
+from task1.optim import SecondaryGPUAdamW, optimizer_state_count
+from task1.preflight_memory import longest_consecutive_batches, _assert_memory_margin
 
 
 class FakeTokenizer:
@@ -191,6 +193,94 @@ class AdapterTests(unittest.TestCase):
 
 
 class RecoveryAndMetricTests(unittest.TestCase):
+    def test_shared_update_releases_gradients_after_adam_initialization(self):
+        from transformers import Qwen3Config, Qwen3ForCausalLM, get_cosine_schedule_with_warmup
+        model = Qwen3ForCausalLM(Qwen3Config(
+            vocab_size=64, hidden_size=16, intermediate_size=32, num_hidden_layers=1,
+            num_attention_heads=2, num_key_value_heads=1, head_dim=8, max_position_embeddings=32))
+        model.gradient_checkpointing_enable()
+        optimizer = torch.optim.AdamW(weight_decay_groups(model, 0.01), lr=0.001, foreach=False)
+        scheduler = get_cosine_schedule_with_warmup(optimizer, 2, 10)
+        scaler = torch.amp.GradScaler("cuda", enabled=False)
+        row = {"input_ids": [1, 2, 3, 4, 5], "labels": [-100, -100, 3, 4, 5],
+               "response_tokens": 3}
+        config = {"microbatch": 2, "grad_accum": 16, "l2sp_lambda": 0.001,
+                  "max_grad_norm": 1.0}
+        before = model.model.layers[0].self_attn.q_proj.weight.detach().clone()
+        for update in (1, 2):
+            result = execute_update(config, "full", model, optimizer, scheduler, scaler,
+                                    None, [row] * 32, 0, update, device="cpu")
+            self.assertTrue(result["representative_grad_nonzero"])
+            self.assertTrue(all(parameter.grad is None for parameter in model.parameters()))
+        self.assertGreater(optimizer_state_count(optimizer.state_dict()), 0)
+        self.assertFalse(torch.equal(before, model.model.layers[0].self_attn.q_proj.weight))
+
+    def test_secondary_optimizer_matches_adamw_and_resumes(self):
+        set_seed(6304)
+        reference = nn.Linear(3, 2)
+        mirrored = nn.Linear(3, 2)
+        mirrored.load_state_dict(reference.state_dict())
+        regular = torch.optim.AdamW(reference.parameters(), lr=0.003, weight_decay=0.01,
+                                    betas=(0.9, 0.999), eps=1e-8, foreach=False)
+        offloaded = SecondaryGPUAdamW([{"params": list(mirrored.parameters()), "weight_decay": 0.01}],
+                                      lr=0.003, betas=(0.9, 0.999), eps=1e-8, device="cpu")
+        reference_schedule = torch.optim.lr_scheduler.LambdaLR(regular, lambda step: 1.0 - step / 8)
+        offload_schedule = torch.optim.lr_scheduler.LambdaLR(offloaded, lambda step: 1.0 - step / 8)
+
+        def update(model, optimizer, index):
+            x = torch.tensor([[index / 3, 1.0, -0.5]])
+            optimizer.zero_grad(set_to_none=True)
+            torch.nn.functional.mse_loss(model(x), torch.ones(1, 2)).backward()
+            optimizer.step()
+
+        for index in range(2):
+            update(reference, regular, index)
+            update(mirrored, offloaded, index)
+            reference_schedule.step(); offload_schedule.step()
+            for first, second in zip(reference.parameters(), mirrored.parameters()):
+                self.assertTrue(torch.equal(first, second))
+            self.assertTrue(all(p.grad is None for p in mirrored.parameters()))
+        self.assertEqual(optimizer_state_count(offloaded.state_dict()), 2)
+        with tempfile.TemporaryDirectory() as root:
+            path = Path(root) / "optimizer.pt"
+            atomic_save({"model": mirrored.state_dict(), "optimizer": offloaded.state_dict(),
+                         "scheduler": offload_schedule.state_dict()}, path)
+            restored = nn.Linear(3, 2)
+            restored.load_state_dict(torch.load(path, map_location="cpu", weights_only=False)["model"])
+            restored_opt = SecondaryGPUAdamW([{"params": list(restored.parameters()), "weight_decay": 0.01}],
+                                             lr=0.003, betas=(0.9, 0.999), eps=1e-8, device="cpu")
+            restored_schedule = torch.optim.lr_scheduler.LambdaLR(restored_opt, lambda step: 1.0 - step / 8)
+            restored_opt.load_state_dict(torch.load(path, map_location="cpu", weights_only=False)["optimizer"])
+            restored_schedule.load_state_dict(torch.load(path, map_location="cpu", weights_only=False)["scheduler"])
+            native_migrated = nn.Linear(3, 2)
+            native_migrated.load_state_dict(reference.state_dict())
+            migrated_opt = SecondaryGPUAdamW([{"params": list(native_migrated.parameters()), "weight_decay": 0.01}],
+                                             lr=0.003, betas=(0.9, 0.999), eps=1e-8, device="cpu")
+            import copy
+            migrated_opt.load_state_dict(copy.deepcopy(regular.state_dict()))
+            update(reference, regular, 2)
+            update(restored, restored_opt, 2)
+            update(native_migrated, migrated_opt, 2)
+            for first, second in zip(reference.parameters(), restored.parameters()):
+                self.assertTrue(torch.equal(first, second))
+            for first, second in zip(reference.parameters(), native_migrated.parameters()):
+                self.assertTrue(torch.equal(first, second))
+
+    def test_sustained_preflight_batches_and_headroom_gate(self):
+        rows = [{"input_ids": list(range(i + 1))} for i in range(120)]
+        batches = longest_consecutive_batches(rows, {"microbatch": 2, "grad_accum": 16})
+        self.assertEqual([len(batch) for batch in batches], [32, 32, 32])
+        self.assertEqual(len(batches[0][0]["input_ids"]), 120)
+        self.assertEqual(len(batches[-1][-1]["input_ids"]), 25)
+        good = [[{"device": 0, "total_bytes": 16 * 1024**3,
+                  "peak_reserved_bytes": 14 * 1024**3, "free_bytes": 2 * 1024**3}]]
+        _assert_memory_margin(good)
+        bad = [[{"device": 0, "total_bytes": 16 * 1024**3,
+                 "peak_reserved_bytes": 16 * 1024**3 - 20 * 1024**2,
+                 "free_bytes": 20 * 1024**2}]]
+        with self.assertRaises(RuntimeError):
+            _assert_memory_margin(bad)
+
     def test_training_gate_rejects_cpu_only_preflight(self):
         with tempfile.TemporaryDirectory() as root:
             output = Path(root)
@@ -204,7 +294,8 @@ class RecoveryAndMetricTests(unittest.TestCase):
             report.write_text(json.dumps({"cpu_only": True, "checks": {"gpu_integration": {"status": "NOT RUN"}}}),
                               encoding="utf-8")
             (data / "preflight_pass.json").write_text(json.dumps({
-                "config_sha256": config_sha256(config), "data_sha256": "selected", "report": str(report)}),
+                "config_sha256": config_sha256(config), "data_sha256": "selected",
+                "source_sha256": source_sha256(), "report": str(report)}),
                 encoding="utf-8")
             with self.assertRaises(RuntimeError):
                 require_passed_preflight(config, manifest)
@@ -223,6 +314,11 @@ class RecoveryAndMetricTests(unittest.TestCase):
         self.assertTrue(torch.allclose(loss, full, atol=1e-5))
         loss.backward()
         self.assertGreater(model.model.layers[0].self_attn.q_proj.weight.grad.abs().sum().item(), 0)
+        model.zero_grad(set_to_none=True)
+        with torch.inference_mode():
+            resumed_forward = response_loss_sum(model, ids, mask, labels)
+        self.assertFalse(resumed_forward.requires_grad)
+        self.assertTrue(all(parameter.grad is None for parameter in model.parameters()))
 
     def test_interrupted_short_run_matches_uninterrupted(self):
         def make_run():

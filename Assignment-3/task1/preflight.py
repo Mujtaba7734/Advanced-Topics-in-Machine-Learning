@@ -1,5 +1,6 @@
 """Real-interface checks run explicitly on Kaggle before any training run."""
 import gc
+import hashlib
 import importlib.metadata
 import json
 import os
@@ -10,15 +11,21 @@ from pathlib import Path
 
 import torch
 
-from common.checkpoint import atomic_json, atomic_save, load_checked
-from common.seed import set_seed, rng_state, restore_rng
-from task1.dataset import collate, load_selected
-from task1.model import (AdapterLinear, adapter_state, load_model, load_adapter_state,
-                         merge_adapters, projected_adapter_state, trainable_parameters,
-                         use_projected_factors, target_modules)
+from common.checkpoint import atomic_json
+from task1.dataset import load_selected
+from task1.model import load_model
 from task1.prepare_data import encode_example
 from task1.protocol import config_sha256, validate_protocol
-from task1.training import response_loss_sum, required_checkpoint_space, weight_decay_groups
+
+
+def source_sha256():
+    root = Path(__file__).resolve().parents[1]
+    paths = sorted((root / "task1").glob("*.py")) + sorted((root / "common").glob("*.py"))
+    digest = hashlib.sha256()
+    for path in paths:
+        digest.update(str(path.relative_to(root)).encode())
+        digest.update(path.read_bytes())
+    return digest.hexdigest()
 
 
 def dependency_versions(requirements_path):
@@ -126,148 +133,7 @@ def inspect_data(config, tokenizer):
     return rows, manifest
 
 
-def _train_step(config, method, model, rows, pad_id):
-    from task1.l2sp import CPUReference
-    from torch.optim import AdamW
-    micro = collate(rows, pad_id, "cuda")
-    target = next(p for p in model.parameters() if p.requires_grad)
-    original_target = target.detach().clone()
-    frozen = None
-    if method not in ("full", "l2sp"):
-        first = model.model.layers[0].self_attn.q_proj
-        frozen = first.base.weight.detach().clone()
-    reference = CPUReference(model) if method == "l2sp" else None
-    lr = config["full_lr"] if method in ("full", "l2sp") else config["adapter_lr"]
-    optimizer = AdamW(weight_decay_groups(model, config["weight_decay"]), lr=lr,
-                      betas=tuple(config["adam_betas"]), eps=config["adam_eps"], foreach=False)
-    scaler = torch.amp.GradScaler("cuda")
-    optimizer.zero_grad(set_to_none=True)
-    with torch.autocast("cuda", dtype=torch.float16):
-        loss = response_loss_sum(model, micro["input_ids"], micro["attention_mask"], micro["labels"])
-        loss = loss / sum(row["response_tokens"] for row in rows)
-    if not torch.isfinite(loss):
-        raise FloatingPointError(f"{method} SFT loss is nonfinite")
-    scaler.scale(loss).backward()
-    scaler.unscale_(optimizer)
-    omega = reference.omega_and_gradient(model, config["l2sp_lambda"]) if reference else 0.0
-    norm = torch.nn.utils.clip_grad_norm_(
-        (p for p in model.parameters() if p.requires_grad), config["max_grad_norm"])
-    if not torch.isfinite(norm) or norm <= 0:
-        raise FloatingPointError(f"{method} gradient norm is zero or nonfinite")
-    old_scale = scaler.get_scale()
-    scaler.step(optimizer)
-    scaler.update()
-    if scaler.get_scale() < old_scale:
-        raise FloatingPointError(f"{method} preflight optimizer step overflowed")
-    changed = not torch.equal(target.detach(), original_target)
-    if method in ("full", "l2sp") and not changed:
-        raise AssertionError(f"{method} did not update an original parameter")
-    if method not in ("full", "l2sp"):
-        if not torch.equal(first.base.weight, frozen):
-            raise AssertionError(f"{method} changed its frozen backbone")
-        if not any(module.B.grad is not None and torch.count_nonzero(module.B.grad).item()
-                   for module in model.modules() if isinstance(module, AdapterLinear)):
-            raise AssertionError(f"{method} has no adapter B gradient")
-    if reference and reference.omega_and_gradient(model) <= omega:
-        raise AssertionError("L2-SP reference penalty did not increase after the update")
-    return optimizer, scaler, {"sft_loss": loss.detach().item(), "grad_norm": norm.item(),
-                               "trainable_parameters": trainable_parameters(model),
-                               "peak_gpu_bytes": torch.cuda.max_memory_allocated()}
-
-
-def inspect_model_method(config, method, rows, tokenizer, output_dir):
-    from task1.training import required_checkpoint_space
-    set_seed(config["seed"])
-    torch.cuda.reset_peak_memory_stats()
-    model, metadata = load_model(config, method)
-    if method in ("full", "l2sp"):
-        if any(p.dtype != torch.float32 for p in model.parameters()):
-            raise AssertionError(f"{method} master weights are not all FP32")
-    else:
-        expected_targets = len(model.model.layers) * len(config["targets"])
-        actual_targets = sum(isinstance(m, AdapterLinear) for m in model.modules())
-        if actual_targets != expected_targets:
-            raise AssertionError(f"{method}: {actual_targets} adapters; expected {expected_targets}")
-        expected_trainable = sum(method_rank * (module.base.in_features + module.base.out_features)
-                                 for module in model.modules() if isinstance(module, AdapterLinear)
-                                 for method_rank in [module.rank])
-        if trainable_parameters(model) != expected_trainable:
-            raise AssertionError(f"{method} trainable count does not equal LoRA factor count")
-        if any(p.requires_grad for _, _, _, module in target_modules(model, config["targets"])
-               for p in module.base.parameters()):
-            raise AssertionError(f"{method} has an unfrozen target weight")
-    model.train()
-    selected = sorted(rows, key=lambda row: len(row["input_ids"]), reverse=True)[:2]
-    needed = required_checkpoint_space(config, method, model, 0, 312)
-    free = shutil.disk_usage(config["output_root"]).free
-    if free < needed:
-        raise RuntimeError(f"{method} first recovery needs about {needed/2**30:.1f} GiB; "
-                           f"only {free/2**30:.1f} GiB is free")
-    optimizer, scaler, result = _train_step(config, method, model, selected,
-                                            tokenizer.pad_token_id if tokenizer.pad_token_id is not None else tokenizer.eos_token_id)
-    result.update(metadata)
-    result["first_checkpoint_estimate_bytes"] = needed
-    path = output_dir / f"{method}_recovery_smoke.pt"
-    state = {"method": method, "step": 1, "position": 2,
-             "model": ({k: v.detach().cpu() for k, v in model.state_dict().items()}
-                       if method in ("full", "l2sp") else adapter_state(model)),
-             "optimizer": optimizer.state_dict(), "scaler": scaler.state_dict(), "rng": rng_state()}
-    try:
-        atomic_save(state, path)
-        loaded = load_checked(path, {"method": method, "step": 1, "position": 2})
-        if len(loaded["optimizer"]["state"]) == 0:
-            raise AssertionError("Optimizer state was not saved")
-        if set(loaded["model"]) != set(state["model"]):
-            raise AssertionError("Model checkpoint keys changed")
-        result["smoke_checkpoint_bytes"] = path.stat().st_size
-        trainable = next(p for p in model.parameters() if p.requires_grad)
-        original = trainable.detach().clone()
-        with torch.no_grad():
-            trainable.add_(0.01)
-        if method in ("full", "l2sp"):
-            model.load_state_dict(loaded["model"])
-        else:
-            load_adapter_state(model, loaded["model"])
-        optimizer.load_state_dict(loaded["optimizer"])
-        scaler.load_state_dict(loaded["scaler"])
-        restore_rng(loaded["rng"])
-        if not torch.equal(trainable, original):
-            raise AssertionError("Reload did not restore the trained parameter exactly")
-        next_batch = rows[2:4]
-        micro = collate(next_batch, tokenizer.pad_token_id if tokenizer.pad_token_id is not None
-                        else tokenizer.eos_token_id, "cuda")
-        with torch.autocast("cuda", dtype=torch.float16):
-            continued_loss = response_loss_sum(model, micro["input_ids"],
-                                               micro["attention_mask"], micro["labels"])
-        if not torch.isfinite(continued_loss):
-            raise FloatingPointError("Reloaded model failed on the next prepared examples")
-        result["resume_next_example_loss_sum"] = continued_loss.item()
-    finally:
-        path.unlink(missing_ok=True)
-    if method not in ("full", "l2sp"):
-        model.eval()
-        ids = tokenizer("Merge equivalence?", return_tensors="pt").input_ids.cuda()
-        with torch.inference_mode():
-            before = model(input_ids=ids).logits.float()
-        if method == "oplora16":
-            projected = projected_adapter_state(model)
-            use_projected_factors(model, projected)
-            with torch.inference_mode():
-                after_export = model(input_ids=ids).logits.float()
-            if not torch.allclose(before, after_export, atol=0.1, rtol=0):
-                raise AssertionError("OPLoRA projected export differs from training model")
-            module = model.model.layers[0].mlp.down_proj
-            if (module.uk.T @ module.correction()).abs().max().item() > 1e-3:
-                raise AssertionError("OPLoRA protected output subspace is not orthogonal")
-        merge_adapters(model)
-        with torch.inference_mode():
-            after_merge = model(input_ids=ids).logits.float()
-        if not torch.allclose(before, after_merge, atol=0.1, rtol=0):
-            raise AssertionError(f"{method} merge changed logits")
-    del model, optimizer, scaler, state, loaded
-    gc.collect()
-    torch.cuda.empty_cache()
-    return result
+from task1.preflight_memory import inspect_model_method
 
 
 def inspect_harness_and_qualitative(config, tokenizer):
@@ -341,7 +207,8 @@ def run_preflight(config, requirements_path, cpu_only=False):
     out = Path(config["output_root"]) / "preflight"
     out.mkdir(parents=True, exist_ok=True)
     report = {"kind": "Task 1 integration preflight", "cpu_only": cpu_only,
-              "checks": {}, "config_sha256": config_sha256(config), "started_utc": time.time()}
+              "checks": {}, "config_sha256": config_sha256(config),
+              "source_sha256": source_sha256(), "started_utc": time.time()}
 
     def check(name, function):
         started = time.perf_counter()
@@ -353,6 +220,12 @@ def run_preflight(config, requirements_path, cpu_only=False):
         except Exception as exc:
             report["checks"][name] = {"status": "FAILED", "seconds": time.perf_counter()-started,
                                        "error": f"{type(exc).__name__}: {exc}"}
+            if torch.cuda.is_available():
+                try:
+                    from task1.training import gpu_memory_snapshot
+                    report["checks"][name]["gpu_at_failure"] = gpu_memory_snapshot()
+                except Exception:
+                    pass
             atomic_json(report, out / "report.json", indent=2, default=str)
             raise
         atomic_json(report, out / "report.json", indent=2, default=str)
@@ -381,6 +254,7 @@ def run_preflight(config, requirements_path, cpu_only=False):
               lambda method=method: inspect_model_method(config, method, rows, tokenizer, out))
     check("real_harness_and_qualitative", lambda: inspect_harness_and_qualitative(config, tokenizer))
     marker = {"data_sha256": manifest["selected_sha256"], "config_sha256": config_sha256(config),
+              "source_sha256": source_sha256(),
               "report": str(out / "report.json"), "completed_utc": time.time()}
     atomic_json(marker, Path(config["output_root"]) / "data" / "preflight_pass.json", indent=2)
     return report
@@ -391,8 +265,10 @@ def require_passed_preflight(config, manifest):
     if not path.exists():
         raise RuntimeError("Real Kaggle preflight has not passed. Run `python -m task1.run preflight` before training.")
     marker = json.loads(path.read_text(encoding="utf-8"))
-    if marker.get("data_sha256") != manifest["selected_sha256"] or marker.get("config_sha256") != config_sha256(config):
-        raise RuntimeError("Preflight marker does not match prepared data and current config")
+    if (marker.get("data_sha256") != manifest["selected_sha256"] or
+            marker.get("config_sha256") != config_sha256(config) or
+            marker.get("source_sha256") != source_sha256()):
+        raise RuntimeError("Preflight marker does not match prepared data, config, and source code")
     report_path = Path(marker["report"])
     if not report_path.is_file():
         raise RuntimeError(f"Preflight report is missing: {report_path}")
@@ -401,3 +277,8 @@ def require_passed_preflight(config, manifest):
         raise RuntimeError("Real Kaggle preflight report is incomplete or failed")
     if len(report.get("checks", {})) < 9:
         raise RuntimeError("Real Kaggle preflight report lacks required checks")
+    recorded = report["checks"]["resources"]["detail"]["devices"]
+    current = [(torch.cuda.get_device_name(i), torch.cuda.get_device_properties(i).total_memory)
+               for i in range(torch.cuda.device_count())]
+    if [(device["name"], device["total_bytes"]) for device in recorded] != current:
+        raise RuntimeError("GPU hardware differs from the successful preflight session")

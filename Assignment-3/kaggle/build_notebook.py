@@ -77,7 +77,7 @@ for mount in map(Path, RESTORE_DATASETS):
     print("Restored:", mount, flush=True)
 
 if INSTALL_REQUIREMENTS:
-    subprocess.run([sys.executable, "-m", "pip", "install", "-r", str(repo / "requirements.txt")], check=True)
+    subprocess.run([sys.executable, "-m", "pip", "install", "--quiet", "-r", str(repo / "requirements.txt")], check=True)
 
 import yaml
 config = yaml.safe_load((repo / "configs/task1.yaml").read_text(encoding="utf-8"))
@@ -123,7 +123,7 @@ nb = nbf.v4.new_notebook()
 nb["cells"] = [
     nbf.v4.new_markdown_cell("# ATML PA3 Task 1 — Kaggle controller\n\nEnable GPU and Internet in Kaggle settings. Edit and run the single code cell for one phase per session. It finds a mounted `Assignment-3` root or sparse clones the course repository."),
     nbf.v4.new_code_cell(controller),
-    nbf.v4.new_markdown_cell("## Phase order\n\n1. `diagnose`, `prepare`, then **`preflight`**. Inspect `outputs/task1/preflight/report.json`; training requires its pass marker.\n2. Evaluate `baseline`; train each method, resuming at checkpoints 312, 625, 937, 1250 as needed.\n3. Evaluate the six trained conditions; run `weight`, `activations`, and `qualitative` for all seven conditions.\n4. Run `aggregate`, review results, then export and save outputs.\n\nSave `/kaggle/working/outputs/task1` and `/kaggle/working/results/task1` before a session ends. Mount the saved dataset and set `RESTORE_DATASETS` in the next session. Two T4 GPUs have separate VRAM; the trainer uses one GPU."),
+    nbf.v4.new_markdown_cell("## Phase order\n\n1. `diagnose`, `prepare`, then **`preflight`**. Inspect `outputs/task1/preflight/report.json`; training requires its pass marker. Existing prepared data is validated and reused.\n2. Evaluate `baseline`; train each method, resuming at checkpoints 312, 625, 937, 1250 as needed.\n3. Evaluate the six trained conditions; run `weight`, `activations`, and `qualitative` for all seven conditions.\n4. Run `aggregate`, review results, then export and save outputs.\n\nSave `/kaggle/working/outputs/task1` and `/kaggle/working/results/task1` before a session ends. Mount the saved dataset and set `RESTORE_DATASETS` in the next session. Full FT and L2-SP put model computation on GPU 0 and AdamW master weights and moments on GPU 1. OPLoRA uses GPU 1 for FP32 SVD workspace. The two T4s have separate VRAM, and actual fit remains a preflight requirement."),
 ]
 nb["metadata"] = {"kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"}}
 target = Path(__file__).with_name("ATML_PA3_Task1.ipynb")

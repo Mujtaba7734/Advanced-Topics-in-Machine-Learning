@@ -44,8 +44,13 @@ def main():
     elif args.phase == "prepare":
         from task1.prepare_data import prepare
         from task1.diagnostics import create_probe_ids
-        print(json.dumps(prepare(config), indent=2))
-        print(json.dumps(create_probe_ids(config), indent=2))
+        manifest = prepare(config)
+        probes = create_probe_ids(config)
+        print(json.dumps({"selected": len(manifest["indices"]),
+                          "selected_sha256": manifest["selected_sha256"],
+                          "length_max": manifest["length_max"],
+                          "rejected": manifest["rejected"],
+                          "probe_counts": {key: len(value) for key, value in probes.items()}}, indent=2))
     elif args.phase == "train":
         if not args.method:
             parser.error("train requires --method")
@@ -53,8 +58,10 @@ def main():
         print(run_training(config, args.method, args.stop_update))
     elif args.phase == "preflight":
         from task1.preflight import run_preflight
-        print(json.dumps(run_preflight(config, Path(__file__).resolve().parents[1] / "requirements.txt",
-                                       cpu_only=args.cpu_only), indent=2, default=str))
+        report = run_preflight(config, Path(__file__).resolve().parents[1] / "requirements.txt",
+                               cpu_only=args.cpu_only)
+        print(json.dumps({"checks": {key: value["status"] for key, value in report["checks"].items()},
+                          "report": str(Path(config["output_root"]) / "preflight" / "report.json")}, indent=2))
     elif args.phase == "evaluate":
         if not args.condition:
             parser.error("evaluate requires --condition")

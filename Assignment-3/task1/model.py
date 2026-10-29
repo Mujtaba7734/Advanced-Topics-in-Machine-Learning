@@ -94,7 +94,10 @@ def load_model(config, method, *, for_inference=False, skip_basis=False):
                     uk = torch.zeros((module.out_features, config["op_rank"]), dtype=torch.float32, device="cuda")
                     vk = torch.zeros((module.in_features, config["op_rank"]), dtype=torch.float32, device="cuda")
                 else:
-                    uk, vk = leading_bases(module.weight, config["op_rank"])
+                    # Use the otherwise idle second GPU for FP32 SVD workspace.
+                    basis_device = "cuda:1" if torch.cuda.device_count() >= 2 else module.weight.device
+                    uk, vk = leading_bases(module.weight.detach().to(basis_device), config["op_rank"])
+                    uk, vk = uk.to(module.weight.device), vk.to(module.weight.device)
                 metadata["basis_bytes"] += (uk.numel() + vk.numel()) * 4
                 bases.append((uk, vk))
                 if not for_inference and not skip_basis and target_index % len(config["targets"]) == 0:
