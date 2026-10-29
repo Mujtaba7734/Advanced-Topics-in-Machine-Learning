@@ -40,6 +40,20 @@ def atomic_json(obj, path, **json_kwargs):
         temp.unlink(missing_ok=True)
 
 
+def atomic_bytes(payload, path):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temp = path.with_name(path.name + ".tmp")
+    try:
+        with temp.open("wb") as handle:
+            handle.write(payload)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temp, path)
+    finally:
+        temp.unlink(missing_ok=True)
+
+
 def atomic_latest(source, target):
     """Point latest at a complete recovery file without a second large write."""
     source, target = Path(source), Path(target)

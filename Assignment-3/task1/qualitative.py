@@ -6,7 +6,7 @@ import torch
 import yaml
 from transformers import AutoTokenizer
 from common.checkpoint import atomic_json
-from task1.evaluation import CONDITIONS, load_condition
+from task1.evaluation import CONDITIONS, load_condition, condition_fingerprint
 
 
 def load_prompts(path):
@@ -79,6 +79,7 @@ def generate(config, condition):
         raise ValueError(condition)
     rows, ids = load_prompts(config["qualitative_prompts"])
     fingerprint = prompt_sha256(config["qualitative_prompts"])
+    model_fingerprint = condition_fingerprint(config, condition)
     out = Path(config["result_root"]) / "qualitative"
     out.mkdir(parents=True, exist_ok=True)
     atomic_json({"prompt_sha256": fingerprint, "question_ids_plain_order": ids,
@@ -91,8 +92,9 @@ def generate(config, condition):
             raise ValueError(f"Qualitative output has too many records: {file}")
         for old, expected in zip(outputs, rows):
             for key in ("question_id", "format", "prompt", "system"):
-                if old.get(key) != expected[key] or old.get("prompt_sha256") != fingerprint:
-                    raise ValueError("Qualitative prompt file changed since partial output was saved")
+                if (old.get(key) != expected[key] or old.get("prompt_sha256") != fingerprint or
+                        old.get("condition_fingerprint") != model_fingerprint):
+                    raise ValueError("Qualitative prompt or model changed since partial output was saved")
         if len(outputs) == 24:
             return outputs
     tokenizer = AutoTokenizer.from_pretrained(config["model"], cache_dir=config["cache_dir"],
@@ -112,6 +114,7 @@ def generate(config, condition):
                                       do_sample=False, pad_token_id=tokenizer.eos_token_id)
         new = sequence[0, inputs["input_ids"].shape[-1]:]
         outputs.append({**row, "condition": condition, "prompt_sha256": fingerprint,
+                        "condition_fingerprint": model_fingerprint,
                         "response": tokenizer.decode(new, skip_special_tokens=True),
                         "generated_tokens": len(new),
                         "truncated": len(new) >= config["qualitative_max_new_tokens"] and

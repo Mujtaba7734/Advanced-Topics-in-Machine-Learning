@@ -4,6 +4,7 @@ import os
 import shutil
 from pathlib import Path
 import yaml
+from task1.protocol import validate_protocol
 
 
 def read_config(path):
@@ -22,15 +23,17 @@ def read_config(path):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("phase", choices=["diagnose", "prepare", "train", "evaluate", "weight",
+    parser.add_argument("phase", choices=["diagnose", "prepare", "preflight", "train", "evaluate", "weight",
                                           "activations", "qualitative", "aggregate", "export"])
     parser.add_argument("--config", default="configs/task1.yaml")
     parser.add_argument("--method", choices=["full", "l2sp", "lora4", "lora16", "oplora16"])
     parser.add_argument("--stop-update", type=int, choices=[312, 625, 937, 1250])
+    parser.add_argument("--cpu-only", action="store_true", help="Run local static checks; GPU integration remains NOT RUN")
     parser.add_argument("--condition", choices=["baseline", "full_mid", "full_final", "l2sp_final",
                                                 "lora4_final", "lora16_final", "oplora16_final"])
     args = parser.parse_args()
     config = read_config(args.config)
+    validate_protocol(config)
     os.environ["HF_HOME"] = config["cache_dir"]
     os.environ["HF_DATASETS_CACHE"] = str(Path(config["cache_dir"]) / "datasets")
     Path(config["output_root"]).mkdir(parents=True, exist_ok=True)
@@ -48,6 +51,10 @@ def main():
             parser.error("train requires --method")
         from task1.training import run_training
         print(run_training(config, args.method, args.stop_update))
+    elif args.phase == "preflight":
+        from task1.preflight import run_preflight
+        print(json.dumps(run_preflight(config, Path(__file__).resolve().parents[1] / "requirements.txt",
+                                       cpu_only=args.cpu_only), indent=2, default=str))
     elif args.phase == "evaluate":
         if not args.condition:
             parser.error("evaluate requires --condition")

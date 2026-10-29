@@ -86,25 +86,45 @@ def run_training(config, method, stop_update=None):
     if stop_update not in config["checkpoint_updates"]:
         raise ValueError("stop_update must be one of the assignment checkpoint updates")
     rows, manifest = load_selected(config)
+    from task1.preflight import require_passed_preflight
+    require_passed_preflight(config, manifest)
     run_dir = Path(config["output_root"]) / method
     run_dir.mkdir(parents=True, exist_ok=True)
-    resume = run_dir / "latest.pt"
-    (run_dir / "config.json").write_text(json.dumps(config, indent=2), encoding="utf-8")
+    latest_path = run_dir / "latest.pt"
+    resume = latest_path
+    if not resume.exists():
+        recoveries = sorted(run_dir.glob("recovery_*.pt"))
+        if recoveries:
+            resume = recoveries[-1]
+        elif (run_dir / "train.jsonl").exists() or list(run_dir.glob("inference_*.pt")):
+            raise RuntimeError(f"{method} has existing outputs but no recovery checkpoint; refusing to restart")
     set_seed(config["seed"])
     model, metadata = load_model(config, method, skip_basis=resume.exists() and method == "oplora16")
     model.train()
     tokenizer = AutoTokenizer.from_pretrained(config["model"], cache_dir=config["cache_dir"],
                                                revision=config.get("model_revision"))
-    pad_id = tokenizer.pad_token_id or tokenizer.eos_token_id
-    reference = CPUReference(model) if method in ("full", "l2sp") else None
+    pad_id = tokenizer.pad_token_id if tokenizer.pad_token_id is not None else tokenizer.eos_token_id
+    # Full FT also needs the complete W0 reference for its required displacement.
+    reference = CPUReference(model, pin=method == "l2sp") if method in ("full", "l2sp") else None
     lr = config["full_lr"] if method in ("full", "l2sp") else config["adapter_lr"]
     optimizer = torch.optim.AdamW(weight_decay_groups(model, config["weight_decay"]), lr=lr,
-                                  betas=tuple(config["adam_betas"]), eps=config["adam_eps"])
+                                  betas=tuple(config["adam_betas"]), eps=config["adam_eps"], foreach=False)
     scheduler = get_cosine_schedule_with_warmup(optimizer, config["warmup_updates"], config["optimizer_updates"])
     scaler = torch.amp.GradScaler("cuda", enabled=True)
     step, skipped, elapsed = 0, 0, 0.0
     if resume.exists():
-        state = load_checked(resume, {"method": method, "data_sha256": manifest["selected_sha256"], "config": config})
+        expected = {"method": method, "data_sha256": manifest["selected_sha256"], "config": config}
+        attempts = [resume] + [p for p in sorted(run_dir.glob("recovery_*.pt"), reverse=True) if p != resume]
+        errors = []
+        for candidate in attempts:
+            try:
+                state = load_checked(candidate, expected)
+                resume = candidate
+                break
+            except (OSError, EOFError, RuntimeError, ValueError) as exc:
+                errors.append(f"{candidate.name}: {exc}")
+        else:
+            raise RuntimeError("No valid recovery checkpoint: " + " | ".join(errors))
         if method in ("full", "l2sp"):
             model.load_state_dict(state["model"])
         else:
@@ -118,6 +138,8 @@ def run_training(config, method, stop_update=None):
         if state["position"] != step * 32:
             raise ValueError("Checkpoint data position does not match successful updates")
         print(f"Resuming {method} from update {step}, example {step*32}", flush=True)
+    from common.checkpoint import atomic_json
+    atomic_json(config, run_dir / "config.json", indent=2)
     (run_dir / "model_metadata.json").write_text(json.dumps({
         **metadata, "trainable_parameters": trainable_parameters(model)}, indent=2), encoding="utf-8")
     needed = required_checkpoint_space(config, method, model, step, stop_update)
@@ -173,6 +195,8 @@ def run_training(config, method, stop_update=None):
                     raise FloatingPointError(f"Repeated FP16 overflow at update {target_step}")
                 restore_rng(trial_rng)
                 continue
+            if not math.isfinite(norm) or not math.isfinite(sft_sum):
+                raise FloatingPointError(f"Nonfinite successful update {target_step}")
             scheduler.step()
             break
         step = target_step
@@ -199,7 +223,7 @@ def run_training(config, method, stop_update=None):
                      "metadata": metadata, "trainable_parameters": trainable_parameters(model)}
             recovery_path = run_dir / f"recovery_{step:04d}.pt"
             atomic_save(state, recovery_path)
-            atomic_latest(recovery_path, resume)
+            atomic_latest(recovery_path, latest_path)
             if (method == "full" and step in (625, 1250)) or (method == "l2sp" and step == 1250):
                 atomic_save(state["model"], run_dir / f"inference_{step:04d}.pt")
             elif method not in ("full", "l2sp") and step == 1250:

@@ -13,20 +13,31 @@ from task1.training import token_loss_sum, response_loss_sum, weight_decay_group
 from task1.model import AdapterLinear, leading_bases, trainable_parameters, projected_adapter_state, use_projected_factors
 from task1.l2sp import CPUReference, unique_named_parameters
 from task1.diagnostics import metrics, activation_ratio
-from task1.evaluation import answer_from_sample, select_task_samples, multiple_choice_prediction
+from task1.evaluation import answer_from_sample, select_task_samples, multiple_choice_prediction, normalized_choice_prediction
 from task1.qualitative import load_prompts, prompt_sha256, combine_outputs, annotation_template
 from task1.evaluation import CONDITIONS
 from task1.plots import aggregate
 from task1.dataset import load_selected
+from task1.preflight import require_passed_preflight
+from task1.protocol import config_sha256
 
 
 class FakeTokenizer:
     def apply_chat_template(self, messages, tokenize, add_generation_prompt, enable_thinking):
-        assert not enable_thinking and tokenize
-        user = [1, 2] + [ord(c) for c in messages[0]["content"]] + [3]
-        if add_generation_prompt:
-            return user + [4]
-        return user + [4] + [ord(c) for c in messages[1]["content"]] + [5]
+        assert not enable_thinking and not tokenize and add_generation_prompt
+        return f"<|im_start|>user\n{messages[0]['content']}<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n"
+
+    unk_token_id = -1
+
+    def convert_tokens_to_ids(self, token):
+        return 5000 if token == "<|im_end|>" else -1
+
+    def __call__(self, text, add_special_tokens=False):
+        from transformers.tokenization_utils_base import BatchEncoding
+        return BatchEncoding({"input_ids": [ord(c) for c in text]})
+
+    def decode(self, ids, skip_special_tokens=False, clean_up_tokenization_spaces=False):
+        return "".join("<|im_end|>" if value == 5000 else chr(value) for value in ids)
 
 
 class DataTests(unittest.TestCase):
@@ -37,15 +48,21 @@ class DataTests(unittest.TestCase):
                 {"query": "First!", "response": "answer"},
                 {"query": "too long", "response": "x" * 100},
                 {"query": "Last?", "response": "b"}]
-        selected, rejected = select_examples(rows, ["gsm 8k"], tok, count=2, max_length=30)
+        selected, rejected = select_examples(rows, ["gsm 8k"], tok, count=2, max_length=100)
         self.assertEqual([r["source_index"] for r in selected], [2, 4])
         self.assertEqual(rejected, {"empty": 1, "contaminated": 1, "too_long": 1})
         self.assertEqual(normalize_question("GSM  8K?"), normalize_question("gsm 8k"))
         for row in selected:
             self.assertEqual(len(row["input_ids"]), len(row["labels"]))
-            self.assertLessEqual(len(row["input_ids"]), 30)
+            self.assertLessEqual(len(row["input_ids"]), 100)
             self.assertEqual(sum(x != -100 for x in row["labels"]), row["response_tokens"])
             self.assertEqual(row["input_ids"][-1], row["labels"][-1])
+            self.assertTrue(all(label == -100 for label in row["labels"][:row["prompt_tokens"]]))
+            self.assertTrue(all(label != -100 for label in row["labels"][row["prompt_tokens"]:]))
+
+    def test_supplied_response_whitespace_is_preserved(self):
+        encoded = encode_example(FakeTokenizer(), "2 + 2?", "\n  4  ")
+        self.assertEqual(encoded["response_tokens"], len("\n  4  ") + 1)
 
     def test_empty_and_too_long_fail(self):
         with self.assertRaises(RuntimeError):
@@ -174,6 +191,76 @@ class AdapterTests(unittest.TestCase):
 
 
 class RecoveryAndMetricTests(unittest.TestCase):
+    def test_training_gate_rejects_cpu_only_preflight(self):
+        with tempfile.TemporaryDirectory() as root:
+            output = Path(root)
+            data = output / "data"
+            report = output / "preflight" / "report.json"
+            data.mkdir(); report.parent.mkdir()
+            config = {"output_root": str(output), "seed": 6304}
+            manifest = {"selected_sha256": "selected"}
+            with self.assertRaises(RuntimeError):
+                require_passed_preflight(config, manifest)
+            report.write_text(json.dumps({"cpu_only": True, "checks": {"gpu_integration": {"status": "NOT RUN"}}}),
+                              encoding="utf-8")
+            (data / "preflight_pass.json").write_text(json.dumps({
+                "config_sha256": config_sha256(config), "data_sha256": "selected", "report": str(report)}),
+                encoding="utf-8")
+            with self.assertRaises(RuntimeError):
+                require_passed_preflight(config, manifest)
+
+    def test_tiny_qwen3_loss_interface_and_gradients(self):
+        from transformers import Qwen3Config, Qwen3ForCausalLM
+        config = Qwen3Config(vocab_size=64, hidden_size=16, intermediate_size=32,
+                             num_hidden_layers=1, num_attention_heads=2,
+                             num_key_value_heads=1, head_dim=8, max_position_embeddings=32)
+        model = Qwen3ForCausalLM(config)
+        ids = torch.tensor([[1, 2, 3, 4, 5]])
+        labels = torch.tensor([[-100, -100, 3, 4, 5]])
+        mask = torch.ones_like(ids)
+        loss = response_loss_sum(model, ids, mask, labels)
+        full = token_loss_sum(model(input_ids=ids, attention_mask=mask).logits, labels)
+        self.assertTrue(torch.allclose(loss, full, atol=1e-5))
+        loss.backward()
+        self.assertGreater(model.model.layers[0].self_attn.q_proj.weight.grad.abs().sum().item(), 0)
+
+    def test_interrupted_short_run_matches_uninterrupted(self):
+        def make_run():
+            model = nn.Sequential(nn.Linear(3, 8), nn.Dropout(0.25), nn.Linear(8, 1))
+            optimizer = torch.optim.AdamW(model.parameters(), lr=0.003, foreach=False)
+            scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lambda step: 1.0 - step / 8)
+            return model, optimizer, scheduler
+
+        def step(model, optimizer, scheduler, index):
+            x = torch.tensor([[index / 4, 1.0, -0.5]], dtype=torch.float32)
+            y = torch.tensor([[index / 7]], dtype=torch.float32)
+            optimizer.zero_grad(set_to_none=True)
+            torch.nn.functional.mse_loss(model(x), y).backward()
+            optimizer.step(); scheduler.step()
+
+        with tempfile.TemporaryDirectory() as root:
+            set_seed(6304)
+            uninterrupted, optimizer, scheduler = make_run()
+            for index in range(2):
+                step(uninterrupted, optimizer, scheduler, index)
+            path = Path(root) / "short.pt"
+            atomic_save({"model": uninterrupted.state_dict(), "optimizer": optimizer.state_dict(),
+                         "scheduler": scheduler.state_dict(), "rng": rng_state(), "position": 2}, path)
+            for index in range(2, 4):
+                step(uninterrupted, optimizer, scheduler, index)
+            final = {name: value.clone() for name, value in uninterrupted.state_dict().items()}
+            set_seed(999)
+            resumed, resumed_optimizer, resumed_scheduler = make_run()
+            checkpoint = load_checked(path, {"position": 2})
+            resumed.load_state_dict(checkpoint["model"])
+            resumed_optimizer.load_state_dict(checkpoint["optimizer"])
+            resumed_scheduler.load_state_dict(checkpoint["scheduler"])
+            restore_rng(checkpoint["rng"])
+            for index in range(checkpoint["position"], 4):
+                step(resumed, resumed_optimizer, resumed_scheduler, index)
+            for name, value in resumed.state_dict().items():
+                self.assertTrue(torch.equal(value, final[name]), name)
+
     def test_resume_and_checkpoint_integrity(self):
         set_seed(6304)
         with tempfile.TemporaryDirectory() as root:
@@ -214,6 +301,10 @@ class RecoveryAndMetricTests(unittest.TestCase):
         samples = [{"filter": "strict-match"}, {"filter": "flexible-extract"}]
         self.assertEqual(len(select_task_samples("gsm8k_cot", samples)), 1)
         self.assertEqual(multiple_choice_prediction({"filtered_resps": [(-2.0, False), (-1.0, True)]}), 1)
+        self.assertEqual(normalized_choice_prediction("hellaswag", {"doc": {"choices": ["a", "long answer"]},
+            "filtered_resps": [(-2.0, False), (-3.0, False)]}), 1)
+        self.assertEqual(normalized_choice_prediction("arc_easy", {"doc": {"choices": {"text": ["a", "long answer"]}},
+            "filtered_resps": [(-2.0, False), (-3.0, False)]}), 1)
 
     def test_qualitative_assignment_style_schema(self):
         import yaml

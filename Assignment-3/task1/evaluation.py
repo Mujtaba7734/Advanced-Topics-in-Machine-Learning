@@ -1,10 +1,12 @@
 """Full-split zero-shot evaluation using pinned lm-evaluation-harness tasks."""
 import json
+import hashlib
 from pathlib import Path
 import torch
 from transformers import AutoTokenizer
 from common.checkpoint import atomic_json
 from task1.model import load_model, load_adapter_state, merge_adapters, use_projected_factors
+from task1.protocol import config_sha256
 
 
 CONDITIONS = {
@@ -13,6 +15,32 @@ CONDITIONS = {
     "lora16_final": ("lora16", 1250), "oplora16_final": ("oplora16", 1250),
 }
 TASKS = {"gsm8k_cot": 1319, "hellaswag": 10042, "boolq": 3270, "arc_easy": 2376}
+
+
+def condition_fingerprint(config, condition):
+    method, step = CONDITIONS[condition]
+    digest = hashlib.sha256()
+    digest.update(config_sha256(config).encode())
+    digest.update(condition.encode())
+    if method:
+        path = Path(config["output_root"]) / method / f"inference_{step:04d}.pt"
+        with path.open("rb") as handle:
+            for block in iter(lambda: handle.read(8 * 1024 * 1024), b""):
+                digest.update(block)
+    else:
+        local_model = Path(config["model"])
+        if local_model.is_dir():
+            weights = sorted(local_model.glob("*.safetensors")) + sorted(local_model.glob("*.bin"))
+            if not weights:
+                raise FileNotFoundError(f"Local baseline model has no weight files: {local_model}")
+            for weight in weights:
+                digest.update(weight.name.encode())
+                with weight.open("rb") as handle:
+                    for block in iter(lambda: handle.read(8 * 1024 * 1024), b""):
+                        digest.update(block)
+        else:
+            digest.update(str(config.get("model_revision") or config["model"]).encode())
+    return digest.hexdigest()
 
 
 def answer_from_sample(sample):
@@ -34,6 +62,20 @@ def multiple_choice_prediction(sample):
         return None
     scores = [float(response[0] if isinstance(response, (list, tuple)) else response)
               for response in responses]
+    return max(range(len(scores)), key=scores.__getitem__)
+
+
+def normalized_choice_prediction(task, sample):
+    if task not in ("hellaswag", "arc_easy"):
+        raise ValueError(f"No normalized-choice metric for {task}")
+    choices = sample["doc"]["choices"]
+    if task == "arc_easy":
+        choices = choices["text"]
+    responses = sample.get("filtered_resps", [])
+    if len(choices) != len(responses) or any(len(choice) == 0 for choice in choices):
+        raise ValueError(f"{task} choices/responses mismatch for normalized prediction")
+    scores = [float(response[0] if isinstance(response, (list, tuple)) else response) / len(choice)
+              for response, choice in zip(responses, choices)]
     return max(range(len(scores)), key=scores.__getitem__)
 
 
@@ -83,19 +125,25 @@ def evaluate(config, condition):
         raise ValueError(condition)
     out = Path(config["result_root"]) / "evaluation" / condition
     out.mkdir(parents=True, exist_ok=True)
-    tokenizer = AutoTokenizer.from_pretrained(config["model"], cache_dir=config["cache_dir"],
-                                               revision=config.get("model_revision"))
-    model = load_condition(config, condition)
-
-    lm = HFLM(pretrained=model, tokenizer=tokenizer, batch_size=1, enable_thinking=False)
+    fingerprint = condition_fingerprint(config, condition)
     aggregates = {}
+    pending = []
     for task, expected in TASKS.items():
         target = out / f"{task}.json"
         if target.exists():
             saved = json.loads(target.read_text(encoding="utf-8"))
+            if saved.get("condition_fingerprint") != fingerprint:
+                raise ValueError(f"Stale evaluation result has a different model/config fingerprint: {target}")
             if saved.get("sample_count") == expected:
                 aggregates[task] = saved["results"]
                 continue
+        pending.append((task, expected, target))
+    if pending:
+        tokenizer = AutoTokenizer.from_pretrained(config["model"], cache_dir=config["cache_dir"],
+                                                   revision=config.get("model_revision"))
+        model = load_condition(config, condition)
+        lm = HFLM(pretrained=model, tokenizer=tokenizer, batch_size=1, enable_thinking=False)
+    for task, expected, target in pending:
         kwargs = {"model": lm, "tasks": [task], "num_fewshot": 0, "batch_size": 1,
                   "log_samples": True, "limit": None, "bootstrap_iters": 0,
                   "apply_chat_template": task == "gsm8k_cot",
@@ -108,16 +156,20 @@ def evaluate(config, condition):
         if len(samples) != expected:
             raise RuntimeError(f"{task} returned {len(samples)} samples, expected {expected}")
         for sample in samples:
-            sample["prediction"] = (answer_from_sample(sample) if task == "gsm8k_cot"
-                                    else multiple_choice_prediction(sample))
+            sample["prediction_raw"] = (None if task == "gsm8k_cot" else multiple_choice_prediction(sample))
+            sample["prediction"] = (answer_from_sample(sample) if task == "gsm8k_cot" else
+                                    normalized_choice_prediction(task, sample) if task in ("hellaswag", "arc_easy") else
+                                    sample["prediction_raw"])
             sample["extracted_answer"] = answer_from_sample(sample) if task == "gsm8k_cot" else None
             if task == "gsm8k_cot":
                 raw = sample.get("resps", [])
                 text = raw[0][0] if raw and isinstance(raw[0], (list, tuple)) else (raw[0] if raw else "")
                 sample["truncation_flag"] = len(tokenizer.encode(str(text), add_special_tokens=False)) >= config["gsm8k_max_new_tokens"]
+                sample["truncation_flag_kind"] = "retokenized_text_lower_bound"
             else:
                 sample["truncation_flag"] = False
         payload = {"condition": condition, "task": task, "sample_count": len(samples),
+                   "condition_fingerprint": fingerprint,
                    "results": result["results"][task], "samples": samples,
                    "config": result.get("config", {})}
         atomic_json(payload, target, indent=2, default=str)

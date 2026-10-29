@@ -12,8 +12,8 @@ def unique_named_parameters(model):
 
 class CPUReference:
     """Exact FP32 L2-SP reference; stream one tensor at a time to bound GPU memory."""
-    def __init__(self, model):
-        self.weights = {name: (p.detach().cpu().clone().pin_memory() if torch.cuda.is_available()
+    def __init__(self, model, pin=True):
+        self.weights = {name: (p.detach().cpu().clone().pin_memory() if pin and torch.cuda.is_available()
                                else p.detach().cpu().clone())
                         for name, p in unique_named_parameters(model)}
         self.bytes = sum(w.numel() * w.element_size() for w in self.weights.values())

@@ -22,6 +22,7 @@ The assignment PDF is authoritative. Paths below are relative to the configurabl
 | Math and non-math activation ratios | `task1/diagnostics.py` | `diagnostics/activation_ratios.csv`, `summary/activation_ratios.png` |
 | 24 prompts x seven conditions; 42-response annotation subset | `task1/qualitative.py`, `first_plot_questions.yaml` | `qualitative/prompts_manifest.json`, `CONDITION.json`, `all_168_responses.csv`, `annotation_template.csv` |
 | Kaggle phase controller, resume, export | `kaggle/ATML_PA3_Task1.ipynb`, `task1/run.py` | configurable working directories, method ZIPs |
+| Real tokenizer, dataset, GPU, checkpoint, harness, and generation gate before training | `task1/preflight.py`, `task1/protocol.py` | `preflight/report.json`, `data/preflight_pass.json` |
 | Synthetic correctness tests | `tests/test_task1.py` | console test report |
 
 ## Current blockers and verification boundary

@@ -7,6 +7,8 @@ import torch
 from transformers import AutoTokenizer
 from task1.model import load_model, leading_bases
 from task1.evaluation import CONDITIONS
+from task1.protocol import config_sha256
+from common.checkpoint import atomic_save, atomic_json
 
 
 def metrics(weight, delta, uk):
@@ -30,6 +32,11 @@ def correction(config, condition, layer, original):
     method, step = CONDITIONS[condition]
     path = Path(config["output_root"]) / method / f"inference_{step:04d}.pt"
     state = torch.load(path, map_location="cpu", weights_only=True)
+    return correction_from_state(config, condition, layer, original, state)
+
+
+def correction_from_state(config, condition, layer, original, state):
+    method, _ = CONDITIONS[condition]
     key = layer_key(layer)
     if method in ("full", "l2sp"):
         return state[key + ".weight"].float() - original.float()
@@ -57,13 +64,15 @@ def run_weight_diagnostics(config):
     out.mkdir(parents=True, exist_ok=True)
     weights = original_layers(config)
     rows = []
-    for layer, weight in weights.items():
-        uk, _ = leading_bases(weight, config["op_rank"])
-        for condition in CONDITIONS:
-            if condition == "baseline":
-                continue
-            delta = correction(config, condition, layer, weight)
-            rows.append({"condition": condition, "layer": layer, **metrics(weight, delta, uk)})
+    bases = {layer: leading_bases(weight, config["op_rank"])[0] for layer, weight in weights.items()}
+    for condition, (method, step) in CONDITIONS.items():
+        if condition == "baseline":
+            continue
+        state = torch.load(Path(config["output_root"]) / method / f"inference_{step:04d}.pt",
+                           map_location="cpu", weights_only=True)
+        for layer, weight in weights.items():
+            delta = correction_from_state(config, condition, layer, weight, state)
+            rows.append({"condition": condition, "layer": layer, **metrics(weight, delta, bases[layer])})
     pd.DataFrame(rows).to_csv(out / "weight_space.csv", index=False)
     return rows
 
@@ -72,7 +81,13 @@ def create_probe_ids(config):
     from task1.data_source import load_split
     out = Path(config["output_root"]) / "data" / "probe_ids.json"
     if out.exists():
-        return json.loads(out.read_text(encoding="utf-8"))
+        ids = json.loads(out.read_text(encoding="utf-8"))
+        for label, upper in (("gsm8k", 1319), ("hellaswag", 10042)):
+            values = ids.get(label, [])
+            if len(values) != 32 or values != sorted(set(values)) or any(
+                    not isinstance(value, int) or value < 0 or value >= upper for value in values):
+                raise ValueError(f"Invalid saved {label} probe IDs")
+        return ids
     gsm = load_split(config["gsm8k_dataset"], "test", config["cache_dir"], "main")
     hs = load_split(config["hellaswag_dataset"], "validation", config["cache_dir"])
     if len(gsm) != 1319 or len(hs) != 10042:
@@ -81,7 +96,7 @@ def create_probe_ids(config):
     ids = {"gsm8k": sorted(rng.choice(len(gsm), 32, replace=False).tolist()),
            "hellaswag": sorted(rng.choice(len(hs), 32, replace=False).tolist())}
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(ids, indent=2), encoding="utf-8")
+    atomic_json(ids, out, indent=2)
     return ids
 
 
@@ -89,6 +104,9 @@ def cache_activations(config):
     from lm_eval.tasks import get_task_dict
     out = Path(config["output_root"]) / "data" / "baseline_activations.pt"
     if out.exists():
+        cache = torch.load(out, map_location="cpu", weights_only=True)
+        if cache.get("config_sha256") != config_sha256(config) or cache.get("ids") != create_probe_ids(config):
+            raise ValueError("Baseline activation cache is stale for config/probe selection")
         return out
     ids = create_probe_ids(config)
     tasks = get_task_dict(["gsm8k_cot", "hellaswag"])
@@ -122,7 +140,7 @@ def cache_activations(config):
             h.remove()
     data = {i: {label: torch.stack(values) for label, values in groups.items()}
             for i, groups in storage.items()}
-    torch.save({"ids": ids, "activations": data}, out)
+    atomic_save({"ids": ids, "activations": data, "config_sha256": config_sha256(config)}, out)
     return out
 
 
@@ -130,11 +148,13 @@ def run_activation_diagnostics(config):
     cache = torch.load(cache_activations(config), map_location="cpu", weights_only=False)
     weights = original_layers(config)
     rows = []
-    for layer, weight in weights.items():
-        for condition in CONDITIONS:
-            if condition == "baseline":
-                continue
-            delta = correction(config, condition, layer, weight)
+    for condition, (method, step) in CONDITIONS.items():
+        if condition == "baseline":
+            continue
+        state = torch.load(Path(config["output_root"]) / method / f"inference_{step:04d}.pt",
+                           map_location="cpu", weights_only=True)
+        for layer, weight in weights.items():
+            delta = correction_from_state(config, condition, layer, weight, state)
             for group in ("gsm8k", "hellaswag"):
                 values = activation_ratio(weight, delta, cache["activations"][layer][group])
                 for source_id, value in zip(cache["ids"][group], values.tolist()):

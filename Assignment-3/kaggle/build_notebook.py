@@ -1,19 +1,129 @@
-"""Regenerate the thin Kaggle controller notebook."""
+"""Build the self-contained Kaggle phase controller."""
 from pathlib import Path
+import hashlib
 import nbformat as nbf
 
 
+controller = '''from pathlib import Path
+import hashlib, shutil, subprocess, sys
+
+# Edit these controls; run this cell once per phase and session.
+PHASE = "diagnose"  # diagnose, prepare, preflight, train, evaluate, weight, activations, qualitative, aggregate, export
+METHOD = "full"  # full, l2sp, lora4, lora16, oplora16
+CONDITION = "baseline"  # baseline, full_mid, full_final, l2sp_final, lora4_final, lora16_final, oplora16_final
+STOP_UPDATE = None  # 312, 625, 937, 1250, or None
+INSTALL_REQUIREMENTS = True
+REPO_SOURCE = None  # optional mounted Assignment-3 root
+RESTORE_DATASETS = []  # mounted previous output datasets
+
+working = Path("/kaggle/working")
+def valid_repo(path):
+    return (path / "task1" / "run.py").is_file() and (path / "requirements.txt").is_file()
+
+if REPO_SOURCE:
+    repo = Path(REPO_SOURCE)
+    if not valid_repo(repo):
+        raise FileNotFoundError(f"Invalid Assignment-3 root: {repo}")
+else:
+    candidates = [working / "atml-repo" / "Assignment-3", working / "Assignment-3"]
+    candidates += list(Path("/kaggle/input").glob("*/Assignment-3"))
+    candidates += list(Path("/kaggle/input").glob("*"))
+    repo = next((p for p in candidates if valid_repo(p)), None)
+    if repo is None:
+        clone = working / "atml-repo"
+        if clone.exists():
+            raise FileNotFoundError(f"Existing clone lacks Assignment-3/task1/run.py: {clone}")
+        subprocess.run(["git", "clone", "--depth", "1", "--filter=blob:none", "--sparse",
+                        "https://github.com/Mujtaba7734/Advanced-Topics-in-Machine-Learning.git",
+                        str(clone)], check=True)
+        subprocess.run(["git", "-C", str(clone), "sparse-checkout", "set", "Assignment-3"], check=True)
+        repo = clone / "Assignment-3"
+        if not valid_repo(repo):
+            raise FileNotFoundError(f"Clone lacks Assignment-3/task1/run.py: {repo}")
+print("Repository:", repo, flush=True)
+
+def copy_verified(source, target):
+    target.parent.mkdir(parents=True, exist_ok=True)
+    if target.exists():
+        digest = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
+        if digest(source) != digest(target):
+            raise ValueError(f"Conflicting restored file: {target}. Use one current output dataset.")
+        return
+    shutil.copy2(source, target)
+
+for mount in map(Path, RESTORE_DATASETS):
+    if not mount.is_dir():
+        raise FileNotFoundError(mount)
+    for relative in ("outputs/task1/data", "outputs/task1/preflight", "results/task1"):
+        source_dir = mount / relative
+        if source_dir.exists():
+            for source in source_dir.rglob("*"):
+                if source.is_file():
+                    copy_verified(source, working / relative / source.relative_to(source_dir))
+    methods = [METHOD] if PHASE in ("train", "export") else ["full", "l2sp", "lora4", "lora16", "oplora16"]
+    for method in methods:
+        source_method = mount / "outputs/task1" / method
+        if not source_method.exists():
+            continue
+        recovery = sorted(source_method.glob("recovery_*.pt"))
+        for source in source_method.iterdir():
+            if not source.is_file() or (source.name.startswith("recovery_") and PHASE != "export"):
+                continue
+            if PHASE not in ("train", "export") and source.name == "latest.pt":
+                continue
+            copy_verified(source, working / "outputs/task1" / method / source.name)
+        if PHASE == "train" and not (working / "outputs/task1" / method / "latest.pt").exists() and recovery:
+            copy_verified(recovery[-1], working / "outputs/task1" / method / recovery[-1].name)
+    print("Restored:", mount, flush=True)
+
+if INSTALL_REQUIREMENTS:
+    subprocess.run([sys.executable, "-m", "pip", "install", "-r", str(repo / "requirements.txt")], check=True)
+
+import yaml
+config = yaml.safe_load((repo / "configs/task1.yaml").read_text(encoding="utf-8"))
+prompt_path = repo / "first_plot_questions.yaml"
+if not prompt_path.is_file():
+    matches = list(Path("/kaggle/input").glob("*/first_plot_questions.yaml"))
+    matches += list(Path("/kaggle/input").glob("*/Assignment-3/first_plot_questions.yaml"))
+    if len(matches) != 1:
+        raise FileNotFoundError("Mount first_plot_questions.yaml, or include it in the repository")
+    prompt_path = matches[0]
+config["qualitative_prompts"] = str(prompt_path)
+runtime_config = working / "task1_runtime.yaml"
+runtime_config.write_text(yaml.safe_dump(config, sort_keys=False), encoding="utf-8")
+print("Prompt file:", prompt_path, flush=True)
+
+cmd = [sys.executable, "-m", "task1.run", PHASE, "--config", str(runtime_config)]
+if PHASE in ("train", "export"):
+    cmd += ["--method", METHOD]
+if PHASE == "train" and STOP_UPDATE is not None:
+    cmd += ["--stop-update", str(STOP_UPDATE)]
+if PHASE in ("evaluate", "qualitative"):
+    cmd += ["--condition", CONDITION]
+print("Running:", " ".join(cmd), flush=True)
+subprocess.run(cmd, cwd=repo, check=True)
+'''
+
+source_root = Path(__file__).resolve().parents[1]
+audited_paths = (list((source_root / "task1").glob("*.py")) +
+                 list((source_root / "common").glob("*.py")) +
+                 [source_root / "configs/task1.yaml", source_root / "requirements.txt",
+                  source_root / "kaggle/build_notebook.py"])
+expected_hashes = {str(path.relative_to(source_root)).replace("\\", "/"):
+                   hashlib.sha256(path.read_bytes()).hexdigest() for path in audited_paths}
+guard = ("EXPECTED_SOURCE_HASHES = " + repr(expected_hashes) + "\n"
+         "for relative, expected in EXPECTED_SOURCE_HASHES.items():\n"
+         "    source = repo / relative\n"
+         "    if not source.is_file() or hashlib.sha256(source.read_bytes()).hexdigest() != expected:\n"
+         "        raise RuntimeError(f'Audited code mismatch at {source}. Upload the current Assignment-3 folder as a Kaggle input.')\n")
+controller = controller.replace('print("Repository:", repo, flush=True)\n',
+                                'print("Repository:", repo, flush=True)\n' + guard, 1)
+
 nb = nbf.v4.new_notebook()
 nb["cells"] = [
-    nbf.v4.new_markdown_cell("# ATML PA3 Task 1\nRun one phase per Kaggle session. Enable GPU and Internet in Notebook Settings. Add this repository as a Kaggle input dataset, or clone it into `/kaggle/working`. Keep `/kaggle/working` outputs as a Kaggle dataset between sessions. The assignment prompt YAML must be present at the repository root for the qualitative phase."),
-    nbf.v4.new_code_cell("from pathlib import Path\nimport os, subprocess, sys\nREPO = Path('/kaggle/input/atml-pa3')  # edit if your input dataset has another path\nif not (REPO / 'task1' / 'run.py').exists():\n    REPO = Path('/kaggle/working/ATML-PA3')\nif not (REPO / 'task1' / 'run.py').exists():\n    raise FileNotFoundError('Add the repository as a Kaggle input dataset or clone it to /kaggle/working/ATML-PA3')\nos.chdir(REPO)\nprint('Repository:', REPO)"),
-    nbf.v4.new_markdown_cell("## Restore a previous session\nAttach your saved output dataset in Kaggle's Add Input panel. Set its mounted path below and run this cell before any phase."),
-    nbf.v4.new_code_cell("import shutil\nRESTORE_DATASETS = []  # e.g. [Path('/kaggle/input/atml-pa3-results')]\nRESTORE_MODE = 'train'  # 'train' or 'analysis'\nRESTORE_METHOD = 'full'  # method whose latest.pt is needed for training\nfor dataset in map(Path, RESTORE_DATASETS):\n    source_root = dataset / 'outputs/task1'\n    if not source_root.exists():\n        raise FileNotFoundError(source_root)\n    target_root = Path('/kaggle/working/outputs/task1')\n    target_root.mkdir(parents=True, exist_ok=True)\n    if (source_root / 'data').exists():\n        shutil.copytree(source_root / 'data', target_root / 'data', dirs_exist_ok=True)\n    result_source = dataset / 'results/task1'\n    if result_source.exists():\n        shutil.copytree(result_source, Path('/kaggle/working/results/task1'), dirs_exist_ok=True)\n    for method_dir in source_root.iterdir():\n        if not method_dir.is_dir() or method_dir.name == 'data':\n            continue\n        if RESTORE_MODE == 'train' and method_dir.name != RESTORE_METHOD:\n            continue\n        target = target_root / method_dir.name\n        target.mkdir(parents=True, exist_ok=True)\n        for file in method_dir.iterdir():\n            if not file.is_file() or file.name.startswith('recovery_'):\n                continue  # prior recovery files remain preserved in the attached input dataset\n            if RESTORE_MODE == 'analysis' and file.name == 'latest.pt':\n                continue\n            shutil.copy2(file, target / file.name)\n    print('Restored selected files from', dataset)"),
-    nbf.v4.new_markdown_cell("## Installation and GPU diagnostics\nRun this after a fresh Kaggle session starts. Restart the kernel if pip replaces an imported dependency."),
-    nbf.v4.new_code_cell("subprocess.run([sys.executable, '-m', 'pip', 'install', '-r', str(REPO / 'requirements.txt')], check=True)\nsubprocess.run([sys.executable, '-m', 'task1.run', 'diagnose'], check=True)"),
-    nbf.v4.new_markdown_cell("## Select one phase\nSet `PHASE`, `METHOD`, and `CONDITION` below. Each train phase resumes from its latest valid recovery checkpoint. Copy saved outputs back to `/kaggle/working/outputs/task1` before continuing in a new session."),
-    nbf.v4.new_code_cell("PHASE = 'prepare'  # prepare, evaluate, train, weight, activations, qualitative, aggregate, export\nMETHOD = 'full'  # full, l2sp, lora4, lora16, oplora16\nCONDITION = 'baseline'  # baseline, full_mid, full_final, l2sp_final, lora4_final, lora16_final, oplora16_final\nSTOP_UPDATE = None  # optionally 312, 625, 937, or 1250 for staged training\ncmd = [sys.executable, '-m', 'task1.run', PHASE]\nif PHASE in ('train', 'export'):\n    cmd += ['--method', METHOD]\nif PHASE == 'train' and STOP_UPDATE is not None:\n    cmd += ['--stop-update', str(STOP_UPDATE)]\nif PHASE in ('evaluate', 'qualitative'):\n    cmd += ['--condition', CONDITION]\nprint('Running:', ' '.join(cmd), flush=True)\nsubprocess.run(cmd, cwd=REPO, check=True)"),
-    nbf.v4.new_markdown_cell("## Order of phases\n1. `prepare` then `evaluate` with `baseline`.\n2. `train` separately for `full`, `l2sp`, `lora4`, `lora16`, `oplora16`. Set `STOP_UPDATE` to a required checkpoint if the disk estimate prevents a single-session run.\n3. `evaluate` for the remaining six conditions.\n4. `weight`, `activations`, and `qualitative` for each condition.\n5. `aggregate`, then `export` each training method.\n\nKaggle session storage is temporary. Save `/kaggle/working/outputs/task1` and `/kaggle/working/results/task1` as a Kaggle dataset before session end. Attach that dataset in the next session and copy both directories back into `/kaggle/working` before running another phase. Recovery files contain optimizer, scaler, RNG, and position state; inference files are lightweight model or adapter states."),
+    nbf.v4.new_markdown_cell("# ATML PA3 Task 1 — Kaggle controller\n\nEnable GPU and Internet in Kaggle settings. Edit and run the single code cell for one phase per session. It finds a mounted `Assignment-3` root or sparse clones the course repository."),
+    nbf.v4.new_code_cell(controller),
+    nbf.v4.new_markdown_cell("## Phase order\n\n1. `diagnose`, `prepare`, then **`preflight`**. Inspect `outputs/task1/preflight/report.json`; training requires its pass marker.\n2. Evaluate `baseline`; train each method, resuming at checkpoints 312, 625, 937, 1250 as needed.\n3. Evaluate the six trained conditions; run `weight`, `activations`, and `qualitative` for all seven conditions.\n4. Run `aggregate`, review results, then export and save outputs.\n\nSave `/kaggle/working/outputs/task1` and `/kaggle/working/results/task1` before a session ends. Mount the saved dataset and set `RESTORE_DATASETS` in the next session. Two T4 GPUs have separate VRAM; the trainer uses one GPU."),
 ]
 nb["metadata"] = {"kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"}}
 target = Path(__file__).with_name("ATML_PA3_Task1.ipynb")

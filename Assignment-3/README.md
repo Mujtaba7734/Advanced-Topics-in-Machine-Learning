@@ -4,10 +4,10 @@ This repository implements the seven required evaluation conditions from the fiv
 
 ## Kaggle setup
 
-1. Upload this repository as a Kaggle dataset named `atml-pa3`, or clone it to `/kaggle/working/ATML-PA3`. The assignment's `first_plot_questions.yaml` is included at the repository root. Enable **GPU** and **Internet** in Notebook Settings.
-2. Add the repository dataset to a new notebook and open `kaggle/ATML_PA3_Task1.ipynb`. Edit `REPO` in its first code cell if Kaggle mounts the input under another name.
-3. Run the installation cell. It installs the versions in `requirements.txt` and prints GPU VRAM and free disk space. Restart the kernel if Kaggle reports that an imported package was replaced.
-4. Set one `PHASE` in the controller cell. Every generated artifact goes under `/kaggle/working/outputs/task1` or `/kaggle/working/results/task1`; Hugging Face cache defaults to `/kaggle/working/hf_cache`. Edit `configs/task1.yaml` to change paths only, keeping experiment settings fixed.
+1. Upload the current **audited** `Assignment-3` folder as a Kaggle dataset, including `first_plot_questions.yaml`, and attach it to a notebook. Enable **GPU** and **Internet**. The notebook can also sparse clone the public GitHub repository, but its embedded source hashes reject an older checkout; no changes have been pushed here.
+2. Open `kaggle/ATML_PA3_Task1.ipynb`. Its one editable code cell finds the repository root, installs dependencies, restores any mounted output dataset, writes a runtime config, and runs the selected phase. Set `REPO_SOURCE` only if discovery cannot find your mount.
+3. Run `diagnose`, `prepare`, and **`preflight`**, in that order. Read `outputs/task1/preflight/report.json`. Training requires a matching `data/preflight_pass.json` from the full GPU preflight. A `--cpu-only` preflight records GPU integration as `NOT RUN` and does not unlock training.
+4. Set one `PHASE` per invocation. Every generated artifact goes under `/kaggle/working/outputs/task1` or `/kaggle/working/results/task1`; the Hugging Face cache defaults to `/kaggle/working/hf_cache`. Keep protocol settings fixed.
 
 `metamath_dataset`, `gsm8k_dataset`, and `hellaswag_dataset` may point to Hugging Face IDs or local `save_to_disk` datasets attached under `/kaggle/input`. A local model directory may be used for `model`. Harness benchmark tasks still use their stock dataset IDs, so set `cache_dir` to a prepared Hugging Face cache if Internet is unavailable. The script sets `HF_HOME` and `HF_DATASETS_CACHE` from that path.
 
@@ -16,6 +16,7 @@ Python commands below work from the repository root after installation. The note
 ```bash
 python -m task1.run diagnose
 python -m task1.run prepare
+python -m task1.run preflight
 python -m task1.run evaluate --condition baseline
 python -m task1.run train --method full
 python -m task1.run train --method l2sp
@@ -40,7 +41,7 @@ python -m task1.run qualitative --condition oplora16_final
 python -m task1.run aggregate
 ```
 
-For a local path override, pass `--config path/to/task1.yaml`. No phase silently changes batch size, sequence length, precision, dataset size, benchmark split, or model.
+For a local path override, pass `--config path/to/task1.yaml`. The notebook writes path overrides to `/kaggle/working/task1_runtime.yaml`. `task1/protocol.py` rejects changes to the assignment's experimental settings.
 
 ## Resume and export
 
@@ -52,7 +53,7 @@ Full FT recovery files include FP32 model weights plus FP32 Adam moments. Four s
 
 The harness computes complete-split primary metrics and logs every sample. Its optional bootstrap standard-error calculation is disabled (`bootstrap_iters=0`) because it does not affect the required accuracy scores and adds substantial CPU work.
 
-Before a Kaggle session ends, use **Save Version** so Kaggle preserves `/kaggle/working`, then make those outputs available as a dataset for the next session. Attach it under **Add Input**. In the notebook restore cell add its `/kaggle/input/...` mount to `RESTORE_DATASETS`. For training set `RESTORE_MODE='train'` and the method name; the cell restores its `latest.pt`, logs, inference files, selected data, and results. Older recovery files stay in the attached input dataset and do not consume working disk. For evaluation or diagnostics set `RESTORE_MODE='analysis'` and attach all relevant saved datasets; the cell copies inference files without recovery state. Then rerun the desired phase. `python -m task1.run export --method METHOD` creates a ZIP of one method's full output folder after checking free disk space. Save results separately as well.
+Before a Kaggle session ends, use **Save Version** so Kaggle preserves `/kaggle/working`, then make those outputs available as a dataset for the next session. Attach the latest saved dataset under **Add Input** and set `RESTORE_DATASETS` in the one controller cell. It restores selected data, the preflight report and marker, results, and the chosen method's `latest.pt` (or newest recovery), logs, and inference files. Set `METHOD` to the method you want to resume; use a saved dataset containing every method's inference files for final diagnostics. If two mounted datasets contain different files at the same path, restoration stops rather than silently overwriting one. `python -m task1.run export --method METHOD` creates a ZIP of one method's full output folder after checking free disk space. Save results separately as well.
 
 ## Reproducibility and checks
 
@@ -62,8 +63,9 @@ The qualitative loader validates 24 prompts for eight underlying questions and t
 
 Full FT uses FP32 model parameters with FP16 autocast; adapter methods use a frozen FP16 backbone and FP32 factors. L2-SP keeps FP32 reference weights on pinned CPU memory and streams them to the GPU for the exact penalty and gradient. This saves GPU memory but adds transfer time. OPLoRA computes FP32 SVD bases once from the original FP32 weights, then trains projected factors without dense projection matrices. This preprocessing can be slow. If Kaggle lacks memory or disk for the prescribed experiment, stop and report the limitation; do not change the protocol.
 
-Run fast synthetic tests with `python -m unittest discover -s tests -v`. These validate local math and state behavior, not full-scale model execution. Full training and benchmark suites are intentionally never run locally.
+Run fast tests with `python -m unittest discover -s tests -v`. A CPU-only preflight is available as `python -m task1.run preflight --cpu-only --config LOCAL_PATH_CONFIG`, where output and cache paths point inside a writable local directory. These checks do not verify the real tokenizer, datasets, or GPU. The full Kaggle preflight checks those interfaces and writes a pass marker only if all checks succeed. Full training and benchmark suites are not run locally.
 
 The implementation uses the [OPLoRA paper](https://ojs.aaai.org/index.php/AAAI/article/view/40703) for the double-sided projection construction and [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness) for stock task prompts, stopping, filters, and scoring. The implementation is original; no external source code is copied into this repository.
 
 See [Task 1 traceability](docs/task1_traceability.md) for each required output and the current verification boundary.
+See [Task 1 audit](docs/task1_audit.md) for defects, test status, and remaining Kaggle risks.
