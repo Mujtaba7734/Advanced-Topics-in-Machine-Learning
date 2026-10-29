@@ -1,0 +1,33 @@
+seed: 6304
+model: Qwen/Qwen3-0.6B
+model_revision: null
+metamath_dataset: meta-math/MetaMathQA
+gsm8k_dataset: openai/gsm8k
+hellaswag_dataset: Rowan/hellaswag
+qualitative_prompts: first_plot_questions.yaml
+output_root: /kaggle/working/outputs/task1
+result_root: /kaggle/working/results/task1
+cache_dir: /kaggle/working/hf_cache
+train_examples: 40000
+epochs: 1
+max_length: 2048
+microbatch: 2
+grad_accum: 16
+optimizer_updates: 1250
+warmup_updates: 38
+weight_decay: 0.01
+adam_betas: [0.9, 0.999]
+adam_eps: 1.0e-8
+max_grad_norm: 1.0
+fp16: true
+gradient_checkpointing: true
+full_lr: 2.0e-5
+adapter_lr: 2.0e-4
+l2sp_lambda: 1.0e-3
+lora_dropout: 0.05
+op_rank: 128
+checkpoint_updates: [312, 625, 937, 1250]
+targets: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+diagnostic_layers: [0, 13, 27]
+gsm8k_max_new_tokens: 1024
+qualitative_max_new_tokens: 512

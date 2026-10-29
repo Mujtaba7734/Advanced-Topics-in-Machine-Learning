@@ -1,0 +1,13 @@
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/
+outputs/
+results/task1/
+*.pt
+*.safetensors
+*.bin
+*.zip
+.cache/
+.miktex/
+.miktex-local/
+task1_spec_extract.txt
