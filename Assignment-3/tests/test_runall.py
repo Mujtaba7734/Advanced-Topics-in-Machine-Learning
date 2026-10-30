@@ -262,6 +262,19 @@ class RunAllTests(unittest.TestCase):
             self.assertEqual([call.args[1] for call in evaluate.call_args_list],
                              list(runall.CONDITIONS[1:]))
 
+    def test_manifest_matches_committed_git_blobs(self):
+        """Catch Windows CRLF hashes that would reject a fresh Linux checkout."""
+        probe = subprocess.run(["git", "rev-parse", "--show-toplevel"], cwd=ROOT,
+                               capture_output=True, text=True)
+        if probe.returncode != 0:
+            self.skipTest("No Git checkout available")
+        manifest = json.loads((ROOT / "kaggle/source_manifest.json").read_text(encoding="utf-8"))
+        for relative, expected in manifest["files"].items():
+            with self.subTest(source=relative):
+                blob = subprocess.run(["git", "show", f"HEAD:Assignment-3/{relative}"],
+                                      cwd=ROOT, capture_output=True, check=True)
+                self.assertEqual(hashlib.sha256(blob.stdout).hexdigest(), expected)
+
     def test_source_manifest_rejects_a_changed_file(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

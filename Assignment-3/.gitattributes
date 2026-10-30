@@ -1,0 +1,8 @@
+# Keep audited Task 1 sources byte-consistent across Windows and Linux.
+*.py text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.json text eol=lf
+*.txt text eol=lf
+*.md text eol=lf
+*.pdf binary

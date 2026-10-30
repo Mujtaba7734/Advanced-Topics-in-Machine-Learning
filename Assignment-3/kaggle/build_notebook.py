@@ -32,14 +32,18 @@ STAGES = [
 
 
 def digest(path):
-    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+    content = Path(path).read_bytes()
+    # Git stores audited text with LF even if a Windows worktree has CRLF.
+    if Path(path).suffix.lower() != ".pdf":
+        content = content.replace(b"\\r\\n", b"\\n")
+    return hashlib.sha256(content).hexdigest()
 
 
 def write_manifest():
     paths = (list((ROOT / "task1").glob("*.py")) + list((ROOT / "common").glob("*.py")) +
              [ROOT / "configs/task1.yaml", ROOT / "requirements.txt",
               ROOT / "first_plot_questions.yaml", ROOT / "ATML-PA3.pdf",
-              ROOT / "docs/task1_traceability.md",
+              ROOT / "docs/task1_traceability.md", ROOT / ".gitattributes",
               ROOT / "kaggle/__init__.py", ROOT / "kaggle/runall.py",
               ROOT / "kaggle/build_notebook.py"])
     files = {path.relative_to(ROOT).as_posix(): digest(path) for path in sorted(paths)}
