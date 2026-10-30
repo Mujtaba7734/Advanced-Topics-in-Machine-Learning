@@ -119,9 +119,12 @@ class RunAllTests(unittest.TestCase):
                       "cache_dir": str(root / "cache"), "seed": 6304,
                       "gsm8k_max_new_tokens": 1024}
             calls = []
+            model_init_kwargs = []
+            eval_batch_kwargs = []
 
             def fake_simple_evaluate(**kwargs):
                 task = kwargs["tasks"][0]
+                eval_batch_kwargs.append((kwargs["batch_size"], kwargs["max_batch_size"]))
                 calls.append((task, kwargs["limit"], kwargs.get("gen_kwargs")))
                 sample = {"filtered_resps": [[1.0], [0.5]], "doc": {"choices": ["A", "B"]}}
                 if task == "gsm8k_cot":
@@ -138,7 +141,10 @@ class RunAllTests(unittest.TestCase):
             fake_models = types.ModuleType("lm_eval.models")
             fake_models.__path__ = []
             fake_hf = types.ModuleType("lm_eval.models.huggingface")
-            fake_hf.HFLM = lambda **kwargs: object()
+            def fake_hflm(**kwargs):
+                model_init_kwargs.append(kwargs)
+                return object()
+            fake_hf.HFLM = fake_hflm
             fake_tokenizer = types.SimpleNamespace(encode=lambda *args, **kwargs: [1])
             modules = {"lm_eval": fake_lm_eval, "lm_eval.models": fake_models,
                        "lm_eval.models.huggingface": fake_hf}
@@ -152,6 +158,10 @@ class RunAllTests(unittest.TestCase):
             self.assertTrue(all(limit == 2 for _, limit, _ in calls))
             self.assertEqual(calls[0][2], {"max_gen_toks": 64, "do_sample": False})
             self.assertTrue(all(options is None for _, _, options in calls[1:]))
+            self.assertEqual(model_init_kwargs[0]["batch_size"], evaluation.EVAL_BATCH_SIZE)
+            self.assertEqual(model_init_kwargs[0]["max_batch_size"], 32)
+            self.assertEqual(eval_batch_kwargs,
+                             [(evaluation.EVAL_BATCH_SIZE, 32)] * len(runall.TASKS))
             self.assertEqual(official.read_text(encoding="utf-8"), "keep official result")
 
     def test_isolated_interpreter_can_bootstrap_runner_and_verify_source(self):

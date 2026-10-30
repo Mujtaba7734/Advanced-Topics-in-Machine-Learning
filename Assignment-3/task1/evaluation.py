@@ -16,6 +16,11 @@ CONDITIONS = {
 }
 TASKS = {"gsm8k_cot": 1319, "hellaswag": 10042, "boolq": 3270, "arc_easy": 2376}
 
+# Preserve task protocol while maximizing inference throughput on a 16-GiB T4.
+# lm-eval probes from 32 downwards on OOM and recalibrates across context lengths.
+EVAL_BATCH_SIZE = "auto:4"
+EVAL_MAX_BATCH_SIZE = 32
+
 
 def condition_fingerprint(config, condition):
     method, step = CONDITIONS[condition]
@@ -142,9 +147,12 @@ def evaluate(config, condition):
         tokenizer = AutoTokenizer.from_pretrained(config["model"], cache_dir=config["cache_dir"],
                                                    revision=config.get("model_revision"))
         model = load_condition(config, condition)
-        lm = HFLM(pretrained=model, tokenizer=tokenizer, batch_size=1, enable_thinking=False)
+        lm = HFLM(pretrained=model, tokenizer=tokenizer, batch_size=EVAL_BATCH_SIZE,
+                  max_batch_size=EVAL_MAX_BATCH_SIZE, enable_thinking=False)
     for task, expected, target in pending:
-        kwargs = {"model": lm, "tasks": [task], "num_fewshot": 0, "batch_size": 1,
+        print(f"[EVAL] {condition}/{task}: auto batch up to {EVAL_MAX_BATCH_SIZE}", flush=True)
+        kwargs = {"model": lm, "tasks": [task], "num_fewshot": 0,
+                  "batch_size": EVAL_BATCH_SIZE, "max_batch_size": EVAL_MAX_BATCH_SIZE,
                   "log_samples": True, "limit": None, "bootstrap_iters": 0,
                   "apply_chat_template": task == "gsm8k_cot",
                   "random_seed": config["seed"], "numpy_random_seed": config["seed"],

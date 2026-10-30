@@ -139,16 +139,19 @@ from task1.preflight_memory import inspect_model_method
 def inspect_harness_and_qualitative(config, tokenizer):
     from lm_eval import simple_evaluate
     from lm_eval.models.huggingface import HFLM
-    from task1.evaluation import select_task_samples, normalized_choice_prediction
+    from task1.evaluation import (select_task_samples, normalized_choice_prediction,
+                                  EVAL_BATCH_SIZE, EVAL_MAX_BATCH_SIZE)
     from task1.plots import PRIMARY
     from task1.qualitative import load_prompts
     model, _ = load_model(config, "full", for_inference=True)
     model.eval(); model.config.use_cache = True
-    lm = HFLM(pretrained=model, tokenizer=tokenizer, batch_size=1, enable_thinking=False)
+    lm = HFLM(pretrained=model, tokenizer=tokenizer, batch_size=EVAL_BATCH_SIZE,
+              max_batch_size=EVAL_MAX_BATCH_SIZE, enable_thinking=False)
     samples_by_task = {}
     for task in ("gsm8k_cot", "hellaswag", "boolq", "arc_easy"):
         kwargs = {"model": lm, "tasks": [task], "samples": {task: [0, 1]},
-                  "num_fewshot": 0, "batch_size": 1, "log_samples": True,
+                  "num_fewshot": 0, "batch_size": EVAL_BATCH_SIZE,
+                  "max_batch_size": EVAL_MAX_BATCH_SIZE, "log_samples": True,
                   "bootstrap_iters": 0, "apply_chat_template": task == "gsm8k_cot"}
         if task == "gsm8k_cot":
             kwargs["gen_kwargs"] = {"max_gen_toks": 64, "do_sample": False}
