@@ -35,7 +35,7 @@ def digest(path):
     content = Path(path).read_bytes()
     # Git stores audited text with LF even if a Windows worktree has CRLF.
     if Path(path).suffix.lower() != ".pdf":
-        content = content.replace(b"\\r\\n", b"\\n")
+        content = content.replace(b"\r\n", b"\n")
     return hashlib.sha256(content).hexdigest()
 
 
