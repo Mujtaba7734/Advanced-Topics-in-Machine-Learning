@@ -4,10 +4,10 @@ This repository implements the seven required evaluation conditions from the fiv
 
 ## Kaggle setup
 
-1. Upload the current **audited** `Assignment-3` folder as a Kaggle dataset, including `first_plot_questions.yaml`, and attach it to a notebook. Enable **GPU** and **Internet**. The notebook can also sparse clone the public GitHub repository, but its embedded source hashes reject an older checkout; no changes have been pushed here.
-2. Open `kaggle/ATML_PA3_Task1.ipynb`. Its one editable code cell finds the repository root, installs dependencies, restores any mounted output dataset, writes a runtime config, and runs the selected phase. Set `REPO_SOURCE` only if discovery cannot find your mount.
-3. Run `diagnose`, `prepare`, and **`preflight`**, in that order. Read `outputs/task1/preflight/report.json`. Training requires a matching `data/preflight_pass.json` from the full GPU preflight. A `--cpu-only` preflight records GPU integration as `NOT RUN` and does not unlock training.
-4. Set one `PHASE` per invocation. Every generated artifact goes under `/kaggle/working/outputs/task1` or `/kaggle/working/results/task1`; the Hugging Face cache defaults to `/kaggle/working/hf_cache`. Keep protocol settings fixed.
+1. Upload the current **audited** `Assignment-3` folder as a Kaggle dataset, including `ATML-PA3.pdf`, `first_plot_questions.yaml`, and `kaggle/source_manifest.json`. Attach it to the Kaggle notebook. Enable **T4 ×2** and **Internet**. The notebook can sparse clone the public GitHub repository only when that checkout exactly matches its embedded source manifest; no changes have been pushed here.
+2. Import [ATML_PA3_Task1_RunAll.ipynb](kaggle/ATML_PA3_Task1_RunAll.ipynb) and click **Run All**. The 18 separate cells select their own stage and verify dependencies in a fresh Python process. Nothing needs to be edited between stages. All outputs are under `/kaggle/working/outputs/task1` and `/kaggle/working/results/task1`; the Hugging Face cache is `/kaggle/working/hf_cache`.
+3. If training stops at a required checkpoint, use Kaggle **Save Version** to preserve `/kaggle/working`, attach that saved output as an input dataset in a new session, and click **Run All** again. The restore stage verifies the mounted recovery file before resuming. If an interrupted run has not reached an official checkpoint, the current session must be recovered before ending or that unsaved work is lost.
+4. Review `/kaggle/working/results/task1/summary/final_verification.json` and `/kaggle/working/results/task1/summary/backup_manifest.json`. The compact ZIP does not contain full checkpoints; Kaggle Save Version is required for those. A CPU-only preflight never unlocks training.
 
 `metamath_dataset`, `gsm8k_dataset`, and `hellaswag_dataset` may point to Hugging Face IDs or local `save_to_disk` datasets attached under `/kaggle/input`. A local model directory may be used for `model`. Harness benchmark tasks still use their stock dataset IDs, so set `cache_dir` to a prepared Hugging Face cache if Internet is unavailable. The script sets `HF_HOME` and `HF_DATASETS_CACHE` from that path.
 
@@ -41,7 +41,7 @@ python -m task1.run qualitative --condition oplora16_final
 python -m task1.run aggregate
 ```
 
-For a local path override, pass `--config path/to/task1.yaml`. The notebook writes path overrides to `/kaggle/working/task1_runtime.yaml`. `task1/protocol.py` rejects changes to the assignment's experimental settings.
+For a local path override, pass `--config path/to/task1.yaml`. The Run All notebook writes path overrides to `/kaggle/working/task1_runtime.yaml`. `task1/protocol.py` rejects changes to the assignment's experimental settings. Regenerate the source manifest and notebook together with `python kaggle/build_notebook.py` after source changes.
 
 ## Resume and export
 
@@ -51,11 +51,11 @@ Recovery checkpoints are saved at updates 312, 625, 937, and 1250, in separate m
 
 On a two-GPU Kaggle session, Full FT and L2-SP keep their FP32 model and gradients on GPU 0, while ordinary PyTorch AdamW updates FP32 mirror weights and moments on GPU 1. The FP32 objective, AdamW groups, schedule, and batch are unchanged. LoRA methods use GPU 0; OPLoRA computes its FP32 SVD workspace on GPU 1. With only one GPU, Full FT and L2-SP use the original single-GPU AdamW and must pass the same preflight. The preflight now performs three consecutive complete 32-example optimizer updates per method using the longest prepared sequences, then checks recovery and at least 1 GiB peak reserved-memory headroom on each GPU. A prior successful preflight marker is invalidated by code changes or different GPU hardware.
 
-Full FT recovery files include FP32 model weights plus FP32 Adam moments. The secondary-GPU mirror weights are reconstructed from the model checkpoint and are not saved twice. Four recovery files may exceed a standard Kaggle working directory. The trainer checks disk and host RAM before checkpointing. Run `python -m task1.run train --method full --stop-update 312`, save that session, then resume with stop points 625, 937, and 1250. The scheduler still spans 1,250 updates. Existing native AdamW recovery files can migrate to the secondary-GPU optimizer. Restore only the latest recovery file and the needed inference files if older recovery files are already preserved in a prior Kaggle dataset. The same stop points are available for every method.
+Full FT recovery files include FP32 model weights plus FP32 Adam moments. The secondary-GPU mirror weights are reconstructed from the model checkpoint and are not saved twice. Four recovery files may exceed a standard Kaggle working directory. The Run All planner uses the preflight's measured checkpoint size, update time, current free disk, and a safety margin to choose the furthest reachable official checkpoint. The trainer independently checks disk and host RAM before checkpointing. The scheduler still spans 1,250 updates. Existing native AdamW recovery files can migrate to the secondary-GPU optimizer. Restore the latest recovery file and the needed inference files from a saved output dataset; the same stop points are available for every method.
 
 The harness computes complete-split primary metrics and logs every sample. Its optional bootstrap standard-error calculation is disabled (`bootstrap_iters=0`) because it does not affect the required accuracy scores and adds substantial CPU work.
 
-Before a Kaggle session ends, use **Save Version** so Kaggle preserves `/kaggle/working`, then make those outputs available as a dataset for the next session. Attach the latest saved dataset under **Add Input** and set `RESTORE_DATASETS` in the one controller cell. It restores selected data, the preflight report and marker, results, and the chosen method's `latest.pt` (or newest recovery), logs, and inference files. Set `METHOD` to the method you want to resume; use a saved dataset containing every method's inference files for final diagnostics. If two mounted datasets contain different files at the same path, restoration stops rather than silently overwriting one. `python -m task1.run export --method METHOD` creates a ZIP of one method's full output folder after checking free disk space. Save results separately as well.
+Before a Kaggle session ends, use **Save Version** so Kaggle preserves `/kaggle/working`, then attach those outputs under **Add Input** in the next session. The Run All restore stage scans mounted output datasets automatically. It preserves working files, rejects ambiguous mounted versions, and verifies the expected checkpoint hash before resuming. The compact export ZIP contains results and reproducibility files; its manifest lists full recovery and inference checkpoints separately and records that their durable backup is unconfirmed until Kaggle Save Version succeeds.
 
 ## Reproducibility and checks
 
@@ -70,4 +70,4 @@ Run fast tests with `python -m unittest discover -s tests -v`. A CPU-only prefli
 The implementation uses the [OPLoRA paper](https://ojs.aaai.org/index.php/AAAI/article/view/40703) for the double-sided projection construction and [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness) for stock task prompts, stopping, filters, and scoring. The implementation is original; no external source code is copied into this repository.
 
 See [Task 1 traceability](docs/task1_traceability.md) for each required output and the current verification boundary.
-See [Task 1 audit](docs/task1_audit.md) for defects, test status, and remaining Kaggle risks.
+See [Run All audit](docs/task1_runall_audit.md) for local test status and remaining Kaggle verification, and [Task 1 audit](docs/task1_audit.md) for the training implementation.

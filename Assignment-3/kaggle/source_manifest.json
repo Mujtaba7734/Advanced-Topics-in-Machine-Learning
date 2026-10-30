@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "revision": "3fd62d6704854da819ce774e68b5a2b6de90fb6f939f154cbfaecbfda1ba6eae",
+  "files": {
+    "ATML-PA3.pdf": "66766f7aafb6046f617d990399dad687ab79b37b8d963cb60bdb4cb0d8871f62",
+    "common/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "common/checkpoint.py": "0c225b86eb5a5029b23ea22770d57e26300bdc2fdbbe4370424d27d84217d70a",
+    "common/device.py": "ac0c83a24c357963b99f100b339113c723a3164119c0eac26cdc99ac5750b185",
+    "common/seed.py": "60e619a71d7ca690592ece3669fc87dd399495734126c2aadf68fcec3da306a1",
+    "configs/task1.yaml": "0710d223eb40bf6579405ed251103dfe1ec0790f5bd1fcb6298b39e9c667851b",
+    "docs/task1_traceability.md": "6121e5da17797b451e9aa47dc643747fb0694e5fb3d5d6c71a2f57b2829087a5",
+    "first_plot_questions.yaml": "215abde5b02811e922b6ac563ff33c490e0dff9ab58439df840f3135e9387173",
+    "kaggle/build_notebook.py": "cdf6ea750bedc193329b840a29040d039c43639177ddf4ad26e5734f2d846b7f",
+    "kaggle/runall.py": "f5f0743d88f82db28697c04f936f41cd4deb96c1a9e0341db8bd7e1eba175637",
+    "requirements.txt": "1cd65cbeb944cb2392c0b78fdb3d6fdb853d1c00bec40073732ff36ac604772a",
+    "task1/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "task1/data_source.py": "b26e41e242e5367efff231e4360c33a6f75a8c0984b2bb2311acd9d4dccbcf04",
+    "task1/dataset.py": "759add5fe410bfc23b39601b157516ed3661b05388b7f4e3d80b6e977479037d",
+    "task1/diagnostics.py": "5b796f541273cfe217f33d768e97535b807a5ee48f2281f81c443f9866947f65",
+    "task1/evaluation.py": "0159b34f320b4baeb04d513d55ad92f5a5196020d4802c8f940114df688fcc56",
+    "task1/l2sp.py": "fef646ed53db5544728a670bbe912d0147e384ee18f307e398149699848d13b6",
+    "task1/model.py": "bd3e8a1d16972aa99c903d9b6b50dabdafaf73a3cba799223e475d72cbb30228",
+    "task1/optim.py": "609179daa51f8d6aa2fee35b6323a06ef2e2e494ce8a4886b3c7e984d7154a57",
+    "task1/plots.py": "0d25c39c461f98944a4b2ac6ecd4ba65a4a6f1f1690f808168b38d890cc8ff62",
+    "task1/preflight.py": "5935bd0c0a5a1c974ab5512d9b50bc8d62dd88a28c7d7e3ccb45fea2ff700192",
+    "task1/preflight_memory.py": "cd5399ecbc6fa188a1c8fae77bf019de2ea267f4d2e870559cb09fb356c90056",
+    "task1/prepare_data.py": "dcd071379c3072b7849b042053136f8d3e6d99fabecb980818eacddcf6c55660",
+    "task1/protocol.py": "ba46e56a2771404959650d25e45720d72edf15971986e118ce8b7d2be2d979a0",
+    "task1/qualitative.py": "3c521312e9e94f8e6e6d8caaa04a5fe5d5eb7d197f246761f2bbabbd577d2cad",
+    "task1/run.py": "5706a99fca16129f5c2ebe2ff6df9cbac07e887f4d5cf8afb5a8d358da499bd3",
+    "task1/training.py": "057f95a5b4f6d204534b860a24c56d02580985c82ecb758892617c7369b1e10f"
+  }
+}
