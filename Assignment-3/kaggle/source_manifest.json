@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "revision": "3fd62d6704854da819ce774e68b5a2b6de90fb6f939f154cbfaecbfda1ba6eae",
+  "revision": "af9f00d66caae42302f998ba3e717169e83d676f7663ea37e70b06149fc09f41",
   "files": {
     "ATML-PA3.pdf": "66766f7aafb6046f617d990399dad687ab79b37b8d963cb60bdb4cb0d8871f62",
     "common/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -10,8 +10,9 @@
     "configs/task1.yaml": "0710d223eb40bf6579405ed251103dfe1ec0790f5bd1fcb6298b39e9c667851b",
     "docs/task1_traceability.md": "6121e5da17797b451e9aa47dc643747fb0694e5fb3d5d6c71a2f57b2829087a5",
     "first_plot_questions.yaml": "215abde5b02811e922b6ac563ff33c490e0dff9ab58439df840f3135e9387173",
-    "kaggle/build_notebook.py": "cdf6ea750bedc193329b840a29040d039c43639177ddf4ad26e5734f2d846b7f",
-    "kaggle/runall.py": "f5f0743d88f82db28697c04f936f41cd4deb96c1a9e0341db8bd7e1eba175637",
+    "kaggle/__init__.py": "39e41cd0c26bcf0a0dba6de2a3466e3209d4f02f2d83b138ecea85b570b84a32",
+    "kaggle/build_notebook.py": "9294877e83d966c4656b2fb9feff02ac67d1317cda98e9e557dfc248ed33a6de",
+    "kaggle/runall.py": "e8e964a6cd4cd0585d7d988b03bf9e8353cd039b5f85618f06400d21ee86c0a8",
     "requirements.txt": "1cd65cbeb944cb2392c0b78fdb3d6fdb853d1c00bec40073732ff36ac604772a",
     "task1/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "task1/data_source.py": "b26e41e242e5367efff231e4360c33a6f75a8c0984b2bb2311acd9d4dccbcf04",

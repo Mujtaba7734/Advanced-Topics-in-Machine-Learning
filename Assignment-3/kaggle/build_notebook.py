@@ -1,5 +1,6 @@
 """Generate the audited source manifest and 18-stage Kaggle Run All notebook."""
 import hashlib
+import inspect
 import json
 import os
 from pathlib import Path
@@ -39,7 +40,8 @@ def write_manifest():
              [ROOT / "configs/task1.yaml", ROOT / "requirements.txt",
               ROOT / "first_plot_questions.yaml", ROOT / "ATML-PA3.pdf",
               ROOT / "docs/task1_traceability.md",
-              ROOT / "kaggle/runall.py", ROOT / "kaggle/build_notebook.py"])
+              ROOT / "kaggle/__init__.py", ROOT / "kaggle/runall.py",
+              ROOT / "kaggle/build_notebook.py"])
     files = {path.relative_to(ROOT).as_posix(): digest(path) for path in sorted(paths)}
     revision = hashlib.sha256(json.dumps(files, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
     manifest = {"schema": 1, "revision": revision, "files": files}
@@ -47,38 +49,81 @@ def write_manifest():
     temporary = target.with_name(target.name + ".tmp")
     temporary.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     os.replace(temporary, target)
+    recorded = json.loads(target.read_text(encoding="utf-8"))
+    for relative, expected in recorded["files"].items():
+        if digest(ROOT / relative) != expected:
+            raise RuntimeError(f"Source changed during manifest generation: {relative}")
+    if recorded["revision"] != hashlib.sha256(json.dumps(
+            recorded["files"], sort_keys=True, separators=(",", ":")).encode()).hexdigest():
+        raise RuntimeError("Source manifest revision is inconsistent")
     return digest(target), revision
 
 
+def source_matches(path, expected_manifest_sha256):
+    """Verify the manifest bytes and every recorded source file."""
+    try:
+        manifest_path = path / "kaggle/source_manifest.json"
+        payload = manifest_path.read_bytes()
+        if hashlib.sha256(payload).hexdigest() != expected_manifest_sha256:
+            return False
+        manifest = json.loads(payload)
+        calculated = hashlib.sha256(json.dumps(manifest["files"], sort_keys=True,
+                                        separators=(",", ":")).encode()).hexdigest()
+        return (manifest["revision"] == calculated and
+                all((path / relative).is_file() and
+                    hashlib.sha256((path / relative).read_bytes()).hexdigest() == expected
+                    for relative, expected in manifest["files"].items()))
+    except (OSError, ValueError, KeyError, TypeError):
+        return False
+
+
+def repository_candidates(working, input_root):
+    candidates = [working / "Assignment-3", working / "atml-repo" / "Assignment-3",
+                  working / "atml-repo-audited" / "Assignment-3"]
+    candidates += sorted(working.glob("atml-repo-*/Assignment-3"))
+    if input_root.is_dir():
+        candidates += sorted(input_root.glob("*/Assignment-3"))
+        candidates += sorted(input_root.glob("*"))
+    return candidates
+
+
+def next_clone_path(working, expected_manifest_sha256):
+    """Choose a new content-addressed checkout without changing a stale clone."""
+    base = working / ("atml-repo-" + expected_manifest_sha256[:16])
+    clone = base
+    repair = 0
+    while clone.exists():
+        repair += 1
+        clone = working / (base.name + "-repair-" + str(repair))
+    return clone
+
+
 def stage_cell(stage, manifest_hash):
+    helpers = "\n\n".join(inspect.getsource(func) for func in
+                         (source_matches, repository_candidates, next_clone_path))
     return f'''# This cell is self-contained; it also works after a kernel restart.
 from pathlib import Path
-import hashlib, subprocess, sys
+import hashlib, json, subprocess, sys
 
 EXPECTED_MANIFEST_SHA256 = "{manifest_hash}"
 working = Path("/kaggle/working")
 input_root = Path("/kaggle/input")
-candidates = [working / "atml-repo" / "Assignment-3", working / "Assignment-3"]
-if input_root.is_dir():
-    candidates += sorted(input_root.glob("*/Assignment-3"))
-    candidates += sorted(input_root.glob("*"))
-matching = [path for path in candidates if (path / "kaggle/source_manifest.json").is_file()
-            and hashlib.sha256((path / "kaggle/source_manifest.json").read_bytes()).hexdigest()
-                == EXPECTED_MANIFEST_SHA256]
+{helpers}
+
+matching = [path for path in repository_candidates(working, input_root)
+            if source_matches(path, EXPECTED_MANIFEST_SHA256)]
 if matching:
     repo = matching[0]
 else:
-    # A second clean checkout can replace a stale clone without touching outputs.
-    clone = working / "atml-repo-audited"
-    if not clone.exists():
-        subprocess.run(["git", "clone", "--depth", "1", "--filter=blob:none", "--sparse",
-                        "https://github.com/Mujtaba7734/Advanced-Topics-in-Machine-Learning.git",
-                        str(clone)], check=True)
-        subprocess.run(["git", "-C", str(clone), "sparse-checkout", "set", "Assignment-3"], check=True)
+    # A fresh checkout has a content-addressed path; stale clones remain untouched.
+    clone = next_clone_path(working, EXPECTED_MANIFEST_SHA256)
+    subprocess.run(["git", "clone", "--depth", "1", "--filter=blob:none", "--sparse",
+                    "https://github.com/Mujtaba7734/Advanced-Topics-in-Machine-Learning.git",
+                    str(clone)], check=True)
+    subprocess.run(["git", "-C", str(clone), "sparse-checkout", "set", "Assignment-3"], check=True)
     repo = clone / "Assignment-3"
-    manifest = repo / "kaggle/source_manifest.json"
-    if not manifest.is_file() or hashlib.sha256(manifest.read_bytes()).hexdigest() != EXPECTED_MANIFEST_SHA256:
-        raise RuntimeError("Repository is older than this notebook. Attach the current audited Assignment-3 folder as a Kaggle input; existing outputs were preserved.")
+    if not source_matches(repo, EXPECTED_MANIFEST_SHA256):
+        raise RuntimeError("The public checkout does not contain this notebook's exact audited source. Attach the matching Assignment-3 folder as a Kaggle input; existing outputs were preserved.")
 print("[{stage}] source:", repo, flush=True)
 subprocess.run([sys.executable, "-m", "kaggle.runall", "{stage}",
                 "--repo", str(repo), "--work", str(working)], cwd=repo, check=True)

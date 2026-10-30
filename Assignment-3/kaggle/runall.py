@@ -7,7 +7,9 @@ import argparse
 import hashlib
 import importlib.metadata
 import json
+import math
 import os
+import pickle
 import re
 import shutil
 import subprocess
@@ -438,13 +440,24 @@ def _condition_status(config, condition):
         if not path.is_file():
             continue
         record = read_json(path)
+        if not isinstance(record, dict):
+            raise Blocked(f"Corrupt evaluation file: {path}")
         if (record.get("condition") != condition or record.get("task") != task or
                 record.get("condition_fingerprint") != fingerprint):
             raise Blocked(f"Stale or incomplete evaluation file: {path}")
         if record.get("sample_count") != expected:
             continue  # evaluate() recomputes incomplete task files atomically.
-        if (len(record.get("samples", [])) != expected or
-                PRIMARY[task] not in record.get("results", {})):
+        samples = record.get("samples", [])
+        results = record.get("results", {})
+        metric = results.get(PRIMARY[task]) if isinstance(results, dict) else None
+        try:
+            metric_valid = math.isfinite(float(metric))
+        except (TypeError, ValueError):
+            metric_valid = False
+        if (not isinstance(samples, list) or len(samples) != expected or not metric_valid or
+                any(not isinstance(sample, dict) or
+                    not {"prediction", "prediction_raw", "truncation_flag"}.issubset(sample)
+                    for sample in samples)):
             raise Blocked(f"Corrupt completed evaluation file: {path}")
         complete.append(task)
     return complete
@@ -460,6 +473,10 @@ def bounded_evaluation_smoke(config, condition, work):
         smoke_config = {**config, "result_root": str(Path(temp) / "results")}
 
         def bounded(*args, **kwargs):
+            tasks = kwargs.get("tasks")
+            if not isinstance(tasks, (list, tuple)) or len(tasks) != 1 or tasks[0] not in TASKS:
+                raise AssertionError(f"Unexpected bounded-evaluation task: {tasks!r}")
+            task = tasks[0]
             kwargs["limit"] = 2
             if task == "gsm8k_cot":
                 kwargs["gen_kwargs"] = {"max_gen_toks": 64, "do_sample": False}
@@ -558,9 +575,26 @@ def _method_complete(config, method, step):
         required.append(root / "inference_0625.pt")
     if method == "oplora16":
         required.append(root / "projected_1250.pt")
-    if any(not path.is_file() or path.stat().st_size == 0 for path in required):
+    if any(not _valid_inference_checkpoint(path) for path in required):
         return False
     return _last_logged_update(root / "train.jsonl") >= 1250
+
+
+def _valid_inference_checkpoint(path):
+    """Check tensor structure using mapped storage to avoid copying large weights."""
+    import torch
+    if not path.is_file() or path.stat().st_size == 0:
+        return False
+    try:
+        state = torch.load(path, map_location="cpu", weights_only=True, mmap=True)
+        valid = (isinstance(state, dict) and bool(state) and
+                 all(isinstance(key, str) and isinstance(value, torch.Tensor) and
+                     value.numel() > 0 for key, value in state.items()))
+        del state
+        return valid
+    except (OSError, RuntimeError, ValueError, TypeError, IndexError,
+            EOFError, pickle.UnpicklingError):
+        return False
 
 
 def _checkpoint_size_from_preflight(ctx, method):
@@ -631,6 +665,9 @@ def stage_train(ctx, config, method):
     if _method_complete(config, method, step):
         print(f"[SKIPPED] {method}  -  verified 1,250 updates", flush=True)
         return {"step": 1250, "status": "verified_existing"}
+    if step == config["optimizer_updates"]:
+        raise Blocked(f"{method} has a final recovery checkpoint but its training log or inference "
+                      "checkpoint is missing or corrupt; preserve the recovery file for repair")
     recovery_size, detail = _checkpoint_size_from_preflight(ctx, method)
     free = shutil.disk_usage(ctx.output).free
     projected = detail.get("worst_length_1250_update_projection_seconds")
@@ -810,13 +847,24 @@ def final_requirements(ctx, config):
                        ("training_figure", ctx.results / "summary" / "sft_loss.png"),
                        ("weight_figure", ctx.results / "summary" / "weight_space.png"),
                        ("activation_figure", ctx.results / "summary" / "activation_ratios.png")):
-        status[name] = "PASS" if path.is_file() and path.stat().st_size else "INCOMPLETE"
+        producing_stage = ("weight" if name == "weight_diagnostics" else
+                           "activations" if name == "activation_diagnostics" else "aggregate")
+        status[name] = ("PASS" if path.is_file() and path.stat().st_size and
+                        _recorded_artifacts_valid(ctx, producing_stage) else "INCOMPLETE")
     try:
         status["168_qualitative_responses"] = "PASS" if len(_qualitative_status(config)) == 7 else "INCOMPLETE"
     except (Blocked, OSError, ValueError):
         status["168_qualitative_responses"] = "INCOMPLETE"
     annotation = ctx.results / "qualitative" / "annotation_template.csv"
-    status["42_annotation_template"] = "PASS" if annotation.is_file() else "INCOMPLETE"
+    if annotation.is_file():
+        import pandas as pd
+        try:
+            status["42_annotation_template"] = ("PASS" if len(pd.read_csv(annotation)) == 42
+                                                 else "INCOMPLETE")
+        except (OSError, UnicodeError, pd.errors.ParserError, pd.errors.EmptyDataError):
+            status["42_annotation_template"] = "FAILED"
+    else:
+        status["42_annotation_template"] = "INCOMPLETE"
     bundle = ctx.work / "task1_results_bundle.zip"
     index = read_json(ctx.work / "task1_results_bundle.index.json", {})
     if not bundle.is_file():
@@ -889,8 +937,9 @@ def stage_export(ctx, config):
     manifest_path = ctx.results / "summary" / "backup_manifest.json"
     atomic_json(manifest_path, manifest)
     included.append(manifest_path)
-    included.extend([ctx.repo / "configs/task1.yaml", ctx.repo / "requirements.txt",
-                     ctx.repo / "kaggle/source_manifest.json", ctx.repo / "first_plot_questions.yaml"])
+    audited_source = read_json(ctx.repo / "kaggle/source_manifest.json")["files"]
+    included.extend(ctx.repo / relative for relative in audited_source)
+    included.append(ctx.repo / "kaggle/source_manifest.json")
     included = [path for path in included if path.is_file()]
     signature = hashlib.sha256("".join(f"{path}:{sha256_file(path)}\n" for path in included).encode()).hexdigest()
     bundle = ctx.work / "task1_results_bundle.zip"
