@@ -71,3 +71,29 @@ The implementation uses the [OPLoRA paper](https://ojs.aaai.org/index.php/AAAI/a
 
 See [Task 1 traceability](docs/task1_traceability.md) for each required output and the current verification boundary.
 See [Run All audit](docs/task1_runall_audit.md) for local test status and remaining Kaggle verification, and [Task 1 audit](docs/task1_audit.md) for the training implementation.
+
+
+### Local checkpoint continuation
+
+The RunAll runner can resume a partial run directly from its verified local
+recovery checkpoint. A previous `backup_pending` marker no longer requires an
+input dataset upload before resuming the same method: the runner checks both the
+checkpoint identity and its recorded SHA-256 first. Other training methods remain
+blocked until the pending method is resumed. This verification is not a durable
+backup; preserve outputs before ending a Kaggle session.
+
+Recovery retention is rolling: the previous recovery remains available until the
+new recovery, latest alias, and required inference artifacts are successfully
+written. Older recovery files from that method are then removed. Midpoint/final
+inference files and the newest full recovery are retained. Disk estimates allow
+for old and new recoveries to coexist during an atomic save. Actual training-log
+timings, with 25% headroom, supersede worst-length preflight timing when available.
+No training hyperparameters or checkpoint positions change.
+
+Use the regenerated `kaggle/ATML_PA3_Task1_RunAll.ipynb` to load these changes;
+a runner already executing in Kaggle does not update itself from GitHub. This
+repository does not contain the separately named `atml_pa3_one_click_runner.py`.
+Existing recovery configuration checks remain strict. The runner still stops
+when disk or time is insufficient; completed methods and model caches can still
+consume substantial space, and a Kaggle upload-service 502 cannot be fixed by
+this code. No caches or completed final recoveries are automatically deleted.

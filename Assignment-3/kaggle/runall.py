@@ -631,7 +631,7 @@ def choose_stop_update(config, method, step, free_bytes, recovery_bytes,
         inference_count = (sum(value in (625, 1250) for value in pending) if method == "full"
                            else 2 * int(1250 in pending) if method == "oplora16"
                            else int(1250 in pending))
-        estimated_disk = int(1.15 * (len(pending) * recovery_bytes + inference_count * model_bytes))
+        estimated_disk = int(1.15 * (min(len(pending), 2 if step == 0 else 1) * recovery_bytes + inference_count * model_bytes))
         if estimated_disk + reserve > free_bytes:
             break
         if (seconds_per_update and seconds_remaining is not None and
@@ -656,11 +656,44 @@ def _session_seconds_remaining(ctx):
     return max(0, 8 * 3600 - (time.time() - session["started_utc"]))
 
 
+def measured_seconds_per_update(path):
+    if not path.is_file():
+        return None
+    records = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        try:
+            row = json.loads(line)
+            records.append((int(row["update"]), float(row["training_seconds"])))
+        except (ValueError, KeyError, TypeError):
+            continue
+    if len(records) < 2:
+        return None
+    first, last = records[max(0, len(records) - 100)], records[-1]
+    steps, seconds = last[0] - first[0], last[1] - first[1]
+    return seconds / steps if steps > 0 and seconds > 0 and math.isfinite(seconds) else None
+
+
+def resume_pending_locally(ctx, config, method):
+    """A verified local recovery can resume; this does not claim durable backup."""
+    pending = ctx.state().get("backup_pending")
+    if not pending:
+        return
+    if pending["method"] != method:
+        raise Blocked(f"Resume train_{pending['method']} before starting {method}")
+    step, checkpoint = _checkpoint_progress(config, method)
+    if (step != pending["step"] or checkpoint is None or
+            sha256_file(checkpoint) != pending["sha256"]):
+        raise Blocked("Pending local recovery differs from the recorded checkpoint; restore its backup")
+    state = ctx.state()
+    state.pop("backup_pending", None)
+    atomic_json(ctx.state_path, state)
+    print(f"[PASS] Verified local resume for {method} at {step}; no input re-upload required", flush=True)
+
+
 def stage_train(ctx, config, method):
     pending = ctx.state().get("backup_pending")
     if pending:
-        raise Blocked(f"Mount a durable output dataset containing {pending['method']} checkpoint "
-                      f"{pending['step']} before continuing training")
+        resume_pending_locally(ctx, config, method)
     step, checkpoint = _checkpoint_progress(config, method)
     if _method_complete(config, method, step):
         print(f"[SKIPPED] {method}  -  verified 1,250 updates", flush=True)
@@ -668,10 +701,18 @@ def stage_train(ctx, config, method):
     if step == config["optimizer_updates"]:
         raise Blocked(f"{method} has a final recovery checkpoint but its training log or inference "
                       "checkpoint is missing or corrupt; preserve the recovery file for repair")
+    if checkpoint:
+        _synchronize_latest(checkpoint, Path(config["output_root"]) / method)
+        from common.recovery import prune_older_recoveries
+        prune_older_recoveries(checkpoint, Path(config["output_root"]) / method / "latest.pt")
     recovery_size, detail = _checkpoint_size_from_preflight(ctx, method)
     free = shutil.disk_usage(ctx.output).free
     projected = detail.get("worst_length_1250_update_projection_seconds")
     seconds_per_update = projected / 1250 if isinstance(projected, (float, int)) and projected > 0 else None
+    # Prefer actual completed-update timings over worst-length smoke estimates.
+    measured = measured_seconds_per_update(Path(config["output_root"]) / method / "train.jsonl")
+    if measured is not None:
+        seconds_per_update = measured * 1.25
     stop = choose_stop_update(config, method, step, free, recovery_size,
                               seconds_per_update, _session_seconds_remaining(ctx))
     if stop is None:
@@ -694,7 +735,8 @@ def stage_train(ctx, config, method):
                                "checkpoint": str(verified_checkpoint)}
     atomic_json(ctx.state_path, state)
     print(f"[BLOCKED] {method} paused at verified checkpoint {stop}; "
-          "use Kaggle Save Version, mount that output dataset, then Run All again", flush=True)
+          "resume this training stage locally when disk/time permits; "
+          "back up outputs before ending the session", flush=True)
     return {"step": stop, "complete": False, "backup_pending": True}
 
 
@@ -1003,8 +1045,11 @@ def run_stage(stage, repo, work):
             config = ctx.config()
             pending = ctx.state().get("backup_pending")
             if pending and stage not in ("final_verify", "export"):
-                raise Blocked(f"Save Version and mount the {pending['method']} checkpoint "
-                              f"at update {pending['step']} before continuing")
+                if stage == "train_" + pending["method"]:
+                    resume_pending_locally(ctx, config, pending["method"])
+                elif stage not in ("dataset", "preflight", "baseline"):
+                    raise Blocked(f"Resume train_{pending['method']} first, or Save Version and mount "
+                                  f"its checkpoint at update {pending['step']}")
             if stage == "dataset":
                 result = stage_dataset(ctx, config)
             elif stage == "preflight":

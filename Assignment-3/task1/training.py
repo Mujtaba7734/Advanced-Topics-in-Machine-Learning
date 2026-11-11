@@ -77,7 +77,10 @@ def required_checkpoint_space(config, method, model, start_step, stop_step):
         inference_bytes = model_bytes * (1250 in pending)
         if method == "oplora16" and 1250 in pending:
             inference_bytes += trainable_parameters(model) * 4
-    return int(1.15 * (len(pending) * recovery_bytes + inference_bytes))
+    # Keep the previous recovery until the replacement is committed. Existing
+    # bytes are already excluded from free space when resuming.
+    slots = min(len(pending), 2 if start_step == 0 else 1)
+    return int(1.15 * (slots * recovery_bytes + inference_bytes))
 
 
 def single_recovery_bytes(method, model):
@@ -321,6 +324,10 @@ def run_training(config, method, stop_update=None):
                         "projected_bytes": projected_path.stat().st_size,
                         "basis_bytes": metadata["basis_bytes"],
                         "basis_seconds": metadata["basis_seconds"]}, indent=2), encoding="utf-8")
+            # Only retire older recovery states after all artifacts at this
+            # checkpoint have been written successfully. Keep inference snapshots.
+            from common.recovery import prune_older_recoveries
+            prune_older_recoveries(recovery_path, latest_path)
             del state
             gc.collect()
         if step % 10 == 0 or step in config["checkpoint_updates"]:

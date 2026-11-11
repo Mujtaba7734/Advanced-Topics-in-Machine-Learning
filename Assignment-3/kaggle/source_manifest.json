@@ -1,19 +1,20 @@
 {
   "schema": 1,
-  "revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "revision": "163c900d3acf34d9bb42e31a76e548bff76d970380cf55388db0a164967b7f3c",
   "files": {
     ".gitattributes": "38bb3ea8de25ddc60224ea23170fd918ca3755bdb3e1aded0c5191fa6c89cae7",
     "ATML-PA3.pdf": "66766f7aafb6046f617d990399dad687ab79b37b8d963cb60bdb4cb0d8871f62",
     "common/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "common/checkpoint.py": "0c225b86eb5a5029b23ea22770d57e26300bdc2fdbbe4370424d27d84217d70a",
     "common/device.py": "ac0c83a24c357963b99f100b339113c723a3164119c0eac26cdc99ac5750b185",
+    "common/recovery.py": "93230c82bb1c818f86d966bb69bd27ed36f7ae64048abf463595cfaa2bd5f993",
     "common/seed.py": "60e619a71d7ca690592ece3669fc87dd399495734126c2aadf68fcec3da306a1",
     "configs/task1.yaml": "0710d223eb40bf6579405ed251103dfe1ec0790f5bd1fcb6298b39e9c667851b",
     "docs/task1_traceability.md": "6121e5da17797b451e9aa47dc643747fb0694e5fb3d5d6c71a2f57b2829087a5",
     "first_plot_questions.yaml": "215abde5b02811e922b6ac563ff33c490e0dff9ab58439df840f3135e9387173",
     "kaggle/__init__.py": "39e41cd0c26bcf0a0dba6de2a3466e3209d4f02f2d83b138ecea85b570b84a32",
     "kaggle/build_notebook.py": "46530f4886ac752c4e68352c0a8346dd9475e8597f2e78f067257a6265f3d8ad",
-    "kaggle/runall.py": "64f946e9870db09eb87217fd04f59f6d71ae70f324a86c338ca81256b3963590",
+    "kaggle/runall.py": "309049889db72fae0ae2f27939020622b34c02a7108c699f48750713b8204b02",
     "requirements.txt": "1cd65cbeb944cb2392c0b78fdb3d6fdb853d1c00bec40073732ff36ac604772a",
     "task1/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "task1/data_source.py": "b26e41e242e5367efff231e4360c33a6f75a8c0984b2bb2311acd9d4dccbcf04",
@@ -30,6 +31,6 @@
     "task1/protocol.py": "ba46e56a2771404959650d25e45720d72edf15971986e118ce8b7d2be2d979a0",
     "task1/qualitative.py": "3c521312e9e94f8e6e6d8caaa04a5fe5d5eb7d197f246761f2bbabbd577d2cad",
     "task1/run.py": "5706a99fca16129f5c2ebe2ff6df9cbac07e887f4d5cf8afb5a8d358da499bd3",
-    "task1/training.py": "057f95a5b4f6d204534b860a24c56d02580985c82ecb758892617c7369b1e10f"
+    "task1/training.py": "d6c247e00153c147cfbc3a8522bd2916d12396d05d9f8278210bdb0cda1b24eb"
   }
 }
