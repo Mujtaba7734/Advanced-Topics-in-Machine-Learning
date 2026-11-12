@@ -5,20 +5,40 @@ from pathlib import Path
 
 import nbformat
 
-from task3.build_notebook import RUN, SETUP, SOURCE, SUMMARY
+from task3.build_notebook import SETUP, SOURCE, SUMMARY
 
 REVISION = "b370e572a01f5b0c3cd4d12e0195314be647093f"
 
 INTRO = """# ATML PA3 Task 3 on Kaggle
 
-1. Import this notebook into Kaggle. Enable **Internet** and select **GPU T4** (or **GPU T4 ×2**). The notebook exposes only one T4 to the worker.
+1. Import this notebook into Kaggle. Enable **Internet** and select **GPU T4 ×2**. Each T4 handles independent live questions with the original FP16 model and batch size 1. All strategies for a question stay on the same GPU slot.
 2. Select **Save Version → Save & Run All** with the GPU enabled. For an interactive run, save the session outputs before stopping it.
 3. If the run stops before completion, attach the saved version through **Add Input → Notebook Output Files**, then run the notebook again. Attach only one Task 3 output version at a time. The launcher automatically restores its files and the pipeline checks checkpoint identity and checksums.
 
-Logs, outputs, and checkpoints are written under `/kaggle/working/ATML_PA3_Task3/`. Only a saved Kaggle output version can be restored in a new session. The default five-hour session budget limits each run. Total runtime has not been measured on Kaggle.
+Logs, outputs, and checkpoints are written under `/kaggle/working/ATML_PA3_Task3/`. Both workers share a single on-disk model cache. The launcher budgets 12 GB for Task 3, checks for 1.5 GB of additional headroom, and stops at a checkpoint boundary if the working disk runs low. Only saved Kaggle outputs persist across sessions. The five-hour session budget is a safe-stop setting. Total runtime has not been measured on Kaggle.
 """
 
 RESTORE = '''import shutil
+
+TASK3_PEAK_BUDGET = 12_000_000_000
+KAGGLE_OUTPUT_LIMIT = 20_000_000_000
+DISK_RESERVE = 1_500_000_000
+
+def tree_bytes(path):
+    return sum(item.stat().st_size for item in path.rglob('*')
+               if not item.is_symlink() and item.is_file())
+
+def check_storage(root, incoming=0):
+    current = tree_bytes(root)
+    other = max(0, tree_bytes(root.parent) - current)
+    required = max(TASK3_PEAK_BUDGET - current, incoming)
+    free = shutil.disk_usage(root).free
+    if other + current + required + DISK_RESERVE > KAGGLE_OUTPUT_LIMIT or free < required + DISK_RESERVE:
+        raise RuntimeError(
+            f'Insufficient Kaggle space for Task 3: {free / 1e9:.2f} GB free, '
+            f'{other / 1e9:.2f} GB of other working files. Use a clean working directory.'
+        )
+    log(f'[STORAGE] {free / 1e9:.2f} GB free; {current / 1e9:.2f} GB Task 3 data already present.')
 
 def restore_saved_output(root, input_dir):
     """Fill missing files from one attached Task 3 version, preserving current work."""
@@ -34,9 +54,11 @@ def restore_saved_output(root, input_dir):
         raise RuntimeError('Attach only the Task 3 output version you want to resume.')
     if not candidates:
         log('[START] No attached Task 3 output version found.')
+        check_storage(root)
         return
     source = candidates[0]
     log('[START] Restoring from ' + str(source))
+    copies = []
     for name in ('release', 'runs', 'model_cache'):
         parent = source / name
         if not parent.is_dir():
@@ -51,27 +73,30 @@ def restore_saved_output(root, input_dir):
                 target = root / path.relative_to(source)
                 if target.exists():
                     continue
-                target.parent.mkdir(parents=True, exist_ok=True)
-                temporary = target.with_name(target.name + '.restore.partial')
-                shutil.copyfile(path, temporary)
-                temporary.replace(target)
+                copies.append((path, target))
+    check_storage(root, incoming=sum(path.stat().st_size for path, _ in copies))
+    for path, target in copies:
+        target.parent.mkdir(parents=True, exist_ok=True)
+        temporary = target.with_name(target.name + '.restore.partial')
+        shutil.copyfile(path, temporary)
+        temporary.replace(target)
     log('[PASS] Attached files restored. The worker will validate them before reuse.')
 
 restore_saved_output(ROOT, Path('/kaggle/input'))
 '''
 
-GPU = '''# Set device visibility before the subprocess imports CUDA PyTorch.
-visible = os.environ.get('CUDA_VISIBLE_DEVICES', '0')
-ENV['CUDA_VISIBLE_DEVICES'] = visible.split(',')[0].strip()
+GPU = '''# Workers will each narrow this allocation to one T4 before importing PyTorch.
+visible = os.environ.get('CUDA_VISIBLE_DEVICES', '0,1')
+ENV['CUDA_VISIBLE_DEVICES'] = visible
+ENV['TASK3_T4_DEVICES'] = ','.join(device.strip() for device in visible.split(','))
 ENV['HF_HUB_DISABLE_XET'] = '1'
+ENV['PIP_NO_CACHE_DIR'] = '1'
 stream([sys.executable, '-u', '-c', """
 import torch
-if not torch.cuda.is_available() or torch.cuda.device_count() != 1:
-    raise RuntimeError('Enable GPU T4 (or GPU T4 x2) in Kaggle settings.')
-name = torch.cuda.get_device_name(0)
-if 'T4' not in name:
-    raise RuntimeError(f'Task 3 requires a T4. Detected {name}.')
-print(f'[PASS] {name}, one visible GPU, installed PyTorch {torch.__version__}')
+names = [torch.cuda.get_device_name(i) for i in range(torch.cuda.device_count())]
+if len(names) != 2 or not all('T4' in name for name in names):
+    raise RuntimeError(f'Enable GPU T4 x2 in Kaggle settings. Detected {names}.')
+print(f'[PASS] Both GPUs available: {names}; installed PyTorch {torch.__version__}')
 """], cwd=str(ASSIGNMENT), env=ENV)
 '''
 
@@ -138,10 +163,21 @@ PORTABLE_CACHE = '''def prepare_saved_output(root):
         if temporary.is_dir() and not temporary.is_symlink():
             shutil.rmtree(temporary)
 
+DRIVER = CODE / 'task3_kaggle_driver.py'
+DRIVER.write_text(__DRIVER__)
+release = ROOT / 'release'
+release.mkdir(exist_ok=True)
+local_release = ROOT / 'local_ssd'
+if not local_release.exists() and not local_release.is_symlink():
+    local_release.symlink_to(release, target_is_directory=True)
 try:
-    run_task3()
+    log('[START] Offline analysis, then live questions on two T4 workers.')
+    stream([sys.executable, '-u', str(DRIVER), '--root', str(ROOT)], cwd=str(ASSIGNMENT), env=ENV)
 finally:
+    if local_release.is_symlink() and local_release.resolve() == release:
+        local_release.unlink()
     prepare_saved_output(ROOT)
+    log(f'[STORAGE] Task 3 saved output: {tree_bytes(ROOT) / 1e9:.2f} GB.')
     log('[KAGGLE OUTPUT] Save this version with output files before ending the session.')
 '''
 
@@ -155,7 +191,8 @@ def build(destination):
     source = source.replace("__REVISION__", repr(REVISION)).replace(
         "'/content/atml_task3_'", "'/tmp/atml_task3_'"
     )
-    run = "def run_task3():\n" + "".join("    " + line for line in RUN.splitlines(keepends=True))
+    driver = Path(__file__).with_name("task3_dual.py").read_text()
+    run = PORTABLE_CACHE.replace("__DRIVER__", repr(driver))
     summary = SUMMARY.replace(
         "INCOMPLETE — SAVED, RUN ALL AGAIN TO RESUME",
         "INCOMPLETE — SAVE KAGGLE OUTPUTS AND ATTACH THEM TO RESUME",
@@ -167,7 +204,7 @@ def build(destination):
         )
     )
     notebook.cells = [nbformat.v4.new_markdown_cell(INTRO)]
-    for code in (setup + RESTORE, source + GPU + DEPENDENCIES, run + "\n" + PORTABLE_CACHE, summary):
+    for code in (setup + RESTORE, source + GPU + DEPENDENCIES, run, summary):
         ast.parse(code)
         notebook.cells.append(nbformat.v4.new_code_cell(code))
     nbformat.validate(notebook)
