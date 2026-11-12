@@ -1,0 +1,11 @@
+# Task 2 only. Compatible installed Torch is retained by bootstrap.py.
+transformers==4.57.1
+peft==0.17.1
+accelerate==1.11.0
+numpy>=1.26,<3
+Pillow>=10,<14
+requests>=2.32,<3
+matplotlib>=3.9,<4
+psutil>=5.9,<8
+pytest>=8,<10
+sentencepiece>=0.2,<0.3

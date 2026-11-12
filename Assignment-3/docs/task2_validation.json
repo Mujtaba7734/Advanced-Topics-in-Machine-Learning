@@ -1,0 +1,141 @@
+{
+  "status": "CPU tested",
+  "cuda_smoke": "not run",
+  "full_training": "not run",
+  "five_hour_target": "unmeasured; no claim",
+  "browser_execution": "Stopped at user request; no Colab code executed",
+  "unit_tests": {
+    "command": "OMP_NUM_THREADS=2 python -m pytest -q tests/test_task2.py",
+    "passed": 29
+  },
+  "official_data": {
+    "status": "PASS",
+    "manifest_sha256": "710480d719f8fe56a98bab91137a3583d749d6b21d8e12adba8b7bbd554a370a",
+    "counts": {
+      "caption_train": 18000,
+      "caption_dev": 96,
+      "presence": 3072,
+      "counting": 3072,
+      "natural_train": 1536,
+      "natural_dev": 32,
+      "natural_test": 96,
+      "ground_dev": 24,
+      "ground_test": 64
+    },
+    "unique_examples": 33874,
+    "sampling_updates": 4500,
+    "example_presentations": 72000,
+    "plan_sha256": "4f8de93d91c8e4de78f8abfa4b290310ec43e081d9c4f1503806321681fd2107",
+    "source_files": {
+      "annotations_trainval2014.zip.json": {
+        "bytes": 252872794,
+        "sha256": "031296bbc80c45a1d1f76bf9a90ead27e94e99ec629208449507a4917a3bf009",
+        "url": "https://s3.amazonaws.com/images.cocodataset.org/annotations/annotations_trainval2014.zip"
+      },
+      "v2_Annotations_Train_mscoco.zip.json": {
+        "bytes": 21708861,
+        "sha256": "fb101bcefe91422c543c2bb6d70af11eb3119d0ff745ae283d09acdf66250853",
+        "url": "https://cvmlp.s3.amazonaws.com/vqa/mscoco/vqa/v2_Annotations_Train_mscoco.zip"
+      },
+      "v2_Annotations_Val_mscoco.zip.json": {
+        "bytes": 10518930,
+        "sha256": "0caae7c8d1dafd852727f5ac046bc1efca9b72026bd6ffa34fc489f3a7b3291e",
+        "url": "https://cvmlp.s3.amazonaws.com/vqa/mscoco/vqa/v2_Annotations_Val_mscoco.zip"
+      },
+      "v2_Complementary_Pairs_Train_mscoco.zip.json": {
+        "bytes": 1643822,
+        "sha256": "95b8142bd2e52bccfd0d9b15c4a9c580ee03745d04ef8481e54bc4ffb8b5c40d",
+        "url": "https://cvmlp.s3.amazonaws.com/vqa/mscoco/vqa/v2_Complementary_Pairs_Train_mscoco.zip"
+      },
+      "v2_Complementary_Pairs_Val_mscoco.zip.json": {
+        "bytes": 772608,
+        "sha256": "4788add4425f17d301fbdbeb42b9ad855122ffc420ad23b5184af21dc3d2e716",
+        "url": "https://cvmlp.s3.amazonaws.com/vqa/mscoco/vqa/v2_Complementary_Pairs_Val_mscoco.zip"
+      },
+      "v2_Questions_Train_mscoco.zip.json": {
+        "bytes": 7239401,
+        "sha256": "05a64b6e2582d06d7585f5429674a9a33851878be1bff9f8668cdcf792df611e",
+        "url": "https://cvmlp.s3.amazonaws.com/vqa/mscoco/vqa/v2_Questions_Train_mscoco.zip"
+      },
+      "v2_Questions_Val_mscoco.zip.json": {
+        "bytes": 3494929,
+        "sha256": "e71f6c5c3e97a51d050f28243e262b28cd0c48d11a6b4632d769d30d3f93222a",
+        "url": "https://cvmlp.s3.amazonaws.com/vqa/mscoco/vqa/v2_Questions_Val_mscoco.zip"
+      }
+    },
+    "download_note": "images.cocodataset.org HTTPS returned 503; official HTTPS S3 bucket endpoint downloaded and validated successfully"
+  },
+  "pretrained_siglip_cpu": {
+    "status": "CPU tested",
+    "pretrained_siglip": true,
+    "image_id": 138904,
+    "image_sha256": "bb24a2ffe9db2c8afce2f95d60ab1a843cd3b94c1624ce7b8fd04f72c9d3f139",
+    "shape": [
+      1,
+      196,
+      768
+    ],
+    "final_layernorm_calls": 1,
+    "deterministic_processor": true,
+    "fp16_cache_roundtrip": true,
+    "seconds": 41.039599895477295,
+    "cuda_tested": false
+  },
+  "pretrained_qwen_cpu": {
+    "status": "CPU tested",
+    "pretrained_qwen": true,
+    "batch_size": 1,
+    "stages": [
+      {
+        "stage": 1,
+        "loss": 8.976062774658203,
+        "trainable": {
+          "connector": 1837056,
+          "lora": 0
+        },
+        "connector_gradient": "finite nonzero"
+      },
+      {
+        "stage": 2,
+        "loss": 8.976062774658203,
+        "trainable": {
+          "connector": 1837056,
+          "lora": 4587520
+        },
+        "connector_gradient": "finite nonzero"
+      },
+      {
+        "stage": 3,
+        "loss": 8.976062774658203,
+        "trainable": {
+          "connector": 1837056,
+          "lora": 4587520
+        },
+        "connector_gradient": "finite nonzero"
+      }
+    ],
+    "correct_image_generation": [
+      "\n\n. \n. . . \n\n. \n\n\n to"
+    ],
+    "no_image_generation": [
+      "The image depicts a serene and peaceful scene in a natural setting. It features a"
+    ],
+    "seconds": 73.45000290870667,
+    "cuda_tested": false,
+    "scientific_results": false
+  },
+  "environment": {
+    "python": "3.12.14",
+    "ram_available_bytes": 5703196672,
+    "disk_free_bytes": 62401626112,
+    "versions": {
+      "torch": "2.6.0+cpu",
+      "transformers": "4.57.1",
+      "peft": "0.17.1",
+      "accelerate": "1.11.0",
+      "numpy": "2.3.5"
+    },
+    "cuda_available": false,
+    "gpu_smoke_status": "not run"
+  }
+}
