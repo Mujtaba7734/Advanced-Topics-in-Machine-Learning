@@ -1,0 +1,37 @@
+{
+  "README.MD": {
+    "bytes": 4413,
+    "sha256": "737f834ff66a031e226149066d97b7c38919f5c2f196906a5de037a42ac87241",
+    "source": "1RARGiUK_jZpOii-b8kyGLoejaldMUAa3"
+  },
+  "math/generations.parquet": {
+    "bytes": 26932880,
+    "sha256": "ffdecd753a2c0183b811d5679f3cf15e91bce46d1aacb196e28afb553d7e1c84",
+    "source": "1SaWxZ4mpycw2BWZ5G0dahoYZ6Hh8tPWP"
+  },
+  "math/probability_metrics.parquet": {
+    "bytes": 155221097,
+    "sha256": "48a492cd2c93bebfbd12b0b9df6a5783b611103e7a3cfefe010573ff6e200379",
+    "source": "1RCYHrTnUKtF7gHLSTe92x6W9ZsCOekfQ"
+  },
+  "mathvista/attention_metrics.parquet": {
+    "bytes": 138497144,
+    "sha256": "4f6cfce99519808c75f950e53c957795697d8b503a7fd407fcfdd260f06d0058",
+    "source": "1Nzg2VwE2qFzA10BF1lTxEcBZCePBe51q"
+  },
+  "mathvista/generations.parquet": {
+    "bytes": 17098339,
+    "sha256": "dac12a7dc14baaa44e6c3ed8f8dfcf9d39b8493462c8a60ea162d0a66dda5435",
+    "source": "1sedMpWLI_UgPvAQVj7tS3HYVH0ARS1yA"
+  },
+  "mathvista/probability_metrics.parquet": {
+    "bytes": 81118521,
+    "sha256": "c1c7a9b9724aa4930673c1bb5759d2d82bacc57f4a530a83f533e9d2d43102ac",
+    "source": "1f2XAu_J5NviYHEhtkRrFbKc7b2us1WiW"
+  },
+  "mathvista/testmini.json": {
+    "bytes": 871725,
+    "sha256": "ab0148dca9d401c31cc47f29b3826eec28a76ff155a1c0878d81e8daf0413480",
+    "source": "https://raw.githubusercontent.com/lupantech/MathVista/main/data/testmini.json"
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "audit_peak_rss_kib": 222216,
+  "automatic_download_and_cache": {
+    "bytes": 419744119,
+    "checksums_match": true,
+    "files": 7,
+    "first_download_seconds": 123.0899554130001,
+    "real_download": true,
+    "verified_reuse_seconds": 0.7701249070000813
+  },
+  "cuda_available": false,
+  "cuda_smoke_tested": false,
+  "full_colab_run_completed": false,
+  "full_offline_experiment_completed": false,
+  "live_strategy_recovery_test": "Synthetic generator in unit tests only; no CUDA claim",
+  "normalization_source": {
+    "sha256": "abcd0ff68ec3ed76c3f343be4d01d0f4b88238b660a64e6b998b5f15e3ef56d1",
+    "url": "https://raw.githubusercontent.com/lupantech/MathVista/main/evaluation/calculate_score.py"
+  },
+  "notebook_checks": [
+    "nbformat v4",
+    "all Python cells parse",
+    "clean outputs",
+    "sequential mount/setup/test/run/verify cells",
+    "incomplete completion message tested",
+    "false completion rejected"
+  ],
+  "official_full_alignment_audit": {
+    "math": {
+      "capped_rollouts": 523,
+      "elapsed_s": 45.043193249999945,
+      "null_answers": 521,
+      "questions": 1000,
+      "retained_tokens": 20742094,
+      "rows": 32000,
+      "sha256": {
+        "generations": "ffdecd753a2c0183b811d5679f3cf15e91bce46d1aacb196e28afb553d7e1c84",
+        "probability_metrics": "48a492cd2c93bebfbd12b0b9df6a5783b611103e7a3cfefe010573ff6e200379"
+      }
+    },
+    "mathvista": {
+      "capped_rollouts": 487,
+      "elapsed_s": 42.81531879400006,
+      "null_answers": 3032,
+      "questions": 1000,
+      "retained_tokens": 8961703,
+      "rows": 32000,
+      "sha256": {
+        "attention_metrics": "4f6cfce99519808c75f950e53c957795697d8b503a7fd407fcfdd260f06d0058",
+        "generations": "dac12a7dc14baaa44e6c3ed8f8dfcf9d39b8493462c8a60ea162d0a66dda5435",
+        "probability_metrics": "c1c7a9b9724aa4930673c1bb5759d2d82bacc57f4a530a83f533e9d2d43102ac"
+      }
+    }
+  },
+  "official_small_sample_integration": {
+    "cuda_tested": false,
+    "elapsed_s": 20.105472602999953,
+    "full_experiment": false,
+    "official_data": true,
+    "peak_rss_kib": 346768,
+    "results": {
+      "math": {
+        "adaptive_records": 60,
+        "dev_questions": 2,
+        "evaluation_questions": 3,
+        "exports": 24,
+        "fixed_selection_records": 1260,
+        "ids": {
+          "dev": [
+            "test:4388",
+            "test:1139"
+          ],
+          "evaluation": [
+            "test:943",
+            "test:2688",
+            "test:3504"
+          ]
+        },
+        "question_resume_verified": true,
+        "rollouts_checked": 160
+      },
+      "mathvista": {
+        "adaptive_records": 60,
+        "dev_questions": 2,
+        "evaluation_questions": 3,
+        "exports": 29,
+        "fixed_selection_records": 2340,
+        "ids": {
+          "dev": [
+            "782",
+            "119"
+          ],
+          "evaluation": [
+            "99",
+            "425",
+            "601"
+          ]
+        },
+        "question_resume_verified": true,
+        "rollouts_checked": 160
+      }
+    },
+    "source_sha256": {
+      "__init__.py": "75ef75028ec82e79cdef2b190de5eeead4aa8c0c0350425ce0ee8cc3ca126990",
+      "audit.py": "14f271529651ae65210c6dd96e4baa659bc2c8f22854f77c63966ce0e35a3b32",
+      "bootstrap.py": "fb41748c9b496d67c363d6634642278e2a29883ebc5197cc92c621073e8ff6e4",
+      "build_notebook.py": "5b3c21b8dfc2137d294d4bd614c546d8375c640f58708564731c9695bf0061b9",
+      "core.py": "204812f088a08cec4c70509778e3172ccd719aaf331829847e12aeb18f60ab54",
+      "data.py": "8e739a92fbd12c700d95b5809547c5937dfc37ae2c5e004d8914f2f6a919f2cb",
+      "export.py": "6ebd887e1e2c4c19a8c2142a7ba1191a86e7bde8c2719d0453e63acb733b1849",
+      "integration.py": "6a61363a79295104175f9208c7fc6a3ef52dfbba4f08bea375d9289a69c56c4b",
+      "live.py": "fe21c70a9f066aed08e062e6031b18fc282a6896640d0f2cdfad958e2b45e3bb",
+      "offline.py": "a0c2faea5e765824dca08b36df43b7d7ee7d1fd671c3dda678a0092b14297acd",
+      "protocol.py": "4192c45a618e8494e456bef409c027163cdc71a0a702b44aac67bd2fefa316c5",
+      "run.py": "8ef1283848a75834a53e3acfcf4d56b6bd87dc584e46164dbda63fa81e341126",
+      "scoring.py": "60073b755b4ccc9bf6d4b49be6b52eeea0c01b5ebc1d2fa387667facee1253a7",
+      "storage.py": "56ca877e121e85662ad5932b9b6fbbe66e3c902549b39e2e0765fdb8c2cfcb1f"
+    },
+    "state": "CPU tested"
+  },
+  "python": "3.12.14",
+  "real_drive_fuse_disconnect_tested": false,
+  "remaining": [
+    "Actual T4 model load, FP16 maximum-length smoke and generation",
+    "Full 200-dev/800-evaluation analysis for each dataset",
+    "All 50 live questions / 250 actual generation calls",
+    "Real Colab Drive mount, cross-session recovery, end-to-end wall time"
+  ],
+  "state": "CPU tested",
+  "task2_base_commit": "4e64fecd7409c3e87e024566a4187b6f524b0f29",
+  "unit_tests": {
+    "command": "PYTHONPATH=Assignment-3 python -m pytest -q Assignment-3/tests/test_task3.py",
+    "failed": 0,
+    "passed": 26,
+    "versions": {
+      "antlr4-python3-runtime": "4.13.2",
+      "latex2sympy2_extended": "1.10.2",
+      "math-verify": "0.8.0",
+      "matplotlib": "3.10.3",
+      "nbformat": "5.10.4",
+      "numpy": "2.2.6",
+      "pandas": "2.2.3",
+      "pyarrow": "19.0.1",
+      "pytest": "8.3.5",
+      "scipy": "1.15.3"
+    }
+  }
+}
