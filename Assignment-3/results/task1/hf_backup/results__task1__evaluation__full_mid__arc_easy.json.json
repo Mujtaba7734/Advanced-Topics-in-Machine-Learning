@@ -1,0 +1,10 @@
+{
+  "bytes": 6130787,
+  "relative_path": "results/task1/evaluation/full_mid/arc_easy.json",
+  "remote_sha256": null,
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "c18fcf96109934e53518047524cf06e91087b6233553c65d6bf132ad5b348219",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "remote_size_and_commit",
+  "verified_utc": 1794520339.6255195
+}

@@ -1,0 +1,10 @@
+{
+  "bytes": 502508,
+  "relative_path": "outputs/task1/full/train.jsonl",
+  "remote_sha256": null,
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "efaf2fcfea5adef3b2928b67d71f24175f7d19b5b8028da0f27dba143c76329f",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "remote_size_and_commit",
+  "verified_utc": 1794520314.4178154
+}

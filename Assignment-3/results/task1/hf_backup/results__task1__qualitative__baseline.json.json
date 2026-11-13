@@ -1,0 +1,10 @@
+{
+  "bytes": 26896,
+  "relative_path": "results/task1/qualitative/baseline.json",
+  "remote_sha256": null,
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "ab73077b08baf281e8223a20c45ccae09abb50b8a4cb8bb3e697c33779969615",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "remote_size_and_commit",
+  "verified_utc": 1794520361.5113447
+}

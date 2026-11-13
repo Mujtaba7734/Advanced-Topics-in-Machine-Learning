@@ -1,0 +1,10 @@
+{
+  "bytes": 30760710,
+  "relative_path": "outputs/task1/lora4/recovery_0937.pt",
+  "remote_sha256": "37fa65f6f4bf84f77bd523430e4be0533a32125fd26143fcbce2716b5d718604",
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "37fa65f6f4bf84f77bd523430e4be0533a32125fd26143fcbce2716b5d718604",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "sha256_and_size",
+  "verified_utc": 1794454788.7130964
+}

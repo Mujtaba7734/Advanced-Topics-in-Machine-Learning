@@ -1,0 +1,10 @@
+{
+  "bytes": 3006631603,
+  "relative_path": "outputs/task1/full/inference_0625.pt",
+  "remote_sha256": "923d89ba4dc6d48be44bb5618b2f6c3abb9203e904b153adac78cb745e0014dc",
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "923d89ba4dc6d48be44bb5618b2f6c3abb9203e904b153adac78cb745e0014dc",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "sha256_and_size",
+  "verified_utc": 1794508791.8965225
+}

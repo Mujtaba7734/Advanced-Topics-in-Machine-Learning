@@ -1,0 +1,10 @@
+{
+  "bytes": 104,
+  "relative_path": "outputs/task1/oplora16/model_metadata.json",
+  "remote_sha256": null,
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "5f67d0428d310b6a08a83d3d599459d5ac8cf1fd7a14f659c6a9438170809115",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "remote_size_and_commit",
+  "verified_utc": 1794520324.577966
+}

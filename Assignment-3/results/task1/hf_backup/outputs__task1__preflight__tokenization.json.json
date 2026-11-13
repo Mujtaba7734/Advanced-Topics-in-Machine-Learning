@@ -1,0 +1,10 @@
+{
+  "bytes": 2008,
+  "relative_path": "outputs/task1/preflight/tokenization.json",
+  "remote_sha256": null,
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "8a23b14c5c85eb3cefaf7611c74abb4f4b41e279afde8acfe866fee7d7cbc095",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "remote_size_and_commit",
+  "verified_utc": 1794520327.1092067
+}

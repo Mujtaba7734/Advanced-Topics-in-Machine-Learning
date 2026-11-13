@@ -1,0 +1,10 @@
+{
+  "bytes": 2362344,
+  "relative_path": "outputs/task1/data/baseline_activations.pt",
+  "remote_sha256": "0a453c9937d04b8a20b64c9ba9dcc7eeedc12d0b77762dee9841220f4c02bced",
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "0a453c9937d04b8a20b64c9ba9dcc7eeedc12d0b77762dee9841220f4c02bced",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "sha256_and_size",
+  "verified_utc": 1794520374.9566548
+}

@@ -1,0 +1,10 @@
+{
+  "bytes": 938512,
+  "relative_path": "outputs/task1/data/manifest.json",
+  "remote_sha256": null,
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "c9ee452cc4ed4f1b43bc2e2523a1547ddb324b2688b9546640755e0d7d15b260",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "remote_size_and_commit",
+  "verified_utc": 1794520309.7224944
+}

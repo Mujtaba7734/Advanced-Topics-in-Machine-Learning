@@ -1,0 +1,10 @@
+{
+  "bytes": 32532,
+  "relative_path": "results/task1/qualitative/annotation_template.csv",
+  "remote_sha256": null,
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "bb4d921107ee5f405440c7a89e0177f4be9d4189f2ad0112f49a4b1db4ae89da",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "remote_size_and_commit",
+  "verified_utc": 1794520360.6556077
+}

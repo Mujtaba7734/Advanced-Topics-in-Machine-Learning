@@ -1,0 +1,10 @@
+{
+  "bytes": 31930,
+  "relative_path": "results/task1/qualitative/lora16_final.json",
+  "remote_sha256": null,
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "f76f8eca0bcb8c2056a433c3531ae0b89806d3f5f8a98e38f206091e27c8889f",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "remote_size_and_commit",
+  "verified_utc": 1794520364.9145153
+}

@@ -1,0 +1,10 @@
+{
+  "bytes": 6131226,
+  "relative_path": "results/task1/evaluation/oplora16_final/arc_easy.json",
+  "remote_sha256": null,
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "a4f29ea6ced1375e36208108f8714c70410cedb0b101e4eea9c553bbd1c4077c",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "remote_size_and_commit",
+  "verified_utc": 1794520355.1436071
+}

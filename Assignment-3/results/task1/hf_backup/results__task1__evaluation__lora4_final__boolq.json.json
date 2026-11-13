@@ -1,0 +1,10 @@
+{
+  "bytes": 9960303,
+  "relative_path": "results/task1/evaluation/lora4_final/boolq.json",
+  "remote_sha256": null,
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "045504cd6780f6ac3cf314635860a99654ae8c15e4404d2ce198bfdb7887842d",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "remote_size_and_commit",
+  "verified_utc": 1794520352.202175
+}

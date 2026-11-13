@@ -1,0 +1,10 @@
+{
+  "bytes": 326,
+  "relative_path": "results/task1/qualitative/prompts_manifest.json",
+  "remote_sha256": null,
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "2692a7e9c068948128ee1f64a198bb3d15c1a32f6fe13c3e23f4e39524d80490",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "remote_size_and_commit",
+  "verified_utc": 1794520367.5635846
+}

@@ -1,0 +1,10 @@
+{
+  "bytes": 910,
+  "relative_path": "results/task1/evaluation/full_mid/aggregate.json",
+  "remote_sha256": null,
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "b0e8b03261b429e79a5fc5ba2b69fc59a9c3c4ed552cd86986f5a90b84b83c05",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "remote_size_and_commit",
+  "verified_utc": 1794520338.7485368
+}

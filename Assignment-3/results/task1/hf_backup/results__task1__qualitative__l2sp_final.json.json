@@ -1,0 +1,10 @@
+{
+  "bytes": 34896,
+  "relative_path": "results/task1/qualitative/l2sp_final.json",
+  "remote_sha256": null,
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "931bfc52c19ff7e9cf116db5783cc955c9515007b8b8f432ac93bcf97e68afec",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "remote_size_and_commit",
+  "verified_utc": 1794520364.070713
+}

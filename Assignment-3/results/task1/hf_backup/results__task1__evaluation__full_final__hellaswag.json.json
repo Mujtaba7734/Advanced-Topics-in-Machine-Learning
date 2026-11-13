@@ -1,0 +1,10 @@
+{
+  "bytes": 51464893,
+  "relative_path": "results/task1/evaluation/full_final/hellaswag.json",
+  "remote_sha256": "6d6255f9c14dba65f40e6f3a67fc945918105f3c014fd53b1587631eef6697ac",
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "6d6255f9c14dba65f40e6f3a67fc945918105f3c014fd53b1587631eef6697ac",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "sha256_and_size",
+  "verified_utc": 1794520337.912035
+}

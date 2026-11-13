@@ -1,0 +1,10 @@
+{
+  "bytes": 7775325254,
+  "relative_path": "outputs/task1/l2sp/recovery_0312.pt",
+  "remote_sha256": "b44a9d9e796fc4f3a26acaef03607ec15472a96d5a5f84d429c247fce8dd6a67",
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "b44a9d9e796fc4f3a26acaef03607ec15472a96d5a5f84d429c247fce8dd6a67",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "sha256_and_size",
+  "verified_utc": 1794440421.048947
+}

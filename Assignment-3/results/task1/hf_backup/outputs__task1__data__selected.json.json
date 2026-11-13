@@ -1,0 +1,10 @@
+{
+  "bytes": 88926472,
+  "relative_path": "outputs/task1/data/selected.json",
+  "remote_sha256": "cbc8ee075e89c854f215d85482cbbdc66cd18baf03f805dd74a1d334c571557f",
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "cbc8ee075e89c854f215d85482cbbdc66cd18baf03f805dd74a1d334c571557f",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "sha256_and_size",
+  "verified_utc": 1794520311.8883953
+}

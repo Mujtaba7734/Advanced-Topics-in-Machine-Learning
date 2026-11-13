@@ -1,0 +1,10 @@
+{
+  "bytes": 9172,
+  "relative_path": "outputs/task1/stage_state.json",
+  "remote_sha256": null,
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "b934a753cba2df10cb364438766aef8501bc2222c37bb4303044179c9c5234e8",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "remote_size_and_commit",
+  "verified_utc": 1794520328.313914
+}

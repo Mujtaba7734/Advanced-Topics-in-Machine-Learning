@@ -1,0 +1,10 @@
+{
+  "bytes": 1224,
+  "relative_path": "results/task1/summary/benchmarks_wide.csv",
+  "remote_sha256": null,
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "0723e3c6d7acd5aa71598a9559606d537c076b973a12614c39860fc57c4460d6",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "remote_size_and_commit",
+  "verified_utc": 1794520371.3017268
+}

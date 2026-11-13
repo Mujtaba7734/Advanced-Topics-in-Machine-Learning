@@ -1,0 +1,2294 @@
+
+=== RUN STARTED 2026-11-10T18:56:51+00:00 ===
+[SETUP] Verified assignment source: /kaggle/working/atml-repo-d627534c9f6b8fd7/Assignment-3
+[PASS] Environment  -  {"python": "3.13.16", "interpreter": "/usr/bin/python3", "kaggle": true, "gpus": ["0, Tesla T4, 15360, 14909", "1, Tesla T4, 15360, 14909"], "ram_gib": 31.35, "disk_free_gib": 17.36, "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40"}
+[RUNNING] Dependencies  -  installing torch==2.6.0, transformers==4.57.1, datasets==4.4.1, peft==0.17.1, accelerate==1.11.0, lm-eval==0.4.13, pandas==2.2.3, matplotlib==3.9.2, scipy==1.14.1, PyYAML==6.0.2, pytest==8.3.4, nbformat==5.10.4
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+bigframes 2.51.0 requires google-cloud-bigquery-storage<3.0.0,>=2.30.0, which is not installed.
+kaggle-environments 1.33.3 requires PyYAML>=6.0.3, but you have pyyaml 6.0.2 which is incompatible.
+pathos 0.3.5 requires dill>=0.4.1, but you have dill 0.4.0 which is incompatible.
+pathos 0.3.5 requires multiprocess>=0.70.19, but you have multiprocess 0.70.18 which is incompatible.
+s3fs 2025.12.0 requires fsspec==2025.12.0, but you have fsspec 2025.10.0 which is incompatible.
+nilearn 0.14.1 requires pandas>=2.3.0, but you have pandas 2.2.3 which is incompatible.
+ydata-profiling 4.18.4 requires PyYAML<6.1,>=6.0.3, but you have pyyaml 6.0.2 which is incompatible.
+google-colab 1.0.0 requires jupyter-server==2.20.0, but you have jupyter-server 2.12.5 which is incompatible.
+google-colab 1.0.0 requires requests==2.32.4, but you have requests 2.34.2 which is incompatible.
+dopamine-rl 4.1.2 requires gym<=0.25.2, but you have gym 0.26.2 which is incompatible.
+jax 0.11.1 requires scipy>=1.15, but you have scipy 1.14.1 which is incompatible.
+gcsfs 2025.12.0 requires fsspec==2025.12.0, but you have fsspec 2025.10.0 which is incompatible.
+torchvision 0.26.0+cu130 requires torch==2.11.0, but you have torch 2.6.0 which is incompatible.
+gradio-client 2.7.2 requires huggingface-hub<3.0,>=1.16.0, but you have huggingface-hub 0.36.2 which is incompatible.
+gradio 6.30.0 requires huggingface-hub<3.0,>=1.16.0, but you have huggingface-hub 0.36.2 which is incompatible.
+gradio 6.30.0 requires pillow<13.0,>=8.0, but you have pillow 13.0.0 which is incompatible.
+diffusers 0.42.0 requires huggingface-hub<3.0,>=1.32.0, but you have huggingface-hub 0.36.2 which is incompatible.
+[RUNNING] Dependencies  -  removing broken optional TorchVision
+[PASS] Dependencies  -  clean subprocess imports and pinned versions
+[RESTORE] Scanning /kaggle/input/atml-pa3-baseline-v2 (full recovery update 0)
+[RESTORE] 1 compatible mounts, 0 restored files, 0 large read-only links
+
+[NEXT] dataset: evaluation request batch 32 (maximum 32)
+
+======== DATASET ========
+DATASET: VERIFIED  -  SKIPPING PREPARATION
+
+[NEXT] preflight: evaluation request batch 32 (maximum 32)
+[PASS] All four baseline fingerprints, metrics and sample records verified
+
+======== PREFLIGHT ========
+[SKIPPED] GPU preflight  -  matching pass report, data, code, and hardware
+
+[NEXT] baseline: evaluation request batch 32 (maximum 32)
+
+======== BASELINE ========
+[SKIPPED] Baseline  -  four verified full-split results
+
+[NEXT] train_full: evaluation request batch 32 (maximum 32)
+
+======== TRAIN_FULL ========
+[BLOCKED] train_full  -  full has outputs but no recovery checkpoint
+[SAFE STOP] full has outputs but no recovery checkpoint
+
+[STOPPED SAFELY] train_full needs attention; see the reason above. No notebook cell editing is needed: save the notebook outputs and attach the latest version for another Run All.
+
+=== RUN STARTED 2026-11-10T20:39:50+00:00 ===
+[SETUP] Verified assignment source: /kaggle/working/atml-repo-d627534c9f6b8fd7/Assignment-3
+[PASS] Environment  -  {"python": "3.13.16", "interpreter": "/usr/bin/python3", "kaggle": true, "gpus": ["0, Tesla T4, 15360, 14909", "1, Tesla T4, 15360, 14909"], "ram_gib": 31.35, "disk_free_gib": 17.36, "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40"}
+[RUNNING] Dependencies  -  installing torch==2.6.0, transformers==4.57.1, datasets==4.4.1, peft==0.17.1, accelerate==1.11.0, lm-eval==0.4.13, pandas==2.2.3, matplotlib==3.9.2, scipy==1.14.1, PyYAML==6.0.2, pytest==8.3.4, nbformat==5.10.4
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+bigframes 2.51.0 requires google-cloud-bigquery-storage<3.0.0,>=2.30.0, which is not installed.
+kaggle-environments 1.33.3 requires PyYAML>=6.0.3, but you have pyyaml 6.0.2 which is incompatible.
+pathos 0.3.5 requires dill>=0.4.1, but you have dill 0.4.0 which is incompatible.
+pathos 0.3.5 requires multiprocess>=0.70.19, but you have multiprocess 0.70.18 which is incompatible.
+s3fs 2025.12.0 requires fsspec==2025.12.0, but you have fsspec 2025.10.0 which is incompatible.
+nilearn 0.14.1 requires pandas>=2.3.0, but you have pandas 2.2.3 which is incompatible.
+ydata-profiling 4.18.4 requires PyYAML<6.1,>=6.0.3, but you have pyyaml 6.0.2 which is incompatible.
+google-colab 1.0.0 requires jupyter-server==2.20.0, but you have jupyter-server 2.12.5 which is incompatible.
+google-colab 1.0.0 requires requests==2.32.4, but you have requests 2.34.2 which is incompatible.
+dopamine-rl 4.1.2 requires gym<=0.25.2, but you have gym 0.26.2 which is incompatible.
+jax 0.11.1 requires scipy>=1.15, but you have scipy 1.14.1 which is incompatible.
+gcsfs 2025.12.0 requires fsspec==2025.12.0, but you have fsspec 2025.10.0 which is incompatible.
+torchvision 0.26.0+cu130 requires torch==2.11.0, but you have torch 2.6.0 which is incompatible.
+gradio-client 2.7.2 requires huggingface-hub<3.0,>=1.16.0, but you have huggingface-hub 0.36.2 which is incompatible.
+gradio 6.30.0 requires huggingface-hub<3.0,>=1.16.0, but you have huggingface-hub 0.36.2 which is incompatible.
+gradio 6.30.0 requires pillow<13.0,>=8.0, but you have pillow 13.0.0 which is incompatible.
+diffusers 0.42.0 requires huggingface-hub<3.0,>=1.32.0, but you have huggingface-hub 0.36.2 which is incompatible.
+[RUNNING] Dependencies  -  removing broken optional TorchVision
+[PASS] Dependencies  -  clean subprocess imports and pinned versions
+[RESTORE] Scanning /kaggle/input/atml-pa3-baseline-v2 (full recovery update 0)
+[RESTORE] 1 compatible mounts, 0 restored files, 0 large read-only links
+
+[NEXT] dataset: evaluation request batch 32 (maximum 32)
+
+======== DATASET ========
+DATASET: VERIFIED  -  SKIPPING PREPARATION
+
+[NEXT] preflight: evaluation request batch 32 (maximum 32)
+[PASS] All four baseline fingerprints, metrics and sample records verified
+
+======== PREFLIGHT ========
+[SKIPPED] GPU preflight  -  matching pass report, data, code, and hardware
+
+[NEXT] baseline: evaluation request batch 32 (maximum 32)
+
+======== BASELINE ========
+[SKIPPED] Baseline  -  four verified full-split results
+
+[NEXT] train_full: evaluation request batch 32 (maximum 32)
+
+======== TRAIN_FULL ========
+[AUTO] full: update 0 -> 312 / 1250
+full: 10/1250, examples=320, loss=0.3485, peak=6.23 GiB
+full: 20/1250, examples=640, loss=0.3079, peak=6.18 GiB
+full: 30/1250, examples=960, loss=0.2640, peak=6.26 GiB
+full: 40/1250, examples=1280, loss=0.2811, peak=6.31 GiB
+full: 50/1250, examples=1600, loss=0.2430, peak=6.41 GiB
+full: 60/1250, examples=1920, loss=0.2605, peak=6.19 GiB
+full: 70/1250, examples=2240, loss=0.2775, peak=6.46 GiB
+full: 80/1250, examples=2560, loss=0.2573, peak=6.12 GiB
+full: 90/1250, examples=2880, loss=0.2476, peak=6.12 GiB
+full: 100/1250, examples=3200, loss=0.2602, peak=6.64 GiB
+full: 110/1250, examples=3520, loss=0.2635, peak=6.13 GiB
+full: 120/1250, examples=3840, loss=0.2372, peak=6.11 GiB
+full: 130/1250, examples=4160, loss=0.2411, peak=6.21 GiB
+full: 140/1250, examples=4480, loss=0.2445, peak=6.03 GiB
+full: 150/1250, examples=4800, loss=0.2419, peak=6.22 GiB
+full: 160/1250, examples=5120, loss=0.2347, peak=6.19 GiB
+full: 170/1250, examples=5440, loss=0.2776, peak=6.31 GiB
+full: 180/1250, examples=5760, loss=0.2631, peak=6.23 GiB
+full: 190/1250, examples=6080, loss=0.2336, peak=6.10 GiB
+full: 200/1250, examples=6400, loss=0.2178, peak=6.13 GiB
+full: 210/1250, examples=6720, loss=0.2617, peak=6.22 GiB
+full: 220/1250, examples=7040, loss=0.2530, peak=6.17 GiB
+full: 230/1250, examples=7360, loss=0.2015, peak=6.11 GiB
+full: 240/1250, examples=7680, loss=0.2728, peak=6.39 GiB
+full: 250/1250, examples=8000, loss=0.2587, peak=6.05 GiB
+full: 260/1250, examples=8320, loss=0.2014, peak=6.14 GiB
+full: 270/1250, examples=8640, loss=0.2376, peak=6.10 GiB
+full: 280/1250, examples=8960, loss=0.2047, peak=6.38 GiB
+full: 290/1250, examples=9280, loss=0.2884, peak=6.05 GiB
+full: 300/1250, examples=9600, loss=0.2247, peak=6.09 GiB
+full: 310/1250, examples=9920, loss=0.2537, peak=6.20 GiB
+full: 312/1250, examples=9984, loss=0.1579, peak=6.23 GiB
+[AUTO] full: verified checkpoint 312, moved to next stage automatically.
+[BLOCKED] train_full  -  Disk is insufficient for the next safe checkpoint full:625. Free 10.1 GiB; estimate 13.1 GiB. Save Kaggle output version, attach it as input, and click Run All again.
+[SAFE STOP] Disk is insufficient for the next safe checkpoint full:625. Free 10.1 GiB; estimate 13.1 GiB. Save Kaggle output version, attach it as input, and click Run All again.
+
+[STOPPED SAFELY] train_full needs attention; see the reason above. No notebook cell editing is needed: save the notebook outputs and attach the latest version for another Run All.
+
+=== RUN STARTED 2026-11-11T20:17:18+00:00 ===
+[SETUP] Verified assignment source: /kaggle/working/atml-repo-d627534c9f6b8fd7/Assignment-3
+[PASS] Environment  -  {"python": "3.13.16", "interpreter": "/usr/bin/python3", "kaggle": true, "gpus": ["0, Tesla T4, 15360, 14912", "1, Tesla T4, 15360, 14912"], "ram_gib": 31.35, "disk_free_gib": 10.12, "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40"}
+[RUNNING] Dependencies  -  installing torch==2.6.0, transformers==4.57.1, datasets==4.4.1, peft==0.17.1, accelerate==1.11.0, lm-eval==0.4.13, pandas==2.2.3, matplotlib==3.9.2, scipy==1.14.1, PyYAML==6.0.2, pytest==8.3.4, nbformat==5.10.4
+
+=== RUN STARTED 2026-11-11T20:19:08+00:00 ===
+[SETUP] Verified assignment source: /kaggle/working/atml-repo-d627534c9f6b8fd7/Assignment-3
+[PASS] Environment  -  {"python": "3.13.16", "interpreter": "/usr/bin/python3", "kaggle": true, "gpus": ["0, Tesla T4, 15360, 14909", "1, Tesla T4, 15360, 14909"], "ram_gib": 31.35, "disk_free_gib": 10.12, "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40"}
+[RUNNING] Dependencies  -  installing torch==2.6.0, transformers==4.57.1, datasets==4.4.1, peft==0.17.1, accelerate==1.11.0, lm-eval==0.4.13, pandas==2.2.3, matplotlib==3.9.2, scipy==1.14.1, PyYAML==6.0.2, pytest==8.3.4, nbformat==5.10.4
+
+=== RUN STARTED 2026-11-11T20:21:15+00:00 ===
+[SETUP] Verified assignment source: /kaggle/working/atml-repo-d627534c9f6b8fd7/Assignment-3
+[PASS] Environment  -  {"python": "3.13.16", "interpreter": "/usr/bin/python3", "kaggle": true, "gpus": ["0, Tesla T4, 15360, 14909", "1, Tesla T4, 15360, 14909"], "ram_gib": 31.35, "disk_free_gib": 10.12, "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40"}
+[RUNNING] Dependencies  -  installing torch==2.6.0, transformers==4.57.1, datasets==4.4.1, peft==0.17.1, accelerate==1.11.0, lm-eval==0.4.13, pandas==2.2.3, matplotlib==3.9.2, nbformat==5.10.4
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+bigframes 2.51.0 requires google-cloud-bigquery-storage<3.0.0,>=2.30.0, which is not installed.
+kaggle-environments 1.33.3 requires PyYAML>=6.0.3, but you have pyyaml 6.0.2 which is incompatible.
+pathos 0.3.5 requires dill>=0.4.1, but you have dill 0.4.0 which is incompatible.
+pathos 0.3.5 requires multiprocess>=0.70.19, but you have multiprocess 0.70.18 which is incompatible.
+s3fs 2025.12.0 requires fsspec==2025.12.0, but you have fsspec 2025.10.0 which is incompatible.
+nilearn 0.14.1 requires pandas>=2.3.0, but you have pandas 2.2.3 which is incompatible.
+ydata-profiling 4.18.4 requires PyYAML<6.1,>=6.0.3, but you have pyyaml 6.0.2 which is incompatible.
+google-colab 1.0.0 requires jupyter-server==2.20.0, but you have jupyter-server 2.12.5 which is incompatible.
+google-colab 1.0.0 requires requests==2.32.4, but you have requests 2.34.2 which is incompatible.
+dopamine-rl 4.1.2 requires gym<=0.25.2, but you have gym 0.26.2 which is incompatible.
+gcsfs 2025.12.0 requires fsspec==2025.12.0, but you have fsspec 2025.10.0 which is incompatible.
+torchvision 0.26.0+cu130 requires torch==2.11.0, but you have torch 2.6.0 which is incompatible.
+gradio-client 2.7.2 requires huggingface-hub<3.0,>=1.16.0, but you have huggingface-hub 0.36.2 which is incompatible.
+gradio 6.30.0 requires huggingface-hub<3.0,>=1.16.0, but you have huggingface-hub 0.36.2 which is incompatible.
+gradio 6.30.0 requires pillow<13.0,>=8.0, but you have pillow 13.0.0 which is incompatible.
+diffusers 0.42.0 requires huggingface-hub<3.0,>=1.32.0, but you have huggingface-hub 0.36.2 which is incompatible.
+[RUNNING] Dependencies  -  removing broken optional TorchVision
+[PASS] Dependencies  -  clean subprocess imports and pinned versions
+[RESTORE] Scanning /kaggle/input/atml-pa3-baseline-v2 (full recovery update 0)
+[RESTORE] 1 compatible mounts, 0 restored files, 0 large read-only links
+[HF RESTORE] Local checkpoint and existing baseline results preserved
+
+[NEXT] dataset: evaluation request batch 32 (maximum 32)
+
+======== DATASET ========
+DATASET: VERIFIED  -  SKIPPING PREPARATION
+[HF UPLOAD] outputs/task1/data/manifest.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/data/manifest.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/data/preflight_pass.json 0.00 GiB
+[HF VERIFIED] outputs/task1/data/preflight_pass.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/data/probe_ids.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/data/probe_ids.json (remote_size_and_commit)
+[HF VERIFIED] outputs/task1/data/selected.json (sha256_and_size)
+[HF UPLOAD] outputs/task1/full/config.json 0.00 GiB
+[HF VERIFIED] outputs/task1/full/config.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/full/model_metadata.json 0.00 GiB
+[HF VERIFIED] outputs/task1/full/model_metadata.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/full/train.jsonl 0.00 GiB
+[HF VERIFIED] outputs/task1/full/train.jsonl (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/preflight/report.json 0.00 GiB
+[HF VERIFIED] outputs/task1/preflight/report.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/preflight/tokenization.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/preflight/tokenization.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/stage_state.json 0.00 GiB
+[HF VERIFIED] outputs/task1/stage_state.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/aggregate.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/aggregate.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/arc_easy.json 0.01 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/arc_easy.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/boolq.json 0.01 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/boolq.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/gsm8k_cot.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/gsm8k_cot.json (remote_size_and_commit)
+[HF VERIFIED] results/task1/evaluation/baseline/hellaswag.json (sha256_and_size)
+[HF UPLOAD] results/task1/monitor/heartbeat.jsonl 0.00 GiB
+[HF VERIFIED] results/task1/monitor/heartbeat.jsonl (remote_size_and_commit)
+[HF UPLOAD] results/task1/monitor/stage_history.jsonl 0.00 GiB
+[HF VERIFIED] results/task1/monitor/stage_history.jsonl (remote_size_and_commit)
+[HF STAGE BACKUP] dataset
+
+[NEXT] preflight: evaluation request batch 32 (maximum 32)
+[PASS] All four baseline fingerprints, metrics and sample records verified
+
+======== PREFLIGHT ========
+[SKIPPED] GPU preflight  -  matching pass report, data, code, and hardware
+[HF UPLOAD] outputs/task1/data/manifest.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/data/manifest.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/data/preflight_pass.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/data/preflight_pass.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/data/probe_ids.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/data/probe_ids.json (remote_size_and_commit)
+[HF VERIFIED] outputs/task1/data/selected.json (sha256_and_size)
+[HF UPLOAD] outputs/task1/full/config.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/full/config.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/full/model_metadata.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/full/model_metadata.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/full/train.jsonl 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/full/train.jsonl (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/preflight/report.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/preflight/report.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/preflight/tokenization.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/preflight/tokenization.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/stage_state.json 0.00 GiB
+[HF VERIFIED] outputs/task1/stage_state.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/aggregate.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/aggregate.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/arc_easy.json 0.01 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/arc_easy.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/boolq.json 0.01 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/boolq.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/gsm8k_cot.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/gsm8k_cot.json (remote_size_and_commit)
+[HF VERIFIED] results/task1/evaluation/baseline/hellaswag.json (sha256_and_size)
+[HF UPLOAD] results/task1/monitor/heartbeat.jsonl 0.00 GiB
+[HF VERIFIED] results/task1/monitor/heartbeat.jsonl (remote_size_and_commit)
+[HF UPLOAD] results/task1/monitor/stage_history.jsonl 0.00 GiB
+[HF VERIFIED] results/task1/monitor/stage_history.jsonl (remote_size_and_commit)
+[HF STAGE BACKUP] preflight
+
+[NEXT] baseline: evaluation request batch 32 (maximum 32)
+
+======== BASELINE ========
+[SKIPPED] Baseline  -  four verified full-split results
+[HF UPLOAD] outputs/task1/data/manifest.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/data/manifest.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/data/preflight_pass.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/data/preflight_pass.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/data/probe_ids.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/data/probe_ids.json (remote_size_and_commit)
+[HF VERIFIED] outputs/task1/data/selected.json (sha256_and_size)
+[HF UPLOAD] outputs/task1/full/config.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/full/config.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/full/model_metadata.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/full/model_metadata.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/full/train.jsonl 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/full/train.jsonl (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/preflight/report.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/preflight/report.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/preflight/tokenization.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/preflight/tokenization.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/stage_state.json 0.00 GiB
+[HF VERIFIED] outputs/task1/stage_state.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/aggregate.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/aggregate.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/arc_easy.json 0.01 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/arc_easy.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/boolq.json 0.01 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/boolq.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/gsm8k_cot.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/gsm8k_cot.json (remote_size_and_commit)
+[HF VERIFIED] results/task1/evaluation/baseline/hellaswag.json (sha256_and_size)
+[HF UPLOAD] results/task1/monitor/heartbeat.jsonl 0.00 GiB
+[HF VERIFIED] results/task1/monitor/heartbeat.jsonl (remote_size_and_commit)
+[HF UPLOAD] results/task1/monitor/stage_history.jsonl 0.00 GiB
+[HF VERIFIED] results/task1/monitor/stage_history.jsonl (remote_size_and_commit)
+[HF STAGE BACKUP] baseline
+
+[NEXT] train_full: evaluation request batch 32 (maximum 32)
+
+======== TRAIN_FULL ========
+[AUTO] full: update 937 -> 1250 / 1250
+Resuming full from update 937, example 29984
+[FAILED] train_full  -  RuntimeError: Estimated 10.2 GiB needed for pending recovery/inference files, but only 10.1 GiB free. Use --stop-update at the next required checkpoint and persist each session's files before continuing.
+Traceback (most recent call last):
+  File "/kaggle/working/atml_pa3_one_click_runner.py", line 458, in <module>
+    main()
+    ~~~~^^
+  File "/kaggle/working/atml_pa3_one_click_runner.py", line 453, in main
+    sys.exit(run_one(args.single_stage, args.eval_batch))
+             ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/atml_pa3_one_click_runner.py", line 369, in run_one
+    outcome = core.run_stage(stage, repo, WORK)
+  File "/kaggle/working/atml-repo-d627534c9f6b8fd7/Assignment-3/kaggle/runall.py", line 1024, in run_stage
+    result = stage_train(ctx, config, stage.removeprefix("train_"))
+  File "/kaggle/working/atml_pa3_one_click_runner.py", line 321, in _auto_train
+    result = run_training(config, method, stop_update=target)
+  File "/kaggle/working/atml-repo-d627534c9f6b8fd7/Assignment-3/task1/training.py", line 260, in run_training
+    raise RuntimeError(f"Estimated {needed/2**30:.1f} GiB needed for pending recovery/inference files, "
+                       f"but only {free/2**30:.1f} GiB free. Use --stop-update at the next "
+                       "required checkpoint and persist each session's files before continuing.")
+RuntimeError: Estimated 10.2 GiB needed for pending recovery/inference files, but only 10.1 GiB free. Use --stop-update at the next required checkpoint and persist each session's files before continuing.
+Traceback (most recent call last):
+  File "/kaggle/working/atml_pa3_one_click_runner.py", line 458, in <module>
+    main()
+    ~~~~^^
+  File "/kaggle/working/atml_pa3_one_click_runner.py", line 455, in main
+    orchestrate()
+    ~~~~~~~~~~~^^
+  File "/kaggle/working/atml_pa3_one_click_runner.py", line 432, in orchestrate
+    raise RuntimeError(f'{stage} failed. Details are printed above; training artifacts preserved.')
+RuntimeError: train_full failed. Details are printed above; training artifacts preserved.
+
+=== RUN STARTED 2026-11-11T21:28:55+00:00 ===
+[SETUP] Verified assignment source: /kaggle/working/atml-repo-d627534c9f6b8fd7/Assignment-3
+[PASS] Environment  -  {"python": "3.13.16", "interpreter": "/usr/bin/python3", "kaggle": true, "gpus": ["0, Tesla T4, 15360, 14909", "1, Tesla T4, 15360, 14909"], "ram_gib": 31.35, "disk_free_gib": 10.12, "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40"}
+[RUNNING] Dependencies  -  installing torch==2.6.0, transformers==4.57.1, datasets==4.4.1, peft==0.17.1, accelerate==1.11.0, lm-eval==0.4.13, pandas==2.2.3, matplotlib==3.9.2, scipy==1.14.1, PyYAML==6.0.2, pytest==8.3.4, nbformat==5.10.4
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+bigframes 2.51.0 requires google-cloud-bigquery-storage<3.0.0,>=2.30.0, which is not installed.
+kaggle-environments 1.33.3 requires PyYAML>=6.0.3, but you have pyyaml 6.0.2 which is incompatible.
+pathos 0.3.5 requires dill>=0.4.1, but you have dill 0.4.0 which is incompatible.
+pathos 0.3.5 requires multiprocess>=0.70.19, but you have multiprocess 0.70.18 which is incompatible.
+s3fs 2025.12.0 requires fsspec==2025.12.0, but you have fsspec 2025.10.0 which is incompatible.
+nilearn 0.14.1 requires pandas>=2.3.0, but you have pandas 2.2.3 which is incompatible.
+ydata-profiling 4.18.4 requires PyYAML<6.1,>=6.0.3, but you have pyyaml 6.0.2 which is incompatible.
+google-colab 1.0.0 requires jupyter-server==2.20.0, but you have jupyter-server 2.12.5 which is incompatible.
+google-colab 1.0.0 requires requests==2.32.4, but you have requests 2.34.2 which is incompatible.
+dopamine-rl 4.1.2 requires gym<=0.25.2, but you have gym 0.26.2 which is incompatible.
+jax 0.11.1 requires scipy>=1.15, but you have scipy 1.14.1 which is incompatible.
+gcsfs 2025.12.0 requires fsspec==2025.12.0, but you have fsspec 2025.10.0 which is incompatible.
+torchvision 0.26.0+cu130 requires torch==2.11.0, but you have torch 2.6.0 which is incompatible.
+gradio-client 2.7.2 requires huggingface-hub<3.0,>=1.16.0, but you have huggingface-hub 0.36.2 which is incompatible.
+gradio 6.30.0 requires huggingface-hub<3.0,>=1.16.0, but you have huggingface-hub 0.36.2 which is incompatible.
+gradio 6.30.0 requires pillow<13.0,>=8.0, but you have pillow 13.0.0 which is incompatible.
+diffusers 0.42.0 requires huggingface-hub<3.0,>=1.32.0, but you have huggingface-hub 0.36.2 which is incompatible.
+[RUNNING] Dependencies  -  removing broken optional TorchVision
+[PASS] Dependencies  -  clean subprocess imports and pinned versions
+[RESTORE] Scanning /kaggle/input/atml-pa3-baseline-v2 (full recovery update 0)
+[RESTORE] 1 compatible mounts, 0 restored files, 0 large read-only links
+[HF RESTORE] Local checkpoint and existing baseline results preserved
+
+[NEXT] dataset: evaluation request batch 32 (maximum 32)
+
+======== DATASET ========
+DATASET: VERIFIED  -  SKIPPING PREPARATION
+[HF UPLOAD] outputs/task1/data/manifest.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/data/manifest.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/data/preflight_pass.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/data/preflight_pass.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/data/probe_ids.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/data/probe_ids.json (remote_size_and_commit)
+[HF VERIFIED] outputs/task1/data/selected.json (sha256_and_size)
+[HF UPLOAD] outputs/task1/full/config.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/full/config.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/full/model_metadata.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/full/model_metadata.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/full/train.jsonl 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/full/train.jsonl (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/preflight/report.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/preflight/report.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/preflight/tokenization.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/preflight/tokenization.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/stage_state.json 0.00 GiB
+[HF VERIFIED] outputs/task1/stage_state.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/aggregate.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/aggregate.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/arc_easy.json 0.01 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/arc_easy.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/boolq.json 0.01 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/boolq.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/gsm8k_cot.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/gsm8k_cot.json (remote_size_and_commit)
+[HF VERIFIED] results/task1/evaluation/baseline/hellaswag.json (sha256_and_size)
+[HF UPLOAD] results/task1/monitor/heartbeat.jsonl 0.00 GiB
+[HF VERIFIED] results/task1/monitor/heartbeat.jsonl (remote_size_and_commit)
+[HF UPLOAD] results/task1/monitor/stage_history.jsonl 0.00 GiB
+[HF VERIFIED] results/task1/monitor/stage_history.jsonl (remote_size_and_commit)
+[HF STAGE BACKUP] dataset
+
+[NEXT] preflight: evaluation request batch 32 (maximum 32)
+[PASS] All four baseline fingerprints, metrics and sample records verified
+
+======== PREFLIGHT ========
+[SKIPPED] GPU preflight  -  matching pass report, data, code, and hardware
+[HF UPLOAD] outputs/task1/data/manifest.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/data/manifest.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/data/preflight_pass.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/data/preflight_pass.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/data/probe_ids.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/data/probe_ids.json (remote_size_and_commit)
+[HF VERIFIED] outputs/task1/data/selected.json (sha256_and_size)
+[HF UPLOAD] outputs/task1/full/config.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/full/config.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/full/model_metadata.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/full/model_metadata.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/full/train.jsonl 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/full/train.jsonl (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/preflight/report.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/preflight/report.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/preflight/tokenization.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/preflight/tokenization.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/stage_state.json 0.00 GiB
+[HF VERIFIED] outputs/task1/stage_state.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/aggregate.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/aggregate.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/arc_easy.json 0.01 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/arc_easy.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/boolq.json 0.01 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/boolq.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/gsm8k_cot.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/gsm8k_cot.json (remote_size_and_commit)
+[HF VERIFIED] results/task1/evaluation/baseline/hellaswag.json (sha256_and_size)
+[HF UPLOAD] results/task1/monitor/heartbeat.jsonl 0.00 GiB
+[HF VERIFIED] results/task1/monitor/heartbeat.jsonl (remote_size_and_commit)
+[HF UPLOAD] results/task1/monitor/stage_history.jsonl 0.00 GiB
+[HF VERIFIED] results/task1/monitor/stage_history.jsonl (remote_size_and_commit)
+[HF STAGE BACKUP] preflight
+
+[NEXT] baseline: evaluation request batch 32 (maximum 32)
+
+======== BASELINE ========
+[SKIPPED] Baseline  -  four verified full-split results
+[HF UPLOAD] outputs/task1/data/manifest.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/data/manifest.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/data/preflight_pass.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/data/preflight_pass.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/data/probe_ids.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/data/probe_ids.json (remote_size_and_commit)
+[HF VERIFIED] outputs/task1/data/selected.json (sha256_and_size)
+[HF UPLOAD] outputs/task1/full/config.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/full/config.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/full/model_metadata.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/full/model_metadata.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/full/train.jsonl 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/full/train.jsonl (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/preflight/report.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/preflight/report.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/preflight/tokenization.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/preflight/tokenization.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/stage_state.json 0.00 GiB
+[HF VERIFIED] outputs/task1/stage_state.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/aggregate.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/aggregate.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/arc_easy.json 0.01 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/arc_easy.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/boolq.json 0.01 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/boolq.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/gsm8k_cot.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/gsm8k_cot.json (remote_size_and_commit)
+[HF VERIFIED] results/task1/evaluation/baseline/hellaswag.json (sha256_and_size)
+[HF UPLOAD] results/task1/monitor/heartbeat.jsonl 0.00 GiB
+[HF VERIFIED] results/task1/monitor/heartbeat.jsonl (remote_size_and_commit)
+[HF UPLOAD] results/task1/monitor/stage_history.jsonl 0.00 GiB
+[HF VERIFIED] results/task1/monitor/stage_history.jsonl (remote_size_and_commit)
+[HF STAGE BACKUP] baseline
+
+[NEXT] train_full: evaluation request batch 32 (maximum 32)
+
+======== TRAIN_FULL ========
+[STORAGE] Latest pointer uses a symlink, no duplicated 7+ GiB copy.
+[STORAGE V5] Trainer offload hook installed before any new optimizer update.
+[AUTO] full: update 937 -> 1250 / 1250
+Resuming full from update 937, example 29984
+[SAFE OFFLOAD] full:937, evidence=remote-937-archive; free=17.36 GiB
+full: 940/1250, examples=30080, loss=0.1765, peak=6.11 GiB
+full: 950/1250, examples=30400, loss=0.1920, peak=5.99 GiB
+full: 960/1250, examples=30720, loss=0.1581, peak=6.16 GiB
+full: 970/1250, examples=31040, loss=0.2122, peak=6.42 GiB
+full: 980/1250, examples=31360, loss=0.1863, peak=6.19 GiB
+full: 990/1250, examples=31680, loss=0.1753, peak=6.10 GiB
+full: 1000/1250, examples=32000, loss=0.2125, peak=6.38 GiB
+full: 1010/1250, examples=32320, loss=0.1908, peak=6.24 GiB
+full: 1020/1250, examples=32640, loss=0.1500, peak=6.11 GiB
+full: 1030/1250, examples=32960, loss=0.2015, peak=6.46 GiB
+full: 1040/1250, examples=33280, loss=0.1876, peak=6.30 GiB
+full: 1050/1250, examples=33600, loss=0.2140, peak=6.18 GiB
+full: 1060/1250, examples=33920, loss=0.1566, peak=6.30 GiB
+full: 1070/1250, examples=34240, loss=0.2237, peak=6.06 GiB
+full: 1080/1250, examples=34560, loss=0.1645, peak=6.31 GiB
+full: 1090/1250, examples=34880, loss=0.1877, peak=6.33 GiB
+full: 1100/1250, examples=35200, loss=0.1921, peak=6.13 GiB
+full: 1110/1250, examples=35520, loss=0.1644, peak=6.11 GiB
+full: 1120/1250, examples=35840, loss=0.1620, peak=6.29 GiB
+full: 1130/1250, examples=36160, loss=0.1647, peak=6.20 GiB
+full: 1140/1250, examples=36480, loss=0.1865, peak=6.52 GiB
+full: 1150/1250, examples=36800, loss=0.1640, peak=6.23 GiB
+full: 1160/1250, examples=37120, loss=0.2093, peak=6.38 GiB
+full: 1170/1250, examples=37440, loss=0.1485, peak=6.30 GiB
+full: 1180/1250, examples=37760, loss=0.1742, peak=6.11 GiB
+full: 1190/1250, examples=38080, loss=0.2190, peak=6.35 GiB
+full: 1200/1250, examples=38400, loss=0.1685, peak=6.10 GiB
+full: 1210/1250, examples=38720, loss=0.1520, peak=6.18 GiB
+full: 1220/1250, examples=39040, loss=0.1690, peak=6.10 GiB
+full: 1230/1250, examples=39360, loss=0.1774, peak=6.53 GiB
+full: 1240/1250, examples=39680, loss=0.2052, peak=6.09 GiB
+full: 1250/1250, examples=40000, loss=0.1663, peak=6.07 GiB
+[HF UPLOAD] outputs/task1/full/recovery_1250.pt 7.24 GiB
+
+Processing Files (0 / 0)      : |          |  0.00B /  0.00B            
+
+New Data Upload               : |          |  0.00B /  0.00B            [A
+
+
+  ...sk1/full/recovery_1250.pt:   0%|          | 37.0MB / 7.78GB            [A[A
+
+
+  ...sk1/full/recovery_1250.pt:   0%|          | 37.0MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   0%|          | 37.0MB / 7.78GB, 3.61MB/s  
+
+New Data Upload               :  55%|█████▌    | 37.0MB / 67.1MB, 3.61MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:   1%|          | 67.1MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   1%|          | 67.1MB / 7.78GB, 6.45MB/s  
+
+New Data Upload               :  50%|█████     | 67.1MB /  134MB, 6.45MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:   2%|▏         |  125MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   2%|▏         |  125MB / 7.78GB, 11.9MB/s  
+
+New Data Upload               :  93%|█████████▎|  125MB /  134MB, 11.9MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:   2%|▏         |  134MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   2%|▏         |  134MB / 7.78GB, 12.5MB/s  
+
+New Data Upload               :  67%|██████▋   |  134MB /  201MB, 12.5MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:   2%|▏         |  175MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   2%|▏         |  175MB / 7.78GB, 16.1MB/s  
+
+New Data Upload               :  87%|████████▋ |  175MB /  201MB, 16.1MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:   3%|▎         |  201MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   3%|▎         |  201MB / 7.78GB, 18.2MB/s  
+
+New Data Upload               :  75%|███████▌  |  201MB /  268MB, 18.2MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:   3%|▎         |  245MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   3%|▎         |  245MB / 7.78GB, 21.9MB/s  
+
+New Data Upload               :  91%|█████████▏|  245MB /  268MB, 21.9MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:   3%|▎         |  268MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   3%|▎         |  268MB / 7.78GB, 23.5MB/s  
+
+New Data Upload               :  80%|████████  |  268MB /  335MB, 23.5MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:   4%|▍         |  319MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   4%|▍         |  319MB / 7.78GB, 27.7MB/s  
+
+New Data Upload               :  95%|█████████▌|  319MB /  335MB, 27.7MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:   4%|▍         |  335MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   4%|▍         |  335MB / 7.78GB, 28.5MB/s  
+
+New Data Upload               :  83%|████████▎ |  335MB /  402MB, 28.5MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:   5%|▍         |  363MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   5%|▍         |  363MB / 7.78GB, 30.4MB/s  
+
+New Data Upload               :  90%|█████████ |  363MB /  402MB, 30.4MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:   5%|▌         |  402MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   5%|▌         |  402MB / 7.78GB, 33.3MB/s  
+
+New Data Upload               : 100%|█████████▉|  402MB /  402MB, 33.3MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:   5%|▌         |  420MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   5%|▌         |  420MB / 7.78GB, 34.1MB/s  
+
+New Data Upload               :  89%|████████▉ |  420MB /  470MB, 34.1MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:   6%|▌         |  470MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   6%|▌         |  470MB / 7.78GB, 37.8MB/s  
+
+New Data Upload               : 100%|█████████▉|  470MB /  470MB, 37.8MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:   6%|▌         |  480MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   6%|▌         |  480MB / 7.78GB, 37.9MB/s  
+
+New Data Upload               :  89%|████████▉ |  480MB /  537MB, 37.9MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:   7%|▋         |  537MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   7%|▋         |  537MB / 7.78GB, 42.1MB/s  
+
+New Data Upload               : 100%|█████████▉|  537MB /  537MB, 42.1MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:   7%|▋         |  546MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   7%|▋         |  546MB / 7.78GB, 42.0MB/s  
+
+New Data Upload               :  90%|█████████ |  546MB /  604MB, 42.0MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:   8%|▊         |  604MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   8%|▊         |  604MB / 7.78GB, 46.2MB/s  
+
+New Data Upload               : 100%|█████████▉|  604MB /  604MB, 46.2MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:   8%|▊         |  615MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   8%|▊         |  615MB / 7.78GB, 46.2MB/s  
+
+New Data Upload               :  92%|█████████▏|  615MB /  671MB, 46.2MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:   9%|▊         |  671MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   9%|▊         |  671MB / 7.78GB, 50.0MB/s  
+
+New Data Upload               : 100%|█████████▉|  671MB /  671MB, 50.0MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:   9%|▊         |  671MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   9%|▊         |  671MB / 7.78GB, 48.9MB/s  
+
+New Data Upload               :  91%|█████████ |  671MB /  738MB, 48.9MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:   9%|▉         |  738MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   9%|▉         |  738MB / 7.78GB, 53.7MB/s  
+
+New Data Upload               : 100%|█████████▉|  738MB /  738MB, 53.7MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:   9%|▉         |  738MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :   9%|▉         |  738MB / 7.78GB, 52.5MB/s  
+
+New Data Upload               :  92%|█████████▏|  738MB /  805MB, 52.5MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  10%|█         |  805MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  10%|█         |  805MB / 7.78GB, 57.2MB/s  
+
+New Data Upload               : 100%|█████████▉|  805MB /  805MB, 57.2MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  10%|█         |  805MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  10%|█         |  805MB / 7.78GB, 55.9MB/s  
+
+New Data Upload               :  92%|█████████▏|  805MB /  872MB, 55.9MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  11%|█         |  870MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  11%|█         |  870MB / 7.78GB, 60.3MB/s  
+
+New Data Upload               : 100%|█████████▉|  870MB /  872MB, 60.3MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  11%|█         |  872MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  11%|█         |  872MB / 7.78GB, 59.2MB/s  
+
+New Data Upload               :  93%|█████████▎|  872MB /  939MB, 59.2MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  12%|█▏        |  917MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  12%|█▏        |  917MB / 7.78GB, 61.7MB/s  
+
+New Data Upload               :  98%|█████████▊|  917MB /  939MB, 61.7MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  12%|█▏        |  939MB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  12%|█▏        |  939MB / 7.78GB, 62.3MB/s  
+
+New Data Upload               :  93%|█████████▎|  939MB / 1.01GB, 62.3MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  13%|█▎        | 1.01GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  13%|█▎        | 1.01GB / 7.78GB, 66.6MB/s  
+
+New Data Upload               : 100%|█████████▉| 1.01GB / 1.01GB, 66.6MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  13%|█▎        | 1.01GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  13%|█▎        | 1.01GB / 7.78GB, 65.2MB/s  
+
+New Data Upload               :  94%|█████████▍| 1.01GB / 1.07GB, 65.2MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  13%|█▎        | 1.05GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  13%|█▎        | 1.05GB / 7.78GB, 67.3MB/s  
+
+New Data Upload               :  98%|█████████▊| 1.05GB / 1.07GB, 67.3MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  14%|█▍        | 1.07GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  14%|█▍        | 1.07GB / 7.78GB, 68.0MB/s  
+
+New Data Upload               :  94%|█████████▍| 1.07GB / 1.14GB, 68.0MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  14%|█▍        | 1.12GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  14%|█▍        | 1.12GB / 7.78GB, 70.4MB/s  
+
+New Data Upload               :  98%|█████████▊| 1.12GB / 1.14GB, 70.4MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  15%|█▍        | 1.14GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  15%|█▍        | 1.14GB / 7.78GB, 70.7MB/s  
+
+New Data Upload               :  94%|█████████▍| 1.14GB / 1.21GB, 70.7MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  15%|█▌        | 1.18GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  15%|█▌        | 1.18GB / 7.78GB, 72.8MB/s  
+
+New Data Upload               :  98%|█████████▊| 1.18GB / 1.21GB, 72.8MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  16%|█▌        | 1.21GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  16%|█▌        | 1.21GB / 7.78GB, 73.3MB/s  
+
+New Data Upload               :  95%|█████████▍| 1.21GB / 1.27GB, 73.3MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  16%|█▌        | 1.24GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  16%|█▌        | 1.24GB / 7.78GB, 74.8MB/s  
+
+New Data Upload               :  98%|█████████▊| 1.24GB / 1.27GB, 74.8MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  16%|█▋        | 1.27GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  16%|█▋        | 1.27GB / 7.78GB, 75.7MB/s  
+
+New Data Upload               :  95%|█████████▌| 1.27GB / 1.34GB, 75.7MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  17%|█▋        | 1.32GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  17%|█▋        | 1.32GB / 7.78GB, 77.7MB/s  
+
+New Data Upload               :  98%|█████████▊| 1.32GB / 1.34GB, 77.7MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  17%|█▋        | 1.34GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  17%|█▋        | 1.34GB / 7.78GB, 78.0MB/s  
+
+New Data Upload               :  95%|█████████▌| 1.34GB / 1.41GB, 78.0MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  18%|█▊        | 1.38GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  18%|█▊        | 1.38GB / 7.78GB, 79.3MB/s  
+
+New Data Upload               :  98%|█████████▊| 1.38GB / 1.41GB, 79.3MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  18%|█▊        | 1.41GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  18%|█▊        | 1.41GB / 7.78GB, 80.3MB/s  
+
+New Data Upload               :  95%|█████████▌| 1.41GB / 1.48GB, 80.3MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  19%|█▊        | 1.44GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  19%|█▊        | 1.44GB / 7.78GB, 81.1MB/s  
+
+New Data Upload               :  98%|█████████▊| 1.44GB / 1.48GB, 81.1MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  19%|█▉        | 1.48GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  19%|█▉        | 1.48GB / 7.78GB, 82.4MB/s  
+
+New Data Upload               :  96%|█████████▌| 1.48GB / 1.54GB, 82.4MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  19%|█▉        | 1.50GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  19%|█▉        | 1.50GB / 7.78GB, 82.9MB/s  
+
+New Data Upload               :  97%|█████████▋| 1.50GB / 1.54GB, 82.9MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  20%|█▉        | 1.54GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  20%|█▉        | 1.54GB / 7.78GB, 84.4MB/s  
+
+New Data Upload               : 100%|█████████▉| 1.54GB / 1.54GB, 84.4MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  20%|██        | 1.57GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  20%|██        | 1.57GB / 7.78GB, 85.2MB/s  
+
+New Data Upload               :  98%|█████████▊| 1.57GB / 1.61GB, 85.2MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  21%|██        | 1.61GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  21%|██        | 1.61GB / 7.78GB, 86.4MB/s  
+
+New Data Upload               :  96%|█████████▌| 1.61GB / 1.68GB, 86.4MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  21%|██        | 1.64GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  21%|██        | 1.64GB / 7.78GB, 86.8MB/s  
+
+New Data Upload               :  98%|█████████▊| 1.64GB / 1.68GB, 86.8MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  22%|██▏       | 1.68GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  22%|██▏       | 1.68GB / 7.78GB, 88.2MB/s  
+
+New Data Upload               :  96%|█████████▌| 1.68GB / 1.74GB, 88.2MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  22%|██▏       | 1.71GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  22%|██▏       | 1.71GB / 7.78GB, 89.4MB/s  
+
+New Data Upload               :  98%|█████████▊| 1.71GB / 1.74GB, 89.4MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  22%|██▏       | 1.74GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  22%|██▏       | 1.74GB / 7.78GB, 90.0MB/s  
+
+New Data Upload               : 100%|█████████▉| 1.74GB / 1.74GB, 90.0MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  23%|██▎       | 1.76GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  23%|██▎       | 1.76GB / 7.78GB, 89.4MB/s  
+
+New Data Upload               :  97%|█████████▋| 1.76GB / 1.81GB, 89.4MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  23%|██▎       | 1.81GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  23%|██▎       | 1.81GB / 7.78GB, 91.7MB/s  
+
+New Data Upload               :  96%|█████████▋| 1.81GB / 1.88GB, 91.7MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  24%|██▎       | 1.83GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  24%|██▎       | 1.83GB / 7.78GB, 91.5MB/s  
+
+New Data Upload               :  97%|█████████▋| 1.83GB / 1.88GB, 91.5MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  24%|██▍       | 1.88GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  24%|██▍       | 1.88GB / 7.78GB, 93.4MB/s  
+
+New Data Upload               : 100%|█████████▉| 1.88GB / 1.88GB, 93.4MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  24%|██▍       | 1.88GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  24%|██▍       | 1.88GB / 7.78GB, 91.9MB/s  
+
+New Data Upload               :  97%|█████████▋| 1.88GB / 1.94GB, 91.9MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  26%|██▌       | 1.99GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  26%|██▌       | 1.99GB / 7.78GB, 98.6MB/s  
+
+New Data Upload               : 100%|█████████▉| 1.94GB / 1.94GB, 95.0MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  26%|██▌       | 2.04GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  26%|██▌       | 2.04GB / 7.78GB,  100MB/s  
+
+New Data Upload               : 100%|█████████▉| 1.94GB / 1.94GB, 93.2MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  27%|██▋       | 2.08GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  27%|██▋       | 2.08GB / 7.78GB,  102MB/s  
+
+
+  ...sk1/full/recovery_1250.pt:  27%|██▋       | 2.12GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  27%|██▋       | 2.12GB / 7.78GB,  103MB/s  
+
+New Data Upload               : 100%|██████████| 1.94GB / 1.94GB, 89.6MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  28%|██▊       | 2.16GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  28%|██▊       | 2.16GB / 7.78GB,  104MB/s  
+
+
+  ...sk1/full/recovery_1250.pt:  28%|██▊       | 2.21GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  28%|██▊       | 2.21GB / 7.78GB,  105MB/s  
+
+
+  ...sk1/full/recovery_1250.pt:  29%|██▉       | 2.25GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  29%|██▉       | 2.25GB / 7.78GB,  106MB/s  
+
+
+  ...sk1/full/recovery_1250.pt:  30%|██▉       | 2.30GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  30%|██▉       | 2.30GB / 7.78GB,  108MB/s  
+
+
+  ...sk1/full/recovery_1250.pt:  30%|███       | 2.34GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  30%|███       | 2.34GB / 7.78GB,  109MB/s  
+
+
+  ...sk1/full/recovery_1250.pt:  31%|███       | 2.38GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  31%|███       | 2.38GB / 7.78GB,  111MB/s  
+
+
+  ...sk1/full/recovery_1250.pt:  31%|███▏      | 2.43GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  31%|███▏      | 2.43GB / 7.78GB,  112MB/s  
+
+
+  ...sk1/full/recovery_1250.pt:  32%|███▏      | 2.47GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  32%|███▏      | 2.47GB / 7.78GB,  113MB/s  
+
+
+  ...sk1/full/recovery_1250.pt:  32%|███▏      | 2.51GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  32%|███▏      | 2.51GB / 7.78GB,  114MB/s  
+
+
+  ...sk1/full/recovery_1250.pt:  33%|███▎      | 2.56GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  33%|███▎      | 2.56GB / 7.78GB,  115MB/s  
+
+
+  ...sk1/full/recovery_1250.pt:  33%|███▎      | 2.57GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  33%|███▎      | 2.57GB / 7.78GB,  114MB/s  
+
+
+  ...sk1/full/recovery_1250.pt:  33%|███▎      | 2.57GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  33%|███▎      | 2.57GB / 7.78GB,  112MB/s  
+
+New Data Upload               :  97%|█████████▋| 1.95GB / 2.01GB, 71.5MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  34%|███▍      | 2.63GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  34%|███▍      | 2.63GB / 7.78GB,  115MB/s  
+
+New Data Upload               : 100%|█████████▉| 2.01GB / 2.01GB, 74.9MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  34%|███▍      | 2.67GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  34%|███▍      | 2.67GB / 7.78GB,  115MB/s  
+
+New Data Upload               :  98%|█████████▊| 2.04GB / 2.08GB, 75.9MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  35%|███▍      | 2.70GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  35%|███▍      | 2.70GB / 7.78GB,  115MB/s  
+
+New Data Upload               : 100%|█████████▉| 2.08GB / 2.08GB, 77.1MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  35%|███▌      | 2.75GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  35%|███▌      | 2.75GB / 7.78GB,  117MB/s  
+
+New Data Upload               :  99%|█████████▉| 2.13GB / 2.15GB, 79.4MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  36%|███▌      | 2.77GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  36%|███▌      | 2.77GB / 7.78GB,  116MB/s  
+
+New Data Upload               :  97%|█████████▋| 2.15GB / 2.21GB, 79.2MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  36%|███▋      | 2.83GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  36%|███▋      | 2.83GB / 7.78GB,  118MB/s  
+
+New Data Upload               : 100%|█████████▉| 2.21GB / 2.21GB, 82.3MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  36%|███▋      | 2.84GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  36%|███▋      | 2.84GB / 7.78GB,  117MB/s  
+
+New Data Upload               :  97%|█████████▋| 2.21GB / 2.28GB, 81.2MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  37%|███▋      | 2.90GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  37%|███▋      | 2.90GB / 7.78GB,  119MB/s  
+
+New Data Upload               : 100%|█████████▉| 2.28GB / 2.28GB, 84.7MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  37%|███▋      | 2.90GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  37%|███▋      | 2.90GB / 7.78GB,  117MB/s  
+
+New Data Upload               :  97%|█████████▋| 2.28GB / 2.35GB, 83.1MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  38%|███▊      | 2.97GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  38%|███▊      | 2.97GB / 7.78GB,  120MB/s  
+
+New Data Upload               : 100%|█████████▉| 2.35GB / 2.35GB, 86.5MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  38%|███▊      | 2.97GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  38%|███▊      | 2.97GB / 7.78GB,  118MB/s  
+
+New Data Upload               :  97%|█████████▋| 2.35GB / 2.41GB, 85.0MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  39%|███▉      | 3.04GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  39%|███▉      | 3.04GB / 7.78GB,  121MB/s  
+
+New Data Upload               : 100%|█████████▉| 2.41GB / 2.41GB, 88.3MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  39%|███▉      | 3.04GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  39%|███▉      | 3.04GB / 7.78GB,  118MB/s  
+
+New Data Upload               :  97%|█████████▋| 2.41GB / 2.48GB, 86.7MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  40%|███▉      | 3.10GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  40%|███▉      | 3.10GB / 7.78GB,  121MB/s  
+
+New Data Upload               : 100%|█████████▉| 2.48GB / 2.48GB, 90.0MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  40%|███▉      | 3.10GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  40%|███▉      | 3.10GB / 7.78GB,  119MB/s  
+
+New Data Upload               :  97%|█████████▋| 2.48GB / 2.55GB, 88.4MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  41%|████      | 3.17GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  41%|████      | 3.17GB / 7.78GB,  121MB/s  
+
+New Data Upload               : 100%|█████████▉| 2.54GB / 2.55GB, 91.3MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  41%|████      | 3.17GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  41%|████      | 3.17GB / 7.78GB,  119MB/s  
+
+New Data Upload               :  97%|█████████▋| 2.55GB / 2.62GB, 90.0MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  42%|████▏     | 3.24GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  42%|████▏     | 3.24GB / 7.78GB,  122MB/s  
+
+New Data Upload               : 100%|█████████▉| 2.62GB / 2.62GB, 93.3MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  42%|████▏     | 3.24GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  42%|████▏     | 3.24GB / 7.78GB,  120MB/s  
+
+New Data Upload               :  97%|█████████▋| 2.62GB / 2.68GB, 91.5MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  42%|████▏     | 3.30GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  42%|████▏     | 3.30GB / 7.78GB,  122MB/s  
+
+New Data Upload               : 100%|█████████▉| 2.67GB / 2.68GB, 94.1MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  43%|████▎     | 3.30GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  43%|████▎     | 3.30GB / 7.78GB,  120MB/s  
+
+New Data Upload               :  98%|█████████▊| 2.68GB / 2.75GB, 93.1MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  43%|████▎     | 3.37GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  43%|████▎     | 3.37GB / 7.78GB,  123MB/s  
+
+New Data Upload               : 100%|█████████▉| 2.75GB / 2.75GB, 96.3MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  43%|████▎     | 3.37GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  43%|████▎     | 3.37GB / 7.78GB,  121MB/s  
+
+New Data Upload               :  98%|█████████▊| 2.75GB / 2.82GB, 94.5MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  44%|████▍     | 3.44GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  44%|████▍     | 3.44GB / 7.78GB,  124MB/s  
+
+New Data Upload               : 100%|█████████▉| 2.82GB / 2.82GB, 97.7MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  44%|████▍     | 3.44GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  44%|████▍     | 3.44GB / 7.78GB,  121MB/s  
+
+New Data Upload               :  98%|█████████▊| 2.82GB / 2.88GB, 95.9MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  45%|████▌     | 3.51GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  45%|████▌     | 3.51GB / 7.78GB,  124MB/s  
+
+New Data Upload               : 100%|█████████▉| 2.88GB / 2.88GB, 99.0MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  45%|████▌     | 3.51GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  45%|████▌     | 3.51GB / 7.78GB,  122MB/s  
+
+New Data Upload               :  98%|█████████▊| 2.88GB / 2.95GB, 97.2MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  46%|████▌     | 3.57GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  46%|████▌     | 3.57GB / 7.78GB,  124MB/s  
+
+New Data Upload               : 100%|█████████▉| 2.95GB / 2.95GB,  100MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  46%|████▌     | 3.57GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  46%|████▌     | 3.57GB / 7.78GB,  122MB/s  
+
+New Data Upload               :  98%|█████████▊| 2.95GB / 3.02GB, 98.5MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  47%|████▋     | 3.64GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  47%|████▋     | 3.64GB / 7.78GB,  125MB/s  
+
+New Data Upload               : 100%|█████████▉| 3.02GB / 3.02GB,  102MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  47%|████▋     | 3.64GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  47%|████▋     | 3.64GB / 7.78GB,  123MB/s  
+
+New Data Upload               :  98%|█████████▊| 3.02GB / 3.09GB, 99.7MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  48%|████▊     | 3.71GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  48%|████▊     | 3.71GB / 7.78GB,  125MB/s  
+
+New Data Upload               : 100%|█████████▉| 3.09GB / 3.09GB,  103MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  48%|████▊     | 3.71GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  48%|████▊     | 3.71GB / 7.78GB,  123MB/s  
+
+New Data Upload               :  98%|█████████▊| 3.09GB / 3.15GB,  101MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  49%|████▊     | 3.77GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  49%|████▊     | 3.77GB / 7.78GB,  126MB/s  
+
+New Data Upload               : 100%|█████████▉| 3.15GB / 3.15GB,  104MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  49%|████▊     | 3.78GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  49%|████▊     | 3.78GB / 7.78GB,  124MB/s  
+
+New Data Upload               :  98%|█████████▊| 3.16GB / 3.22GB,  103MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  49%|████▉     | 3.84GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  49%|████▉     | 3.84GB / 7.78GB,  126MB/s  
+
+New Data Upload               : 100%|█████████▉| 3.22GB / 3.22GB,  105MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  50%|████▉     | 3.86GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  50%|████▉     | 3.86GB / 7.78GB,  125MB/s  
+
+New Data Upload               :  99%|█████████▊| 3.24GB / 3.29GB,  105MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  50%|█████     | 3.91GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  50%|█████     | 3.91GB / 7.78GB,  126MB/s  
+
+New Data Upload               : 100%|█████████▉| 3.29GB / 3.29GB,  106MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  51%|█████     | 3.95GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  51%|█████     | 3.95GB / 7.78GB,  127MB/s  
+
+New Data Upload               :  99%|█████████▉| 3.32GB / 3.35GB,  107MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  51%|█████     | 3.98GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  51%|█████     | 3.98GB / 7.78GB,  126MB/s  
+
+New Data Upload               : 100%|█████████▉| 3.35GB / 3.35GB,  107MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  51%|█████▏    | 4.00GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  51%|█████▏    | 4.00GB / 7.78GB,  126MB/s  
+
+New Data Upload               :  99%|█████████▊| 3.37GB / 3.42GB,  107MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  52%|█████▏    | 4.04GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  52%|█████▏    | 4.04GB / 7.78GB,  127MB/s  
+
+New Data Upload               : 100%|█████████▉| 3.42GB / 3.42GB,  108MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  52%|█████▏    | 4.07GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  52%|█████▏    | 4.07GB / 7.78GB,  126MB/s  
+
+New Data Upload               :  99%|█████████▉| 3.45GB / 3.49GB,  108MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  53%|█████▎    | 4.11GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  53%|█████▎    | 4.11GB / 7.78GB,  127MB/s  
+
+New Data Upload               : 100%|█████████▉| 3.49GB / 3.49GB,  109MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  53%|█████▎    | 4.12GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  53%|█████▎    | 4.12GB / 7.78GB,  125MB/s  
+
+New Data Upload               :  98%|█████████▊| 3.50GB / 3.55GB,  108MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  54%|█████▎    | 4.18GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  54%|█████▎    | 4.18GB / 7.78GB,  127MB/s  
+
+New Data Upload               : 100%|█████████▉| 3.55GB / 3.55GB,  110MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  54%|█████▍    | 4.19GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  54%|█████▍    | 4.19GB / 7.78GB,  126MB/s  
+
+New Data Upload               :  99%|█████████▊| 3.57GB / 3.62GB,  109MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  55%|█████▍    | 4.24GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  55%|█████▍    | 4.24GB / 7.78GB,  128MB/s  
+
+New Data Upload               : 100%|█████████▉| 3.62GB / 3.62GB,  111MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  55%|█████▍    | 4.27GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  55%|█████▍    | 4.27GB / 7.78GB,  127MB/s  
+
+New Data Upload               :  99%|█████████▉| 3.65GB / 3.69GB,  111MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  55%|█████▌    | 4.31GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  55%|█████▌    | 4.31GB / 7.78GB,  128MB/s  
+
+New Data Upload               : 100%|█████████▉| 3.69GB / 3.69GB,  112MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  56%|█████▌    | 4.32GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  56%|█████▌    | 4.32GB / 7.78GB,  126MB/s  
+
+New Data Upload               :  99%|█████████▊| 3.70GB / 3.76GB,  111MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  56%|█████▋    | 4.38GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  56%|█████▋    | 4.38GB / 7.78GB,  128MB/s  
+
+New Data Upload               : 100%|█████████▉| 3.76GB / 3.76GB,  112MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  57%|█████▋    | 4.40GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  57%|█████▋    | 4.40GB / 7.78GB,  127MB/s  
+
+New Data Upload               :  99%|█████████▊| 3.77GB / 3.82GB,  112MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  57%|█████▋    | 4.45GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  57%|█████▋    | 4.45GB / 7.78GB,  128MB/s  
+
+New Data Upload               : 100%|█████████▉| 3.82GB / 3.82GB,  113MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  57%|█████▋    | 4.45GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  57%|█████▋    | 4.45GB / 7.78GB,  127MB/s  
+
+New Data Upload               :  99%|█████████▊| 3.83GB / 3.89GB,  112MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  58%|█████▊    | 4.51GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  58%|█████▊    | 4.51GB / 7.78GB,  129MB/s  
+
+New Data Upload               : 100%|█████████▉| 3.89GB / 3.89GB,  114MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  58%|█████▊    | 4.54GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  58%|█████▊    | 4.54GB / 7.78GB,  128MB/s  
+
+New Data Upload               :  99%|█████████▉| 3.92GB / 3.96GB,  114MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  59%|█████▉    | 4.58GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  59%|█████▉    | 4.58GB / 7.78GB,  129MB/s  
+
+New Data Upload               : 100%|█████████▉| 3.96GB / 3.96GB,  115MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  59%|█████▉    | 4.61GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  59%|█████▉    | 4.61GB / 7.78GB,  129MB/s  
+
+New Data Upload               :  99%|█████████▉| 3.99GB / 4.02GB,  115MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  60%|█████▉    | 4.65GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  60%|█████▉    | 4.65GB / 7.78GB,  129MB/s  
+
+New Data Upload               : 100%|█████████▉| 4.02GB / 4.02GB,  115MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  60%|██████    | 4.67GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  60%|██████    | 4.67GB / 7.78GB,  129MB/s  
+
+New Data Upload               :  99%|█████████▉| 4.05GB / 4.09GB,  115MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  61%|██████    | 4.71GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  61%|██████    | 4.71GB / 7.78GB,  129MB/s  
+
+New Data Upload               :  98%|█████████▊| 4.09GB / 4.16GB,  116MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  61%|██████    | 4.76GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  61%|██████    | 4.76GB / 7.78GB,  130MB/s  
+
+New Data Upload               :  99%|█████████▉| 4.13GB / 4.16GB,  117MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  61%|██████▏   | 4.78GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  61%|██████▏   | 4.78GB / 7.78GB,  129MB/s  
+
+New Data Upload               :  98%|█████████▊| 4.16GB / 4.23GB,  117MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  62%|██████▏   | 4.85GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  62%|██████▏   | 4.85GB / 7.78GB,  132MB/s  
+
+New Data Upload               : 100%|█████████▉| 4.23GB / 4.23GB,  119MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  62%|██████▏   | 4.85GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  62%|██████▏   | 4.85GB / 7.78GB,  129MB/s  
+
+New Data Upload               :  98%|█████████▊| 4.23GB / 4.29GB,  117MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  63%|██████▎   | 4.91GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  63%|██████▎   | 4.91GB / 7.78GB,  132MB/s  
+
+New Data Upload               : 100%|█████████▉| 4.29GB / 4.29GB,  120MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  63%|██████▎   | 4.91GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  63%|██████▎   | 4.91GB / 7.78GB,  130MB/s  
+
+New Data Upload               :  98%|█████████▊| 4.29GB / 4.36GB,  118MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  64%|██████▍   | 4.97GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  64%|██████▍   | 4.97GB / 7.78GB,  131MB/s  
+
+New Data Upload               : 100%|█████████▉| 4.34GB / 4.36GB,  119MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  64%|██████▍   | 4.98GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  64%|██████▍   | 4.98GB / 7.78GB,  130MB/s  
+
+New Data Upload               :  98%|█████████▊| 4.36GB / 4.43GB,  118MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  65%|██████▍   | 5.02GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  65%|██████▍   | 5.02GB / 7.78GB,  130MB/s  
+
+New Data Upload               :  99%|█████████▉| 4.40GB / 4.43GB,  119MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  65%|██████▍   | 5.05GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  65%|██████▍   | 5.05GB / 7.78GB,  130MB/s  
+
+New Data Upload               :  99%|█████████▊| 4.43GB / 4.49GB,  119MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  65%|██████▌   | 5.09GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  65%|██████▌   | 5.09GB / 7.78GB,  130MB/s  
+
+New Data Upload               :  99%|█████████▉| 4.47GB / 4.49GB,  120MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  66%|██████▌   | 5.12GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  66%|██████▌   | 5.12GB / 7.78GB,  130MB/s  
+
+New Data Upload               :  99%|█████████▊| 4.49GB / 4.56GB,  119MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  66%|██████▋   | 5.17GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  66%|██████▋   | 5.17GB / 7.78GB,  131MB/s  
+
+New Data Upload               : 100%|█████████▉| 4.54GB / 4.56GB,  121MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  67%|██████▋   | 5.18GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  67%|██████▋   | 5.18GB / 7.78GB,  130MB/s  
+
+New Data Upload               :  99%|█████████▊| 4.56GB / 4.63GB,  120MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  67%|██████▋   | 5.22GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  67%|██████▋   | 5.22GB / 7.78GB,  131MB/s  
+
+New Data Upload               :  99%|█████████▉| 4.60GB / 4.63GB,  121MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  68%|██████▊   | 5.25GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  68%|██████▊   | 5.25GB / 7.78GB,  130MB/s  
+
+New Data Upload               :  99%|█████████▊| 4.63GB / 4.69GB,  120MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  68%|██████▊   | 5.31GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  68%|██████▊   | 5.31GB / 7.78GB,  132MB/s  
+
+New Data Upload               : 100%|█████████▉| 4.69GB / 4.69GB,  123MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  68%|██████▊   | 5.32GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  68%|██████▊   | 5.32GB / 7.78GB,  130MB/s  
+
+New Data Upload               :  99%|█████████▊| 4.69GB / 4.76GB,  121MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  69%|██████▉   | 5.38GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  69%|██████▉   | 5.38GB / 7.78GB,  132MB/s  
+
+New Data Upload               : 100%|█████████▉| 4.76GB / 4.76GB,  123MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  69%|██████▉   | 5.38GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  69%|██████▉   | 5.38GB / 7.78GB,  130MB/s  
+
+New Data Upload               :  99%|█████████▊| 4.76GB / 4.83GB,  121MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  70%|███████   | 5.45GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  70%|███████   | 5.45GB / 7.78GB,  133MB/s  
+
+New Data Upload               : 100%|█████████▉| 4.83GB / 4.83GB,  124MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  70%|███████   | 5.45GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  70%|███████   | 5.45GB / 7.78GB,  130MB/s  
+
+New Data Upload               :  99%|█████████▊| 4.83GB / 4.90GB,  122MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  71%|███████   | 5.52GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  71%|███████   | 5.52GB / 7.78GB,  133MB/s  
+
+New Data Upload               : 100%|█████████▉| 4.90GB / 4.90GB,  124MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  71%|███████   | 5.52GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  71%|███████   | 5.52GB / 7.78GB,  131MB/s  
+
+New Data Upload               :  99%|█████████▊| 4.90GB / 4.96GB,  122MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  72%|███████▏  | 5.58GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  72%|███████▏  | 5.58GB / 7.78GB,  133MB/s  
+
+New Data Upload               : 100%|█████████▉| 4.96GB / 4.96GB,  125MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  72%|███████▏  | 5.59GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  72%|███████▏  | 5.59GB / 7.78GB,  131MB/s  
+
+New Data Upload               :  99%|█████████▉| 4.97GB / 5.03GB,  123MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  73%|███████▎  | 5.65GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  73%|███████▎  | 5.65GB / 7.78GB,  133MB/s  
+
+New Data Upload               : 100%|█████████▉| 5.03GB / 5.03GB,  125MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  73%|███████▎  | 5.67GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  73%|███████▎  | 5.67GB / 7.78GB,  132MB/s  
+
+New Data Upload               :  99%|█████████▉| 5.05GB / 5.10GB,  124MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  74%|███████▎  | 5.72GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  74%|███████▎  | 5.72GB / 7.78GB,  133MB/s  
+
+New Data Upload               : 100%|█████████▉| 5.10GB / 5.10GB,  125MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  74%|███████▎  | 5.73GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  74%|███████▎  | 5.73GB / 7.78GB,  132MB/s  
+
+New Data Upload               :  99%|█████████▉| 5.11GB / 5.16GB,  124MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  74%|███████▍  | 5.79GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  74%|███████▍  | 5.79GB / 7.78GB,  133MB/s  
+
+New Data Upload               : 100%|█████████▉| 5.16GB / 5.16GB,  126MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  75%|███████▍  | 5.82GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  75%|███████▍  | 5.82GB / 7.78GB,  133MB/s  
+
+New Data Upload               :  99%|█████████▉| 5.20GB / 5.23GB,  126MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  75%|███████▌  | 5.85GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  75%|███████▌  | 5.85GB / 7.78GB,  133MB/s  
+
+New Data Upload               : 100%|█████████▉| 5.23GB / 5.23GB,  126MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  75%|███████▌  | 5.86GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  75%|███████▌  | 5.86GB / 7.78GB,  131MB/s  
+
+New Data Upload               :  99%|█████████▉| 5.24GB / 5.30GB,  124MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  76%|███████▌  | 5.90GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  76%|███████▌  | 5.90GB / 7.78GB,  132MB/s  
+
+New Data Upload               : 100%|█████████▉| 5.28GB / 5.30GB,  125MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  77%|███████▋  | 5.95GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  77%|███████▋  | 5.95GB / 7.78GB,  133MB/s  
+
+New Data Upload               :  99%|█████████▉| 5.33GB / 5.36GB,  126MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  77%|███████▋  | 5.99GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  77%|███████▋  | 5.99GB / 7.78GB,  133MB/s  
+
+New Data Upload               :  99%|█████████▉| 5.36GB / 5.43GB,  127MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  77%|███████▋  | 6.00GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  77%|███████▋  | 6.00GB / 7.78GB,  132MB/s  
+
+New Data Upload               :  99%|█████████▉| 5.38GB / 5.43GB,  125MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  78%|███████▊  | 6.05GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  78%|███████▊  | 6.05GB / 7.78GB,  133MB/s  
+
+New Data Upload               : 100%|█████████▉| 5.43GB / 5.43GB,  127MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  78%|███████▊  | 6.09GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  78%|███████▊  | 6.09GB / 7.78GB,  133MB/s  
+
+New Data Upload               :  99%|█████████▉| 5.47GB / 5.50GB,  127MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  79%|███████▊  | 6.12GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  79%|███████▊  | 6.12GB / 7.78GB,  133MB/s  
+
+New Data Upload               :  99%|█████████▉| 5.50GB / 5.57GB,  127MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  79%|███████▉  | 6.17GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  79%|███████▉  | 6.17GB / 7.78GB,  135MB/s  
+
+New Data Upload               : 100%|█████████▉| 5.55GB / 5.57GB,  128MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  80%|███████▉  | 6.19GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  80%|███████▉  | 6.19GB / 7.78GB,  133MB/s  
+
+New Data Upload               :  99%|█████████▉| 5.57GB / 5.63GB,  127MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  80%|████████  | 6.25GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  80%|████████  | 6.25GB / 7.78GB,  135MB/s  
+
+New Data Upload               : 100%|█████████▉| 5.63GB / 5.63GB,  129MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  80%|████████  | 6.26GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  80%|████████  | 6.26GB / 7.78GB,  133MB/s  
+
+New Data Upload               :  99%|█████████▉| 5.63GB / 5.70GB,  128MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  81%|████████  | 6.30GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  81%|████████  | 6.30GB / 7.78GB,  134MB/s  
+
+New Data Upload               : 100%|█████████▉| 5.68GB / 5.70GB,  129MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  81%|████████▏ | 6.32GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  81%|████████▏ | 6.32GB / 7.78GB,  133MB/s  
+
+New Data Upload               :  99%|█████████▉| 5.70GB / 5.77GB,  128MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  82%|████████▏ | 6.36GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  82%|████████▏ | 6.36GB / 7.78GB,  134MB/s  
+
+New Data Upload               : 100%|█████████▉| 5.74GB / 5.77GB,  128MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  82%|████████▏ | 6.39GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  82%|████████▏ | 6.39GB / 7.78GB,  133MB/s  
+
+New Data Upload               : 100%|█████████▉| 5.77GB / 5.77GB,  128MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  83%|████████▎ | 6.43GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  83%|████████▎ | 6.43GB / 7.78GB,  134MB/s  
+
+New Data Upload               : 100%|█████████▉| 5.81GB / 5.83GB,  128MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  83%|████████▎ | 6.46GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  83%|████████▎ | 6.46GB / 7.78GB,  133MB/s  
+
+New Data Upload               :  99%|█████████▉| 5.83GB / 5.90GB,  128MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  84%|████████▎ | 6.50GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  84%|████████▎ | 6.50GB / 7.78GB,  134MB/s  
+
+New Data Upload               : 100%|█████████▉| 5.88GB / 5.90GB,  129MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  84%|████████▍ | 6.52GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  84%|████████▍ | 6.52GB / 7.78GB,  133MB/s  
+
+New Data Upload               :  99%|█████████▉| 5.90GB / 5.97GB,  128MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  85%|████████▍ | 6.58GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  85%|████████▍ | 6.58GB / 7.78GB,  135MB/s  
+
+New Data Upload               : 100%|█████████▉| 5.96GB / 5.97GB,  130MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  85%|████████▍ | 6.59GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  85%|████████▍ | 6.59GB / 7.78GB,  133MB/s  
+
+New Data Upload               :  99%|█████████▉| 5.97GB / 6.04GB,  129MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  85%|████████▌ | 6.65GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  85%|████████▌ | 6.65GB / 7.78GB,  135MB/s  
+
+New Data Upload               : 100%|█████████▉| 6.03GB / 6.04GB,  130MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  86%|████████▌ | 6.66GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  86%|████████▌ | 6.66GB / 7.78GB,  133MB/s  
+
+New Data Upload               :  99%|█████████▉| 6.04GB / 6.10GB,  129MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  86%|████████▋ | 6.72GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  86%|████████▋ | 6.72GB / 7.78GB,  136MB/s  
+
+New Data Upload               : 100%|█████████▉| 6.10GB / 6.10GB,  131MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  86%|████████▋ | 6.72GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  86%|████████▋ | 6.72GB / 7.78GB,  133MB/s  
+
+New Data Upload               :  99%|█████████▉| 6.10GB / 6.17GB,  129MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  87%|████████▋ | 6.79GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  87%|████████▋ | 6.79GB / 7.78GB,  136MB/s  
+
+New Data Upload               : 100%|█████████▉| 6.17GB / 6.17GB,  131MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  87%|████████▋ | 6.80GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  87%|████████▋ | 6.80GB / 7.78GB,  134MB/s  
+
+New Data Upload               :  99%|█████████▉| 6.17GB / 6.24GB,  129MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  88%|████████▊ | 6.86GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  88%|████████▊ | 6.86GB / 7.78GB,  136MB/s  
+
+New Data Upload               : 100%|█████████▉| 6.24GB / 6.24GB,  131MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  88%|████████▊ | 6.88GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  88%|████████▊ | 6.88GB / 7.78GB,  135MB/s  
+
+New Data Upload               :  99%|█████████▉| 6.26GB / 6.30GB,  130MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  89%|████████▉ | 6.93GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  89%|████████▉ | 6.93GB / 7.78GB,  136MB/s  
+
+New Data Upload               : 100%|█████████▉| 6.30GB / 6.30GB,  131MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  89%|████████▉ | 6.94GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  89%|████████▉ | 6.94GB / 7.78GB,  134MB/s  
+
+New Data Upload               :  99%|█████████▉| 6.32GB / 6.37GB,  130MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  90%|████████▉ | 6.99GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  90%|████████▉ | 6.99GB / 7.78GB,  136MB/s  
+
+New Data Upload               : 100%|█████████▉| 6.37GB / 6.37GB,  132MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  90%|█████████ | 7.01GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  90%|█████████ | 7.01GB / 7.78GB,  135MB/s  
+
+New Data Upload               :  99%|█████████▉| 6.39GB / 6.44GB,  131MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  91%|█████████ | 7.06GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  91%|█████████ | 7.06GB / 7.78GB,  136MB/s  
+
+New Data Upload               :  99%|█████████▉| 6.44GB / 6.50GB,  132MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  91%|█████████▏| 7.10GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  91%|█████████▏| 7.10GB / 7.78GB,  136MB/s  
+
+New Data Upload               : 100%|█████████▉| 6.48GB / 6.50GB,  132MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  92%|█████████▏| 7.13GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  92%|█████████▏| 7.13GB / 7.78GB,  136MB/s  
+
+New Data Upload               : 100%|█████████▉| 6.50GB / 6.50GB,  132MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  92%|█████████▏| 7.16GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  92%|█████████▏| 7.16GB / 7.78GB,  136MB/s  
+
+New Data Upload               : 100%|█████████▉| 6.54GB / 6.57GB,  132MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  93%|█████████▎| 7.19GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  93%|█████████▎| 7.19GB / 7.78GB,  135MB/s  
+
+New Data Upload               :  99%|█████████▉| 6.57GB / 6.64GB,  132MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  93%|█████████▎| 7.25GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  93%|█████████▎| 7.25GB / 7.78GB,  137MB/s  
+
+New Data Upload               : 100%|█████████▉| 6.63GB / 6.64GB,  133MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  93%|█████████▎| 7.26GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  93%|█████████▎| 7.26GB / 7.78GB,  135MB/s  
+
+New Data Upload               :  99%|█████████▉| 6.64GB / 6.71GB,  132MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  94%|█████████▍| 7.31GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  94%|█████████▍| 7.31GB / 7.78GB,  136MB/s  
+
+New Data Upload               : 100%|█████████▉| 6.68GB / 6.71GB,  133MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  94%|█████████▍| 7.33GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  94%|█████████▍| 7.33GB / 7.78GB,  135MB/s  
+
+New Data Upload               :  99%|█████████▉| 6.71GB / 6.77GB,  132MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  95%|█████████▍| 7.38GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  95%|█████████▍| 7.38GB / 7.78GB,  137MB/s  
+
+New Data Upload               : 100%|█████████▉| 6.76GB / 6.77GB,  134MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  95%|█████████▌| 7.40GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  95%|█████████▌| 7.40GB / 7.78GB,  135MB/s  
+
+New Data Upload               :  99%|█████████▉| 6.77GB / 6.84GB,  132MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  96%|█████████▌| 7.45GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  96%|█████████▌| 7.45GB / 7.78GB,  137MB/s  
+
+New Data Upload               : 100%|█████████▉| 6.83GB / 6.84GB,  134MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  96%|█████████▌| 7.46GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  96%|█████████▌| 7.46GB / 7.78GB,  135MB/s  
+
+New Data Upload               :  99%|█████████▉| 6.84GB / 6.91GB,  132MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  97%|█████████▋| 7.53GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  97%|█████████▋| 7.53GB / 7.78GB,  137MB/s  
+
+New Data Upload               : 100%|█████████▉| 6.90GB / 6.91GB,  134MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  97%|█████████▋| 7.53GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  97%|█████████▋| 7.53GB / 7.78GB,  135MB/s  
+
+New Data Upload               :  99%|█████████▉| 6.91GB / 6.97GB,  132MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  98%|█████████▊| 7.60GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  98%|█████████▊| 7.60GB / 7.78GB,  137MB/s  
+
+New Data Upload               : 100%|█████████▉| 6.97GB / 6.97GB,  134MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  98%|█████████▊| 7.60GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  98%|█████████▊| 7.60GB / 7.78GB,  135MB/s  
+
+New Data Upload               :  99%|█████████▉| 6.97GB / 7.04GB,  132MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  99%|█████████▊| 7.66GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  99%|█████████▊| 7.66GB / 7.78GB,  137MB/s  
+
+New Data Upload               : 100%|█████████▉| 7.04GB / 7.04GB,  134MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  99%|█████████▊| 7.66GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  99%|█████████▊| 7.66GB / 7.78GB,  135MB/s  
+
+New Data Upload               :  99%|█████████▉| 7.04GB / 7.11GB,  132MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt:  99%|█████████▉| 7.73GB / 7.78GB            [A[A
+Processing Files (0 / 1)      :  99%|█████████▉| 7.73GB / 7.78GB,  137MB/s  
+
+New Data Upload               : 100%|█████████▉| 7.11GB / 7.11GB,  135MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt: 100%|█████████▉| 7.76GB / 7.78GB            [A[A
+Processing Files (0 / 1)      : 100%|█████████▉| 7.76GB / 7.78GB,  137MB/s  
+
+New Data Upload               : 100%|█████████▉| 7.14GB / 7.15GB,  134MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt: 100%|█████████▉| 7.78GB / 7.78GB            [A[A
+Processing Files (0 / 1)      : 100%|█████████▉| 7.78GB / 7.78GB,  136MB/s  
+
+New Data Upload               : 100%|█████████▉| 7.15GB / 7.15GB,  133MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt: 100%|█████████▉| 7.78GB / 7.78GB            [A[A
+Processing Files (0 / 1)      : 100%|█████████▉| 7.78GB / 7.78GB,  133MB/s  
+
+New Data Upload               : 100%|█████████▉| 7.15GB / 7.15GB,  131MB/s  [A
+
+
+  ...sk1/full/recovery_1250.pt: 100%|██████████| 7.78GB / 7.78GB            [A[A
+Processing Files (1 / 1)      : 100%|██████████| 7.78GB / 7.78GB,  131MB/s  
+
+New Data Upload               : 100%|██████████| 7.15GB / 7.15GB,  128MB/s  [A
+Processing Files (1 / 1)      : 100%|██████████| 7.78GB / 7.78GB,  131MB/s  
+
+New Data Upload               : 100%|██████████| 7.15GB / 7.15GB,  128MB/s  
+
+  ...sk1/full/recovery_1250.pt: 100%|██████████| 7.78GB / 7.78GB            
+[HF VERIFIED] outputs/task1/full/recovery_1250.pt (sha256_and_size)
+[HF UPLOAD] outputs/task1/full/inference_1250.pt 2.80 GiB
+
+Processing Files (0 / 0)      : |          |  0.00B /  0.00B            
+
+New Data Upload               : |          |  0.00B /  0.00B            [A
+
+
+  ...k1/full/inference_1250.pt:   1%|▏         | 39.9MB / 3.01GB            [A[A
+
+
+  ...k1/full/inference_1250.pt:   1%|▏         | 39.9MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :   1%|▏         | 39.9MB / 3.01GB,   ???B/s  
+
+
+  ...k1/full/inference_1250.pt:   3%|▎         | 87.9MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :   3%|▎         | 87.9MB / 3.01GB,   ???B/s  
+
+
+  ...k1/full/inference_1250.pt:   5%|▍         |  136MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :   5%|▍         |  136MB / 3.01GB, 13.1MB/s  
+
+
+  ...k1/full/inference_1250.pt:   6%|▌         |  176MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :   6%|▌         |  176MB / 3.01GB, 16.6MB/s  
+
+
+  ...k1/full/inference_1250.pt:   7%|▋         |  224MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :   7%|▋         |  224MB / 3.01GB, 20.9MB/s  
+
+
+  ...k1/full/inference_1250.pt:   9%|▉         |  264MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :   9%|▉         |  264MB / 3.01GB, 24.2MB/s  
+
+
+  ...k1/full/inference_1250.pt:  10%|█         |  312MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  10%|█         |  312MB / 3.01GB, 28.2MB/s  
+
+
+  ...k1/full/inference_1250.pt:  12%|█▏        |  352MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  12%|█▏        |  352MB / 3.01GB, 31.3MB/s  
+
+
+  ...k1/full/inference_1250.pt:  13%|█▎        |  400MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  13%|█▎        |  400MB / 3.01GB, 35.1MB/s  
+
+
+  ...k1/full/inference_1250.pt:  15%|█▍        |  440MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  15%|█▍        |  440MB / 3.01GB, 38.0MB/s  
+
+
+  ...k1/full/inference_1250.pt:  16%|█▌        |  488MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  16%|█▌        |  488MB / 3.01GB, 41.5MB/s  
+
+
+  ...k1/full/inference_1250.pt:  18%|█▊        |  528MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  18%|█▊        |  528MB / 3.01GB, 44.3MB/s  
+
+
+  ...k1/full/inference_1250.pt:  19%|█▉        |  568MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  19%|█▉        |  568MB / 3.01GB, 46.9MB/s  
+
+
+  ...k1/full/inference_1250.pt:  20%|██        |  608MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  20%|██        |  608MB / 3.01GB, 49.5MB/s  
+
+
+  ...k1/full/inference_1250.pt:  22%|██▏       |  647MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  22%|██▏       |  647MB / 3.01GB, 52.0MB/s  
+
+
+  ...k1/full/inference_1250.pt:  23%|██▎       |  695MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  23%|██▎       |  695MB / 3.01GB, 55.1MB/s  
+
+
+  ...k1/full/inference_1250.pt:  24%|██▍       |  735MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  24%|██▍       |  735MB / 3.01GB, 57.4MB/s  
+
+
+  ...k1/full/inference_1250.pt:  26%|██▌       |  774MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  26%|██▌       |  774MB / 3.01GB, 59.6MB/s  
+
+
+  ...k1/full/inference_1250.pt:  27%|██▋       |  822MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  27%|██▋       |  822MB / 3.01GB, 62.5MB/s  
+
+
+  ...k1/full/inference_1250.pt:  29%|██▉       |  869MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  29%|██▉       |  869MB / 3.01GB, 65.3MB/s  
+
+
+  ...k1/full/inference_1250.pt:  30%|███       |  909MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  30%|███       |  909MB / 3.01GB, 67.4MB/s  
+
+
+  ...k1/full/inference_1250.pt:  32%|███▏      |  956MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  32%|███▏      |  956MB / 3.01GB, 70.0MB/s  
+
+
+  ...k1/full/inference_1250.pt:  33%|███▎      |  996MB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  33%|███▎      |  996MB / 3.01GB, 72.0MB/s  
+
+
+  ...k1/full/inference_1250.pt:  34%|███▍      | 1.04GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  34%|███▍      | 1.04GB / 3.01GB, 73.8MB/s  
+
+
+  ...k1/full/inference_1250.pt:  36%|███▌      | 1.08GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  36%|███▌      | 1.08GB / 3.01GB, 76.3MB/s  
+
+
+  ...k1/full/inference_1250.pt:  37%|███▋      | 1.12GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  37%|███▋      | 1.12GB / 3.01GB, 78.1MB/s  
+
+
+  ...k1/full/inference_1250.pt:  39%|███▉      | 1.17GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  39%|███▉      | 1.17GB / 3.01GB, 80.5MB/s  
+
+
+  ...k1/full/inference_1250.pt:  40%|████      | 1.21GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  40%|████      | 1.21GB / 3.01GB, 82.1MB/s  
+
+
+  ...k1/full/inference_1250.pt:  42%|████▏     | 1.25GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  42%|████▏     | 1.25GB / 3.01GB, 83.8MB/s  
+
+
+  ...k1/full/inference_1250.pt:  43%|████▎     | 1.29GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  43%|████▎     | 1.29GB / 3.01GB, 85.3MB/s  
+
+
+  ...k1/full/inference_1250.pt:  44%|████▍     | 1.34GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  44%|████▍     | 1.34GB / 3.01GB, 87.5MB/s  
+
+
+  ...k1/full/inference_1250.pt:  46%|████▌     | 1.38GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  46%|████▌     | 1.38GB / 3.01GB, 89.7MB/s  
+
+
+  ...k1/full/inference_1250.pt:  47%|████▋     | 1.42GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  47%|████▋     | 1.42GB / 3.01GB, 91.1MB/s  
+
+
+  ...k1/full/inference_1250.pt:  49%|████▊     | 1.46GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  49%|████▊     | 1.46GB / 3.01GB, 92.5MB/s  
+
+
+  ...k1/full/inference_1250.pt:  50%|█████     | 1.51GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  50%|█████     | 1.51GB / 3.01GB, 94.5MB/s  
+
+
+  ...k1/full/inference_1250.pt:  52%|█████▏    | 1.55GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  52%|█████▏    | 1.55GB / 3.01GB, 95.8MB/s  
+
+
+  ...k1/full/inference_1250.pt:  53%|█████▎    | 1.60GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  53%|█████▎    | 1.60GB / 3.01GB, 97.7MB/s  
+
+
+  ...k1/full/inference_1250.pt:  54%|█████▍    | 1.64GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  54%|█████▍    | 1.64GB / 3.01GB, 99.0MB/s  
+
+
+  ...k1/full/inference_1250.pt:  56%|█████▌    | 1.68GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  56%|█████▌    | 1.68GB / 3.01GB,  100MB/s  
+
+
+  ...k1/full/inference_1250.pt:  57%|█████▋    | 1.72GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  57%|█████▋    | 1.72GB / 3.01GB,  102MB/s  
+
+
+  ...k1/full/inference_1250.pt:  59%|█████▊    | 1.76GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  59%|█████▊    | 1.76GB / 3.01GB,  103MB/s  
+
+
+  ...k1/full/inference_1250.pt:  60%|█████▉    | 1.80GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  60%|█████▉    | 1.80GB / 3.01GB,  104MB/s  
+
+
+  ...k1/full/inference_1250.pt:  61%|██████▏   | 1.84GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  61%|██████▏   | 1.84GB / 3.01GB,  105MB/s  
+
+
+  ...k1/full/inference_1250.pt:  63%|██████▎   | 1.89GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  63%|██████▎   | 1.89GB / 3.01GB,  107MB/s  
+
+
+  ...k1/full/inference_1250.pt:  64%|██████▍   | 1.92GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  64%|██████▍   | 1.92GB / 3.01GB,  107MB/s  
+
+
+  ...k1/full/inference_1250.pt:  65%|██████▌   | 1.97GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  65%|██████▌   | 1.97GB / 3.01GB,  109MB/s  
+
+
+  ...k1/full/inference_1250.pt:  67%|██████▋   | 2.02GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  67%|██████▋   | 2.02GB / 3.01GB,  111MB/s  
+
+
+  ...k1/full/inference_1250.pt:  68%|██████▊   | 2.06GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  68%|██████▊   | 2.06GB / 3.01GB,  112MB/s  
+
+
+  ...k1/full/inference_1250.pt:  70%|███████   | 2.10GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  70%|███████   | 2.10GB / 3.01GB,  113MB/s  
+
+
+  ...k1/full/inference_1250.pt:  72%|███████▏  | 2.15GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  72%|███████▏  | 2.15GB / 3.01GB,  115MB/s  
+
+
+  ...k1/full/inference_1250.pt:  73%|███████▎  | 2.19GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  73%|███████▎  | 2.19GB / 3.01GB,  116MB/s  
+
+
+  ...k1/full/inference_1250.pt:  74%|███████▍  | 2.23GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  74%|███████▍  | 2.23GB / 3.01GB,  117MB/s  
+
+
+  ...k1/full/inference_1250.pt:  76%|███████▌  | 2.27GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  76%|███████▌  | 2.27GB / 3.01GB,  118MB/s  
+
+
+  ...k1/full/inference_1250.pt:  77%|███████▋  | 2.31GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  77%|███████▋  | 2.31GB / 3.01GB,  118MB/s  
+
+
+  ...k1/full/inference_1250.pt:  79%|███████▊  | 2.36GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  79%|███████▊  | 2.36GB / 3.01GB,  120MB/s  
+
+
+  ...k1/full/inference_1250.pt:  80%|███████▉  | 2.40GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  80%|███████▉  | 2.40GB / 3.01GB,  121MB/s  
+
+
+  ...k1/full/inference_1250.pt:  81%|████████  | 2.44GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  81%|████████  | 2.44GB / 3.01GB,  121MB/s  
+
+
+  ...k1/full/inference_1250.pt:  83%|████████▎ | 2.48GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  83%|████████▎ | 2.48GB / 3.01GB,  122MB/s  
+
+
+  ...k1/full/inference_1250.pt:  84%|████████▍ | 2.53GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  84%|████████▍ | 2.53GB / 3.01GB,  123MB/s  
+
+
+  ...k1/full/inference_1250.pt:  85%|████████▌ | 2.57GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  85%|████████▌ | 2.57GB / 3.01GB,  124MB/s  
+
+
+  ...k1/full/inference_1250.pt:  87%|████████▋ | 2.62GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  87%|████████▋ | 2.62GB / 3.01GB,  125MB/s  
+
+
+  ...k1/full/inference_1250.pt:  88%|████████▊ | 2.66GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  88%|████████▊ | 2.66GB / 3.01GB,  126MB/s  
+
+
+  ...k1/full/inference_1250.pt:  90%|████████▉ | 2.70GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  90%|████████▉ | 2.70GB / 3.01GB,  127MB/s  
+
+
+  ...k1/full/inference_1250.pt:  91%|█████████ | 2.73GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  91%|█████████ | 2.73GB / 3.01GB,  127MB/s  
+
+
+  ...k1/full/inference_1250.pt:  92%|█████████▏| 2.77GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  92%|█████████▏| 2.77GB / 3.01GB,  128MB/s  
+
+
+  ...k1/full/inference_1250.pt:  94%|█████████▍| 2.82GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  94%|█████████▍| 2.82GB / 3.01GB,  129MB/s  
+
+
+  ...k1/full/inference_1250.pt:  95%|█████████▌| 2.86GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  95%|█████████▌| 2.86GB / 3.01GB,  130MB/s  
+
+
+  ...k1/full/inference_1250.pt:  96%|█████████▋| 2.90GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  96%|█████████▋| 2.90GB / 3.01GB,  130MB/s  
+
+
+  ...k1/full/inference_1250.pt:  98%|█████████▊| 2.94GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  98%|█████████▊| 2.94GB / 3.01GB,  131MB/s  
+
+
+  ...k1/full/inference_1250.pt:  99%|█████████▉| 2.99GB / 3.01GB            [A[A
+Processing Files (0 / 1)      :  99%|█████████▉| 2.99GB / 3.01GB,  132MB/s  
+
+
+  ...k1/full/inference_1250.pt: 100%|█████████▉| 3.01GB / 3.01GB            [A[A
+Processing Files (0 / 1)      : 100%|█████████▉| 3.01GB / 3.01GB,  131MB/s  
+
+New Data Upload               : 100%|█████████▉| 20.4MB / 20.4MB, 1.54MB/s  [A
+
+
+  ...k1/full/inference_1250.pt: 100%|██████████| 3.01GB / 3.01GB            [A[A
+Processing Files (1 / 1)      : 100%|██████████| 3.01GB / 3.01GB,  128MB/s  
+
+New Data Upload               : 100%|██████████| 20.4MB / 20.4MB, 1.51MB/s  [A
+Processing Files (1 / 1)      : 100%|██████████| 3.01GB / 3.01GB,  128MB/s  
+
+New Data Upload               : 100%|██████████| 20.4MB / 20.4MB, 1.51MB/s  
+
+  ...k1/full/inference_1250.pt: 100%|██████████| 3.01GB / 3.01GB            
+[HF VERIFIED] outputs/task1/full/inference_1250.pt (sha256_and_size)
+[HF UPLOAD] outputs/task1/data/manifest.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+WARNING:huggingface_hub.hf_api:No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/data/manifest.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/data/preflight_pass.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+WARNING:huggingface_hub.hf_api:No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/data/preflight_pass.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/data/probe_ids.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+WARNING:huggingface_hub.hf_api:No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/data/probe_ids.json (remote_size_and_commit)
+[HF VERIFIED] outputs/task1/data/selected.json (sha256_and_size)
+[HF UPLOAD] outputs/task1/full/config.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+WARNING:huggingface_hub.hf_api:No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/full/config.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/full/model_metadata.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+WARNING:huggingface_hub.hf_api:No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/full/model_metadata.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/full/train.jsonl 0.00 GiB
+[HF VERIFIED] outputs/task1/full/train.jsonl (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/preflight/report.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+WARNING:huggingface_hub.hf_api:No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/preflight/report.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/preflight/tokenization.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+WARNING:huggingface_hub.hf_api:No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/preflight/tokenization.json (remote_size_and_commit)
+[HF UPLOAD] outputs/task1/stage_state.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+WARNING:huggingface_hub.hf_api:No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] outputs/task1/stage_state.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/aggregate.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+WARNING:huggingface_hub.hf_api:No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/aggregate.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/arc_easy.json 0.01 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+WARNING:huggingface_hub.hf_api:No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/arc_easy.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/boolq.json 0.01 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+WARNING:huggingface_hub.hf_api:No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/boolq.json (remote_size_and_commit)
+[HF UPLOAD] results/task1/evaluation/baseline/gsm8k_cot.json 0.00 GiB
+No files have been modified since last commit. Skipping to prevent empty commit.
+WARNING:huggingface_hub.hf_api:No files have been modified since last commit. Skipping to prevent empty commit.
+[HF VERIFIED] results/task1/evaluation/baseline/gsm8k_cot.json (remote_size_and_commit)
+[HF VERIFIED] results/task1/evaluation/baseline/hellaswag.json (sha256_and_size)
+[HF UPLOAD] results/task1/monitor/heartbeat.jsonl 0.00 GiB
+[HF VERIFIED] results/task1/monitor/heartbeat.jsonl (remote_size_and_commit)
+[HF UPLOAD] results/task1/monitor/stage_history.jsonl 0.00 GiB
+[HF VERIFIED] results/task1/monitor/stage_history.jsonl (remote_size_and_commit)
+[HF BARRIER PASSED] full:1250
+[AUTO] full: verified checkpoint 1250, moved to next stage automatically.
+[BLOCKED] train_full  -  full reached 1250, but final inference/log was not verified
+[SAFE STOP] full reached 1250, but final inference/log was not verified
+
+[STOPPED SAFELY] train_full needs attention; see the reason above. No notebook cell editing is needed: save the notebook outputs and attach the latest version for another Run All.

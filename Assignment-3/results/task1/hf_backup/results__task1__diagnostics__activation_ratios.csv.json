@@ -1,0 +1,10 @@
+{
+  "bytes": 54802,
+  "relative_path": "results/task1/diagnostics/activation_ratios.csv",
+  "remote_sha256": null,
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "2e2766d6ca84525c99fe8f85f1b7899a3d344a5d76a2bddef757aa309b7e7642",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "remote_size_and_commit",
+  "verified_utc": 1794520329.2062337
+}

@@ -1,0 +1,10 @@
+{
+  "bytes": 3117787,
+  "relative_path": "results/task1/summary/training_log.csv",
+  "remote_sha256": null,
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "114c8aed3568ad204be80ce350f0bcdb83ac3f55c4a96c20c1ba39eb4e0d02e7",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "remote_size_and_commit",
+  "verified_utc": 1794520374.514006
+}

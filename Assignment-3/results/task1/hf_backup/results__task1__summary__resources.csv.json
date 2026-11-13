@@ -1,0 +1,10 @@
+{
+  "bytes": 634,
+  "relative_path": "results/task1/summary/resources.csv",
+  "remote_sha256": null,
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "7c7a3189fd028b504a6fa4aceca1a3891a19c9e367ecedf2df306541502b6512",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "remote_size_and_commit",
+  "verified_utc": 1794520373.444265
+}

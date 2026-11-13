@@ -1,0 +1,10 @@
+{
+  "bytes": 35485,
+  "relative_path": "outputs/task1/preflight/report.json",
+  "remote_sha256": null,
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "7995d9318ceb5eb50b89bde179fcc2e0ff19cbec7719ecf8e16dc017a9ab4fa3",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "remote_size_and_commit",
+  "verified_utc": 1794520326.274679
+}

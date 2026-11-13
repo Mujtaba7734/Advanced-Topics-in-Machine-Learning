@@ -1,0 +1,10 @@
+{
+  "bytes": 34291,
+  "relative_path": "results/task1/qualitative/full_mid.json",
+  "remote_sha256": null,
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "db0b76a039b7fdbbd758a08f9bdbc3f49e8a6accfb4d8fbd0bab7e0b6e328764",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "remote_size_and_commit",
+  "verified_utc": 1794520363.1933234
+}

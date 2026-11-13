@@ -1,0 +1,10 @@
+{
+  "bytes": 3076779,
+  "relative_path": "results/task1/evaluation/full_mid/gsm8k_cot.json",
+  "remote_sha256": null,
+  "repo_id": "Mujtaba034/ATML_PA_3",
+  "sha256": "58339cc0128db36305846e968c09f9964e8319c35e67ff79fad04c6d7dc44ec7",
+  "source_revision": "73c15eb87365173931c94548ee3d7671fe3d210b706af158762e06cb723b0f40",
+  "verification": "remote_size_and_commit",
+  "verified_utc": 1794520341.3941376
+}

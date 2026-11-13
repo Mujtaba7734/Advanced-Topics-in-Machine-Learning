@@ -1,0 +1,1124 @@
+{
+  "kind": "Task 1 integration preflight",
+  "cpu_only": false,
+  "checks": {
+    "dependencies": {
+      "status": "PASSED",
+      "seconds": 0.022313012999916282,
+      "detail": {
+        "torch": {
+          "required": "2.6.0",
+          "actual": "2.6.0"
+        },
+        "transformers": {
+          "required": "4.57.1",
+          "actual": "4.57.1"
+        },
+        "datasets": {
+          "required": "4.4.1",
+          "actual": "4.4.1"
+        },
+        "peft": {
+          "required": "0.17.1",
+          "actual": "0.17.1"
+        },
+        "accelerate": {
+          "required": "1.11.0",
+          "actual": "1.11.0"
+        },
+        "lm-eval": {
+          "required": "0.4.13",
+          "actual": "0.4.13"
+        },
+        "numpy": {
+          "required": "2.1.3",
+          "actual": "2.1.3"
+        },
+        "pandas": {
+          "required": "2.2.3",
+          "actual": "2.2.3"
+        },
+        "matplotlib": {
+          "required": "3.9.2",
+          "actual": "3.9.2"
+        },
+        "scipy": {
+          "required": "1.14.1",
+          "actual": "1.14.1"
+        },
+        "PyYAML": {
+          "required": "6.0.2",
+          "actual": "6.0.2"
+        },
+        "pytest": {
+          "required": "8.3.4",
+          "actual": "8.3.4"
+        },
+        "nbformat": {
+          "required": "5.10.4",
+          "actual": "5.10.4"
+        }
+      }
+    },
+    "resources": {
+      "status": "PASSED",
+      "seconds": 0.6706829700000299,
+      "detail": {
+        "devices": [
+          {
+            "index": 0,
+            "name": "Tesla T4",
+            "free_bytes": 15526068224,
+            "total_bytes": 15636037632
+          },
+          {
+            "index": 1,
+            "name": "Tesla T4",
+            "free_bytes": 15526068224,
+            "total_bytes": 15636037632
+          }
+        ],
+        "ram_bytes": 33658155008,
+        "ram_available_bytes": 30465900544,
+        "disk_free_bytes": 20391624704,
+        "cuda_runtime": "12.4"
+      }
+    },
+    "plotting_serialization_fixture": {
+      "status": "PASSED",
+      "seconds": 1.0925661359999594,
+      "detail": {
+        "fixture": "synthetic; never official metrics",
+        "change_pp": 9.999999999999998
+      }
+    },
+    "real_qwen_tokenizer": {
+      "status": "PASSED",
+      "seconds": 0.6635632800000622,
+      "detail": "Qwen2TokenizerFast"
+    },
+    "real_prepared_data": {
+      "status": "PASSED",
+      "seconds": 5.395689010000069,
+      "detail": "tuple"
+    },
+    "real_model_optimizer_checkpoint_full": {
+      "status": "PASSED",
+      "seconds": 161.76858875999994,
+      "detail": {
+        "optimizer_backend": "secondary_gpu_adamw",
+        "sequence_max": 1941,
+        "updates": [
+          {
+            "sft_loss": 0.3943417795166982,
+            "omega": 0.0,
+            "grad_norm": 9.036316871643066,
+            "lr": 0.0,
+            "skipped": 0,
+            "representative_grad_nonzero": true,
+            "seconds": 31.58604066299995
+          },
+          {
+            "sft_loss": 0.5107960751097479,
+            "omega": 0.0,
+            "grad_norm": 11.262303352355957,
+            "lr": 5.263157894736843e-07,
+            "skipped": 0,
+            "representative_grad_nonzero": true,
+            "seconds": 23.46639862699999
+          },
+          {
+            "sft_loss": 0.5864240879018298,
+            "omega": 0.0,
+            "grad_norm": 12.50425910949707,
+            "lr": 1.0526315789473685e-06,
+            "skipped": 0,
+            "representative_grad_nonzero": true,
+            "seconds": 20.84190407699998
+          }
+        ],
+        "gpu_memory": [
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 2384724480,
+              "reserved_bytes": 2386558976,
+              "peak_allocated_bytes": 2384724480,
+              "peak_reserved_bytes": 2386558976,
+              "free_bytes": 13139509248,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 0,
+              "peak_allocated_bytes": 0,
+              "peak_reserved_bytes": 0,
+              "free_bytes": 15526068224,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 2410153472,
+              "reserved_bytes": 10095689728,
+              "peak_allocated_bytes": 8432750592,
+              "peak_reserved_bytes": 10095689728,
+              "free_bytes": 5390532608,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 7154171904,
+              "reserved_bytes": 10785652736,
+              "peak_allocated_bytes": 10784079872,
+              "peak_reserved_bytes": 10785652736,
+              "free_bytes": 4723638272,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 2410153472,
+              "reserved_bytes": 10095689728,
+              "peak_allocated_bytes": 7778048000,
+              "peak_reserved_bytes": 10095689728,
+              "free_bytes": 5390532608,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 7154171904,
+              "reserved_bytes": 11408506880,
+              "peak_allocated_bytes": 10784604160,
+              "peak_reserved_bytes": 11408506880,
+              "free_bytes": 4100784128,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 2410153472,
+              "reserved_bytes": 10095689728,
+              "peak_allocated_bytes": 7478183936,
+              "peak_reserved_bytes": 10095689728,
+              "free_bytes": 5390532608,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 7154171904,
+              "reserved_bytes": 11408506880,
+              "peak_allocated_bytes": 10784604160,
+              "peak_reserved_bytes": 11408506880,
+              "free_bytes": 4100784128,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 2410153472,
+              "reserved_bytes": 10095689728,
+              "peak_allocated_bytes": 7478183936,
+              "peak_reserved_bytes": 10095689728,
+              "free_bytes": 5390532608,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 7154171904,
+              "reserved_bytes": 11408506880,
+              "peak_allocated_bytes": 10784604160,
+              "peak_reserved_bytes": 11408506880,
+              "free_bytes": 4100784128,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 2418542080,
+              "reserved_bytes": 10095689728,
+              "peak_allocated_bytes": 7478183936,
+              "peak_reserved_bytes": 10095689728,
+              "free_bytes": 5390532608,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 7154171904,
+              "reserved_bytes": 11928600576,
+              "peak_allocated_bytes": 11923619840,
+              "peak_reserved_bytes": 11928600576,
+              "free_bytes": 3580690432,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 2418542080,
+              "reserved_bytes": 10095689728,
+              "peak_allocated_bytes": 7478183936,
+              "peak_reserved_bytes": 10095689728,
+              "free_bytes": 5390532608,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 7154171904,
+              "reserved_bytes": 11928600576,
+              "peak_allocated_bytes": 11923619840,
+              "peak_reserved_bytes": 11928600576,
+              "free_bytes": 3580690432,
+              "total_bytes": 15636037632
+            }
+          ]
+        ],
+        "minimum_headroom_bytes": 3580690432,
+        "checkpoint_estimate_bytes": 8225488895,
+        "smoke_checkpoint_bytes": 7775330246,
+        "reference_bytes": 2384199680,
+        "checkpoint_host_ram": {
+          "available_bytes": 24779165696,
+          "required_bytes": 11684282368
+        },
+        "worst_length_1250_update_projection_seconds": 31622.643069583297,
+        "resume_forward_loss_sum": 820.7894897460938,
+        "trainable_parameters": 596049920,
+        "basis_seconds": 0.0,
+        "basis_bytes": 0
+      }
+    },
+    "real_model_optimizer_checkpoint_l2sp": {
+      "status": "PASSED",
+      "seconds": 141.64199255300002,
+      "detail": {
+        "optimizer_backend": "secondary_gpu_adamw",
+        "sequence_max": 1941,
+        "updates": [
+          {
+            "sft_loss": 0.3943417795166982,
+            "omega": 0.0,
+            "grad_norm": 9.0361967086792,
+            "lr": 0.0,
+            "skipped": 0,
+            "representative_grad_nonzero": true,
+            "seconds": 35.193259055999874
+          },
+          {
+            "sft_loss": 0.5107960751097479,
+            "omega": 0.0,
+            "grad_norm": 11.262285232543945,
+            "lr": 5.263157894736843e-07,
+            "skipped": 0,
+            "representative_grad_nonzero": true,
+            "seconds": 24.48383499600004
+          },
+          {
+            "sft_loss": 0.5864209882136538,
+            "omega": 4.550081225448196e-05,
+            "grad_norm": 12.507919311523438,
+            "lr": 1.0526315789473685e-06,
+            "skipped": 0,
+            "representative_grad_nonzero": true,
+            "seconds": 21.069782542000212
+          }
+        ],
+        "gpu_memory": [
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 2401763840,
+              "reserved_bytes": 2411724800,
+              "peak_allocated_bytes": 2401763840,
+              "peak_reserved_bytes": 2411724800,
+              "free_bytes": 13074497536,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 0,
+              "peak_allocated_bytes": 0,
+              "peak_reserved_bytes": 0,
+              "free_bytes": 15509291008,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 2410153472,
+              "reserved_bytes": 10739515392,
+              "peak_allocated_bytes": 8425615360,
+              "peak_reserved_bytes": 10739515392,
+              "free_bytes": 4740415488,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 7154171904,
+              "reserved_bytes": 10785652736,
+              "peak_allocated_bytes": 10784079872,
+              "peak_reserved_bytes": 10785652736,
+              "free_bytes": 4717346816,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 2410153472,
+              "reserved_bytes": 10739515392,
+              "peak_allocated_bytes": 7789770752,
+              "peak_reserved_bytes": 10739515392,
+              "free_bytes": 4740415488,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 7154171904,
+              "reserved_bytes": 11408506880,
+              "peak_allocated_bytes": 10784604160,
+              "peak_reserved_bytes": 11408506880,
+              "free_bytes": 4094492672,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 2410153472,
+              "reserved_bytes": 10739515392,
+              "peak_allocated_bytes": 7477897216,
+              "peak_reserved_bytes": 10739515392,
+              "free_bytes": 4740415488,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 7154171904,
+              "reserved_bytes": 11408506880,
+              "peak_allocated_bytes": 10784604160,
+              "peak_reserved_bytes": 11408506880,
+              "free_bytes": 4094492672,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 2410153472,
+              "reserved_bytes": 10739515392,
+              "peak_allocated_bytes": 7477897216,
+              "peak_reserved_bytes": 10739515392,
+              "free_bytes": 4740415488,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 7154171904,
+              "reserved_bytes": 11408506880,
+              "peak_allocated_bytes": 10784604160,
+              "peak_reserved_bytes": 11408506880,
+              "free_bytes": 4094492672,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 2418542080,
+              "reserved_bytes": 10739515392,
+              "peak_allocated_bytes": 7477897216,
+              "peak_reserved_bytes": 10739515392,
+              "free_bytes": 4740415488,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 7154171904,
+              "reserved_bytes": 11928600576,
+              "peak_allocated_bytes": 11923619840,
+              "peak_reserved_bytes": 11928600576,
+              "free_bytes": 3574398976,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 2418542080,
+              "reserved_bytes": 10739515392,
+              "peak_allocated_bytes": 7477897216,
+              "peak_reserved_bytes": 10739515392,
+              "free_bytes": 4740415488,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 7154171904,
+              "reserved_bytes": 11928600576,
+              "peak_allocated_bytes": 11923619840,
+              "peak_reserved_bytes": 11928600576,
+              "free_bytes": 3574398976,
+              "total_bytes": 15636037632
+            }
+          ]
+        ],
+        "minimum_headroom_bytes": 3574398976,
+        "checkpoint_estimate_bytes": 8225488895,
+        "smoke_checkpoint_bytes": 7775330246,
+        "reference_bytes": 2384199680,
+        "checkpoint_host_ram": {
+          "available_bytes": 17518956544,
+          "required_bytes": 11684282368
+        },
+        "worst_length_1250_update_projection_seconds": 33644.53191416672,
+        "resume_forward_loss_sum": 820.70458984375,
+        "trainable_parameters": 596049920,
+        "basis_seconds": 0.0,
+        "basis_bytes": 0
+      }
+    },
+    "real_model_optimizer_checkpoint_lora4": {
+      "status": "PASSED",
+      "seconds": 92.3014347830001,
+      "detail": {
+        "optimizer_backend": "single_gpu_adamw",
+        "sequence_max": 1941,
+        "updates": [
+          {
+            "sft_loss": 0.39436736113164067,
+            "omega": 0.0,
+            "grad_norm": 0.5456615686416626,
+            "lr": 0.0,
+            "skipped": 0,
+            "representative_grad_nonzero": true,
+            "seconds": 35.63327816700007
+          },
+          {
+            "sft_loss": 0.5108468329864986,
+            "omega": 0.0,
+            "grad_norm": 0.6841428279876709,
+            "lr": 5.263157894736842e-06,
+            "skipped": 0,
+            "representative_grad_nonzero": true,
+            "seconds": 24.782498430000032
+          },
+          {
+            "sft_loss": 0.58956887367067,
+            "omega": 0.0,
+            "grad_norm": 0.7714710831642151,
+            "lr": 1.0526315789473684e-05,
+            "skipped": 0,
+            "representative_grad_nonzero": true,
+            "seconds": 21.518749125999875
+          }
+        ],
+        "gpu_memory": [
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 1219992064,
+              "reserved_bytes": 1237319680,
+              "peak_allocated_bytes": 1219992064,
+              "peak_reserved_bytes": 1237319680,
+              "free_bytes": 14242611200,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 0,
+              "peak_allocated_bytes": 0,
+              "peak_reserved_bytes": 0,
+              "free_bytes": 15502999552,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 1244405248,
+              "reserved_bytes": 4859101184,
+              "peak_allocated_bytes": 3661942784,
+              "peak_reserved_bytes": 4859101184,
+              "free_bytes": 10620829696,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 0,
+              "peak_allocated_bytes": 0,
+              "peak_reserved_bytes": 0,
+              "free_bytes": 15502999552,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 1244405248,
+              "reserved_bytes": 4861198336,
+              "peak_allocated_bytes": 2861222912,
+              "peak_reserved_bytes": 4861198336,
+              "free_bytes": 10618732544,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 0,
+              "peak_allocated_bytes": 0,
+              "peak_reserved_bytes": 0,
+              "free_bytes": 15502999552,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 1244405248,
+              "reserved_bytes": 4861198336,
+              "peak_allocated_bytes": 2631602688,
+              "peak_reserved_bytes": 4861198336,
+              "free_bytes": 10618732544,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 0,
+              "peak_allocated_bytes": 0,
+              "peak_reserved_bytes": 0,
+              "free_bytes": 15502999552,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 1244405248,
+              "reserved_bytes": 4861198336,
+              "peak_allocated_bytes": 2631602688,
+              "peak_reserved_bytes": 4861198336,
+              "free_bytes": 10618732544,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 0,
+              "peak_allocated_bytes": 0,
+              "peak_reserved_bytes": 0,
+              "free_bytes": 15502999552,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 1244438016,
+              "reserved_bytes": 4867489792,
+              "peak_allocated_bytes": 2631602688,
+              "peak_reserved_bytes": 4867489792,
+              "free_bytes": 10612441088,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 0,
+              "peak_allocated_bytes": 0,
+              "peak_reserved_bytes": 0,
+              "free_bytes": 15502999552,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 1243692544,
+              "reserved_bytes": 4867489792,
+              "peak_allocated_bytes": 2631602688,
+              "peak_reserved_bytes": 4867489792,
+              "free_bytes": 10612441088,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 0,
+              "peak_allocated_bytes": 0,
+              "peak_reserved_bytes": 0,
+              "free_bytes": 15502999552,
+              "total_bytes": 15636037632
+            }
+          ]
+        ],
+        "minimum_headroom_bytes": 10612441088,
+        "checkpoint_estimate_bytes": 34819276,
+        "smoke_checkpoint_bytes": 30768983,
+        "reference_bytes": 0,
+        "checkpoint_host_ram": {
+          "available_bytes": 16687919104,
+          "required_bytes": 3379953664
+        },
+        "worst_length_1250_update_projection_seconds": 34139.38571791666,
+        "resume_forward_loss_sum": 842.38525390625,
+        "trainable_parameters": 2523136,
+        "basis_seconds": 0.0,
+        "basis_bytes": 0
+      }
+    },
+    "real_model_optimizer_checkpoint_lora16": {
+      "status": "PASSED",
+      "seconds": 87.74631327700013,
+      "detail": {
+        "optimizer_backend": "single_gpu_adamw",
+        "sequence_max": 1941,
+        "updates": [
+          {
+            "sft_loss": 0.39436736113164067,
+            "omega": 0.0,
+            "grad_norm": 1.077091097831726,
+            "lr": 0.0,
+            "skipped": 0,
+            "representative_grad_nonzero": true,
+            "seconds": 35.07343023699991
+          },
+          {
+            "sft_loss": 0.5108468329864986,
+            "omega": 0.0,
+            "grad_norm": 1.350846767425537,
+            "lr": 5.263157894736842e-06,
+            "skipped": 0,
+            "representative_grad_nonzero": true,
+            "seconds": 25.139681782000025
+          },
+          {
+            "sft_loss": 0.5875018035593054,
+            "omega": 0.0,
+            "grad_norm": 1.5074958801269531,
+            "lr": 1.0526315789473684e-05,
+            "skipped": 0,
+            "representative_grad_nonzero": true,
+            "seconds": 21.893444575999865
+          }
+        ],
+        "gpu_memory": [
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 1250269696,
+              "reserved_bytes": 1268776960,
+              "peak_allocated_bytes": 1250269696,
+              "peak_reserved_bytes": 1268776960,
+              "free_bytes": 14211153920,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 0,
+              "peak_allocated_bytes": 0,
+              "peak_reserved_bytes": 0,
+              "free_bytes": 15502999552,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 1335336448,
+              "reserved_bytes": 4987027456,
+              "peak_allocated_bytes": 3692318720,
+              "peak_reserved_bytes": 4987027456,
+              "free_bytes": 10492903424,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 0,
+              "peak_allocated_bytes": 0,
+              "peak_reserved_bytes": 0,
+              "free_bytes": 15502999552,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 1335336448,
+              "reserved_bytes": 4987027456,
+              "peak_allocated_bytes": 2982431744,
+              "peak_reserved_bytes": 4987027456,
+              "free_bytes": 10492903424,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 0,
+              "peak_allocated_bytes": 0,
+              "peak_reserved_bytes": 0,
+              "free_bytes": 15502999552,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 1335336448,
+              "reserved_bytes": 4991221760,
+              "peak_allocated_bytes": 2752811520,
+              "peak_reserved_bytes": 4991221760,
+              "free_bytes": 10488709120,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 0,
+              "peak_allocated_bytes": 0,
+              "peak_reserved_bytes": 0,
+              "free_bytes": 15502999552,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 1335336448,
+              "reserved_bytes": 4991221760,
+              "peak_allocated_bytes": 2752811520,
+              "peak_reserved_bytes": 4991221760,
+              "free_bytes": 10488709120,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 0,
+              "peak_allocated_bytes": 0,
+              "peak_reserved_bytes": 0,
+              "free_bytes": 15502999552,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 1335467520,
+              "reserved_bytes": 5018484736,
+              "peak_allocated_bytes": 2752811520,
+              "peak_reserved_bytes": 5018484736,
+              "free_bytes": 10461446144,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 0,
+              "peak_allocated_bytes": 0,
+              "peak_reserved_bytes": 0,
+              "free_bytes": 15502999552,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 1334722048,
+              "reserved_bytes": 5018484736,
+              "peak_allocated_bytes": 2752811520,
+              "peak_reserved_bytes": 5018484736,
+              "free_bytes": 10461446144,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 0,
+              "peak_allocated_bytes": 0,
+              "peak_reserved_bytes": 0,
+              "free_bytes": 15502999552,
+              "total_bytes": 15636037632
+            }
+          ]
+        ],
+        "minimum_headroom_bytes": 10461446144,
+        "checkpoint_estimate_bytes": 139277107,
+        "smoke_checkpoint_bytes": 121603454,
+        "reference_bytes": 0,
+        "checkpoint_host_ram": {
+          "available_bytes": 16679370752,
+          "required_bytes": 3501064192
+        },
+        "worst_length_1250_update_projection_seconds": 34211.06524791659,
+        "resume_forward_loss_sum": 825.3316650390625,
+        "trainable_parameters": 10092544,
+        "basis_seconds": 0.0,
+        "basis_bytes": 0
+      }
+    },
+    "real_model_optimizer_checkpoint_oplora16": {
+      "status": "PASSED",
+      "seconds": 124.47035245100005,
+      "detail": {
+        "optimizer_backend": "single_gpu_adamw",
+        "sequence_max": 1941,
+        "updates": [
+          {
+            "sft_loss": 0.3943289932676045,
+            "omega": 0.0,
+            "grad_norm": 0.961251974105835,
+            "lr": 0.0,
+            "skipped": 0,
+            "representative_grad_nonzero": true,
+            "seconds": 36.13041316600015
+          },
+          {
+            "sft_loss": 0.5108562650879301,
+            "omega": 0.0,
+            "grad_norm": 1.20619535446167,
+            "lr": 5.263157894736842e-06,
+            "skipped": 0,
+            "representative_grad_nonzero": true,
+            "seconds": 25.64697804399998
+          },
+          {
+            "sft_loss": 0.5876138501116622,
+            "omega": 0.0,
+            "grad_norm": 1.348268985748291,
+            "lr": 1.0526315789473684e-05,
+            "skipped": 0,
+            "representative_grad_nonzero": true,
+            "seconds": 22.246062934999827
+          }
+        ],
+        "gpu_memory": [
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 1576548864,
+              "reserved_bytes": 3101687808,
+              "peak_allocated_bytes": 3039953408,
+              "peak_reserved_bytes": 3101687808,
+              "free_bytes": 12378243072,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 113246208,
+              "peak_allocated_bytes": 71918592,
+              "peak_reserved_bytes": 113246208,
+              "free_bytes": 15349907456,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 1661615616,
+              "reserved_bytes": 5356126208,
+              "peak_allocated_bytes": 4014191616,
+              "peak_reserved_bytes": 5356126208,
+              "free_bytes": 10123804672,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 113246208,
+              "peak_allocated_bytes": 0,
+              "peak_reserved_bytes": 113246208,
+              "free_bytes": 15349907456,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 1661615616,
+              "reserved_bytes": 5358223360,
+              "peak_allocated_bytes": 3310275584,
+              "peak_reserved_bytes": 5358223360,
+              "free_bytes": 10121707520,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 113246208,
+              "peak_allocated_bytes": 0,
+              "peak_reserved_bytes": 113246208,
+              "free_bytes": 15349907456,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 1661615616,
+              "reserved_bytes": 5358223360,
+              "peak_allocated_bytes": 3078967296,
+              "peak_reserved_bytes": 5358223360,
+              "free_bytes": 10121707520,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 113246208,
+              "peak_allocated_bytes": 0,
+              "peak_reserved_bytes": 113246208,
+              "free_bytes": 15349907456,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 1661615616,
+              "reserved_bytes": 5358223360,
+              "peak_allocated_bytes": 3078967296,
+              "peak_reserved_bytes": 5358223360,
+              "free_bytes": 10121707520,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 113246208,
+              "peak_allocated_bytes": 0,
+              "peak_reserved_bytes": 113246208,
+              "free_bytes": 15349907456,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 1661746688,
+              "reserved_bytes": 5389680640,
+              "peak_allocated_bytes": 3078967296,
+              "peak_reserved_bytes": 5389680640,
+              "free_bytes": 10090250240,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 113246208,
+              "peak_allocated_bytes": 0,
+              "peak_reserved_bytes": 113246208,
+              "free_bytes": 15349907456,
+              "total_bytes": 15636037632
+            }
+          ],
+          [
+            {
+              "device": 0,
+              "allocated_bytes": 1334995968,
+              "reserved_bytes": 5389680640,
+              "peak_allocated_bytes": 3078967296,
+              "peak_reserved_bytes": 5389680640,
+              "free_bytes": 10090250240,
+              "total_bytes": 15636037632
+            },
+            {
+              "device": 1,
+              "allocated_bytes": 0,
+              "reserved_bytes": 113246208,
+              "peak_allocated_bytes": 0,
+              "peak_reserved_bytes": 113246208,
+              "free_bytes": 15349907456,
+              "total_bytes": 15636037632
+            }
+          ]
+        ],
+        "minimum_headroom_bytes": 10090250240,
+        "checkpoint_estimate_bytes": 510682726,
+        "smoke_checkpoint_bytes": 444698972,
+        "reference_bytes": 0,
+        "checkpoint_host_ram": {
+          "available_bytes": 16665604096,
+          "required_bytes": 3824025600
+        },
+        "worst_length_1250_update_projection_seconds": 35009.77256041665,
+        "resume_forward_loss_sum": 826.1072387695312,
+        "trainable_parameters": 10092544,
+        "basis_seconds": 32.246902052999985,
+        "basis_bytes": 322961408
+      }
+    },
+    "real_harness_and_qualitative": {
+      "status": "PASSED",
+      "seconds": 77.03841607100003,
+      "detail": {
+        "gsm8k_cot": {
+          "count": 2,
+          "metric_keys": [
+            "name",
+            "alias",
+            "sample_len",
+            "exact_match,strict-match",
+            "exact_match_stderr,strict-match",
+            "exact_match,flexible-extract",
+            "exact_match_stderr,flexible-extract"
+          ]
+        },
+        "hellaswag": {
+          "count": 2,
+          "metric_keys": [
+            "name",
+            "alias",
+            "sample_len",
+            "acc,none",
+            "acc_stderr,none",
+            "acc_norm,none",
+            "acc_norm_stderr,none"
+          ]
+        },
+        "boolq": {
+          "count": 2,
+          "metric_keys": [
+            "name",
+            "alias",
+            "sample_len",
+            "acc,none",
+            "acc_stderr,none"
+          ]
+        },
+        "arc_easy": {
+          "count": 2,
+          "metric_keys": [
+            "name",
+            "alias",
+            "sample_len",
+            "acc,none",
+            "acc_stderr,none",
+            "acc_norm,none",
+            "acc_norm_stderr,none"
+          ]
+        },
+        "qualitative_smoke": {
+          "generated_tokens": 31
+        }
+      }
+    }
+  },
+  "config_sha256": "733b8bfab27514dba3baea7c2c6c4498b5b099e57e99bec518e8536f19654d98",
+  "source_sha256": "ec26406fcc7b331a463dbc57ae74704bf61a3c7a4996977e19cba63d4c24164b",
+  "started_utc": 1793983290.6689062
+}

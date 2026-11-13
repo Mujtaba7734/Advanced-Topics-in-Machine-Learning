@@ -1,0 +1,7 @@
+"/evaluation/baseline/hellaswag.json" filter=lfs diff=lfs merge=lfs -text
+"/evaluation/full_final/hellaswag.json" filter=lfs diff=lfs merge=lfs -text
+"/evaluation/full_mid/hellaswag.json" filter=lfs diff=lfs merge=lfs -text
+"/evaluation/l2sp_final/hellaswag.json" filter=lfs diff=lfs merge=lfs -text
+"/evaluation/lora16_final/hellaswag.json" filter=lfs diff=lfs merge=lfs -text
+"/evaluation/lora4_final/hellaswag.json" filter=lfs diff=lfs merge=lfs -text
+"/evaluation/oplora16_final/hellaswag.json" filter=lfs diff=lfs merge=lfs -text
