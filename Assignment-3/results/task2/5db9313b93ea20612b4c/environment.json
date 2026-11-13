@@ -1,0 +1,18 @@
+{
+  "cuda_available": true,
+  "disk_free_bytes": 119943892992,
+  "free_vram_bytes": 15527116800,
+  "gpu": "Tesla T4",
+  "gpu_count": 1,
+  "gpu_smoke_status": "not run",
+  "python": "3.13.16",
+  "ram_available_bytes": 11941343232,
+  "versions": {
+    "accelerate": "1.11.0",
+    "numpy": "2.4.6",
+    "peft": "0.17.1",
+    "torch": "2.14.1+cu130",
+    "transformers": "4.57.1"
+  },
+  "vram_bytes": 15637086208
+}

@@ -1,0 +1,342 @@
+{
+  "task": 2,
+  "run_id": "5db9313b93ea20612b4c",
+  "file_count": 54,
+  "files": [
+    {
+      "path": "calibration.json",
+      "bytes": 219,
+      "sha256": "dd7d9087a43dc0f88346c6f258250bf26c8f71db5c81a9b9b1cd347bdb416510",
+      "git_lfs": false
+    },
+    {
+      "path": "checkpoints/checkpoint_manifest.json",
+      "bytes": 256,
+      "sha256": "34010960ea618299982252d7e3ab55523620f005acfad8cf54af560357007924",
+      "git_lfs": false
+    },
+    {
+      "path": "checkpoints/latest.json",
+      "bytes": 256,
+      "sha256": "34010960ea618299982252d7e3ab55523620f005acfad8cf54af560357007924",
+      "git_lfs": false
+    },
+    {
+      "path": "checkpoints/previous.json",
+      "bytes": 256,
+      "sha256": "465b228c0166432536b14e243f98500e3dba9e4519e15c71ddf035e74645b4e3",
+      "git_lfs": false
+    },
+    {
+      "path": "cuda-stage-1.json",
+      "bytes": 967,
+      "sha256": "780bbfceb7495c23806fbfee7cd522337d407f29885ddc1ad6f402cd4753b7fc",
+      "git_lfs": false
+    },
+    {
+      "path": "cuda-stage-2.json",
+      "bytes": 973,
+      "sha256": "18f5348992e3ff5b176cd52fe51f512ddf5bec88d3406ef39f12d26ea3c3ee7e",
+      "git_lfs": false
+    },
+    {
+      "path": "cuda-stage-3.json",
+      "bytes": 973,
+      "sha256": "c6d60f82d650b050e8fd32561157a4d637ca94e5f7f8a79a639bf79005f7430a",
+      "git_lfs": false
+    },
+    {
+      "path": "dev-0000.json",
+      "bytes": 267538,
+      "sha256": "d541b0cdf45d5ed34694d9473f638e9dd942ad1bcfe26fff61bd9a863cff78aa",
+      "git_lfs": false
+    },
+    {
+      "path": "dev-0500.json",
+      "bytes": 267544,
+      "sha256": "d6e197d36630aadaf823726fe5801abc22816047f1334150d0aa380f5be4c468",
+      "git_lfs": false
+    },
+    {
+      "path": "dev-1000.json",
+      "bytes": 267589,
+      "sha256": "a142c7f13bca3190f2674aa5b97ce840d75e29e3d744f58ad015cbbb1b326474",
+      "git_lfs": false
+    },
+    {
+      "path": "dev-1500.json",
+      "bytes": 267583,
+      "sha256": "fba3d8ad6a4639cd16e01e6a9316c6050793a7e329cbd77c243cc544e81babb0",
+      "git_lfs": false
+    },
+    {
+      "path": "dev-2000.json",
+      "bytes": 267568,
+      "sha256": "67f73794ba0d20d972728231b66967b390142c27a9b4bd77d223e78dda67f90c",
+      "git_lfs": false
+    },
+    {
+      "path": "dev-2250.json",
+      "bytes": 267567,
+      "sha256": "8de58817aa080f3ac7a866b70b972c96322d6f0d1bc43bdeaa6b1d2061175354",
+      "git_lfs": false
+    },
+    {
+      "path": "dev-2500.json",
+      "bytes": 267597,
+      "sha256": "d2fbc1f6502979f7c401839273f4e5d42c66915feffbf7bcd33dfa91e20b4456",
+      "git_lfs": false
+    },
+    {
+      "path": "dev-3000.json",
+      "bytes": 267649,
+      "sha256": "f0a1f6ac6612ed4b435f7f58ea73b0af11390510726798d32bfbcf41f50850be",
+      "git_lfs": false
+    },
+    {
+      "path": "dev-3500.json",
+      "bytes": 267618,
+      "sha256": "53e5cc888eb7ef73c585f3334d941f0a384d767207ad5ecaba0aa0591b97251c",
+      "git_lfs": false
+    },
+    {
+      "path": "dev-3750.json",
+      "bytes": 267639,
+      "sha256": "fcb1ef7d64e4fd2c10b424ba9d3891f82f547172e83f6c639c74d49741570292",
+      "git_lfs": false
+    },
+    {
+      "path": "dev-4000.json",
+      "bytes": 267630,
+      "sha256": "e91958f6126c688592bbc617a099ac257b78df8e8d1a4e8ac00b872b2cc3b245",
+      "git_lfs": false
+    },
+    {
+      "path": "dev-4500.json",
+      "bytes": 267659,
+      "sha256": "4dda62db0f47ac695dc4f4ea70b55690d5c0a970d2745927dbef41d9f612f101",
+      "git_lfs": false
+    },
+    {
+      "path": "environment.json",
+      "bytes": 410,
+      "sha256": "ea331147d78717f31bf691fc6ee1609d1dcaf34367a8ecd8944261895853fa5a",
+      "git_lfs": false
+    },
+    {
+      "path": "final_verification.json",
+      "bytes": 4903,
+      "sha256": "3c240309e10b480aacb597ce334e115d1bae8eab2544adca9b1b9e19339403ae",
+      "git_lfs": false
+    },
+    {
+      "path": "ground_test-complementary.json",
+      "bytes": 58778,
+      "sha256": "9e415a1632331e9709b798fc2a34c8d4985695684de42b5f3702d2325892bad0",
+      "git_lfs": false
+    },
+    {
+      "path": "ground_test-correct.json",
+      "bytes": 58965,
+      "sha256": "2e0796d01d60fcba18990f2c1ea3ab0df17c248da6517f51b85c2374121877b7",
+      "git_lfs": false
+    },
+    {
+      "path": "ground_test-mismatched.json",
+      "bytes": 58850,
+      "sha256": "d4c6dde9d1f5ceb3754926321d7bff7ca7f090ed042ec09b057e1f975714f311",
+      "git_lfs": false
+    },
+    {
+      "path": "ground_test-no_image.json",
+      "bytes": 63024,
+      "sha256": "e92446ead419402ac751836c00a9f295ae2d08e550e00303d973bbed8804b78b",
+      "git_lfs": false
+    },
+    {
+      "path": "ground_test-qualitative.html",
+      "bytes": 3966122,
+      "sha256": "e425472d4ed01f63b6c83c940e30e4ef62f34410db861e689729640256c57662",
+      "git_lfs": false
+    },
+    {
+      "path": "ground_test-qualitative.json",
+      "bytes": 32066,
+      "sha256": "f22d5e8574500d904919c3e577e36f322fea15f1f1d2ceeb43c3ab7f8b91e49f",
+      "git_lfs": false
+    },
+    {
+      "path": "heartbeat.json",
+      "bytes": 501,
+      "sha256": "4efb35750f41fd10471a05530003469b15f43f5f1996a42686f947600476f151",
+      "git_lfs": false
+    },
+    {
+      "path": "learning_curves.png",
+      "bytes": 165076,
+      "sha256": "e06210e92f838992ec54ceb451d06a990f6ed7eb1cafb20065000bd746bd0012",
+      "git_lfs": false
+    },
+    {
+      "path": "memory.json",
+      "bytes": 3799,
+      "sha256": "e1271c89c619f0a54ca3030d9293eb10466c489e4afe8cc2b80e03c4f17c9df6",
+      "git_lfs": false
+    },
+    {
+      "path": "metrics.json",
+      "bytes": 29878,
+      "sha256": "4f75d77defa8033112c28dc406f20c457e532752734ca1e5cabc150a5d3a3366",
+      "git_lfs": false
+    },
+    {
+      "path": "model_revisions.json",
+      "bytes": 116,
+      "sha256": "c5ab07525de3fb637f4318a4a13b226b3f92d7867cf19f8d8bb210a5f28d5523",
+      "git_lfs": false
+    },
+    {
+      "path": "natural_test-complementary.json",
+      "bytes": 109902,
+      "sha256": "22976013d40cc49f02b56b5d8ab8ae98290ff6e1d1e54573dac70daf59686045",
+      "git_lfs": false
+    },
+    {
+      "path": "natural_test-correct.json",
+      "bytes": 110035,
+      "sha256": "38f662042d6802108bbed1c8075fa22b157fb980b0bbdddc2af10390dfa83b3f",
+      "git_lfs": false
+    },
+    {
+      "path": "natural_test-mismatched.json",
+      "bytes": 109896,
+      "sha256": "38d24fbfe87c5e8a084f3eba1161eb89844df92b3c95e21c6e96716f7f359b6a",
+      "git_lfs": false
+    },
+    {
+      "path": "natural_test-no_image.json",
+      "bytes": 119027,
+      "sha256": "7128b16ecbd39c9f601a3d053b211ce4fd8ed2eb1503b90105c5bbee2f6b24a5",
+      "git_lfs": false
+    },
+    {
+      "path": "natural_test-qualitative.html",
+      "bytes": 4718652,
+      "sha256": "ea7e32732bbe7761125d497b66a92d81e34c1f220fb5b9781171bae5f1612d49",
+      "git_lfs": false
+    },
+    {
+      "path": "natural_test-qualitative.json",
+      "bytes": 58953,
+      "sha256": "89fc1226d066cf7a4eb9e753026f89d3a39b1b6de540dff1255b1e767ea26f1b",
+      "git_lfs": false
+    },
+    {
+      "path": "preflight.json",
+      "bytes": 665,
+      "sha256": "d8e29101cd0b731b322f556287136657d7be4240c0ee0d1ec139b7e828664020",
+      "git_lfs": false
+    },
+    {
+      "path": "run_identity.json",
+      "bytes": 389,
+      "sha256": "9ddc27edbdf139c6df2b2a7d72a9d36681b40f1d16e75f33ba437d7c9c9e8ecd",
+      "git_lfs": false
+    },
+    {
+      "path": "sampling_plan.json",
+      "bytes": 2502099,
+      "sha256": "903512923d9c6f5ad2bf208bd59d673552f7edc6f9d12353deb76b9fc6227f6d",
+      "git_lfs": false
+    },
+    {
+      "path": "selected_data_manifest.json",
+      "bytes": 176,
+      "sha256": "f64cdaae9b6ae6dccd097e79f88bc0eac41423cdc3f6a081e13cb56fb4c98f16",
+      "git_lfs": false
+    },
+    {
+      "path": "smoke_durable/checkpoint_manifest.json",
+      "bytes": 253,
+      "sha256": "b4c0fc01a6d2813bf42854c072f796652ecfe8e20c02597cb7c3e1ee37a986f4",
+      "git_lfs": false
+    },
+    {
+      "path": "smoke_durable/latest.json",
+      "bytes": 253,
+      "sha256": "b4c0fc01a6d2813bf42854c072f796652ecfe8e20c02597cb7c3e1ee37a986f4",
+      "git_lfs": false
+    },
+    {
+      "path": "smoke_durable/previous.json",
+      "bytes": 253,
+      "sha256": "7aa5c30c8ad9d2e9e624fb48c93e652f0569c3de816d4e868fc233f56fce8895",
+      "git_lfs": false
+    },
+    {
+      "path": "source_manifest.json",
+      "bytes": 2265,
+      "sha256": "666b2416c1094ca47b9c16183afe1ffa070f081c7fad5e10471c2e7cf9ab7e95",
+      "git_lfs": false
+    },
+    {
+      "path": "stage-1-weights.json",
+      "bytes": 134,
+      "sha256": "16f781bbd5a6e2fedc60e26fbd57bf200d7f43b117dc98296c3d4abc6a477646",
+      "git_lfs": false
+    },
+    {
+      "path": "stage-2-weights.json",
+      "bytes": 135,
+      "sha256": "02111eb6cee5e77c253453824c8c5f04cb2f4c0b266b6effbab1ab201b586e07",
+      "git_lfs": false
+    },
+    {
+      "path": "stage-3-weights.json",
+      "bytes": 135,
+      "sha256": "77285a50ec978a5d0e97987125e56b73cd3f1fb78d2ce877031495ffbda64729",
+      "git_lfs": false
+    },
+    {
+      "path": "timing.json",
+      "bytes": 4940,
+      "sha256": "348631aba559ebd82544fece4fd77cb231b57153a1f11431c68f4469b254ea8c",
+      "git_lfs": false
+    },
+    {
+      "path": "tokenized_examples.json",
+      "bytes": 19596587,
+      "sha256": "1c987aab0e16970890de27eb3ff219e13dedaa36d59f5692494557314dd5e5d0",
+      "git_lfs": false
+    },
+    {
+      "path": "tokenized_examples_manifest.json",
+      "bytes": 103,
+      "sha256": "abe32b852b41537da9ed070d42fb1f33b48168f63a4ce451849516c3b0ea5638",
+      "git_lfs": false
+    },
+    {
+      "path": "trainable_parameters.json",
+      "bytes": 176,
+      "sha256": "50c53719e8db34f229c7f849e6e5337b8ffe90185c2e68dcc380c5579eba88c3",
+      "git_lfs": false
+    },
+    {
+      "path": "training_logs.json",
+      "bytes": 6059489,
+      "sha256": "5edbc36f0a132ee5e4d480476b93e27bec0589c1898a75f28f70d1cf73920987",
+      "git_lfs": false
+    }
+  ],
+  "excluded_model_and_recovery_files": [
+    "5db9313b93ea20612b4c/checkpoints/recovery-4250-cccaedd9.pt",
+    "5db9313b93ea20612b4c/checkpoints/recovery-4500-8ac82b57.pt",
+    "5db9313b93ea20612b4c/smoke_durable/recovery-0003-568c509a.pt",
+    "5db9313b93ea20612b4c/smoke_durable/recovery-0003-c5f8dcc6.pt",
+    "5db9313b93ea20612b4c/smoke_local/recovery-0003-568c509a.pt",
+    "5db9313b93ea20612b4c/smoke_local/recovery-0003-c5f8dcc6.pt",
+    "5db9313b93ea20612b4c/stage-1-weights.pt",
+    "5db9313b93ea20612b4c/stage-2-weights.pt",
+    "5db9313b93ea20612b4c/stage-3-weights.pt"
+  ]
+}

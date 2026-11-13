@@ -1,0 +1,39 @@
+{
+  "checkpoint_seconds": 2.468088304000048,
+  "isolated_16x1": {
+    "peak_allocated_bytes": 2144538112,
+    "peak_reserved_bytes": 2436890624,
+    "seconds_per_update": 2.301810272000239,
+    "status": "measured"
+  },
+  "official_8x2": [
+    {
+      "gradient_norm": 4.8576483726501465,
+      "loss": 1.1745253801345825,
+      "overflow_retries": 0,
+      "seconds": 2.3539317550003034
+    },
+    {
+      "gradient_norm": 4.874441623687744,
+      "loss": 1.1727204844355583,
+      "overflow_retries": 0,
+      "seconds": 2.3526691059996665
+    },
+    {
+      "gradient_norm": 4.834469318389893,
+      "loss": 1.1700723692774773,
+      "overflow_retries": 0,
+      "seconds": 2.3609623990005275
+    }
+  ],
+  "peak_allocated_bytes": 1745938944,
+  "peak_reserved_bytes": 1881145344,
+  "recovery_equivalence": "PASS",
+  "recovery_tolerance": {
+    "atol": 1e-06,
+    "rtol": 1e-05
+  },
+  "seconds_per_update": 2.356815752500097,
+  "stage": 2,
+  "status": "GPU smoke tested"
+}

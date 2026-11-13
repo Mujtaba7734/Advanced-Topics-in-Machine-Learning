@@ -1,0 +1,6 @@
+{
+  "rule": "training-only ratio of text-embedding RMS to initial connector-output RMS; first 64 selected captions",
+  "scale": 0.0552026629447937,
+  "text_rms": 0.02729203924536705,
+  "visual_rms": 0.4943971335887909
+}

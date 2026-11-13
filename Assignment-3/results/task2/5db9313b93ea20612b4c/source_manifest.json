@@ -1,0 +1,56 @@
+{
+  "assignment_sha256": "66766f7aafb6046f617d990399dad687ab79b37b8d963cb60bdb4cb0d8871f62",
+  "files": {
+    "__init__.py": "0bc3f018b5ff59d7a9384b34935cf09159a68c87b3eec8d3f6d78abce08e5e74",
+    "bootstrap.py": "9f9ac5d5c5c2f87984c9032e8f6773f2fd931dfa0a261666301fa76834ccebb8",
+    "contractions.json": "3c92cffd24db80654e81846f1239c8c6c8c56c2c896c757ee7d002d80a9f5f54",
+    "data.py": "7fc3ca42a20b0a73f70ef63bf105f969531d0b35e798914f5f26814ceb15fa36",
+    "evaluate.py": "d52488521a5dcba1d29cb0bdb5ad701501f580c8518c9512e27ed3d9b54a25e8",
+    "features.py": "bd21677331ae2d53ea8a09a735cdd7fcce4394c0ee0f441eb21c2fc70ca9bf86",
+    "metrics.py": "e5e9dcf88a88beca0893065d48f8cd93ca54a52d4f406dcc3ced3cefd28ee8c6",
+    "model.py": "f0e72d3ef06f8fb8a217cc81f12e60a3d4bbe1d5990d5e0f04851067acace93e",
+    "preflight.py": "92cce10ee4a4af237e2187b425fb70d2e8c6d00902277883a38bb437c5379f42",
+    "protocol.py": "5400d620554b44d8b7b3ada7885f0432b97f51a9e97b896ee88cc7b5f61c741d",
+    "requirements-colab.txt": "2437aa98df1b60062e7658d47408624d10058858c22de9fae8d4157f348256a2",
+    "run.py": "b1789c7c5049581b519adfed630983cae24a90106d3dd9c14a0b0d065aab4eb6",
+    "storage.py": "5f57befb91b2a493c9a6fb83c4fdc395db3ddd734be9086610698f379ea99645",
+    "tests/test_task2.py": "4f932ba614031aeefbd4cfb348e3dc162b424d58b5544c4705b062ecc48762cf",
+    "train.py": "3b5a85609fed02eb90bf7994f4aaffaa4e3a1e0c363fd6fbe798b17bb45b8e73"
+  },
+  "git_commit": "11e166e110cf35e3f08e5ce087b69554f3b1634d",
+  "hash": "6e2a1eddd23ea4d3942051edfdd40b5a936106a46588d3c05d0cc3d4684cf565",
+  "protocol": {
+    "accumulation": 2,
+    "alpha": 32,
+    "answer_cap": 16,
+    "bootstrap": 4000,
+    "caption_cap": 64,
+    "clip": 1.0,
+    "connector_lr": [
+      0.001,
+      0.0001,
+      5e-05
+    ],
+    "dropout": 0.05,
+    "language": "Qwen/Qwen3-0.6B",
+    "language_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+    "lora_lr": [
+      0.0,
+      2e-05,
+      1e-05
+    ],
+    "microbatch": 8,
+    "question_cap": 80,
+    "rank": 16,
+    "seed": 6304,
+    "updates": [
+      2250,
+      1500,
+      750
+    ],
+    "vision": "google/siglip-base-patch16-224",
+    "vision_revision": "7fd15f0689c79d79e38b1c2e2e2370a7bf2761ed",
+    "visual_tokens": 196,
+    "weight_decay": 0.01
+  }
+}

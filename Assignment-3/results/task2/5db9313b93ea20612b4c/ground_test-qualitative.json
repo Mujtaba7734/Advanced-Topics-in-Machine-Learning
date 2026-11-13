@@ -1,0 +1,1218 @@
+[
+  {
+    "condition": "correct",
+    "exact": false,
+    "example_id": "36eda8c5c9ce4949177ce854",
+    "follows_partner": false,
+    "image_id": 480408,
+    "input_image_id": 480408,
+    "kind": "counting",
+    "nll": 1.8942686319351196,
+    "pair_id": "ground-val2014-counting-18-480408-63040",
+    "prediction": "1",
+    "question": "How many dogs can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.03475327837486475
+  },
+  {
+    "condition": "correct",
+    "exact": true,
+    "example_id": "e235ed5ebfbc64fa2fb2abe3",
+    "follows_partner": false,
+    "image_id": 63040,
+    "input_image_id": 63040,
+    "kind": "counting",
+    "nll": 0.9487618803977966,
+    "pair_id": "ground-val2014-counting-18-480408-63040",
+    "prediction": "3",
+    "question": "How many dogs can you see?",
+    "reference": "3",
+    "references": [
+      "3"
+    ],
+    "score": 1.0,
+    "seconds": 0.03475327837486475
+  },
+  {
+    "condition": "correct",
+    "exact": true,
+    "example_id": "8609e20752b090dc17ef415f",
+    "follows_partner": false,
+    "image_id": 388161,
+    "input_image_id": 388161,
+    "kind": "counting",
+    "nll": 0.06012353673577309,
+    "pair_id": "ground-val2014-counting-19-388161-397135",
+    "prediction": "1",
+    "question": "How many horses can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 1.0,
+    "seconds": 0.03447010350009805
+  },
+  {
+    "condition": "correct",
+    "exact": true,
+    "example_id": "7a1100b462b86bd916a47006",
+    "follows_partner": false,
+    "image_id": 397135,
+    "input_image_id": 397135,
+    "kind": "counting",
+    "nll": 0.3862546980381012,
+    "pair_id": "ground-val2014-counting-19-388161-397135",
+    "prediction": "4",
+    "question": "How many horses can you see?",
+    "reference": "4",
+    "references": [
+      "4"
+    ],
+    "score": 1.0,
+    "seconds": 0.03447010350009805
+  },
+  {
+    "condition": "correct",
+    "exact": true,
+    "example_id": "8ccc649b05c306082ba7229f",
+    "follows_partner": false,
+    "image_id": 567751,
+    "input_image_id": 567751,
+    "kind": "counting",
+    "nll": 0.07786555588245392,
+    "pair_id": "ground-val2014-counting-19-567751-566324",
+    "prediction": "2",
+    "question": "How many horses can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 1.0,
+    "seconds": 0.034500111375109555
+  },
+  {
+    "condition": "correct",
+    "exact": false,
+    "example_id": "7ef1cc13fbccc30a1a3fd8d2",
+    "follows_partner": false,
+    "image_id": 566324,
+    "input_image_id": 566324,
+    "kind": "counting",
+    "nll": 5.273159980773926,
+    "pair_id": "ground-val2014-counting-19-567751-566324",
+    "prediction": "1",
+    "question": "How many horses can you see?",
+    "reference": "4",
+    "references": [
+      "4"
+    ],
+    "score": 0.0,
+    "seconds": 0.034500111375109555
+  },
+  {
+    "condition": "correct",
+    "exact": true,
+    "example_id": "bbfc55165a1c6098ba563874",
+    "follows_partner": false,
+    "image_id": 389604,
+    "input_image_id": 389604,
+    "kind": "counting",
+    "nll": 0.04037027060985565,
+    "pair_id": "ground-val2014-counting-22-389604-59295",
+    "prediction": "2",
+    "question": "How many elephants can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 1.0,
+    "seconds": 0.03486854850007148
+  },
+  {
+    "condition": "correct",
+    "exact": true,
+    "example_id": "83b0b0b27e409d18888ad23c",
+    "follows_partner": false,
+    "image_id": 59295,
+    "input_image_id": 59295,
+    "kind": "counting",
+    "nll": 0.018744006752967834,
+    "pair_id": "ground-val2014-counting-22-389604-59295",
+    "prediction": "1",
+    "question": "How many elephants can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 1.0,
+    "seconds": 0.03486854850007148
+  },
+  {
+    "condition": "complementary",
+    "exact": false,
+    "example_id": "36eda8c5c9ce4949177ce854",
+    "follows_partner": true,
+    "image_id": 480408,
+    "input_image_id": 63040,
+    "kind": "counting",
+    "nll": 1.6206369400024414,
+    "pair_id": "ground-val2014-counting-18-480408-63040",
+    "prediction": "3",
+    "question": "How many dogs can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.034201444125073976
+  },
+  {
+    "condition": "complementary",
+    "exact": false,
+    "example_id": "e235ed5ebfbc64fa2fb2abe3",
+    "follows_partner": false,
+    "image_id": 63040,
+    "input_image_id": 480408,
+    "kind": "counting",
+    "nll": 2.894268751144409,
+    "pair_id": "ground-val2014-counting-18-480408-63040",
+    "prediction": "1",
+    "question": "How many dogs can you see?",
+    "reference": "3",
+    "references": [
+      "3"
+    ],
+    "score": 0.0,
+    "seconds": 0.034201444125073976
+  },
+  {
+    "condition": "complementary",
+    "exact": false,
+    "example_id": "8609e20752b090dc17ef415f",
+    "follows_partner": true,
+    "image_id": 388161,
+    "input_image_id": 397135,
+    "kind": "counting",
+    "nll": 6.089379787445068,
+    "pair_id": "ground-val2014-counting-19-388161-397135",
+    "prediction": "4",
+    "question": "How many horses can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.034741576124815765
+  },
+  {
+    "condition": "complementary",
+    "exact": false,
+    "example_id": "7a1100b462b86bd916a47006",
+    "follows_partner": true,
+    "image_id": 397135,
+    "input_image_id": 388161,
+    "kind": "counting",
+    "nll": 5.763248443603516,
+    "pair_id": "ground-val2014-counting-19-388161-397135",
+    "prediction": "1",
+    "question": "How many horses can you see?",
+    "reference": "4",
+    "references": [
+      "4"
+    ],
+    "score": 0.0,
+    "seconds": 0.034741576124815765
+  },
+  {
+    "condition": "complementary",
+    "exact": false,
+    "example_id": "8ccc649b05c306082ba7229f",
+    "follows_partner": false,
+    "image_id": 567751,
+    "input_image_id": 566324,
+    "kind": "counting",
+    "nll": 2.429409980773926,
+    "pair_id": "ground-val2014-counting-19-567751-566324",
+    "prediction": "1",
+    "question": "How many horses can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.03576437162496404
+  },
+  {
+    "condition": "complementary",
+    "exact": false,
+    "example_id": "7ef1cc13fbccc30a1a3fd8d2",
+    "follows_partner": true,
+    "image_id": 566324,
+    "input_image_id": 567751,
+    "kind": "counting",
+    "nll": 6.7028656005859375,
+    "pair_id": "ground-val2014-counting-19-567751-566324",
+    "prediction": "2",
+    "question": "How many horses can you see?",
+    "reference": "4",
+    "references": [
+      "4"
+    ],
+    "score": 0.0,
+    "seconds": 0.03576437162496404
+  },
+  {
+    "condition": "complementary",
+    "exact": false,
+    "example_id": "bbfc55165a1c6098ba563874",
+    "follows_partner": true,
+    "image_id": 389604,
+    "input_image_id": 59295,
+    "kind": "counting",
+    "nll": 4.346868991851807,
+    "pair_id": "ground-val2014-counting-22-389604-59295",
+    "prediction": "1",
+    "question": "How many elephants can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.03532352487491153
+  },
+  {
+    "condition": "complementary",
+    "exact": false,
+    "example_id": "83b0b0b27e409d18888ad23c",
+    "follows_partner": true,
+    "image_id": 59295,
+    "input_image_id": 389604,
+    "kind": "counting",
+    "nll": 3.915370225906372,
+    "pair_id": "ground-val2014-counting-22-389604-59295",
+    "prediction": "2",
+    "question": "How many elephants can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.03532352487491153
+  },
+  {
+    "condition": "mismatched",
+    "exact": false,
+    "example_id": "36eda8c5c9ce4949177ce854",
+    "follows_partner": false,
+    "image_id": 480408,
+    "input_image_id": 188865,
+    "kind": "counting",
+    "nll": 2.4754700660705566,
+    "pair_id": "ground-val2014-counting-18-480408-63040",
+    "prediction": "0",
+    "question": "How many dogs can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.03440720062508262
+  },
+  {
+    "condition": "mismatched",
+    "exact": false,
+    "example_id": "e235ed5ebfbc64fa2fb2abe3",
+    "follows_partner": false,
+    "image_id": 63040,
+    "input_image_id": 441511,
+    "kind": "counting",
+    "nll": 4.473114967346191,
+    "pair_id": "ground-val2014-counting-18-480408-63040",
+    "prediction": "1",
+    "question": "How many dogs can you see?",
+    "reference": "3",
+    "references": [
+      "3"
+    ],
+    "score": 0.0,
+    "seconds": 0.03440720062508262
+  },
+  {
+    "condition": "mismatched",
+    "exact": false,
+    "example_id": "8609e20752b090dc17ef415f",
+    "follows_partner": false,
+    "image_id": 388161,
+    "input_image_id": 567751,
+    "kind": "counting",
+    "nll": 2.8131916522979736,
+    "pair_id": "ground-val2014-counting-19-388161-397135",
+    "prediction": "2",
+    "question": "How many horses can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.03410916737493608
+  },
+  {
+    "condition": "mismatched",
+    "exact": false,
+    "example_id": "7a1100b462b86bd916a47006",
+    "follows_partner": true,
+    "image_id": 397135,
+    "input_image_id": 566324,
+    "kind": "counting",
+    "nll": 5.265162467956543,
+    "pair_id": "ground-val2014-counting-19-388161-397135",
+    "prediction": "1",
+    "question": "How many horses can you see?",
+    "reference": "4",
+    "references": [
+      "4"
+    ],
+    "score": 0.0,
+    "seconds": 0.03410916737493608
+  },
+  {
+    "condition": "mismatched",
+    "exact": false,
+    "example_id": "8ccc649b05c306082ba7229f",
+    "follows_partner": false,
+    "image_id": 567751,
+    "input_image_id": 367424,
+    "kind": "counting",
+    "nll": 2.65061616897583,
+    "pair_id": "ground-val2014-counting-19-567751-566324",
+    "prediction": "0",
+    "question": "How many horses can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.036411117000170634
+  },
+  {
+    "condition": "mismatched",
+    "exact": false,
+    "example_id": "7ef1cc13fbccc30a1a3fd8d2",
+    "follows_partner": false,
+    "image_id": 566324,
+    "input_image_id": 98029,
+    "kind": "counting",
+    "nll": 4.251029014587402,
+    "pair_id": "ground-val2014-counting-19-567751-566324",
+    "prediction": "0",
+    "question": "How many horses can you see?",
+    "reference": "4",
+    "references": [
+      "4"
+    ],
+    "score": 0.0,
+    "seconds": 0.036411117000170634
+  },
+  {
+    "condition": "mismatched",
+    "exact": false,
+    "example_id": "bbfc55165a1c6098ba563874",
+    "follows_partner": true,
+    "image_id": 389604,
+    "input_image_id": 456521,
+    "kind": "counting",
+    "nll": 1.3076064586639404,
+    "pair_id": "ground-val2014-counting-22-389604-59295",
+    "prediction": "1",
+    "question": "How many elephants can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.03800227374995302
+  },
+  {
+    "condition": "mismatched",
+    "exact": true,
+    "example_id": "83b0b0b27e409d18888ad23c",
+    "follows_partner": false,
+    "image_id": 59295,
+    "input_image_id": 34597,
+    "kind": "counting",
+    "nll": 0.9718178510665894,
+    "pair_id": "ground-val2014-counting-22-389604-59295",
+    "prediction": "1",
+    "question": "How many elephants can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 1.0,
+    "seconds": 0.03800227374995302
+  },
+  {
+    "condition": "no_image",
+    "exact": false,
+    "example_id": "36eda8c5c9ce4949177ce854",
+    "follows_partner": false,
+    "image_id": 480408,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.052936553955078,
+    "pair_id": "ground-val2014-counting-18-480408-63040",
+    "prediction": "I cannot see any dogs. I am an AI assistant and do not have the",
+    "question": "How many dogs can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.15335848612494374
+  },
+  {
+    "condition": "no_image",
+    "exact": false,
+    "example_id": "e235ed5ebfbc64fa2fb2abe3",
+    "follows_partner": false,
+    "image_id": 63040,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.318561553955078,
+    "pair_id": "ground-val2014-counting-18-480408-63040",
+    "prediction": "I cannot see any dogs. I am an AI assistant and do not have the",
+    "question": "How many dogs can you see?",
+    "reference": "3",
+    "references": [
+      "3"
+    ],
+    "score": 0.0,
+    "seconds": 0.15335848612494374
+  },
+  {
+    "condition": "no_image",
+    "exact": false,
+    "example_id": "8609e20752b090dc17ef415f",
+    "follows_partner": false,
+    "image_id": 388161,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 2.888523578643799,
+    "pair_id": "ground-val2014-counting-19-388161-397135",
+    "prediction": "I cannot see horses, but I can see horses in the wild.",
+    "question": "How many horses can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.1519053460001487
+  },
+  {
+    "condition": "no_image",
+    "exact": false,
+    "example_id": "7a1100b462b86bd916a47006",
+    "follows_partner": false,
+    "image_id": 397135,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.154148578643799,
+    "pair_id": "ground-val2014-counting-19-388161-397135",
+    "prediction": "I cannot see horses, but I can see horses in the wild.",
+    "question": "How many horses can you see?",
+    "reference": "4",
+    "references": [
+      "4"
+    ],
+    "score": 0.0,
+    "seconds": 0.1519053460001487
+  },
+  {
+    "condition": "no_image",
+    "exact": false,
+    "example_id": "8ccc649b05c306082ba7229f",
+    "follows_partner": false,
+    "image_id": 567751,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 3.3934383392333984,
+    "pair_id": "ground-val2014-counting-19-567751-566324",
+    "prediction": "I cannot see horses, but I can see horses in the wild.",
+    "question": "How many horses can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.19595153999989634
+  },
+  {
+    "condition": "no_image",
+    "exact": false,
+    "example_id": "7ef1cc13fbccc30a1a3fd8d2",
+    "follows_partner": false,
+    "image_id": 566324,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.159063339233398,
+    "pair_id": "ground-val2014-counting-19-567751-566324",
+    "prediction": "I cannot see horses, but I can see horses in the wild.",
+    "question": "How many horses can you see?",
+    "reference": "4",
+    "references": [
+      "4"
+    ],
+    "score": 0.0,
+    "seconds": 0.19595153999989634
+  },
+  {
+    "condition": "no_image",
+    "exact": false,
+    "example_id": "bbfc55165a1c6098ba563874",
+    "follows_partner": false,
+    "image_id": 389604,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.864994049072266,
+    "pair_id": "ground-val2014-counting-22-389604-59295",
+    "prediction": "I cannot see elephants, but I can tell you that elephants are large, slow",
+    "question": "How many elephants can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.1828415076249712
+  },
+  {
+    "condition": "no_image",
+    "exact": false,
+    "example_id": "83b0b0b27e409d18888ad23c",
+    "follows_partner": false,
+    "image_id": 59295,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.443119049072266,
+    "pair_id": "ground-val2014-counting-22-389604-59295",
+    "prediction": "I cannot see elephants, but I can tell you that elephants are large, slow",
+    "question": "How many elephants can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.1828415076249712
+  },
+  {
+    "condition": "correct",
+    "exact": true,
+    "example_id": "b2f0953aa846e4d5aa71c5ef",
+    "follows_partner": false,
+    "image_id": 442165,
+    "input_image_id": 442165,
+    "kind": "presence",
+    "nll": 0.13679751753807068,
+    "pair_id": "ground-val2014-presence-15-442165-327165",
+    "prediction": "yes",
+    "question": "Does this image contain bench?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 1.0,
+    "seconds": 0.033761704625021594
+  },
+  {
+    "condition": "correct",
+    "exact": false,
+    "example_id": "552a055172c5b684d1206186",
+    "follows_partner": true,
+    "image_id": 327165,
+    "input_image_id": 327165,
+    "kind": "presence",
+    "nll": 1.6766059398651123,
+    "pair_id": "ground-val2014-presence-15-442165-327165",
+    "prediction": "yes",
+    "question": "Does this image contain bench?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.033761704625021594
+  },
+  {
+    "condition": "correct",
+    "exact": true,
+    "example_id": "9f5a81633b864dc8c861ca98",
+    "follows_partner": false,
+    "image_id": 384496,
+    "input_image_id": 384496,
+    "kind": "presence",
+    "nll": 0.0012868703342974186,
+    "pair_id": "ground-val2014-presence-19-384496-140826",
+    "prediction": "yes",
+    "question": "Does this image contain horse?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 1.0,
+    "seconds": 0.03513424674997623
+  },
+  {
+    "condition": "correct",
+    "exact": true,
+    "example_id": "a40b881dea82b517d1bd6cc1",
+    "follows_partner": false,
+    "image_id": 140826,
+    "input_image_id": 140826,
+    "kind": "presence",
+    "nll": 0.00783808808773756,
+    "pair_id": "ground-val2014-presence-19-384496-140826",
+    "prediction": "no",
+    "question": "Does this image contain horse?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 1.0,
+    "seconds": 0.03513424674997623
+  },
+  {
+    "condition": "correct",
+    "exact": true,
+    "example_id": "ff9d21c6bc04ccacab0247a2",
+    "follows_partner": false,
+    "image_id": 355441,
+    "input_image_id": 355441,
+    "kind": "presence",
+    "nll": 0.02447519823908806,
+    "pair_id": "ground-val2014-presence-10-355441-224155",
+    "prediction": "yes",
+    "question": "Does this image contain traffic light?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 1.0,
+    "seconds": 0.03417837699998927
+  },
+  {
+    "condition": "correct",
+    "exact": true,
+    "example_id": "70c78a6e83aae23660345ea8",
+    "follows_partner": false,
+    "image_id": 224155,
+    "input_image_id": 224155,
+    "kind": "presence",
+    "nll": 0.0031209117732942104,
+    "pair_id": "ground-val2014-presence-10-355441-224155",
+    "prediction": "no",
+    "question": "Does this image contain traffic light?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 1.0,
+    "seconds": 0.03417837699998927
+  },
+  {
+    "condition": "correct",
+    "exact": true,
+    "example_id": "f19fab78824085dbfd2dbeea",
+    "follows_partner": false,
+    "image_id": 179069,
+    "input_image_id": 179069,
+    "kind": "presence",
+    "nll": 0.006460494827479124,
+    "pair_id": "ground-val2014-presence-1-179069-54618",
+    "prediction": "yes",
+    "question": "Does this image contain person?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 1.0,
+    "seconds": 0.03178462575010599
+  },
+  {
+    "condition": "correct",
+    "exact": true,
+    "example_id": "c48e063df1534ce6da489691",
+    "follows_partner": false,
+    "image_id": 54618,
+    "input_image_id": 54618,
+    "kind": "presence",
+    "nll": 0.07347841560840607,
+    "pair_id": "ground-val2014-presence-1-179069-54618",
+    "prediction": "no",
+    "question": "Does this image contain person?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 1.0,
+    "seconds": 0.03178462575010599
+  },
+  {
+    "condition": "complementary",
+    "exact": true,
+    "example_id": "b2f0953aa846e4d5aa71c5ef",
+    "follows_partner": false,
+    "image_id": 442165,
+    "input_image_id": 327165,
+    "kind": "presence",
+    "nll": 0.2078559547662735,
+    "pair_id": "ground-val2014-presence-15-442165-327165",
+    "prediction": "yes",
+    "question": "Does this image contain bench?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 1.0,
+    "seconds": 0.04170882537505349
+  },
+  {
+    "condition": "complementary",
+    "exact": false,
+    "example_id": "552a055172c5b684d1206186",
+    "follows_partner": true,
+    "image_id": 327165,
+    "input_image_id": 442165,
+    "kind": "presence",
+    "nll": 2.0586724281311035,
+    "pair_id": "ground-val2014-presence-15-442165-327165",
+    "prediction": "yes",
+    "question": "Does this image contain bench?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.04170882537505349
+  },
+  {
+    "condition": "complementary",
+    "exact": false,
+    "example_id": "9f5a81633b864dc8c861ca98",
+    "follows_partner": true,
+    "image_id": 384496,
+    "input_image_id": 140826,
+    "kind": "presence",
+    "nll": 4.867213249206543,
+    "pair_id": "ground-val2014-presence-19-384496-140826",
+    "prediction": "no",
+    "question": "Does this image contain horse?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.03991559849987425
+  },
+  {
+    "condition": "complementary",
+    "exact": false,
+    "example_id": "a40b881dea82b517d1bd6cc1",
+    "follows_partner": true,
+    "image_id": 140826,
+    "input_image_id": 384496,
+    "kind": "presence",
+    "nll": 6.87628698348999,
+    "pair_id": "ground-val2014-presence-19-384496-140826",
+    "prediction": "yes",
+    "question": "Does this image contain horse?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.03991559849987425
+  },
+  {
+    "condition": "complementary",
+    "exact": false,
+    "example_id": "ff9d21c6bc04ccacab0247a2",
+    "follows_partner": true,
+    "image_id": 355441,
+    "input_image_id": 224155,
+    "kind": "presence",
+    "nll": 5.7999958992004395,
+    "pair_id": "ground-val2014-presence-10-355441-224155",
+    "prediction": "no",
+    "question": "Does this image contain traffic light?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.037561458125082936
+  },
+  {
+    "condition": "complementary",
+    "exact": false,
+    "example_id": "70c78a6e83aae23660345ea8",
+    "follows_partner": true,
+    "image_id": 224155,
+    "input_image_id": 355441,
+    "kind": "presence",
+    "nll": 3.72760009765625,
+    "pair_id": "ground-val2014-presence-10-355441-224155",
+    "prediction": "yes",
+    "question": "Does this image contain traffic light?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.037561458125082936
+  },
+  {
+    "condition": "complementary",
+    "exact": false,
+    "example_id": "f19fab78824085dbfd2dbeea",
+    "follows_partner": true,
+    "image_id": 179069,
+    "input_image_id": 54618,
+    "kind": "presence",
+    "nll": 2.6516034603118896,
+    "pair_id": "ground-val2014-presence-1-179069-54618",
+    "prediction": "no",
+    "question": "Does this image contain person?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.0372818791249756
+  },
+  {
+    "condition": "complementary",
+    "exact": false,
+    "example_id": "c48e063df1534ce6da489691",
+    "follows_partner": true,
+    "image_id": 54618,
+    "input_image_id": 179069,
+    "kind": "presence",
+    "nll": 5.053335666656494,
+    "pair_id": "ground-val2014-presence-1-179069-54618",
+    "prediction": "yes",
+    "question": "Does this image contain person?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.0372818791249756
+  },
+  {
+    "condition": "mismatched",
+    "exact": true,
+    "example_id": "b2f0953aa846e4d5aa71c5ef",
+    "follows_partner": false,
+    "image_id": 442165,
+    "input_image_id": 419601,
+    "kind": "presence",
+    "nll": 0.16278107464313507,
+    "pair_id": "ground-val2014-presence-15-442165-327165",
+    "prediction": "yes",
+    "question": "Does this image contain bench?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 1.0,
+    "seconds": 0.03410010524999052
+  },
+  {
+    "condition": "mismatched",
+    "exact": true,
+    "example_id": "552a055172c5b684d1206186",
+    "follows_partner": false,
+    "image_id": 327165,
+    "input_image_id": 173117,
+    "kind": "presence",
+    "nll": 0.04904791712760925,
+    "pair_id": "ground-val2014-presence-15-442165-327165",
+    "prediction": "no",
+    "question": "Does this image contain bench?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 1.0,
+    "seconds": 0.03410010524999052
+  },
+  {
+    "condition": "mismatched",
+    "exact": false,
+    "example_id": "9f5a81633b864dc8c861ca98",
+    "follows_partner": true,
+    "image_id": 384496,
+    "input_image_id": 133161,
+    "kind": "presence",
+    "nll": 8.79709243774414,
+    "pair_id": "ground-val2014-presence-19-384496-140826",
+    "prediction": "no",
+    "question": "Does this image contain horse?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.03442243175004478
+  },
+  {
+    "condition": "mismatched",
+    "exact": true,
+    "example_id": "a40b881dea82b517d1bd6cc1",
+    "follows_partner": false,
+    "image_id": 140826,
+    "input_image_id": 552564,
+    "kind": "presence",
+    "nll": 0.00023016665363684297,
+    "pair_id": "ground-val2014-presence-19-384496-140826",
+    "prediction": "no",
+    "question": "Does this image contain horse?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 1.0,
+    "seconds": 0.03442243175004478
+  },
+  {
+    "condition": "mismatched",
+    "exact": false,
+    "example_id": "ff9d21c6bc04ccacab0247a2",
+    "follows_partner": true,
+    "image_id": 355441,
+    "input_image_id": 275791,
+    "kind": "presence",
+    "nll": 0.8002277612686157,
+    "pair_id": "ground-val2014-presence-10-355441-224155",
+    "prediction": "no",
+    "question": "Does this image contain traffic light?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.03482288200007133
+  },
+  {
+    "condition": "mismatched",
+    "exact": true,
+    "example_id": "70c78a6e83aae23660345ea8",
+    "follows_partner": false,
+    "image_id": 224155,
+    "input_image_id": 180521,
+    "kind": "presence",
+    "nll": 0.00929976999759674,
+    "pair_id": "ground-val2014-presence-10-355441-224155",
+    "prediction": "no",
+    "question": "Does this image contain traffic light?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 1.0,
+    "seconds": 0.03482288200007133
+  },
+  {
+    "condition": "mismatched",
+    "exact": false,
+    "example_id": "f19fab78824085dbfd2dbeea",
+    "follows_partner": true,
+    "image_id": 179069,
+    "input_image_id": 65231,
+    "kind": "presence",
+    "nll": 3.034160614013672,
+    "pair_id": "ground-val2014-presence-1-179069-54618",
+    "prediction": "no",
+    "question": "Does this image contain person?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.03644624487492365
+  },
+  {
+    "condition": "mismatched",
+    "exact": true,
+    "example_id": "c48e063df1534ce6da489691",
+    "follows_partner": false,
+    "image_id": 54618,
+    "input_image_id": 205498,
+    "kind": "presence",
+    "nll": 0.02675887942314148,
+    "pair_id": "ground-val2014-presence-1-179069-54618",
+    "prediction": "no",
+    "question": "Does this image contain person?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 1.0,
+    "seconds": 0.03644624487492365
+  },
+  {
+    "condition": "no_image",
+    "exact": false,
+    "example_id": "b2f0953aa846e4d5aa71c5ef",
+    "follows_partner": false,
+    "image_id": 442165,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 4.607329845428467,
+    "pair_id": "ground-val2014-presence-15-442165-327165",
+    "prediction": "No, the image does not contain a bench.",
+    "question": "Does this image contain bench?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.16449670162501207
+  },
+  {
+    "condition": "no_image",
+    "exact": false,
+    "example_id": "552a055172c5b684d1206186",
+    "follows_partner": false,
+    "image_id": 327165,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 5.466704845428467,
+    "pair_id": "ground-val2014-presence-15-442165-327165",
+    "prediction": "No, the image does not contain a bench.",
+    "question": "Does this image contain bench?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.16449670162501207
+  },
+  {
+    "condition": "no_image",
+    "exact": false,
+    "example_id": "9f5a81633b864dc8c861ca98",
+    "follows_partner": false,
+    "image_id": 384496,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 7.552826404571533,
+    "pair_id": "ground-val2014-presence-19-384496-140826",
+    "prediction": "No, the image does not contain a horse.",
+    "question": "Does this image contain horse?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.11663455699999759
+  },
+  {
+    "condition": "no_image",
+    "exact": false,
+    "example_id": "a40b881dea82b517d1bd6cc1",
+    "follows_partner": false,
+    "image_id": 140826,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 5.912201404571533,
+    "pair_id": "ground-val2014-presence-19-384496-140826",
+    "prediction": "No, the image does not contain a horse.",
+    "question": "Does this image contain horse?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.11663455699999759
+  },
+  {
+    "condition": "no_image",
+    "exact": false,
+    "example_id": "ff9d21c6bc04ccacab0247a2",
+    "follows_partner": false,
+    "image_id": 355441,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 7.37111759185791,
+    "pair_id": "ground-val2014-presence-10-355441-224155",
+    "prediction": "No, the image does not contain a traffic light.",
+    "question": "Does this image contain traffic light?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.12461643887490936
+  },
+  {
+    "condition": "no_image",
+    "exact": false,
+    "example_id": "70c78a6e83aae23660345ea8",
+    "follows_partner": false,
+    "image_id": 224155,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 7.02736759185791,
+    "pair_id": "ground-val2014-presence-10-355441-224155",
+    "prediction": "No, the image does not contain a traffic light.",
+    "question": "Does this image contain traffic light?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.12461643887490936
+  },
+  {
+    "condition": "no_image",
+    "exact": false,
+    "example_id": "f19fab78824085dbfd2dbeea",
+    "follows_partner": false,
+    "image_id": 179069,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 3.800449848175049,
+    "pair_id": "ground-val2014-presence-1-179069-54618",
+    "prediction": "Yes, the image contains a person.",
+    "question": "Does this image contain person?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.095991951500082
+  },
+  {
+    "condition": "no_image",
+    "exact": false,
+    "example_id": "c48e063df1534ce6da489691",
+    "follows_partner": false,
+    "image_id": 54618,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 7.612949848175049,
+    "pair_id": "ground-val2014-presence-1-179069-54618",
+    "prediction": "Yes, the image contains a person.",
+    "question": "Does this image contain person?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.095991951500082
+  }
+]

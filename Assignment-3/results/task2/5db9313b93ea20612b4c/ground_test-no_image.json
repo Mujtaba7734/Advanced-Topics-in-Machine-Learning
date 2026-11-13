@@ -1,0 +1,2306 @@
+[
+  {
+    "exact": false,
+    "example_id": "6f9c058ee9d520410872bca2",
+    "follows_partner": false,
+    "image_id": 90020,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 5.416711330413818,
+    "pair_id": "ground-val2014-presence-67-90020-537671",
+    "prediction": "Yes, the image contains a dining table.",
+    "question": "Does this image contain dining table?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.14776494124998862
+  },
+  {
+    "exact": false,
+    "example_id": "719227fa38bb2a758f8b2bc2",
+    "follows_partner": false,
+    "image_id": 537671,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.854211330413818,
+    "pair_id": "ground-val2014-presence-67-90020-537671",
+    "prediction": "Yes, the image contains a dining table.",
+    "question": "Does this image contain dining table?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.14776494124998862
+  },
+  {
+    "exact": false,
+    "example_id": "3109bd0358f970945e0df8ee",
+    "follows_partner": false,
+    "image_id": 170519,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 9.547454833984375,
+    "pair_id": "ground-val2014-presence-24-170519-557595",
+    "prediction": "No, the image does not contain a zebra.",
+    "question": "Does this image contain zebra?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.14776494124998862
+  },
+  {
+    "exact": false,
+    "example_id": "482382f921b7edd23bade8e2",
+    "follows_partner": false,
+    "image_id": 557595,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 7.109955310821533,
+    "pair_id": "ground-val2014-presence-24-170519-557595",
+    "prediction": "No, the image does not contain a zebra.",
+    "question": "Does this image contain zebra?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.14776494124998862
+  },
+  {
+    "exact": false,
+    "example_id": "4f96d0279e23d744636bd26d",
+    "follows_partner": false,
+    "image_id": 472732,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 10.168092727661133,
+    "pair_id": "ground-val2014-presence-21-472732-480407",
+    "prediction": "No, the image does not contain a cow.",
+    "question": "Does this image contain cow?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.14776494124998862
+  },
+  {
+    "exact": false,
+    "example_id": "280b15f4e0c3c28872587160",
+    "follows_partner": false,
+    "image_id": 480407,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.418092250823975,
+    "pair_id": "ground-val2014-presence-21-472732-480407",
+    "prediction": "No, the image does not contain a cow.",
+    "question": "Does this image contain cow?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.14776494124998862
+  },
+  {
+    "exact": false,
+    "example_id": "ac041cb861de14d947501a77",
+    "follows_partner": false,
+    "image_id": 505157,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 5.947605133056641,
+    "pair_id": "ground-val2014-presence-41-505157-270274",
+    "prediction": "No, the image does not contain a skateboard.",
+    "question": "Does this image contain skateboard?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.14776494124998862
+  },
+  {
+    "exact": false,
+    "example_id": "4281f31003a12f891d87d88d",
+    "follows_partner": false,
+    "image_id": 270274,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.635105133056641,
+    "pair_id": "ground-val2014-presence-41-505157-270274",
+    "prediction": "No, the image does not contain a skateboard.",
+    "question": "Does this image contain skateboard?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.14776494124998862
+  },
+  {
+    "exact": false,
+    "example_id": "d18d341b9a4182a9789fd501",
+    "follows_partner": false,
+    "image_id": 359232,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 7.00436544418335,
+    "pair_id": "ground-val2014-presence-40-359232-326542",
+    "prediction": "No, the image does not contain a baseball glove.",
+    "question": "Does this image contain baseball glove?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.16449670162501207
+  },
+  {
+    "exact": false,
+    "example_id": "ecc644c33020346e72b81b2e",
+    "follows_partner": false,
+    "image_id": 326542,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.84811544418335,
+    "pair_id": "ground-val2014-presence-40-359232-326542",
+    "prediction": "No, the image does not contain a baseball glove.",
+    "question": "Does this image contain baseball glove?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.16449670162501207
+  },
+  {
+    "exact": false,
+    "example_id": "5182542fbc768c29c0c38cfc",
+    "follows_partner": false,
+    "image_id": 444199,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 5.369543552398682,
+    "pair_id": "ground-val2014-presence-39-444199-406744",
+    "prediction": "Yes, the image contains a baseball bat.",
+    "question": "Does this image contain baseball bat?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.16449670162501207
+  },
+  {
+    "exact": false,
+    "example_id": "252a2ff7172e57a650111d33",
+    "follows_partner": false,
+    "image_id": 406744,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.900793552398682,
+    "pair_id": "ground-val2014-presence-39-444199-406744",
+    "prediction": "Yes, the image contains a baseball bat.",
+    "question": "Does this image contain baseball bat?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.16449670162501207
+  },
+  {
+    "exact": false,
+    "example_id": "b2f0953aa846e4d5aa71c5ef",
+    "follows_partner": false,
+    "image_id": 442165,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 4.607329845428467,
+    "pair_id": "ground-val2014-presence-15-442165-327165",
+    "prediction": "No, the image does not contain a bench.",
+    "question": "Does this image contain bench?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.16449670162501207
+  },
+  {
+    "exact": false,
+    "example_id": "552a055172c5b684d1206186",
+    "follows_partner": false,
+    "image_id": 327165,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 5.466704845428467,
+    "pair_id": "ground-val2014-presence-15-442165-327165",
+    "prediction": "No, the image does not contain a bench.",
+    "question": "Does this image contain bench?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.16449670162501207
+  },
+  {
+    "exact": false,
+    "example_id": "66a7c128c5d46d337d2c47a4",
+    "follows_partner": false,
+    "image_id": 419601,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 8.912824630737305,
+    "pair_id": "ground-val2014-presence-65-419601-173117",
+    "prediction": "No, the image does not contain a bed.",
+    "question": "Does this image contain bed?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.16449670162501207
+  },
+  {
+    "exact": false,
+    "example_id": "19f2200562ffe85599a96c60",
+    "follows_partner": false,
+    "image_id": 173117,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.3034491539001465,
+    "pair_id": "ground-val2014-presence-65-419601-173117",
+    "prediction": "No, the image does not contain a bed.",
+    "question": "Does this image contain bed?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.16449670162501207
+  },
+  {
+    "exact": false,
+    "example_id": "08f374e29709844c0b9b9b4a",
+    "follows_partner": false,
+    "image_id": 131504,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.048328876495361,
+    "pair_id": "ground-val2014-presence-85-131504-152208",
+    "prediction": "No, the image does not contain a clock.",
+    "question": "Does this image contain clock?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.11483657212488652
+  },
+  {
+    "exact": false,
+    "example_id": "198efa0ed207936a5c393cd0",
+    "follows_partner": false,
+    "image_id": 152208,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.829578876495361,
+    "pair_id": "ground-val2014-presence-85-131504-152208",
+    "prediction": "No, the image does not contain a clock.",
+    "question": "Does this image contain clock?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.11483657212488652
+  },
+  {
+    "exact": false,
+    "example_id": "eced0cb3f612b194345c7d55",
+    "follows_partner": false,
+    "image_id": 507958,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 4.612110614776611,
+    "pair_id": "ground-val2014-presence-46-507958-270532",
+    "prediction": "Yes, the image contains a wine glass.",
+    "question": "Does this image contain wine glass?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.11483657212488652
+  },
+  {
+    "exact": false,
+    "example_id": "1f86ea49d4c426058d79b350",
+    "follows_partner": false,
+    "image_id": 270532,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.362110614776611,
+    "pair_id": "ground-val2014-presence-46-507958-270532",
+    "prediction": "Yes, the image contains a wine glass.",
+    "question": "Does this image contain wine glass?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.11483657212488652
+  },
+  {
+    "exact": false,
+    "example_id": "47db9e01102e86acd17e13a7",
+    "follows_partner": false,
+    "image_id": 412604,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 9.08586597442627,
+    "pair_id": "ground-val2014-presence-60-412604-149398",
+    "prediction": "No, the image does not contain a donut.",
+    "question": "Does this image contain donut?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.11483657212488652
+  },
+  {
+    "exact": false,
+    "example_id": "d36d5f5df98431f28ad47341",
+    "follows_partner": false,
+    "image_id": 149398,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.695240497589111,
+    "pair_id": "ground-val2014-presence-60-412604-149398",
+    "prediction": "No, the image does not contain a donut.",
+    "question": "Does this image contain donut?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.11483657212488652
+  },
+  {
+    "exact": false,
+    "example_id": "fc4279576a426872abc26605",
+    "follows_partner": false,
+    "image_id": 315986,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 5.673168659210205,
+    "pair_id": "ground-val2014-presence-90-315986-271934",
+    "prediction": "Yes, the image contains a toothbrush.",
+    "question": "Does this image contain toothbrush?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.11483657212488652
+  },
+  {
+    "exact": false,
+    "example_id": "334d4d80a499dd6f65869498",
+    "follows_partner": false,
+    "image_id": 271934,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.626293659210205,
+    "pair_id": "ground-val2014-presence-90-315986-271934",
+    "prediction": "Yes, the image contains a toothbrush.",
+    "question": "Does this image contain toothbrush?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.11483657212488652
+  },
+  {
+    "exact": false,
+    "example_id": "fbe5e0951a2e79cd628c4fed",
+    "follows_partner": false,
+    "image_id": 570788,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 7.509634971618652,
+    "pair_id": "ground-val2014-presence-19-570788-60855",
+    "prediction": "No, the image does not contain a horse.",
+    "question": "Does this image contain horse?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.10222190350009441
+  },
+  {
+    "exact": false,
+    "example_id": "05aa90bce91ffa4949574c0e",
+    "follows_partner": false,
+    "image_id": 60855,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 5.915884971618652,
+    "pair_id": "ground-val2014-presence-19-570788-60855",
+    "prediction": "No, the image does not contain a horse.",
+    "question": "Does this image contain horse?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.10222190350009441
+  },
+  {
+    "exact": false,
+    "example_id": "b9d4ccdab2599ca3fdf8660b",
+    "follows_partner": false,
+    "image_id": 483311,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 5.361382484436035,
+    "pair_id": "ground-val2014-presence-38-483311-322029",
+    "prediction": "Yes, the image contains a kite.",
+    "question": "Does this image contain kite?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.10222190350009441
+  },
+  {
+    "exact": false,
+    "example_id": "ec98e660ec2c2c43c79eae63",
+    "follows_partner": false,
+    "image_id": 322029,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 7.080132484436035,
+    "pair_id": "ground-val2014-presence-38-483311-322029",
+    "prediction": "Yes, the image contains a kite.",
+    "question": "Does this image contain kite?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.10222190350009441
+  },
+  {
+    "exact": false,
+    "example_id": "8e257d3ec94751b5cfb8b6e3",
+    "follows_partner": false,
+    "image_id": 63973,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 7.884576320648193,
+    "pair_id": "ground-val2014-presence-20-63973-351489",
+    "prediction": "No, the image does not contain sheep.",
+    "question": "Does this image contain sheep?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.10222190350009441
+  },
+  {
+    "exact": false,
+    "example_id": "faa6d38f5026863fc79eaecf",
+    "follows_partner": false,
+    "image_id": 351489,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.243951320648193,
+    "pair_id": "ground-val2014-presence-20-63973-351489",
+    "prediction": "No, the image does not contain sheep.",
+    "question": "Does this image contain sheep?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.10222190350009441
+  },
+  {
+    "exact": false,
+    "example_id": "f103045d84e89ca8651ea1b1",
+    "follows_partner": false,
+    "image_id": 35279,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 4.803448677062988,
+    "pair_id": "ground-val2014-presence-73-35279-48791",
+    "prediction": "Yes, the image contains a laptop.",
+    "question": "Does this image contain laptop?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.10222190350009441
+  },
+  {
+    "exact": false,
+    "example_id": "d8b84190e3baf084c705b915",
+    "follows_partner": false,
+    "image_id": 48791,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.240948677062988,
+    "pair_id": "ground-val2014-presence-73-35279-48791",
+    "prediction": "Yes, the image contains a laptop.",
+    "question": "Does this image contain laptop?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.10222190350009441
+  },
+  {
+    "exact": false,
+    "example_id": "cb32a4390eda17129a453c82",
+    "follows_partner": false,
+    "image_id": 200231,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 4.725485801696777,
+    "pair_id": "ground-val2014-presence-88-200231-315257",
+    "prediction": "Yes, the image contains a teddy bear.",
+    "question": "Does this image contain teddy bear?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.11663455699999759
+  },
+  {
+    "exact": false,
+    "example_id": "b7f33d3e2c80e78e4caff1e0",
+    "follows_partner": false,
+    "image_id": 315257,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.366110801696777,
+    "pair_id": "ground-val2014-presence-88-200231-315257",
+    "prediction": "Yes, the image contains a teddy bear.",
+    "question": "Does this image contain teddy bear?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.11663455699999759
+  },
+  {
+    "exact": false,
+    "example_id": "e965634ad51189ac464c3adf",
+    "follows_partner": false,
+    "image_id": 200572,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 10.118392944335938,
+    "pair_id": "ground-val2014-presence-32-200572-38118",
+    "prediction": "No, the image does not contain a tie.",
+    "question": "Does this image contain tie?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.11663455699999759
+  },
+  {
+    "exact": false,
+    "example_id": "08a48e836951877b1a005c12",
+    "follows_partner": false,
+    "image_id": 38118,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.6496429443359375,
+    "pair_id": "ground-val2014-presence-32-200572-38118",
+    "prediction": "No, the image does not contain a tie.",
+    "question": "Does this image contain tie?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.11663455699999759
+  },
+  {
+    "exact": false,
+    "example_id": "9f5a81633b864dc8c861ca98",
+    "follows_partner": false,
+    "image_id": 384496,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 7.552826404571533,
+    "pair_id": "ground-val2014-presence-19-384496-140826",
+    "prediction": "No, the image does not contain a horse.",
+    "question": "Does this image contain horse?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.11663455699999759
+  },
+  {
+    "exact": false,
+    "example_id": "a40b881dea82b517d1bd6cc1",
+    "follows_partner": false,
+    "image_id": 140826,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 5.912201404571533,
+    "pair_id": "ground-val2014-presence-19-384496-140826",
+    "prediction": "No, the image does not contain a horse.",
+    "question": "Does this image contain horse?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.11663455699999759
+  },
+  {
+    "exact": false,
+    "example_id": "fe0b022b462d1763747f95bd",
+    "follows_partner": false,
+    "image_id": 133161,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 5.71976375579834,
+    "pair_id": "ground-val2014-presence-55-133161-552564",
+    "prediction": "No, the image does not contain orange.",
+    "question": "Does this image contain orange?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.11663455699999759
+  },
+  {
+    "exact": false,
+    "example_id": "c52fa96f7a4db8fb2073e591",
+    "follows_partner": false,
+    "image_id": 552564,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.32913875579834,
+    "pair_id": "ground-val2014-presence-55-133161-552564",
+    "prediction": "No, the image does not contain orange.",
+    "question": "Does this image contain orange?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.11663455699999759
+  },
+  {
+    "exact": false,
+    "example_id": "4ac234a79da7546e349c8bed",
+    "follows_partner": false,
+    "image_id": 547493,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 5.321417331695557,
+    "pair_id": "ground-val2014-presence-50-547493-376684",
+    "prediction": "No, the image does not contain a spoon.",
+    "question": "Does this image contain spoon?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.12461643887490936
+  },
+  {
+    "exact": false,
+    "example_id": "3de19fc8aec76d94176eefa4",
+    "follows_partner": false,
+    "image_id": 376684,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.087042331695557,
+    "pair_id": "ground-val2014-presence-50-547493-376684",
+    "prediction": "No, the image does not contain a spoon.",
+    "question": "Does this image contain spoon?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.12461643887490936
+  },
+  {
+    "exact": false,
+    "example_id": "f0ea70efef01241556a4b7e2",
+    "follows_partner": false,
+    "image_id": 208867,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 3.9651379585266113,
+    "pair_id": "ground-val2014-presence-9-208867-300577",
+    "prediction": "Yes, the image contains a boat.",
+    "question": "Does this image contain boat?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.12461643887490936
+  },
+  {
+    "exact": false,
+    "example_id": "167b3206579107534197067b",
+    "follows_partner": false,
+    "image_id": 300577,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.637012958526611,
+    "pair_id": "ground-val2014-presence-9-208867-300577",
+    "prediction": "Yes, the image contains a boat.",
+    "question": "Does this image contain boat?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.12461643887490936
+  },
+  {
+    "exact": false,
+    "example_id": "781bb77ccf51ce6f2837f559",
+    "follows_partner": false,
+    "image_id": 168991,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 5.379116058349609,
+    "pair_id": "ground-val2014-presence-38-168991-323151",
+    "prediction": "Yes, the image contains a kite.",
+    "question": "Does this image contain kite?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.12461643887490936
+  },
+  {
+    "exact": false,
+    "example_id": "92b5e6e751b97da0e5d52837",
+    "follows_partner": false,
+    "image_id": 323151,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 7.050991058349609,
+    "pair_id": "ground-val2014-presence-38-168991-323151",
+    "prediction": "Yes, the image contains a kite.",
+    "question": "Does this image contain kite?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.12461643887490936
+  },
+  {
+    "exact": false,
+    "example_id": "ff9d21c6bc04ccacab0247a2",
+    "follows_partner": false,
+    "image_id": 355441,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 7.37111759185791,
+    "pair_id": "ground-val2014-presence-10-355441-224155",
+    "prediction": "No, the image does not contain a traffic light.",
+    "question": "Does this image contain traffic light?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.12461643887490936
+  },
+  {
+    "exact": false,
+    "example_id": "70c78a6e83aae23660345ea8",
+    "follows_partner": false,
+    "image_id": 224155,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 7.02736759185791,
+    "pair_id": "ground-val2014-presence-10-355441-224155",
+    "prediction": "No, the image does not contain a traffic light.",
+    "question": "Does this image contain traffic light?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.12461643887490936
+  },
+  {
+    "exact": false,
+    "example_id": "9520a3d058c8b3a68c2c611e",
+    "follows_partner": false,
+    "image_id": 275791,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 4.81633186340332,
+    "pair_id": "ground-val2014-presence-7-275791-180521",
+    "prediction": "Yes, the image contains a train.",
+    "question": "Does this image contain train?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.095991951500082
+  },
+  {
+    "exact": false,
+    "example_id": "321b29c89185855a88172d94",
+    "follows_partner": false,
+    "image_id": 180521,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.45695686340332,
+    "pair_id": "ground-val2014-presence-7-275791-180521",
+    "prediction": "Yes, the image contains a train.",
+    "question": "Does this image contain train?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.095991951500082
+  },
+  {
+    "exact": false,
+    "example_id": "9d9adee80e7b62fdbe0a8e6f",
+    "follows_partner": false,
+    "image_id": 130875,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 5.281365871429443,
+    "pair_id": "ground-val2014-presence-50-130875-2881",
+    "prediction": "No, the image does not contain a spoon.",
+    "question": "Does this image contain spoon?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.095991951500082
+  },
+  {
+    "exact": false,
+    "example_id": "76cb710fd941c174204a2334",
+    "follows_partner": false,
+    "image_id": 2881,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.078240871429443,
+    "pair_id": "ground-val2014-presence-50-130875-2881",
+    "prediction": "No, the image does not contain a spoon.",
+    "question": "Does this image contain spoon?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.095991951500082
+  },
+  {
+    "exact": false,
+    "example_id": "f19fab78824085dbfd2dbeea",
+    "follows_partner": false,
+    "image_id": 179069,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 3.800449848175049,
+    "pair_id": "ground-val2014-presence-1-179069-54618",
+    "prediction": "Yes, the image contains a person.",
+    "question": "Does this image contain person?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.095991951500082
+  },
+  {
+    "exact": false,
+    "example_id": "c48e063df1534ce6da489691",
+    "follows_partner": false,
+    "image_id": 54618,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 7.612949848175049,
+    "pair_id": "ground-val2014-presence-1-179069-54618",
+    "prediction": "Yes, the image contains a person.",
+    "question": "Does this image contain person?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.095991951500082
+  },
+  {
+    "exact": false,
+    "example_id": "23455b5444718dd16d2191db",
+    "follows_partner": false,
+    "image_id": 65231,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.027907371520996,
+    "pair_id": "ground-val2014-presence-85-65231-205498",
+    "prediction": "No, the image does not contain a clock.",
+    "question": "Does this image contain clock?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.095991951500082
+  },
+  {
+    "exact": false,
+    "example_id": "dd7981ad9be7fbe18ed8ec7a",
+    "follows_partner": false,
+    "image_id": 205498,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.824782371520996,
+    "pair_id": "ground-val2014-presence-85-65231-205498",
+    "prediction": "No, the image does not contain a clock.",
+    "question": "Does this image contain clock?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.095991951500082
+  },
+  {
+    "exact": false,
+    "example_id": "ad6dbc63727a71868c1cf7a4",
+    "follows_partner": false,
+    "image_id": 48050,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 4.393095970153809,
+    "pair_id": "ground-val2014-presence-51-48050-496402",
+    "prediction": "Yes, the image contains a bowl.",
+    "question": "Does this image contain bowl?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.10297650550000981
+  },
+  {
+    "exact": false,
+    "example_id": "967dd6ced5276db0fa5ebadf",
+    "follows_partner": false,
+    "image_id": 496402,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 5.939970970153809,
+    "pair_id": "ground-val2014-presence-51-48050-496402",
+    "prediction": "Yes, the image contains a bowl.",
+    "question": "Does this image contain bowl?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.10297650550000981
+  },
+  {
+    "exact": false,
+    "example_id": "be5b2c134731d041e7652629",
+    "follows_partner": false,
+    "image_id": 11360,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 5.327793598175049,
+    "pair_id": "ground-val2014-presence-80-11360-492051",
+    "prediction": "No, the image does not contain a toaster.",
+    "question": "Does this image contain toaster?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.10297650550000981
+  },
+  {
+    "exact": false,
+    "example_id": "0def9c6792dd18d93412585f",
+    "follows_partner": false,
+    "image_id": 492051,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 5.999668598175049,
+    "pair_id": "ground-val2014-presence-80-11360-492051",
+    "prediction": "No, the image does not contain a toaster.",
+    "question": "Does this image contain toaster?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.10297650550000981
+  },
+  {
+    "exact": false,
+    "example_id": "1cd1a7bfd20f3ddee515adfb",
+    "follows_partner": false,
+    "image_id": 46743,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 4.1687397956848145,
+    "pair_id": "ground-val2014-presence-8-46743-532071",
+    "prediction": "Yes, the image contains a truck.",
+    "question": "Does this image contain truck?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.10297650550000981
+  },
+  {
+    "exact": false,
+    "example_id": "fec58a33c6057e1dd3caace0",
+    "follows_partner": false,
+    "image_id": 532071,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 6.2156147956848145,
+    "pair_id": "ground-val2014-presence-8-46743-532071",
+    "prediction": "Yes, the image contains a truck.",
+    "question": "Does this image contain truck?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.10297650550000981
+  },
+  {
+    "exact": false,
+    "example_id": "9874c643327bfd0b38e523df",
+    "follows_partner": false,
+    "image_id": 523454,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 5.209287643432617,
+    "pair_id": "ground-val2014-presence-64-523454-459136",
+    "prediction": "Yes, the image contains a potted plant.",
+    "question": "Does this image contain potted plant?",
+    "reference": "yes",
+    "references": [
+      "yes"
+    ],
+    "score": 0.0,
+    "seconds": 0.10297650550000981
+  },
+  {
+    "exact": false,
+    "example_id": "89e99c6e91abda22aeb7a9eb",
+    "follows_partner": false,
+    "image_id": 459136,
+    "input_image_id": null,
+    "kind": "presence",
+    "nll": 8.162412643432617,
+    "pair_id": "ground-val2014-presence-64-523454-459136",
+    "prediction": "Yes, the image contains a potted plant.",
+    "question": "Does this image contain potted plant?",
+    "reference": "no",
+    "references": [
+      "no"
+    ],
+    "score": 0.0,
+    "seconds": 0.10297650550000981
+  },
+  {
+    "exact": false,
+    "example_id": "6c328d1271efaf4ca3a39c9b",
+    "follows_partner": false,
+    "image_id": 5184,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 3.2077226638793945,
+    "pair_id": "ground-val2014-counting-23-5184-471450",
+    "prediction": "I cannot see bears, but I can see bears in the wild.",
+    "question": "How many bears can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.15427692662501613
+  },
+  {
+    "exact": false,
+    "example_id": "5bcc07385a774c8ee3dc6aa1",
+    "follows_partner": false,
+    "image_id": 471450,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 3.7389726638793945,
+    "pair_id": "ground-val2014-counting-23-5184-471450",
+    "prediction": "I cannot see bears, but I can see bears in the wild.",
+    "question": "How many bears can you see?",
+    "reference": "3",
+    "references": [
+      "3"
+    ],
+    "score": 0.0,
+    "seconds": 0.15427692662501613
+  },
+  {
+    "exact": false,
+    "example_id": "7108407ff353d53eb9d2a598",
+    "follows_partner": false,
+    "image_id": 437351,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 2.5219526290893555,
+    "pair_id": "ground-val2014-counting-33-437351-485799",
+    "prediction": "0",
+    "question": "How many suitcases can you see?",
+    "reference": "3",
+    "references": [
+      "3"
+    ],
+    "score": 0.0,
+    "seconds": 0.15427692662501613
+  },
+  {
+    "exact": false,
+    "example_id": "6b1e29a5a08fc33e5955cb05",
+    "follows_partner": false,
+    "image_id": 485799,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 2.4125776290893555,
+    "pair_id": "ground-val2014-counting-33-437351-485799",
+    "prediction": "0",
+    "question": "How many suitcases can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.15427692662501613
+  },
+  {
+    "exact": false,
+    "example_id": "14aae989102c38c54f2c485f",
+    "follows_partner": false,
+    "image_id": 335194,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 3.673888921737671,
+    "pair_id": "ground-val2014-counting-38-335194-118852",
+    "prediction": "There are no actual kites visible in the real world. However, if you",
+    "question": "How many kites can you see?",
+    "reference": "4",
+    "references": [
+      "4"
+    ],
+    "score": 0.0,
+    "seconds": 0.15427692662501613
+  },
+  {
+    "exact": false,
+    "example_id": "9adc34fca547d51fb1b1ebd5",
+    "follows_partner": false,
+    "image_id": 118852,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 3.236388921737671,
+    "pair_id": "ground-val2014-counting-38-335194-118852",
+    "prediction": "There are no actual kites visible in the real world. However, if you",
+    "question": "How many kites can you see?",
+    "reference": "3",
+    "references": [
+      "3"
+    ],
+    "score": 0.0,
+    "seconds": 0.15427692662501613
+  },
+  {
+    "exact": false,
+    "example_id": "5f5f7c14d36b1ce4e3b0f565",
+    "follows_partner": false,
+    "image_id": 126512,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.257960319519043,
+    "pair_id": "ground-val2014-counting-43-126512-541108",
+    "prediction": "0",
+    "question": "How many tennis rackets can you see?",
+    "reference": "3",
+    "references": [
+      "3"
+    ],
+    "score": 0.0,
+    "seconds": 0.15427692662501613
+  },
+  {
+    "exact": false,
+    "example_id": "184343a2122171d195187275",
+    "follows_partner": false,
+    "image_id": 541108,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 3.242335319519043,
+    "pair_id": "ground-val2014-counting-43-126512-541108",
+    "prediction": "0",
+    "question": "How many tennis rackets can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.15427692662501613
+  },
+  {
+    "exact": false,
+    "example_id": "36eda8c5c9ce4949177ce854",
+    "follows_partner": false,
+    "image_id": 480408,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.052936553955078,
+    "pair_id": "ground-val2014-counting-18-480408-63040",
+    "prediction": "I cannot see any dogs. I am an AI assistant and do not have the",
+    "question": "How many dogs can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.15335848612494374
+  },
+  {
+    "exact": false,
+    "example_id": "e235ed5ebfbc64fa2fb2abe3",
+    "follows_partner": false,
+    "image_id": 63040,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.318561553955078,
+    "pair_id": "ground-val2014-counting-18-480408-63040",
+    "prediction": "I cannot see any dogs. I am an AI assistant and do not have the",
+    "question": "How many dogs can you see?",
+    "reference": "3",
+    "references": [
+      "3"
+    ],
+    "score": 0.0,
+    "seconds": 0.15335848612494374
+  },
+  {
+    "exact": false,
+    "example_id": "ee663f0053d65cdade2b193e",
+    "follows_partner": false,
+    "image_id": 188865,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 3.8463525772094727,
+    "pair_id": "ground-val2014-counting-43-188865-441511",
+    "prediction": "0",
+    "question": "How many tennis rackets can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.15335848612494374
+  },
+  {
+    "exact": false,
+    "example_id": "eb7501a78dd62d31e812aa35",
+    "follows_partner": false,
+    "image_id": 441511,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 3.2369775772094727,
+    "pair_id": "ground-val2014-counting-43-188865-441511",
+    "prediction": "0",
+    "question": "How many tennis rackets can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.15335848612494374
+  },
+  {
+    "exact": false,
+    "example_id": "755c5f9a3bebd2f4ca431023",
+    "follows_partner": false,
+    "image_id": 412899,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.443119049072266,
+    "pair_id": "ground-val2014-counting-22-412899-347557",
+    "prediction": "I cannot see elephants, but I can tell you that elephants are large, slow",
+    "question": "How many elephants can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.15335848612494374
+  },
+  {
+    "exact": false,
+    "example_id": "eee836d25f4f571e9cbb0f56",
+    "follows_partner": false,
+    "image_id": 347557,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 5.771244049072266,
+    "pair_id": "ground-val2014-counting-22-412899-347557",
+    "prediction": "I cannot see elephants, but I can tell you that elephants are large, slow",
+    "question": "How many elephants can you see?",
+    "reference": "4",
+    "references": [
+      "4"
+    ],
+    "score": 0.0,
+    "seconds": 0.15335848612494374
+  },
+  {
+    "exact": false,
+    "example_id": "eb59c60e8bf602f1bbdc8988",
+    "follows_partner": false,
+    "image_id": 364284,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.595697402954102,
+    "pair_id": "ground-val2014-counting-34-364284-322503",
+    "prediction": "There are no frisbees visible in the sky.",
+    "question": "How many frisbees can you see?",
+    "reference": "3",
+    "references": [
+      "3"
+    ],
+    "score": 0.0,
+    "seconds": 0.15335848612494374
+  },
+  {
+    "exact": false,
+    "example_id": "ca716c2097abad3bbb5731c1",
+    "follows_partner": false,
+    "image_id": 322503,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.892572402954102,
+    "pair_id": "ground-val2014-counting-34-364284-322503",
+    "prediction": "There are no frisbees visible in the sky.",
+    "question": "How many frisbees can you see?",
+    "reference": "4",
+    "references": [
+      "4"
+    ],
+    "score": 0.0,
+    "seconds": 0.15335848612494374
+  },
+  {
+    "exact": false,
+    "example_id": "500da240197de4e0d2b3b554",
+    "follows_partner": false,
+    "image_id": 335340,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 2.6637840270996094,
+    "pair_id": "ground-val2014-counting-32-335340-44136",
+    "prediction": "1",
+    "question": "How many ties can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.1519053460001487
+  },
+  {
+    "exact": false,
+    "example_id": "8f10324e005404f366987c95",
+    "follows_partner": false,
+    "image_id": 44136,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 2.4450340270996094,
+    "pair_id": "ground-val2014-counting-32-335340-44136",
+    "prediction": "1",
+    "question": "How many ties can you see?",
+    "reference": "3",
+    "references": [
+      "3"
+    ],
+    "score": 0.0,
+    "seconds": 0.1519053460001487
+  },
+  {
+    "exact": false,
+    "example_id": "1624783f09a03162d67193b2",
+    "follows_partner": false,
+    "image_id": 494438,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 2.2897675037384033,
+    "pair_id": "ground-val2014-counting-81-494438-350975",
+    "prediction": "There are **no sinks** in the real world. Sinks are typically used",
+    "question": "How many sinks can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.1519053460001487
+  },
+  {
+    "exact": false,
+    "example_id": "c16313790dfb3b4917a65984",
+    "follows_partner": false,
+    "image_id": 350975,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 3.0866425037384033,
+    "pair_id": "ground-val2014-counting-81-494438-350975",
+    "prediction": "There are **no sinks** in the real world. Sinks are typically used",
+    "question": "How many sinks can you see?",
+    "reference": "4",
+    "references": [
+      "4"
+    ],
+    "score": 0.0,
+    "seconds": 0.1519053460001487
+  },
+  {
+    "exact": false,
+    "example_id": "1a145b294a33e2e65d3a9a54",
+    "follows_partner": false,
+    "image_id": 91667,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 2.326202392578125,
+    "pair_id": "ground-val2014-counting-31-91667-258509",
+    "prediction": "0",
+    "question": "How many handbags can you see?",
+    "reference": "3",
+    "references": [
+      "3"
+    ],
+    "score": 0.0,
+    "seconds": 0.1519053460001487
+  },
+  {
+    "exact": false,
+    "example_id": "3c388d0fed70eca0078c5cd0",
+    "follows_partner": false,
+    "image_id": 258509,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 1.6543275117874146,
+    "pair_id": "ground-val2014-counting-31-91667-258509",
+    "prediction": "0",
+    "question": "How many handbags can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.1519053460001487
+  },
+  {
+    "exact": false,
+    "example_id": "8609e20752b090dc17ef415f",
+    "follows_partner": false,
+    "image_id": 388161,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 2.888523578643799,
+    "pair_id": "ground-val2014-counting-19-388161-397135",
+    "prediction": "I cannot see horses, but I can see horses in the wild.",
+    "question": "How many horses can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.1519053460001487
+  },
+  {
+    "exact": false,
+    "example_id": "7a1100b462b86bd916a47006",
+    "follows_partner": false,
+    "image_id": 397135,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.154148578643799,
+    "pair_id": "ground-val2014-counting-19-388161-397135",
+    "prediction": "I cannot see horses, but I can see horses in the wild.",
+    "question": "How many horses can you see?",
+    "reference": "4",
+    "references": [
+      "4"
+    ],
+    "score": 0.0,
+    "seconds": 0.1519053460001487
+  },
+  {
+    "exact": false,
+    "example_id": "8ccc649b05c306082ba7229f",
+    "follows_partner": false,
+    "image_id": 567751,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 3.3934383392333984,
+    "pair_id": "ground-val2014-counting-19-567751-566324",
+    "prediction": "I cannot see horses, but I can see horses in the wild.",
+    "question": "How many horses can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.19595153999989634
+  },
+  {
+    "exact": false,
+    "example_id": "7ef1cc13fbccc30a1a3fd8d2",
+    "follows_partner": false,
+    "image_id": 566324,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.159063339233398,
+    "pair_id": "ground-val2014-counting-19-567751-566324",
+    "prediction": "I cannot see horses, but I can see horses in the wild.",
+    "question": "How many horses can you see?",
+    "reference": "4",
+    "references": [
+      "4"
+    ],
+    "score": 0.0,
+    "seconds": 0.19595153999989634
+  },
+  {
+    "exact": false,
+    "example_id": "06fe1323d0173c80f042c302",
+    "follows_partner": false,
+    "image_id": 367424,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 1.9191545248031616,
+    "pair_id": "ground-val2014-counting-44-367424-98029",
+    "prediction": "0",
+    "question": "How many bottles can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.19595153999989634
+  },
+  {
+    "exact": false,
+    "example_id": "740b8f070baa5c429f33f14e",
+    "follows_partner": false,
+    "image_id": 98029,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 2.575404644012451,
+    "pair_id": "ground-val2014-counting-44-367424-98029",
+    "prediction": "0",
+    "question": "How many bottles can you see?",
+    "reference": "4",
+    "references": [
+      "4"
+    ],
+    "score": 0.0,
+    "seconds": 0.19595153999989634
+  },
+  {
+    "exact": false,
+    "example_id": "e04648fad2d03b913da9b687",
+    "follows_partner": false,
+    "image_id": 255950,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 2.42742919921875,
+    "pair_id": "ground-val2014-counting-51-255950-144534",
+    "prediction": "The question is a bit ambiguous. If you're asking about the number of visible",
+    "question": "How many bowls can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.19595153999989634
+  },
+  {
+    "exact": false,
+    "example_id": "d0c8e936690817372dee5d17",
+    "follows_partner": false,
+    "image_id": 144534,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 2.75555419921875,
+    "pair_id": "ground-val2014-counting-51-255950-144534",
+    "prediction": "The question is a bit ambiguous. If you're asking about the number of visible",
+    "question": "How many bowls can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.19595153999989634
+  },
+  {
+    "exact": false,
+    "example_id": "1c2a60335d651b0d815da018",
+    "follows_partner": false,
+    "image_id": 504621,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 3.5287091732025146,
+    "pair_id": "ground-val2014-counting-90-504621-19308",
+    "prediction": "0",
+    "question": "How many toothbrushes can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.19595153999989634
+  },
+  {
+    "exact": false,
+    "example_id": "3e6eba8a6113d495d2d48ae8",
+    "follows_partner": false,
+    "image_id": 19308,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.106834411621094,
+    "pair_id": "ground-val2014-counting-90-504621-19308",
+    "prediction": "0",
+    "question": "How many toothbrushes can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.19595153999989634
+  },
+  {
+    "exact": false,
+    "example_id": "a5e766c113744008672958e9",
+    "follows_partner": false,
+    "image_id": 536370,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.305763244628906,
+    "pair_id": "ground-val2014-counting-36-536370-307768",
+    "prediction": "I cannot see any snowboards.",
+    "question": "How many snowboards can you see?",
+    "reference": "4",
+    "references": [
+      "4"
+    ],
+    "score": 0.0,
+    "seconds": 0.2024943558749328
+  },
+  {
+    "exact": false,
+    "example_id": "bc27fe9bc7c6bea42476e48a",
+    "follows_partner": false,
+    "image_id": 307768,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 3.5870132446289062,
+    "pair_id": "ground-val2014-counting-36-536370-307768",
+    "prediction": "I cannot see any snowboards.",
+    "question": "How many snowboards can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.2024943558749328
+  },
+  {
+    "exact": false,
+    "example_id": "f6ea1bcca2d9729d5eb7014b",
+    "follows_partner": false,
+    "image_id": 23351,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 5.866523265838623,
+    "pair_id": "ground-val2014-counting-25-23351-288882",
+    "prediction": "The question is a play on words and is designed to be a humorous or sat",
+    "question": "How many giraffes can you see?",
+    "reference": "3",
+    "references": [
+      "3"
+    ],
+    "score": 0.0,
+    "seconds": 0.2024943558749328
+  },
+  {
+    "exact": false,
+    "example_id": "92c278260e69c1e313939135",
+    "follows_partner": false,
+    "image_id": 288882,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 5.632148265838623,
+    "pair_id": "ground-val2014-counting-25-23351-288882",
+    "prediction": "The question is a play on words and is designed to be a humorous or sat",
+    "question": "How many giraffes can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.2024943558749328
+  },
+  {
+    "exact": false,
+    "example_id": "6a5d29a7f984de22d9ab7a53",
+    "follows_partner": false,
+    "image_id": 200583,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 2.5219526290893555,
+    "pair_id": "ground-val2014-counting-33-200583-120648",
+    "prediction": "0",
+    "question": "How many suitcases can you see?",
+    "reference": "3",
+    "references": [
+      "3"
+    ],
+    "score": 0.0,
+    "seconds": 0.2024943558749328
+  },
+  {
+    "exact": false,
+    "example_id": "78dc0eb8be3c1a3778875284",
+    "follows_partner": false,
+    "image_id": 120648,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 2.4125776290893555,
+    "pair_id": "ground-val2014-counting-33-200583-120648",
+    "prediction": "0",
+    "question": "How many suitcases can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.2024943558749328
+  },
+  {
+    "exact": false,
+    "example_id": "d9778932c51ac7dded725e70",
+    "follows_partner": false,
+    "image_id": 167859,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 2.8383865356445312,
+    "pair_id": "ground-val2014-counting-65-167859-373034",
+    "prediction": "I cannot see any beds.",
+    "question": "How many beds can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.2024943558749328
+  },
+  {
+    "exact": false,
+    "example_id": "3bf41b3793d2b0360aa3a624",
+    "follows_partner": false,
+    "image_id": 373034,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 3.2602615356445312,
+    "pair_id": "ground-val2014-counting-65-167859-373034",
+    "prediction": "I cannot see any beds.",
+    "question": "How many beds can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.2024943558749328
+  },
+  {
+    "exact": false,
+    "example_id": "a8f4f1f93f033ee5b0d96ec4",
+    "follows_partner": false,
+    "image_id": 459195,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.892572402954102,
+    "pair_id": "ground-val2014-counting-34-459195-412764",
+    "prediction": "There are no frisbees visible in the sky.",
+    "question": "How many frisbees can you see?",
+    "reference": "4",
+    "references": [
+      "4"
+    ],
+    "score": 0.0,
+    "seconds": 0.1828415076249712
+  },
+  {
+    "exact": false,
+    "example_id": "85850fa0fc76ccdbffee715d",
+    "follows_partner": false,
+    "image_id": 412764,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.376947402954102,
+    "pair_id": "ground-val2014-counting-34-459195-412764",
+    "prediction": "There are no frisbees visible in the sky.",
+    "question": "How many frisbees can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.1828415076249712
+  },
+  {
+    "exact": false,
+    "example_id": "bbfc55165a1c6098ba563874",
+    "follows_partner": false,
+    "image_id": 389604,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.864994049072266,
+    "pair_id": "ground-val2014-counting-22-389604-59295",
+    "prediction": "I cannot see elephants, but I can tell you that elephants are large, slow",
+    "question": "How many elephants can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.1828415076249712
+  },
+  {
+    "exact": false,
+    "example_id": "83b0b0b27e409d18888ad23c",
+    "follows_partner": false,
+    "image_id": 59295,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.443119049072266,
+    "pair_id": "ground-val2014-counting-22-389604-59295",
+    "prediction": "I cannot see elephants, but I can tell you that elephants are large, slow",
+    "question": "How many elephants can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.1828415076249712
+  },
+  {
+    "exact": false,
+    "example_id": "936a1360bccb40442ae43a7b",
+    "follows_partner": false,
+    "image_id": 456521,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 3.7205734252929688,
+    "pair_id": "ground-val2014-counting-41-456521-34597",
+    "prediction": "There are no skateboards visible in the sky.",
+    "question": "How many skateboards can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.1828415076249712
+  },
+  {
+    "exact": false,
+    "example_id": "e23155333d9abdd4f69abb8b",
+    "follows_partner": false,
+    "image_id": 34597,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.517448425292969,
+    "pair_id": "ground-val2014-counting-41-456521-34597",
+    "prediction": "There are no skateboards visible in the sky.",
+    "question": "How many skateboards can you see?",
+    "reference": "4",
+    "references": [
+      "4"
+    ],
+    "score": 0.0,
+    "seconds": 0.1828415076249712
+  },
+  {
+    "exact": false,
+    "example_id": "c28ffcbd0f4c5dbfa6bb0c0c",
+    "follows_partner": false,
+    "image_id": 81354,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 3.0189850330352783,
+    "pair_id": "ground-val2014-counting-87-81354-526827",
+    "prediction": "0",
+    "question": "How many pairs of scissors can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.1828415076249712
+  },
+  {
+    "exact": false,
+    "example_id": "44fad613a3a8784edcf3dee4",
+    "follows_partner": false,
+    "image_id": 526827,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 2.8471100330352783,
+    "pair_id": "ground-val2014-counting-87-81354-526827",
+    "prediction": "0",
+    "question": "How many pairs of scissors can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.1828415076249712
+  },
+  {
+    "exact": false,
+    "example_id": "45f601eb943b18d181f7a2cb",
+    "follows_partner": false,
+    "image_id": 149456,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 2.7473833560943604,
+    "pair_id": "ground-val2014-counting-51-149456-351362",
+    "prediction": "The question is a bit ambiguous. If you're asking about the number of visible",
+    "question": "How many bowls can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.15209490862503117
+  },
+  {
+    "exact": false,
+    "example_id": "0800c25412e278e502bac2b0",
+    "follows_partner": false,
+    "image_id": 351362,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 2.4192583560943604,
+    "pair_id": "ground-val2014-counting-51-149456-351362",
+    "prediction": "The question is a bit ambiguous. If you're asking about the number of visible",
+    "question": "How many bowls can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.15209490862503117
+  },
+  {
+    "exact": false,
+    "example_id": "0c421f268a7fc1bfcd2abe97",
+    "follows_partner": false,
+    "image_id": 447465,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 3.033107042312622,
+    "pair_id": "ground-val2014-counting-35-447465-301563",
+    "prediction": "0",
+    "question": "How many pairs of skis can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.15209490862503117
+  },
+  {
+    "exact": false,
+    "example_id": "ebce21c63a36497fabd403cd",
+    "follows_partner": false,
+    "image_id": 301563,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 3.204982042312622,
+    "pair_id": "ground-val2014-counting-35-447465-301563",
+    "prediction": "0",
+    "question": "How many pairs of skis can you see?",
+    "reference": "3",
+    "references": [
+      "3"
+    ],
+    "score": 0.0,
+    "seconds": 0.15209490862503117
+  },
+  {
+    "exact": false,
+    "example_id": "485045e22950b8730a926ba5",
+    "follows_partner": false,
+    "image_id": 421139,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.376947402954102,
+    "pair_id": "ground-val2014-counting-34-421139-138713",
+    "prediction": "There are no frisbees visible in the sky.",
+    "question": "How many frisbees can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.15209490862503117
+  },
+  {
+    "exact": false,
+    "example_id": "fc4d9b85fb2ce28807c3d5b4",
+    "follows_partner": false,
+    "image_id": 138713,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.142572402954102,
+    "pair_id": "ground-val2014-counting-34-421139-138713",
+    "prediction": "There are no frisbees visible in the sky.",
+    "question": "How many frisbees can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.15209490862503117
+  },
+  {
+    "exact": false,
+    "example_id": "2dec3206c33d9f4c98c31b3e",
+    "follows_partner": false,
+    "image_id": 81315,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 8.03403091430664,
+    "pair_id": "ground-val2014-counting-78-81315-54959",
+    "prediction": "You can see microwaves in the infrared range. However, microwaves",
+    "question": "How many microwaves can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.15209490862503117
+  },
+  {
+    "exact": false,
+    "example_id": "0d18d68c3d6f4e7b89c18fc7",
+    "follows_partner": false,
+    "image_id": 54959,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 8.37778091430664,
+    "pair_id": "ground-val2014-counting-78-81315-54959",
+    "prediction": "You can see microwaves in the infrared range. However, microwaves",
+    "question": "How many microwaves can you see?",
+    "reference": "3",
+    "references": [
+      "3"
+    ],
+    "score": 0.0,
+    "seconds": 0.15209490862503117
+  },
+  {
+    "exact": false,
+    "example_id": "0dd7f66135b5643ef8c42e33",
+    "follows_partner": false,
+    "image_id": 571275,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.956353187561035,
+    "pair_id": "ground-val2014-counting-75-571275-259567",
+    "prediction": "The number of remotes you can see depends on the specific context, such as",
+    "question": "How many remotes can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.15171575199997278
+  },
+  {
+    "exact": false,
+    "example_id": "8b53c7ac3c6832f3e3fd20f4",
+    "follows_partner": false,
+    "image_id": 259567,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 5.659478187561035,
+    "pair_id": "ground-val2014-counting-75-571275-259567",
+    "prediction": "The number of remotes you can see depends on the specific context, such as",
+    "question": "How many remotes can you see?",
+    "reference": "3",
+    "references": [
+      "3"
+    ],
+    "score": 0.0,
+    "seconds": 0.15171575199997278
+  },
+  {
+    "exact": false,
+    "example_id": "13eb888cf200c9562e28a370",
+    "follows_partner": false,
+    "image_id": 312586,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 3.734743595123291,
+    "pair_id": "ground-val2014-counting-23-312586-357219",
+    "prediction": "I cannot see bears, but I can see bears in the wild.",
+    "question": "How many bears can you see?",
+    "reference": "3",
+    "references": [
+      "3"
+    ],
+    "score": 0.0,
+    "seconds": 0.15171575199997278
+  },
+  {
+    "exact": false,
+    "example_id": "bd89540066e7aefd1b443146",
+    "follows_partner": false,
+    "image_id": 357219,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 4.578493595123291,
+    "pair_id": "ground-val2014-counting-23-312586-357219",
+    "prediction": "I cannot see bears, but I can see bears in the wild.",
+    "question": "How many bears can you see?",
+    "reference": "4",
+    "references": [
+      "4"
+    ],
+    "score": 0.0,
+    "seconds": 0.15171575199997278
+  },
+  {
+    "exact": false,
+    "example_id": "90e491ceb1dc905d65b958bd",
+    "follows_partner": false,
+    "image_id": 543268,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 3.4309592247009277,
+    "pair_id": "ground-val2014-counting-54-543268-321071",
+    "prediction": "0",
+    "question": "How many sandwiches can you see?",
+    "reference": "4",
+    "references": [
+      "4"
+    ],
+    "score": 0.0,
+    "seconds": 0.15171575199997278
+  },
+  {
+    "exact": false,
+    "example_id": "0cfe334ad4b0090e38faf558",
+    "follows_partner": false,
+    "image_id": 321071,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 2.8997092247009277,
+    "pair_id": "ground-val2014-counting-54-543268-321071",
+    "prediction": "0",
+    "question": "How many sandwiches can you see?",
+    "reference": "2",
+    "references": [
+      "2"
+    ],
+    "score": 0.0,
+    "seconds": 0.15171575199997278
+  },
+  {
+    "exact": false,
+    "example_id": "1924c26d269c633eb36b1f5a",
+    "follows_partner": false,
+    "image_id": 261292,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 3.220607042312622,
+    "pair_id": "ground-val2014-counting-35-261292-556158",
+    "prediction": "0",
+    "question": "How many pairs of skis can you see?",
+    "reference": "4",
+    "references": [
+      "4"
+    ],
+    "score": 0.0,
+    "seconds": 0.15171575199997278
+  },
+  {
+    "exact": false,
+    "example_id": "abfe753e812ebf3498049afd",
+    "follows_partner": false,
+    "image_id": 556158,
+    "input_image_id": null,
+    "kind": "counting",
+    "nll": 3.033107042312622,
+    "pair_id": "ground-val2014-counting-35-261292-556158",
+    "prediction": "0",
+    "question": "How many pairs of skis can you see?",
+    "reference": "1",
+    "references": [
+      "1"
+    ],
+    "score": 0.0,
+    "seconds": 0.15171575199997278
+  }
+]

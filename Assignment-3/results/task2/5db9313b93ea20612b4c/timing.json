@@ -1,0 +1,173 @@
+{
+  "checkpoint_seconds": [
+    0.34201152600007845,
+    0.4620782910001253,
+    0.5035053690003224,
+    0.7198703729995941,
+    0.7676967719999084,
+    0.5531875570000011,
+    0.5220694899999216,
+    0.5480658350006706,
+    0.5326485939995109,
+    2.118055875000209,
+    3.2427766300006624,
+    1.970011288999558,
+    2.513576471000306,
+    3.0086537549996137,
+    2.4029424300006212,
+    2.17632516499998,
+    3.405683656000292,
+    2.126441682999939
+  ],
+  "cuda_smoke": [
+    {
+      "checkpoint_seconds": 0.45638229599990154,
+      "isolated_16x1": {
+        "peak_allocated_bytes": 1991337472,
+        "peak_reserved_bytes": 2464153600,
+        "seconds_per_update": 2.114739815499888,
+        "status": "measured"
+      },
+      "official_8x2": [
+        {
+          "gradient_norm": 127.43567657470703,
+          "loss": 1.8330345153808594,
+          "overflow_retries": 1,
+          "seconds": 11.185198958
+        },
+        {
+          "gradient_norm": 54.42402267456055,
+          "loss": 1.4644036293029785,
+          "overflow_retries": 0,
+          "seconds": 2.0931330830001116
+        },
+        {
+          "gradient_norm": 49.51678466796875,
+          "loss": 1.3603181838989258,
+          "overflow_retries": 0,
+          "seconds": 2.14349586000003
+        }
+      ],
+      "peak_allocated_bytes": 1618723328,
+      "peak_reserved_bytes": 1784676352,
+      "recovery_equivalence": "PASS",
+      "recovery_tolerance": {
+        "atol": 1e-06,
+        "rtol": 1e-05
+      },
+      "seconds_per_update": 2.118314471500071,
+      "stage": 1,
+      "status": "GPU smoke tested"
+    },
+    {
+      "checkpoint_seconds": 2.265012595000144,
+      "isolated_16x1": {
+        "peak_allocated_bytes": 2153811456,
+        "peak_reserved_bytes": 2430599168,
+        "seconds_per_update": 2.2353751004999367,
+        "status": "measured"
+      },
+      "official_8x2": [
+        {
+          "gradient_norm": 128.61766052246094,
+          "loss": 1.8330345153808594,
+          "overflow_retries": 1,
+          "seconds": 4.778279886000064
+        },
+        {
+          "gradient_norm": 97.20189666748047,
+          "loss": 1.7023776173591614,
+          "overflow_retries": 0,
+          "seconds": 2.3656016130000808
+        },
+        {
+          "gradient_norm": 61.690521240234375,
+          "loss": 1.5489408671855927,
+          "overflow_retries": 0,
+          "seconds": 2.351131912000028
+        }
+      ],
+      "peak_allocated_bytes": 1755335168,
+      "peak_reserved_bytes": 1874853888,
+      "recovery_equivalence": "PASS",
+      "recovery_tolerance": {
+        "atol": 1e-06,
+        "rtol": 1e-05
+      },
+      "seconds_per_update": 2.3583667625000544,
+      "stage": 2,
+      "status": "GPU smoke tested"
+    },
+    {
+      "checkpoint_seconds": 2.7200684420001835,
+      "isolated_16x1": {
+        "peak_allocated_bytes": 2153811456,
+        "peak_reserved_bytes": 2430599168,
+        "seconds_per_update": 2.445160190500019,
+        "status": "measured"
+      },
+      "official_8x2": [
+        {
+          "gradient_norm": 128.61968994140625,
+          "loss": 1.8330345153808594,
+          "overflow_retries": 1,
+          "seconds": 4.61671477699997
+        },
+        {
+          "gradient_norm": 97.88005065917969,
+          "loss": 1.703496128320694,
+          "overflow_retries": 0,
+          "seconds": 2.3252684540000246
+        },
+        {
+          "gradient_norm": 62.34970474243164,
+          "loss": 1.5516609102487564,
+          "overflow_retries": 0,
+          "seconds": 2.3291511850000006
+        }
+      ],
+      "peak_allocated_bytes": 1755335168,
+      "peak_reserved_bytes": 1874853888,
+      "recovery_equivalence": "PASS",
+      "recovery_tolerance": {
+        "atol": 1e-06,
+        "rtol": 1e-05
+      },
+      "seconds_per_update": 2.3272098195000126,
+      "stage": 3,
+      "status": "GPU smoke tested"
+    }
+  ],
+  "data_setup_seconds": 255.94455740400002,
+  "estimate_caveat": "Extrapolated from isolated measured stages/evaluation; not proof of five-hour completion. Runtime and Drive I/O may vary.",
+  "evaluation_gate_seconds_per_answer": 0.15465607262501635,
+  "features": {
+    "images_computed": 17041,
+    "peak_allocated_bytes": 236675584,
+    "peak_reserved_bytes": 255852544,
+    "seconds": 1421.789211559,
+    "shards_copied": 0
+  },
+  "final_evaluation_session_seconds": 116.9698771350013,
+  "five_hour_target_verified": false,
+  "remaining_training_estimates_seconds": {
+    "best": 0,
+    "central": 0,
+    "conservative": 0
+  },
+  "training_only_estimates_seconds": {
+    "best": 8541.790308862712,
+    "central": 10049.16506925025,
+    "conservative": 13063.914590025326
+  },
+  "training_seconds": 6087.431868698011,
+  "unknown_costs": [
+    "full development and final evaluation",
+    "future Drive I/O variability"
+  ],
+  "whole_run_estimates_seconds": {
+    "best": 10683.883830078777,
+    "central": 12242.542661893269,
+    "conservative": 16398.966213398577
+  }
+}

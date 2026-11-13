@@ -1,0 +1,18 @@
+{
+  "completed_updates": 4500,
+  "example_presentations": 72000,
+  "gpu_allocated_bytes": 1313374208,
+  "gpu_reserved_bytes": 1738539008,
+  "latest_verified_drive_update": 4500,
+  "remaining_training_seconds_measured_estimate": 0.0,
+  "required_updates": 4500,
+  "safe_stop_in_seconds": 8935.594672792002,
+  "safe_stop_planned": true,
+  "session_elapsed_seconds": 8164.404959823999,
+  "stage": 3,
+  "unknown_costs": [
+    "future I/O variability",
+    "final evaluation"
+  ],
+  "whole_run_eta": null
+}
