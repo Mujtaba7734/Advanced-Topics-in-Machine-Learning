@@ -1,0 +1,3 @@
+method,reference,difference,low,high,resamples,unit
+single,parallel,-0.06,-0.18,0.06,1000,question
+refinement,parallel,-0.02,-0.1,0.04,1000,question

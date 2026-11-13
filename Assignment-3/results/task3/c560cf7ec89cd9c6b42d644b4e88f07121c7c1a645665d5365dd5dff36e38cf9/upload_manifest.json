@@ -1,0 +1,416 @@
+{
+  "task": 3,
+  "run_identity": "c560cf7ec89cd9c6b42d644b4e88f07121c7c1a645665d5365dd5dff36e38cf9",
+  "file_count": 68,
+  "total_bytes": 205296078,
+  "files": [
+    {
+      "path": "exports/live/examples.json",
+      "bytes": 471482,
+      "sha256": "8ecdffc714436efc70ec96e11d775c592fa9317e90d9dcb68e562727ae88b454",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/live/generations.json",
+      "bytes": 2805203,
+      "sha256": "7d1f94ea3117eed8cbbba6e74419b0e36e75cb8bf95c25b2f4379d854b57e720",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/live/live_comparison.png",
+      "bytes": 42382,
+      "sha256": "3a9ebe716477e1d697d770ec8c8c8d306eb002ce890a783658b83b1a407c4a9f",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/live/paired_intervals.csv",
+      "bytes": 149,
+      "sha256": "99960bad11a29e86aacda8825984fcac07d5a007a71097f02f8276fa161d9c59",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/live/per_question.csv",
+      "bytes": 15273,
+      "sha256": "9812e85d17b8d3de4bee5d9c0ca10c59b6fb4bcc048ce08376c84b9bf945521c",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/live/revision_transitions.csv",
+      "bytes": 54,
+      "sha256": "0f984652c8ab36b6cb9ea035d7d21b9ad843f42df73b0c651281b1147b4a729e",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/live/summary.csv",
+      "bytes": 532,
+      "sha256": "344f9af1d871f799781eeea69bd09243e640c4916b8aa8dfafb0f56a1a5deceb",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/accuracy_candidates.png",
+      "bytes": 97549,
+      "sha256": "51859874fd023829e7417b15a63aa5456f4179b2366d03f2e17688cb919ba822",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/accuracy_tokens.png",
+      "bytes": 107226,
+      "sha256": "b809804d14da01058697357d210633c6664ec31c08f6f7f6d160cd2229b455fa",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/adaptive.csv",
+      "bytes": 1864148,
+      "sha256": "005388e56016a0ec54dff6ff695f9de82ba64ccb7fc291b2a420975308fd0cec",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/adaptive.parquet",
+      "bytes": 2885982,
+      "sha256": "94b627c04016e6e9bb956b253a08494ba07d79113ec3f5f890d40709a0256df0",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/adaptive_question_means.csv",
+      "bytes": 77229,
+      "sha256": "e844a0801f6494f49ee93bc129b660a86fa70d70d5bb4307d8d96c29d516bc6d",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/adaptive_summary.csv",
+      "bytes": 233,
+      "sha256": "aa4bffe53c1b7ecc12f380d2bad17880f08c89fa9d49b53e914cac64dd31be62",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/case_examples.json",
+      "bytes": 1025854,
+      "sha256": "93d99ec2f6b8970ecce5d44cc3e2d327ce1777449893e445fd5fa4368a507e3f",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/examples.json",
+      "bytes": 5836207,
+      "sha256": "427b783682a1a9d61e7d464f687504a7352c38842f95b0923e4fbcb5715bcfe9",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/failure_decomposition.png",
+      "bytes": 42274,
+      "sha256": "dccfcab585c867702ad0b564895ce892189827ecf684f8ad5ebd1328400ada0c",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/orders.json",
+      "bytes": 3240783,
+      "sha256": "b30c4147d5f27a6b67fb3a8af7bdfd75d8f24c973c23a83833b9d2f0ae2bed05",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/paired_intervals.csv",
+      "bytes": 2854,
+      "sha256": "7d440ece44f71e4ec20936d2d99717664345f288ad82e7d042f9bf32c47a4b17",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/policies.json",
+      "bytes": 7914,
+      "sha256": "edb571592924ca0f314c2523c5194b835083a49326d3b9e6a9154527ca61a485",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/question_means.csv",
+      "bytes": 1783218,
+      "sha256": "2b9a0ccff2c338eb1574f1d1c7ebd5a4b02b7e36b6000a0df753a4b4c5855c23",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/retrospective_pool_fraction.csv",
+      "bytes": 892,
+      "sha256": "044c11393df011e48072808ce5d708a106b7881b97407429b96bcc90713193a8",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/rollout_features.csv",
+      "bytes": 1930725,
+      "sha256": "8f6ecf337cce69c73b9e0b303e75d818e582004d8d20e68f7462065f44d4cba3",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/selections.csv",
+      "bytes": 50761728,
+      "sha256": "6e36ea35cecb3332559e9ee4fbe82da90b394a3b4b431f4cdeed7b0b2086ca18",
+      "git_lfs": true
+    },
+    {
+      "path": "exports/math/selections.parquet",
+      "bytes": 5173430,
+      "sha256": "b4c70081d1937df41aa015b806e31cdabd1bd51068fd6ee90b7632f4ef975675",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/signal_per_question.csv",
+      "bytes": 235569,
+      "sha256": "858c96955640ae8ebb10fc8eacfdf9b53ddb8fd3dab6c8474a9674ac4ef1d1f1",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/signal_quartiles.png",
+      "bytes": 41055,
+      "sha256": "e02cfb38c1645b600ebb08ba6da9f2ed9c52fc21768d4efee8dc809e919c2bd6",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/signal_summary.csv",
+      "bytes": 378,
+      "sha256": "447cb3d2dc41e8596195a2847d7c5a9d65ca7db7f8aca094c30c69018b7d3d69",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/similar_cost_comparison.csv",
+      "bytes": 202,
+      "sha256": "b5045c42103b4801cd251506e74481515f4aee9bf0350ef13b81a262844448e2",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/stopping_distribution.png",
+      "bytes": 29406,
+      "sha256": "88bbe002092937257b23ca230435d6d9ceaf7b17c360bf6e202d98efc0f7895a",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/stopping_histogram.csv",
+      "bytes": 142,
+      "sha256": "004a37f83825b304a1b3014f41a5198b658eed3f4f017ffce871aae9249eb8ee",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/math/summary.csv",
+      "bytes": 3487,
+      "sha256": "32af132fa52308fecb8d5a1ec6b43f2d0d06ba5760e1fb8e3a0338c705cb26aa",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/accuracy_candidates.png",
+      "bytes": 113930,
+      "sha256": "cdd99ac6d7ca8c3d9dd17b5c0baab350407d3147218d9704a3ba0f74e241a767",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/accuracy_tokens.png",
+      "bytes": 121734,
+      "sha256": "4834441b05224cf276f0dce198d0c800d448a3a2c6b8c2bf6f2b3c9dee1a0080",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/adaptive.csv",
+      "bytes": 2057827,
+      "sha256": "de4920111e992fda772ebd66b06a7bdc0e2c29481ab4aba1283113d6f29a0329",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/adaptive.parquet",
+      "bytes": 2862645,
+      "sha256": "1472668a4de3b3109c6c3f4c46886fa24a336b66627a41ae9b2804690286a063",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/adaptive_question_means.csv",
+      "bytes": 68441,
+      "sha256": "f6edf2a974e8bf8627bb108805e5258ba896d5d301f4d8b5375391cfa6e93391",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/adaptive_summary.csv",
+      "bytes": 250,
+      "sha256": "f3d2225fccd1a15371f286fa25ac894e8f2245ef842c10bd39f87a4e0367d108",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/case_examples.json",
+      "bytes": 730364,
+      "sha256": "6806014c915ddbcd46cf474382ac0ca2e44079adc83f3621eb914e421e84d2dd",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/examples.json",
+      "bytes": 4631924,
+      "sha256": "ce8f0fd11ec2e99e225ce730aff0ca4ba90e88900d1d89990c3f6fda19e7c7a2",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/failure_decomposition.png",
+      "bytes": 35918,
+      "sha256": "189711df1a53936e92306b91fc5a170f37a0b00cecb10bb9c62248ff0690bb0a",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/fusion_ablation.png",
+      "bytes": 55721,
+      "sha256": "933fe8fe951405e415853c5245959edb495691894ce62c98013b4bae92e8918f",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/orders.json",
+      "bytes": 3234895,
+      "sha256": "4eb44b44966a068b939e89ea48f544f533c62b83315e27784e721aac98d50bb8",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/paired_intervals.csv",
+      "bytes": 5618,
+      "sha256": "64663a7571ce78738919186bbd03ce963e456091f7b2fad2c8288b2bf44cebe3",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/policies.json",
+      "bytes": 6744,
+      "sha256": "5d0eb19c1bcacd61be7cca389450703152cabce05c8613484b0d99f4d7805e08",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/question_means.csv",
+      "bytes": 3023742,
+      "sha256": "cf2b58ef21262e43ec7c9b2b3d15d6f9708e9dc806e37e2067252042ade63fe0",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/retrospective_pool_fraction.csv",
+      "bytes": 821,
+      "sha256": "7a95398feb6b265f2241dd7995b169de1db42c72150d3747b9512e265cc4814a",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/rollout_features.csv",
+      "bytes": 3232622,
+      "sha256": "4bb8336752fb1f5e860f71e460c078cd4763a05bee5383cfa171c3edb1366c30",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/selections.csv",
+      "bytes": 94702668,
+      "sha256": "214942d0b18a12e84842f62f7931aeb1704aacf25ef8a69b07004a78b2271c7c",
+      "git_lfs": true
+    },
+    {
+      "path": "exports/mathvista/selections.parquet",
+      "bytes": 5345327,
+      "sha256": "8745363543bb912be286a236c127331f7b827b2e7ba3efb520dfd61c9fffc35c",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/signal_per_question.csv",
+      "bytes": 452665,
+      "sha256": "5429450ee344ba89df345dd2eb0249418db1e0a9d0edf675a2b508774561ee18",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/signal_quartiles.png",
+      "bytes": 42430,
+      "sha256": "2725c5fd7ee4e2938e3c8dab1081aa886e5267fe7eb9f854e7add25a83231d69",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/signal_summary.csv",
+      "bytes": 621,
+      "sha256": "5d1af566329ce0d2517be511d6b0576f971099db3ff01e80657792d1355b928e",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/similar_cost_comparison.csv",
+      "bytes": 191,
+      "sha256": "ec7f6b5fd90c884ed758d739b1f3481d7b91534f2445fb846e68c128a53b76fa",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/stopping_distribution.png",
+      "bytes": 26214,
+      "sha256": "b6aa430ecbe75e73e579cb8d56ab157cfb9f7dcd912b9ed590354c818ae7a454",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/stopping_histogram.csv",
+      "bytes": 143,
+      "sha256": "7339633a1a7b7c644ffed3e5b66125968d61e105d413c3c5cd891073596c455f",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/summary.csv",
+      "bytes": 6412,
+      "sha256": "c10345832895b782bd85e1c89754ba99aa46cadbacfead0aafa2b028a92c5fc9",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/token_associations.csv",
+      "bytes": 4395012,
+      "sha256": "9359d1931a0ddcd8dfee54185c1690edd3a0ff401d815561848b06f3f5861e26",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/token_associations_question_means.csv",
+      "bytes": 122626,
+      "sha256": "fd50d96c00d12e27167d9b861d330fa73e8db14f721c905ec65a230257fb104f",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/token_associations_summary.csv",
+      "bytes": 251,
+      "sha256": "6398b46de2df8a00a24f7c7414f0f00db520b7d9df336e0815376b15a8c6598f",
+      "git_lfs": false
+    },
+    {
+      "path": "exports/mathvista/token_trajectories.png",
+      "bytes": 346286,
+      "sha256": "d93268ff96e06fc9c1ec2fe3d452047b9513a28ac51b791fbede1b4437dec49a",
+      "git_lfs": false
+    },
+    {
+      "path": "final_verification.json",
+      "bytes": 13596,
+      "sha256": "b4fe219852dd8ede59afa73383120b23a17497c283df1cbb08a05bd972d9b0f5",
+      "git_lfs": false
+    },
+    {
+      "path": "manifest.json",
+      "bytes": 1931,
+      "sha256": "b3d6182deedc911c222bf5e999eb60dde782d0ad3b01e605387307cd8a36651e",
+      "git_lfs": false
+    },
+    {
+      "path": "math_splits.json",
+      "bytes": 17675,
+      "sha256": "10014faa6b276071bcb1f6e389b5fc32e3ed58c0a1c49cb68837c5b4ab5d9950",
+      "git_lfs": false
+    },
+    {
+      "path": "mathvista_splits.json",
+      "bytes": 11496,
+      "sha256": "980ed2bca82078e5c5dcaf8dbbb3b68c4d5220f2411c5160adf7fae0ee617d89",
+      "git_lfs": false
+    },
+    {
+      "path": "_session/latest_run.json",
+      "bytes": 198,
+      "sha256": "d50c869fb2d6a2481952bf46231f29a77bab35e93c5ec5538a7399b80751f441",
+      "git_lfs": false
+    },
+    {
+      "path": "_session/final_verification.json",
+      "bytes": 13596,
+      "sha256": "b4fe219852dd8ede59afa73383120b23a17497c283df1cbb08a05bd972d9b0f5",
+      "git_lfs": false
+    },
+    {
+      "path": "_session/cpu_correction.log",
+      "bytes": 243821,
+      "sha256": "7fb9e6a0673f8be7c07d8c00cff4d6df38cda4bcc266973c5a6c70785bf0ae92",
+      "git_lfs": false
+    },
+    {
+      "path": "_session/full_pipeline.log",
+      "bytes": 886163,
+      "sha256": "286877e0040aed5b86d997b3a0c6f0baf9064314fded75129338caf3070c565f",
+      "git_lfs": false
+    }
+  ]
+}

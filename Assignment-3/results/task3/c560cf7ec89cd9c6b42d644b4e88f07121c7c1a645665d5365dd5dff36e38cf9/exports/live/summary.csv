@@ -1,0 +1,4 @@
+strategy,calls,correct,correct_to_wrong,elapsed_s,extraction_success,initial_correct,input_tokens,output_tokens,peak_allocated_bytes,peak_reserved_bytes,truncated_calls,wrong_to_correct,truncation_rate
+parallel,3.0,0.62,0.0,76.32058954310004,0.84,0.56,325.14,1899.98,6334604400.64,6715080704.0,0.52,0.06,0.17333333333333334
+refinement,2.0,0.6,0.0,51.612809347899955,1.0,0.56,900.04,1258.86,6390577612.8,6715080704.0,0.24,0.04,0.12
+single,1.0,0.56,0.1,25.777979425120034,1.0,0.56,108.38,640.76,6332036290.56,6715080704.0,0.0,0.1,0.0

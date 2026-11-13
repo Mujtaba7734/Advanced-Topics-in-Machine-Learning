@@ -1,0 +1,36 @@
+{
+  "custom_equivalence_shortcuts": false,
+  "handoff": {
+    "origin_identity": "4a4c4916db09087cd06ee91a2c3d92945cf86c8dba1410a160ce75cfcdb9bd2c",
+    "revision": "b370e572a01f5b0c3cd4d12e0195314be647093f",
+    "source_hashes": {
+      "task3/__init__.py": "75ef75028ec82e79cdef2b190de5eeead4aa8c0c0350425ce0ee8cc3ca126990",
+      "task3/audit.py": "14f271529651ae65210c6dd96e4baa659bc2c8f22854f77c63966ce0e35a3b32",
+      "task3/bootstrap.py": "fb41748c9b496d67c363d6634642278e2a29883ebc5197cc92c621073e8ff6e4",
+      "task3/build_notebook.py": "5b3c21b8dfc2137d294d4bd614c546d8375c640f58708564731c9695bf0061b9",
+      "task3/core.py": "204812f088a08cec4c70509778e3172ccd719aaf331829847e12aeb18f60ab54",
+      "task3/data.py": "8e739a92fbd12c700d95b5809547c5937dfc37ae2c5e004d8914f2f6a919f2cb",
+      "task3/export.py": "6ebd887e1e2c4c19a8c2142a7ba1191a86e7bde8c2719d0453e63acb733b1849",
+      "task3/integration.py": "6a61363a79295104175f9208c7fc6a3ef52dfbba4f08bea375d9289a69c56c4b",
+      "task3/live.py": "fe21c70a9f066aed08e062e6031b18fc282a6896640d0f2cdfad958e2b45e3bb",
+      "task3/offline.py": "a0c2faea5e765824dca08b36df43b7d7ee7d1fd671c3dda678a0092b14297acd",
+      "task3/protocol.py": "4192c45a618e8494e456bef409c027163cdc71a0a702b44aac67bd2fefa316c5",
+      "task3/run.py": "8ef1283848a75834a53e3acfcf4d56b6bd87dc584e46164dbda63fa81e341126",
+      "task3/scoring.py": "60073b755b4ccc9bf6d4b49be6b52eeea0c01b5ebc1d2fa387667facee1253a7",
+      "task3/storage.py": "56ca877e121e85662ad5932b9b6fbbe66e3c902549b39e2e0765fdb8c2cfcb1f"
+    },
+    "versions": {
+      "Pillow": "13.0.0",
+      "gdown": "5.2.0",
+      "latex2sympy2_extended": "1.10.2",
+      "math-verify": "0.8.0",
+      "matplotlib": "3.10.3",
+      "numpy": "2.2.6",
+      "pandas": "2.2.3",
+      "pyarrow": "19.0.1",
+      "scipy": "1.15.3",
+      "sympy": "1.14.0"
+    }
+  },
+  "scorer": "original committed scorer; ordered persistent memoization"
+}
